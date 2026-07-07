@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>L1 · Session 5 — Clothes &amp; Weather</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--accent:#43A047;--accent2:#66BB6A}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1a;font-size:17px;line-height:1.6;padding-bottom:90px}
+.page-header{background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;padding:26px 20px;text-align:center}
+.page-header h1{font-size:26px;font-weight:800;letter-spacing:-0.3px}
+.page-header .subtitle{font-size:14px;opacity:0.9;margin-top:4px}
+.badge{display:inline-block;background:rgba(255,255,255,0.2);padding:6px 16px;border-radius:20px;font-size:14px;margin-top:10px}
+.lvl{display:inline-block;background:#FFD54F;color:#5D4037;font-weight:800;font-size:12px;padding:3px 12px;border-radius:12px;letter-spacing:0.5px;margin-bottom:8px}
+.container{max-width:860px;margin:0 auto;padding:18px}
+
+/* Student name */
+.namebox{background:white;border:2px solid var(--accent);border-radius:14px;padding:14px 18px;margin:16px 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.namebox label{font-weight:700;font-size:15px}
+.namebox input{flex:1;min-width:160px;font-size:17px;padding:8px 12px;border:2px dashed #90A4AE;border-radius:8px;font-family:inherit}
+.namebox .hello{font-weight:700;color:var(--accent)}
+
+/* Agenda */
+.agenda{background:white;border-radius:14px;padding:16px 18px;margin:14px 0;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.agenda h2{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:#666;margin-bottom:10px}
+.agenda-pills{display:flex;flex-wrap:wrap;gap:8px}
+.ap{display:flex;align-items:center;gap:6px;background:#ECEFF1;border:2px solid transparent;border-radius:20px;padding:5px 13px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.ap.done{background:#C8E6C9;border-color:#2E7D32;text-decoration:line-through;opacity:0.8}
+
+/* Sections */
+.section{background:white;border-radius:16px;margin:18px 0;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,0.07)}
+.sec-head{padding:14px 20px;color:white;font-size:17px;font-weight:800;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sec-head .icon{font-size:22px}
+.sec-head .step{margin-left:auto;font-size:12px;font-weight:700;background:rgba(255,255,255,0.25);padding:3px 12px;border-radius:12px;white-space:nowrap}
+.sec-head .timing{font-size:12px;font-weight:400;background:rgba(255,255,255,0.18);padding:3px 10px;border-radius:12px;white-space:nowrap}
+.sec-body{padding:18px 20px}
+.zoom-cue{display:block;font-size:13px;font-weight:600;color:#37474F;background:#E1F5FE;border-left:4px solid #0288D1;border-radius:0 8px 8px 0;padding:7px 12px;margin:0 0 14px}
+.goal .sec-head{background:#2E7D32}
+.warmup .sec-head{background:#E65100}
+.vocab .sec-head{background:#1565C0}
+.reading .sec-head{background:#6A1B9A}
+.grammar .sec-head{background:#AD1457}
+.task .sec-head{background:#00695C}
+.challenge .sec-head{background:#F57F17}
+.review .sec-head{background:#BF360C}
+.skipif{background:#FFF8E1;border:1px dashed #F9A825;border-radius:10px;padding:10px 14px;margin-top:12px;font-size:14px}
+.skipif b{color:#F57F17}
+
+/* Movement break */
+.move{background:linear-gradient(135deg,#00BFA5,#00897B);color:white;border-radius:16px;margin:18px 0;padding:18px 22px;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,0.1)}
+.move h2{font-size:20px;font-weight:800}
+.move p{font-size:15px;opacity:0.95;margin-top:6px}
+
+/* Vocab cards */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:14px 0}
+.vc{background:#E3F2FD;border:2px solid #90CAF9;border-radius:12px;padding:12px 10px;text-align:center;cursor:pointer;transition:transform 0.12s}
+.vc:hover{transform:scale(1.04);border-color:var(--accent)}
+.vc .vc-emoji{font-size:30px}
+.vc .vc-word{font-weight:800;font-size:15px;margin-top:4px;color:#0D47A1}
+.vc .vc-pron{font-size:12px;color:#666}
+.vc .vc-play{font-size:13px;color:#1565C0}
+
+/* Quiz engine */
+.qz{background:#FAFAFA;border:1px solid #E0E0E0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.qz .q{font-weight:700;font-size:16px;margin-bottom:10px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{font-family:inherit;font-size:15px;font-weight:600;padding:8px 16px;border-radius:10px;border:2px solid #B0BEC5;background:white;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt.correct{background:#C8E6C9;border-color:#2E7D32}
+.opt.wrong{background:#FFCDD2;border-color:#C62828}
+.opt:disabled{cursor:default;opacity:0.85}
+.fb{font-size:14px;font-weight:600;margin-top:8px;display:none}
+.fb.ok{display:block;color:#2E7D32}
+.fb.no{display:block;color:#C62828}
+
+/* Score bar */
+.scorebar{position:sticky;top:0;z-index:50;background:white;box-shadow:0 2px 8px rgba(0,0,0,0.12);padding:8px 16px;display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px}
+.scorebar .bar{flex:1;height:10px;background:#ECEFF1;border-radius:6px;overflow:hidden}
+.scorebar .fill{height:100%;width:0;background:linear-gradient(90deg,#43A047,#66BB6A);transition:width 0.4s}
+.stars{font-size:16px}
+
+/* Reading */
+.reading-text{background:#F3E5F5;border-radius:12px;padding:18px 20px;font-size:17px;max-width:65ch}
+.reading-text h4{color:#6A1B9A;font-size:15px;margin:14px 0 6px;text-transform:uppercase;letter-spacing:0.4px}
+.reading-text h4:first-child{margin-top:0}
+.reading-text p{margin:8px 0}
+
+/* Editable fields */
+.field-label{font-weight:700;font-size:14px;margin:12px 0 4px;color:#37474F}
+.editable{min-height:34px;background:#FFFDE7;border:2px dashed #9E9D24;border-radius:8px;padding:8px 12px;font-size:16px;outline:none}
+.editable.tall{min-height:70px}
+.editable:focus{border-style:solid;border-color:var(--accent)}
+.editable:empty::before{content:attr(data-placeholder);color:#999}
+.qa-item{margin:12px 0}
+.qa-item .q{font-weight:700;font-size:15px;margin-bottom:5px}
+
+/* Frames / rule boxes */
+.frame{background:#FCE4EC;border-left:5px solid #AD1457;border-radius:0 10px 10px 0;padding:12px 16px;margin:12px 0;font-size:16px}
+.rulebox{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.rule{border-radius:12px;padding:14px 16px;font-size:15px}
+.rule h4{font-size:15px;margin-bottom:8px}
+.rule.a{background:#E8F5E9;border:2px solid #66BB6A}
+.rule.a h4{color:#2E7D32}
+.rule.b{background:#FFF3E0;border:2px solid #FFA726}
+.rule.b h4{color:#E65100}
+.hint{font-size:14px;color:#555;background:#F5F5F5;border-radius:8px;padding:8px 12px;margin:10px 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.chip{background:#E1F5FE;border:2px solid #81D4FA;border-radius:16px;padding:5px 14px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.chip.on{background:#0288D1;border-color:#01579B;color:white}
+.speak{background:#E8F5E9;border-radius:10px;padding:12px 16px;font-size:16px;margin:12px 0}
+
+/* Teacher mode */
+.t-only{display:none}
+body.teacher-mode .t-only{display:block}
+.teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
+.teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
+
+/* Bottom bar */
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:white;box-shadow:0 -3px 12px rgba(0,0,0,0.12);padding:10px 14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;z-index:60}
+.bb{font-family:inherit;font-size:14px;font-weight:700;padding:10px 18px;border-radius:10px;border:none;cursor:pointer;text-decoration:none;color:white;display:inline-block}
+.bb-save{background:#2E7D32}
+.bb-print{background:#546E7A}
+.bb-teach{background:#C62828}
+#toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:#2E7D32;color:white;font-weight:700;padding:10px 22px;border-radius:20px;opacity:0;transition:all 0.3s;z-index:70}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:640px){.rulebox{grid-template-columns:1fr}.vocab-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}}
+@media print{body{background:white;padding-bottom:0}.bottom-bar,.scorebar,#toast{display:none!important}.section{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid}.sec-head,.sec-body,.page-header{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="lvl">LEVEL 1 · BEGINNER (A1)</div>
+  <h1>🧥 Session 5 — Clothes &amp; Weather</h1>
+  <div class="subtitle">English Course Library · Kids &amp; Teens</div>
+  <div class="badge">🎯 Today: say what you're wearing with <b>"I'm wearing"</b> and talk about the weather with <b>"It's sunny"</b> · ≈50 min core</div>
+</div>
+
+<div class="scorebar">
+  <span>⭐ Score:</span><span id="score-num">0 / 0</span>
+  <div class="bar"><div class="fill" id="score-fill"></div></div>
+  <span class="stars" id="score-stars"></span>
+</div>
+
+<div id="toast">✓ Saved</div>
+
+<div class="container">
+
+<div class="namebox">
+  <label for="student-name">👋 Your name:</label>
+  <input id="student-name" type="text" placeholder="Type your name…">
+  <span class="hello" id="hello-msg"></span>
+</div>
+
+<div class="agenda">
+  <h2>📋 Today's plan — tap each step when you finish it</h2>
+  <div class="agenda-pills" id="agenda">
+    <span class="ap" data-s="1">1️⃣ Goal</span><span class="ap" data-s="2">2️⃣ Warm-up</span>
+    <span class="ap" data-s="3">3️⃣ New words</span><span class="ap" data-s="4">4️⃣ Reading</span>
+    <span class="ap" data-s="5">5️⃣ Grammar</span><span class="ap" data-s="6">6️⃣ Create</span>
+    <span class="ap" data-s="7">7️⃣ Game</span><span class="ap" data-s="8">8️⃣ Review</span>
+  </div>
+</div>
+
+<!-- STEP 1 GOAL -->
+<div class="section goal">
+  <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Look out of your windows together: what's the weather like right now?</span>
+    <p><em>"Today you will learn clothes and weather words. By the end, you can say <b>'I'm wearing…'</b> and <b>'It's sunny!'</b> — and be a real TV weather reporter!"</em> 🌦️🎤</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Live diagnostic: ask "What's the weather like today?" and "What are you wearing?" Note if the student says "I wearing" (missing am) or "Is sunny" (missing It's) — these are today's two target fixes.</div>
+  </div>
+</div>
+
+<!-- STEP 2 WARM-UP -->
+<div class="section warmup">
+  <div class="sec-head"><span class="icon">⚡</span> Warm-Up — Weather Mime <span class="timing">5 min</span><span class="step">Step 2</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, pure acting game — use the 👍 reaction when the guess is right.</span>
+    <p><b>How to play:</b></p>
+    <p>1. Your teacher ACTS a weather: brrr, shivering! ☃️ You guess: <em>"It's cold!" "It's snowy!"</em><br>
+    2. Now YOU act a weather — no words! Teacher guesses.<br>
+    3. Extra level: act putting on clothes for that weather. Guess: <em>"A coat!"</em> 🧥</p>
+    <p class="hint">No score here — just wake up your English brain! 🧠</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 2</h4>Good mimes: hot (fanning), rainy (umbrella hands), windy (blown sideways — be dramatic), sunny (sunglasses). Feed the full sentence back each time: "Yes! IT'S rainy!" Two rounds each is enough.</div>
+  </div>
+</div>
+
+<!-- STEP 3 VOCAB -->
+<div class="section vocab">
+  <div class="sec-head"><span class="icon">📝</span> New Words — Clothes &amp; Weather <span class="timing">10 min</span><span class="step">Step 3</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share your screen. YOU click 🔊, the student repeats each word twice. Point at your own clothes for extra fun.</span>
+    <p>Tap any card to <b>hear</b> it 🔊. Say it out loud after the sound!</p>
+    <div class="vocab-grid" id="vocab-grid"></div>
+    <h3>🎧 Practice — tap the right word</h3>
+    <p class="hint">Read the clue and tap the word that matches. Green = correct!</p>
+    <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Drill clothes first (9 cards), then weather (5 cards + umbrella). Quick oral round after the quiz: point at your own clothes — "What am I wearing?" → "You're wearing a T-shirt!" This preloads Step 5.</div>
+  </div>
+</div>
+
+<!-- STEP 4 READING -->
+<div class="section reading">
+  <div class="sec-head"><span class="icon">📖</span> Reading — Ravi's Season Photos <span class="timing">10 min</span><span class="step">Step 4</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. Student reads one season aloud, you read the next — take turns. Then the student annotates the answers on your screen (Zoom → Annotate).</span>
+    <p>Read Ravi's photo album. Tap 🔊 to hear any part read aloud.
+      <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
+    <div class="reading-text" id="read-text">
+      <h4>🌦️ Four seasons, four outfits — by Ravi, 11</h4>
+      <p>Hello! I am Ravi. I live in Manchester, and the weather here changes a lot. Look at my four photos!</p>
+      <h4>❄️ Winter</h4>
+      <p>In this photo, it is snowy and very cold. I'm wearing a warm coat, a red scarf and boots. My gloves are blue.</p>
+      <h4>🌷 Spring</h4>
+      <p>In spring it is often rainy. In this photo, I'm wearing a yellow raincoat and green boots. I love jumping in puddles!</p>
+      <h4>☀️ Summer</h4>
+      <p>It is sunny and hot! I'm wearing a T-shirt, shorts and sunglasses. My dog is wearing a funny hat. He is not happy.</p>
+      <h4>🍂 Autumn</h4>
+      <p>In autumn it is windy and cloudy. I'm wearing a jumper and jeans. Look — the leaves are dancing in the wind!</p>
+      <p>What is the weather like today where you live? What are you wearing?</p>
+    </div>
+
+    <h3>🔎 Did you understand? Tap your answer</h3>
+    <div id="reading-quiz"></div>
+
+    <h3>💬 Your turn — write your answer</h3>
+    <div class="qa-item"><div class="q">1. Look outside YOUR window. What is the weather like today, and what are you wearing?</div><div class="editable" id="r-open1" contenteditable="true" data-placeholder="Today it's… I'm wearing…"></div></div>
+    <div class="qa-item"><div class="q">2. Which of Ravi's four photos do you like best? Why?</div><div class="editable tall" id="r-open2" contenteditable="true" data-placeholder="I like the … photo because…"></div></div>
+
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> the two written questions above can be homework instead.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 4 + answer key</h4>Quiz answers: snowy and very cold · blue · his dog · windy and cloudy. Open Q1 key: any true "It's + weather" + "I'm wearing + clothes" sentence — this is the core pattern, insist on "It's" and "I'm". Open Q2: any photo + a simple "because" (because I love snow / dogs are funny). The text repeats "I'm wearing" four times on purpose — point at it before Step 5.</div>
+  </div>
+</div>
+
+<!-- STEP 5 GRAMMAR -->
+<div class="section grammar">
+  <div class="sec-head"><span class="icon">🔧</span> Grammar — I'm wearing… &amp; It's sunny! <span class="timing">10 min</span><span class="step">Step 5</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. For each quiz item, the student says the answer BEFORE you click it.</span>
+    <div class="rulebox">
+      <div class="rule a"><h4>👕 I'M WEARING — clothes on me NOW</h4>
+        <b>I am (I'm) wearing + clothes</b><br><br>
+        <em><b>I'm wearing</b> a T-shirt.</em><br>
+        <em>She<b>'s wearing</b> a green dress.</em><br>
+        <em>They<b>'re wearing</b> hats.</em><br><br>
+        🔑 Never forget <b>am / is / are</b>!</div>
+      <div class="rule b"><h4>🌤️ IT'S + WEATHER</h4>
+        <b>It's + weather word</b><br><br>
+        <em><b>It's</b> sunny.</em> ☀️ <em><b>It's</b> rainy.</em> 🌧️<br>
+        <em><b>It's</b> hot.</em> 🥵 <em><b>It's</b> cold.</em> 🥶<br><br>
+        🔑 Weather sentences always start with <b>It's</b>.</div>
+    </div>
+    <div class="frame">🍂 <b>The four seasons:</b> spring 🌷 → summer ☀️ → autumn 🍂 → winter ❄️<br><em>"<b>In</b> winter <b>it's</b> snowy, so <b>I'm wearing</b> a coat."</em> — weather + clothes in one super-sentence!</div>
+    <p class="hint">💡 Hungarian tip: in Hungarian you say <em>"Esik"</em> or <em>"Süt a nap"</em> — no "it". English ALWAYS needs the little <b>It's</b>: <b>It's</b> raining, <b>It's</b> sunny. Don't drop it!</p>
+    <h3>✏️ Practice — tap the correct word</h3>
+    <div id="grammar-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>The two classic errors: dropping "am" (I wearing) and dropping "It's" (Is sunny). Every wrong answer: student repeats the FULL corrected sentence aloud. If 7+/9, bank time for the weather report in Step 6.</div>
+  </div>
+</div>
+
+<!-- MOVE BREAK -->
+<div class="move">
+  <h2>🤸 MOVE! — 1 minute break</h2>
+  <p>Weather workout! Be a tree in the <b>wind</b> — sway for 10 seconds. 🌬️ Then <b>rain</b>: tap your knees fast! Then <b>sunshine</b>: stretch up big and warm. Teacher does it too! 😄</p>
+</div>
+
+<!-- STEP 6 CREATIVE TASK -->
+<div class="section task">
+  <div class="sec-head"><span class="icon">🎨</span> Create — You Are the Weather Reporter! <span class="timing">10 min</span><span class="step">Step 6</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — the student opens it in their own browser, then shares their screen and types.</span>
+    <p>You are on TV! 📺 Write your weather report, then perform it to the camera like a real reporter. 🎤</p>
+    <h3>First, tap today's weather and what you are wearing:</h3>
+    <div class="chips" id="exp-chips"></div>
+    <div class="field-label">🌤️ Today's weather (start with "Good morning! Today it's…")</div>
+    <div class="editable" id="t-weather" contenteditable="true" data-placeholder="Good morning! Today it's… and…"></div>
+    <div class="field-label">👕 What are you wearing for this weather?</div>
+    <div class="editable" id="t-wearing" contenteditable="true" data-placeholder="I'm wearing… and…"></div>
+    <div class="field-label">🍂 My favourite season and why</div>
+    <div class="editable tall" id="t-season" contenteditable="true" data-placeholder="My favourite season is… because it's… I'm wearing…"></div>
+    <div class="speak">🗣️ <b>Now say it out loud!</b> Sit up straight, smile at the camera, and read your report like a TV star: <em>"Good morning! Today it's…"</em> Bonus: report tomorrow's weather in a silly voice!</div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> do only the weather line + the spoken report; type the rest as homework.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>Model 15 seconds of over-acted TV reporting first — it unlocks shy students. Check every sentence starts with "It's" or "I'm wearing". Follow-ups: "What's the weather in winter here? What are you wearing then?"</div>
+  </div>
+</div>
+
+<!-- STEP 7 CHALLENGE GAME -->
+<div class="section challenge">
+  <div class="sec-head"><span class="icon">🎮</span> Challenge Game — Storm Chaser <span class="timing">8 min</span><span class="step">Step 7</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: the student's browser, their clicks, their score! You watch on their shared screen and cheer. 🎉</span>
+    <p class="hint">⛈️ Chase the storm through three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
+    <h3>Round 1 — What's the weather?</h3>
+    <div id="ch-quiz1"></div>
+    <h3>Round 2 — Dress right!</h3>
+    <div id="ch-quiz2"></div>
+    <h3>Round 3 — Boss level: seasons 👑</h3>
+    <div id="ch-quiz3"></div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can be the start of the next lesson's warm-up.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>All answers show live in the score. Wrong answers auto-reveal the correct one in green — ask "why?" on each miss. On the BOSS item, let the student read all three options aloud before choosing.</div>
+  </div>
+</div>
+
+<!-- STEP 8 REVIEW -->
+<div class="section review">
+  <div class="sec-head"><span class="icon">🏁</span> Review &amp; Homework <span class="timing">3 min</span><span class="step">Step 8</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, screens off. Finish with faces, not slides.</span>
+    <div class="frame">⚡ <b>30-second recap:</b> teacher says a weather ("snowy!") — you answer with TWO sentences: <em>"It's snowy! I'm wearing a coat!"</em> Four weathers, fast!</div>
+    <h3>🌦️ Homework</h3>
+    <div class="frame">
+      <p>📓 <b>Weather diary for 3 days:</b> every morning, look out of the window.</p>
+      <p>✏️ <b>Write 2 sentences each day:</b> the weather + what you are wearing.</p>
+      <p>📌 Example: <em>"Monday: It's cloudy and cold. I'm wearing a jumper and jeans."</em></p>
+    </div>
+    <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="t-only">
+      <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
+      <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">What to adjust next time?</div><div class="editable" id="tn-adjust" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">Student's strongest / weakest moment today?</div><div class="editable" id="tn-notes" contenteditable="true" data-placeholder="…"></div></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="bottom-bar">
+  <button class="bb bb-save" onclick="saveWork()">💾 Save my work</button>
+  <button class="bb bb-print" onclick="window.print()">🖨️ Print</button>
+  <button class="bb bb-teach" id="teach-btn" onclick="unlockTeacher()">🔐</button>
+</div>
+
+<script>
+/* ============ ENGINE (identical across all Library sessions) ============ */
+var LEVEL=1, SESSION=5, K='ecl_L'+LEVEL+'s'+SESSION+'_';
+
+/* ---- TTS audio ---- */
+function say(text){try{window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(text);u.lang='en-GB';u.rate=0.9;window.speechSynthesis.speak(u);}catch(e){}}
+
+/* ---- Quiz engine ---- */
+var score=0,total=0;
+function buildQuiz(containerId,items){
+  var c=document.getElementById(containerId);
+  items.forEach(function(it){
+    total++;
+    var qz=document.createElement('div');qz.className='qz';
+    var opts='<div class="opts">';
+    it.options.forEach(function(o){opts+='<button class="opt" data-ok="'+(o===it.answer?'1':'0')+'" onclick="pick(this)">'+o+'</button>';});
+    opts+='</div><div class="fb"></div>';
+    qz.innerHTML='<div class="q">'+it.q+'</div>'+opts;
+    c.appendChild(qz);
+  });
+  updateScore();
+}
+function pick(btn){
+  var qz=btn.closest('.qz');if(qz.dataset.done)return;qz.dataset.done='1';
+  var ok=btn.dataset.ok==='1';var fb=qz.querySelector('.fb');
+  if(ok){btn.classList.add('correct');score++;fb.className='fb ok';fb.textContent='✓ Correct! Great job!';}
+  else{btn.classList.add('wrong');var good=qz.querySelector('[data-ok="1"]');if(good)good.classList.add('correct');
+    fb.className='fb no';fb.textContent='Almost! The green one is right. Try to remember it! 💪';}
+  qz.querySelectorAll('.opt').forEach(function(b){b.disabled=true;});
+  updateScore();
+}
+function updateScore(){
+  var answered=document.querySelectorAll('.qz[data-done]').length;
+  document.getElementById('score-num').textContent=score+' / '+total;
+  document.getElementById('score-fill').style.width=(total?Math.round(answered/total*100):0)+'%';
+  var st='',pct=total?score/total:0;
+  if(answered===total&&total>0){st=pct>=0.8?'⭐⭐⭐':pct>=0.5?'⭐⭐':'⭐';}
+  document.getElementById('score-stars').textContent=st;
+}
+
+/* ---- Student name ---- */
+var nameInput=document.getElementById('student-name');
+function applyName(){
+  var n=nameInput.value.trim();
+  document.getElementById('hello-msg').textContent=n?('Hello, '+n+'! 🌟'):'';
+  document.querySelectorAll('.stud-name').forEach(function(el){el.textContent=n?('Amazing work today, '+n+'!'):'Amazing work today!';});
+  localStorage.setItem(K+'name',n);
+}
+nameInput.addEventListener('input',applyName);
+
+/* ---- Agenda pills ---- */
+document.querySelectorAll('.ap').forEach(function(p){
+  p.onclick=function(){p.classList.toggle('done');localStorage.setItem(K+'ap'+p.dataset.s,p.classList.contains('done'));};
+});
+
+/* ---- Teacher mode ---- */
+function unlockTeacher(){
+  if(document.body.classList.contains('teacher-mode')){document.body.classList.remove('teacher-mode');document.getElementById('teach-btn').textContent='🔐';return;}
+  var pin=prompt('Teacher PIN:');
+  if(pin==='teach'){document.body.classList.add('teacher-mode');document.getElementById('teach-btn').textContent='🔓 Teacher';}
+}
+
+/* ---- Save work (.txt export) ---- */
+function saveWork(){
+  var n=(localStorage.getItem(K+'name')||'Student').replace(/[^\wÀ-ſ-]/g,'');
+  var out=n+' — Level '+LEVEL+' Session '+SESSION+'\n'+new Date().toLocaleDateString()+'\n'+'='.repeat(34)+'\n\n';
+  var picks=[].slice.call(document.querySelectorAll('.chips .chip.on')).map(function(x){return x.textContent.trim();});
+  if(picks.length)out+='Picked: '+picks.join(', ')+'\n\n';
+  var count=0;
+  document.querySelectorAll('.editable[id]').forEach(function(el){var t=el.innerText.trim();if(t){out+='['+el.id+'] '+t+'\n';count++;}});
+  out+='\nScore: '+score+' / '+total;
+  if(count===0&&!picks.length){alert('Type something first! 🙂');return;}
+  var b=new Blob([out],{type:'text/plain;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u;a.download=n+'_L'+LEVEL+'S'+SESSION+'_'+new Date().toISOString().slice(0,10)+'.txt';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);
+  var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show');},1600);
+}
+
+/* ---- Autosave / autoload ---- */
+function autosave(){document.querySelectorAll('.editable[id]').forEach(function(el){localStorage.setItem(K+el.id,el.innerHTML);});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){localStorage.setItem(K+'chip'+i,el.classList.contains('on'));});}
+function autoload(){
+  document.querySelectorAll('.editable[id]').forEach(function(el){var v=localStorage.getItem(K+el.id);if(v!==null)el.innerHTML=v;});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){if(localStorage.getItem(K+'chip'+i)==='true')el.classList.add('on');});
+  document.querySelectorAll('.ap').forEach(function(p){if(localStorage.getItem(K+'ap'+p.dataset.s)==='true')p.classList.add('done');});
+  var n=localStorage.getItem(K+'name');if(n){nameInput.value=n;applyName();}
+}
+document.addEventListener('input',function(){clearTimeout(window._t);window._t=setTimeout(autosave,600);});
+window.addEventListener('load',autoload);
+
+/* ============ SESSION CONTENT (changes per session) ============ */
+
+/* ---- Vocabulary: clothes & weather ---- */
+var VOCAB=[
+  {w:'T-shirt',e:'👕',p:'TEE-shurt'},
+  {w:'dress',e:'👗',p:'dress'},
+  {w:'jeans',e:'👖',p:'jeenz'},
+  {w:'jumper',e:'🧶',p:'JUM-per'},
+  {w:'coat',e:'🧥',p:'koht'},
+  {w:'scarf',e:'🧣',p:'skarf'},
+  {w:'gloves',e:'🧤',p:'gluvz'},
+  {w:'shoes',e:'👟',p:'shooz'},
+  {w:'boots',e:'🥾',p:'boots'},
+  {w:'shorts',e:'🩳',p:'shorts'},
+  {w:'hat',e:'🧢',p:'hat'},
+  {w:'umbrella',e:'☂️',p:'um-BREL-la'},
+  {w:'sunny',e:'☀️',p:'SUN-nee'},
+  {w:'rainy',e:'🌧️',p:'RAY-nee'},
+  {w:'snowy',e:'❄️',p:'SNOH-ee'},
+  {w:'windy',e:'💨',p:'WIN-dee'},
+  {w:'cloudy',e:'☁️',p:'KLOW-dee'}
+];
+(function buildVocab(){
+  var g=document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v){
+    var d=document.createElement('div');d.className='vc';
+    d.innerHTML='<div class="vc-play">🔊</div><div class="vc-emoji">'+v.e+'</div><div class="vc-word">'+v.w+'</div><div class="vc-pron">'+v.p+'</div>';
+    d.onclick=function(){say(v.w);};
+    g.appendChild(d);
+  });
+})();
+
+/* ---- Weather-report chips for Step 6 ---- */
+(function(){
+  var c=document.getElementById('exp-chips');
+  VOCAB.forEach(function(v){
+    var s=document.createElement('span');s.className='chip';s.textContent=v.e+' '+v.w;
+    s.onclick=function(){s.classList.toggle('on');say(v.w);};
+    c.appendChild(s);
+  });
+})();
+
+/* ---- Quizzes ---- */
+buildQuiz('vocab-quiz',[
+  {q:'🧣 It is cold on your neck. You need a…',options:['scarf','hat','T-shirt'],answer:'scarf'},
+  {q:'🧤 You wear these on your hands when it\'s cold.',options:['boots','gloves','shorts'],answer:'gloves'},
+  {q:'☀️ The sky is blue and the sun is big. It\'s…',options:['snowy','rainy','sunny'],answer:'sunny'},
+  {q:'❄️ White and cold, falling from the sky. It\'s…',options:['snowy','windy','cloudy'],answer:'snowy'},
+  {q:'☂️ It\'s rainy! Open your…',options:['umbrella','jumper','dress'],answer:'umbrella'},
+  {q:'🥾 Strong shoes for snow and mud.',options:['gloves','boots','jeans'],answer:'boots'}
+]);
+buildQuiz('reading-quiz',[
+  {q:'What is the weather like in the winter photo?',options:['snowy and very cold','sunny and hot','rainy'],answer:'snowy and very cold'},
+  {q:'What colour are Ravi\'s gloves?',options:['red','blue','green'],answer:'blue'},
+  {q:'Who is wearing a funny hat in the summer photo?',options:['Ravi','his dog','his mum'],answer:'his dog'},
+  {q:'What is the weather like in autumn?',options:['hot and sunny','snowy','windy and cloudy'],answer:'windy and cloudy'}
+]);
+buildQuiz('grammar-quiz',[
+  {q:'___ sunny today.',options:['It\'s','Is','He\'s'],answer:'It\'s'},
+  {q:'I ___ a red T-shirt.',options:['am wearing','wearing','is wearing'],answer:'am wearing'},
+  {q:'She ___ wearing a green dress.',options:['is','are','am'],answer:'is'},
+  {q:'They ___ wearing hats.',options:['is','are','am'],answer:'are'},
+  {q:'It\'s snowing! It\'s very ___.',options:['cold','hot'],answer:'cold'},
+  {q:'In summer it is ___.',options:['hot','snowy'],answer:'hot'},
+  {q:'It\'s rainy. Take your ___!',options:['umbrella','sunglasses'],answer:'umbrella'},
+  {q:'The season after winter is ___.',options:['spring','autumn'],answer:'spring'},
+  {q:'The season with falling leaves 🍂 is ___.',options:['autumn','spring'],answer:'autumn'}
+]);
+buildQuiz('ch-quiz1',[
+  {q:'🌧️ Drip, drop, drip! It\'s ___.',options:['rainy','sunny','snowy'],answer:'rainy'},
+  {q:'💨 Whoosh! Your hat flies away! It\'s ___.',options:['hot','windy','cloudy'],answer:'windy'},
+  {q:'☁️ The sky is grey, no sun today. It\'s ___.',options:['cloudy','sunny','snowy'],answer:'cloudy'}
+]);
+buildQuiz('ch-quiz2',[
+  {q:'❌ Fix it: "I wearing a coat."',options:['I\'m wearing a coat.','I wearing am a coat.'],answer:'I\'m wearing a coat.'},
+  {q:'It\'s snowy! He ___ wearing warm boots.',options:['is','are'],answer:'is'},
+  {q:'It\'s very hot! What do you wear?',options:['a T-shirt and shorts','a coat and gloves'],answer:'a T-shirt and shorts'},
+  {q:'❌ Fix it: "Is rainy today."',options:['It\'s rainy today.','Is it rainy today it.'],answer:'It\'s rainy today.'}
+]);
+buildQuiz('ch-quiz3',[
+  {q:'Put the seasons in order: winter → ___ → summer',options:['spring','autumn','rainy'],answer:'spring'},
+  {q:'It\'s snowy and very cold. The season is ___.',options:['winter','summer','spring'],answer:'winter'},
+  {q:'👑 BOSS: "It\'s sunny and hot. I\'m ___ a T-shirt. The season is ___."',options:['wearing / summer','wear / winter','wearing / autumn'],answer:'wearing / summer'}
+]);
+</script>
+</body>
+</html>

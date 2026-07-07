@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>L2 · Session 10 — Adventure Review 🏰</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--accent:#FB8C00;--accent2:#FFA726}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1a;font-size:17px;line-height:1.6;padding-bottom:90px}
+.page-header{background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;padding:26px 20px;text-align:center}
+.page-header h1{font-size:26px;font-weight:800;letter-spacing:-0.3px}
+.page-header .subtitle{font-size:14px;opacity:0.9;margin-top:4px}
+.badge{display:inline-block;background:rgba(255,255,255,0.2);padding:6px 16px;border-radius:20px;font-size:14px;margin-top:10px}
+.lvl{display:inline-block;background:#FFD54F;color:#5D4037;font-weight:800;font-size:12px;padding:3px 12px;border-radius:12px;letter-spacing:0.5px;margin-bottom:8px}
+.container{max-width:860px;margin:0 auto;padding:18px}
+
+/* Student name */
+.namebox{background:white;border:2px solid var(--accent);border-radius:14px;padding:14px 18px;margin:16px 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.namebox label{font-weight:700;font-size:15px}
+.namebox input{flex:1;min-width:160px;font-size:17px;padding:8px 12px;border:2px dashed #90A4AE;border-radius:8px;font-family:inherit}
+.namebox .hello{font-weight:700;color:var(--accent)}
+
+/* Agenda */
+.agenda{background:white;border-radius:14px;padding:16px 18px;margin:14px 0;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.agenda h2{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:#666;margin-bottom:10px}
+.agenda-pills{display:flex;flex-wrap:wrap;gap:8px}
+.ap{display:flex;align-items:center;gap:6px;background:#ECEFF1;border:2px solid transparent;border-radius:20px;padding:5px 13px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.ap.done{background:#C8E6C9;border-color:#2E7D32;text-decoration:line-through;opacity:0.8}
+
+/* Sections */
+.section{background:white;border-radius:16px;margin:18px 0;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,0.07)}
+.sec-head{padding:14px 20px;color:white;font-size:17px;font-weight:800;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sec-head .icon{font-size:22px}
+.sec-head .step{margin-left:auto;font-size:12px;font-weight:700;background:rgba(255,255,255,0.25);padding:3px 12px;border-radius:12px;white-space:nowrap}
+.sec-head .timing{font-size:12px;font-weight:400;background:rgba(255,255,255,0.18);padding:3px 10px;border-radius:12px;white-space:nowrap}
+.sec-body{padding:18px 20px}
+.zoom-cue{display:block;font-size:13px;font-weight:600;color:#37474F;background:#E1F5FE;border-left:4px solid #0288D1;border-radius:0 8px 8px 0;padding:7px 12px;margin:0 0 14px}
+.goal .sec-head{background:#2E7D32}
+.warmup .sec-head{background:#E65100}
+.vocab .sec-head{background:#1565C0}
+.reading .sec-head{background:#6A1B9A}
+.grammar .sec-head{background:#AD1457}
+.task .sec-head{background:#00695C}
+.challenge .sec-head{background:#F57F17}
+.review .sec-head{background:#BF360C}
+.skipif{background:#FFF8E1;border:1px dashed #F9A825;border-radius:10px;padding:10px 14px;margin-top:12px;font-size:14px}
+.skipif b{color:#F57F17}
+
+/* Movement break */
+.move{background:linear-gradient(135deg,#00BFA5,#00897B);color:white;border-radius:16px;margin:18px 0;padding:18px 22px;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,0.1)}
+.move h2{font-size:20px;font-weight:800}
+.move p{font-size:15px;opacity:0.95;margin-top:6px}
+
+/* Vocab cards */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:14px 0}
+.vc{background:#E3F2FD;border:2px solid #90CAF9;border-radius:12px;padding:12px 10px;text-align:center;cursor:pointer;transition:transform 0.12s}
+.vc:hover{transform:scale(1.04);border-color:var(--accent)}
+.vc .vc-emoji{font-size:30px}
+.vc .vc-word{font-weight:800;font-size:15px;margin-top:4px;color:#0D47A1}
+.vc .vc-pron{font-size:12px;color:#666}
+.vc .vc-play{font-size:13px;color:#1565C0}
+
+/* Quiz engine */
+.qz{background:#FAFAFA;border:1px solid #E0E0E0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.qz .q{font-weight:700;font-size:16px;margin-bottom:10px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{font-family:inherit;font-size:15px;font-weight:600;padding:8px 16px;border-radius:10px;border:2px solid #B0BEC5;background:white;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt.correct{background:#C8E6C9;border-color:#2E7D32}
+.opt.wrong{background:#FFCDD2;border-color:#C62828}
+.opt:disabled{cursor:default;opacity:0.85}
+.fb{font-size:14px;font-weight:600;margin-top:8px;display:none}
+.fb.ok{display:block;color:#2E7D32}
+.fb.no{display:block;color:#C62828}
+
+/* Score bar */
+.scorebar{position:sticky;top:0;z-index:50;background:white;box-shadow:0 2px 8px rgba(0,0,0,0.12);padding:8px 16px;display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px}
+.scorebar .bar{flex:1;height:10px;background:#ECEFF1;border-radius:6px;overflow:hidden}
+.scorebar .fill{height:100%;width:0;background:linear-gradient(90deg,#43A047,#66BB6A);transition:width 0.4s}
+.stars{font-size:16px}
+
+/* Reading */
+.reading-text{background:#F3E5F5;border-radius:12px;padding:18px 20px;font-size:17px;max-width:65ch}
+.reading-text h4{color:#6A1B9A;font-size:15px;margin:14px 0 6px;text-transform:uppercase;letter-spacing:0.4px}
+.reading-text h4:first-child{margin-top:0}
+.reading-text p{margin:8px 0}
+
+/* Editable fields */
+.field-label{font-weight:700;font-size:14px;margin:12px 0 4px;color:#37474F}
+.editable{min-height:34px;background:#FFFDE7;border:2px dashed #9E9D24;border-radius:8px;padding:8px 12px;font-size:16px;outline:none}
+.editable.tall{min-height:70px}
+.editable:focus{border-style:solid;border-color:var(--accent)}
+.editable:empty::before{content:attr(data-placeholder);color:#999}
+.qa-item{margin:12px 0}
+.qa-item .q{font-weight:700;font-size:15px;margin-bottom:5px}
+
+/* Frames / rule boxes */
+.frame{background:#FCE4EC;border-left:5px solid #AD1457;border-radius:0 10px 10px 0;padding:12px 16px;margin:12px 0;font-size:16px}
+.rulebox{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.rule{border-radius:12px;padding:14px 16px;font-size:15px}
+.rule h4{font-size:15px;margin-bottom:8px}
+.rule.a{background:#E8F5E9;border:2px solid #66BB6A}
+.rule.a h4{color:#2E7D32}
+.rule.b{background:#FFF3E0;border:2px solid #FFA726}
+.rule.b h4{color:#E65100}
+.hint{font-size:14px;color:#555;background:#F5F5F5;border-radius:8px;padding:8px 12px;margin:10px 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.chip{background:#E1F5FE;border:2px solid #81D4FA;border-radius:16px;padding:5px 14px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.chip.on{background:#0288D1;border-color:#01579B;color:white}
+.speak{background:#E8F5E9;border-radius:10px;padding:12px 16px;font-size:16px;margin:12px 0}
+
+/* Teacher mode */
+.t-only{display:none}
+body.teacher-mode .t-only{display:block}
+.teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
+.teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
+
+/* Bottom bar */
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:white;box-shadow:0 -3px 12px rgba(0,0,0,0.12);padding:10px 14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;z-index:60}
+.bb{font-family:inherit;font-size:14px;font-weight:700;padding:10px 18px;border-radius:10px;border:none;cursor:pointer;text-decoration:none;color:white;display:inline-block}
+.bb-save{background:#2E7D32}
+.bb-print{background:#546E7A}
+.bb-teach{background:#C62828}
+#toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:#2E7D32;color:white;font-weight:700;padding:10px 22px;border-radius:20px;opacity:0;transition:all 0.3s;z-index:70}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:640px){.rulebox{grid-template-columns:1fr}.vocab-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}}
+@media print{body{background:white;padding-bottom:0}.bottom-bar,.scorebar,#toast{display:none!important}.section{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid}.sec-head,.sec-body,.page-header{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="lvl">LEVEL 2 · ELEMENTARY (A2)</div>
+  <h1>🏰 Session 10 — Adventure Review</h1>
+  <div class="subtitle">English Course Library · Kids &amp; Teens</div>
+  <div class="badge">🎯 Today: use EVERYTHING from Level 2 to finish the Greystone quest — and win your <b>certificate</b>! · ≈50 min core</div>
+</div>
+
+<div class="scorebar">
+  <span>⭐ Score:</span><span id="score-num">0 / 0</span>
+  <div class="bar"><div class="fill" id="score-fill"></div></div>
+  <span class="stars" id="score-stars"></span>
+</div>
+
+<div id="toast">✓ Saved</div>
+
+<div class="container">
+
+<div class="namebox">
+  <label for="student-name">👋 Your name:</label>
+  <input id="student-name" type="text" placeholder="Type your name…">
+  <span class="hello" id="hello-msg"></span>
+</div>
+
+<div class="agenda">
+  <h2>📋 Today's plan — tap each step when you finish it</h2>
+  <div class="agenda-pills" id="agenda">
+    <span class="ap" data-s="1">1️⃣ Goal</span><span class="ap" data-s="2">2️⃣ Warm-up</span>
+    <span class="ap" data-s="3">3️⃣ New words</span><span class="ap" data-s="4">4️⃣ Reading</span>
+    <span class="ap" data-s="5">5️⃣ Grammar</span><span class="ap" data-s="6">6️⃣ Create</span>
+    <span class="ap" data-s="7">7️⃣ Game</span><span class="ap" data-s="8">8️⃣ Review</span>
+  </div>
+</div>
+
+<!-- STEP 1 GOAL -->
+<div class="section goal">
+  <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, big hello — it's the FINAL session of Level 2! Student says the goal back in their own words.</span>
+    <p><em>"Today is your final quest! You are going to use everything from Level 2 — food, animals, your town, past stories, comparing, future plans and rules — to open the gates of Greystone Castle and win your <b>Level 2 certificate</b>."</em> 🗝️</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Set the story frame with full drama: "You are an adventurer. The castle has three gates. Your English is the key." Level 2 covered: S1 food+like · S2 animals+can · S3 town+there is/are · S4 present continuous vs simple · S5 past simple+was/were · S6 irregular past · S7 comparatives/superlatives · S8 going to/would like to · S9 must/have to/should. Today samples ALL of them.</div>
+  </div>
+</div>
+
+<!-- STEP 2 WARM-UP -->
+<div class="section warmup">
+  <div class="sec-head"><span class="icon">⚡</span> Warm-Up — The Memory Torch <span class="timing">5 min</span><span class="step">Step 2</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: pure talking game, cameras on. Use the 👍 reaction for every sentence that "lights the torch". No screen needed yet.</span>
+    <p><b>How to play:</b> the castle is dark — light it with memories from Level 2! 🔦</p>
+    <p>1. Your teacher calls a topic from this level: <em>"FOOD!"</em> … <em>"ANIMALS!"</em> … <em>"YESTERDAY!"</em><br>
+    2. You say ONE good sentence about it — any sentence you remember how to build.<br>
+    3. Every sentence lights one torch. Light 6 torches and the castle doors start to open! 🕯️🕯️🕯️🕯️🕯️🕯️</p>
+    <p class="hint">No score here — just wake up your English brain! 🧠</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 2</h4>Call topics in this order (easy→hard): food (S1) · animals+can (S2) · my town (S3) · right now (S4, continuous!) · yesterday (S5/6, past!) · a comparison (S7). Accept anything grammatical for the topic. Count torches on your fingers dramatically.</div>
+  </div>
+</div>
+
+<!-- STEP 3 VOCAB -->
+<div class="section vocab">
+  <div class="sec-head"><span class="icon">📝</span> Word Treasury — Power Words of Level 2 <span class="timing">10 min</span><span class="step">Step 3</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share your screen. YOU click 🔊, the student repeats — then says which session the word comes from ("That's from Animals!").</span>
+    <p>These 12 power words are your treasure from Sessions 1–9. Tap any card to <b>hear</b> it 🔊 — do you remember them all?</p>
+    <div class="vocab-grid" id="vocab-grid"></div>
+    <h3>🎧 Practice — tap the right word</h3>
+    <p class="hint">Read the clue and tap the word that matches. Green = correct!</p>
+    <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3 + answer key</h4>Vocab quiz answers: vegetables · wings · castle · suddenly · rule. If a card gets a blank stare, do a 20-second micro-review of that session's topic before moving on — this step is a diagnostic sweep of the whole level.</div>
+  </div>
+</div>
+
+<!-- STEP 4 READING -->
+<div class="section reading">
+  <div class="sec-head"><span class="icon">📖</span> Reading — The Golden Key of Greystone <span class="timing">10 min</span><span class="step">Step 4</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. Take turns — student reads one chunk aloud, you read the next. Then she annotates one PAST verb, one comparison and one "going to" (Zoom → Annotate).</span>
+    <p>Read the adventure story. Tap 🔊 to hear any part read aloud.
+      <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
+    <div class="reading-text" id="read-text">
+      <h4>🏰 The Golden Key of Greystone</h4>
+      <p>Last month, four friends visited Greystone Castle: Tarek, Juno, Bea and Sam. People say it is <b>the oldest</b> castle in the country — and that a golden key is hidden inside it.</p>
+      <h4>🚪 The locked door</h4>
+      <p>The friends walked across the old bridge and found a huge wooden door. There was a sign on it: "You <b>must answer</b> three questions to enter."</p>
+      <p>Sam read the questions aloud, and Juno knew every answer. She was <b>the smartest</b> of the four. The door opened slowly, with a sound like an old dinosaur.</p>
+      <h4>🦉 The dark tower</h4>
+      <p>Inside, the castle was <b>darker than</b> a cave. Suddenly, they heard a strange sound above them. "Something <b>is moving</b> up there!" whispered Bea.</p>
+      <p>It wasn't a ghost. It was an old owl — and it was <b>angrier than</b> a wet cat.</p>
+      <h4>🗝️ The golden key</h4>
+      <p>At the top of the tower, Tarek <b>saw</b> a small wooden box. Inside was the golden key — and a note: "Well done, adventurers. Next year, we <b>are going to hide</b> the key again. You <b>should come</b> back!"</p>
+      <p>The friends <b>took</b> a photo with the key and walked home in the sunshine. Everyone agreed: it was <b>the best</b> day of the spring.</p>
+    </div>
+
+    <h3>🔎 Did you understand? Tap your answer</h3>
+    <div id="reading-quiz"></div>
+
+    <h3>💬 Your turn — write your answer</h3>
+    <div class="qa-item"><div class="q">1. Why was Juno important for the team at the door?</div><div class="editable" id="r-open1" contenteditable="true" data-placeholder="She was important because…"></div></div>
+    <div class="qa-item"><div class="q">2. Imagine YOU find the golden key. What are you going to do with it? Write two sentences.</div><div class="editable tall" id="r-open2" contenteditable="true" data-placeholder="I'm going to… Then I'd like to…"></div></div>
+
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> the two written questions above can be homework instead.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 4 + answer key</h4>Quiz answers: the oldest castle in the country · Juno · an old owl · hide the key again. Open 1: because she knew every answer / she was the smartest, so they could enter. Open 2: any two future sentences (going to / would like to). Treasure hunt before Step 5: "Find one past verb, one -est word, one going to" — that hunt previews the review box.</div>
+  </div>
+</div>
+
+<!-- STEP 5 GRAMMAR -->
+<div class="section grammar">
+  <div class="sec-head"><span class="icon">🔧</span> Language Focus — The Level 2 Toolbox <span class="timing">10 min</span><span class="step">Step 5</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. For each quiz item, the student says the answer out loud BEFORE you click it — and names the session it comes from for a bonus cheer.</span>
+    <div class="rulebox">
+      <div class="rule a"><h4>⏳ TIME MACHINE — the tenses</h4>
+        <b>NOW (always):</b> <em>I <b>play</b> football on Mondays.</em><br>
+        <b>RIGHT NOW:</b> <em>I <b>am playing</b> right now!</em><br>
+        <b>YESTERDAY:</b> <em>I <b>played</b> · I <b>went</b> · it <b>was</b> fun.</em><br>
+        <b>PLAN:</b> <em>I<b>'m going to play</b> tomorrow.</em></div>
+      <div class="rule b"><h4>🧰 POWER TOOLS</h4>
+        <b>Compare:</b> <em>bigger than · the biggest</em> 🏆<br>
+        <b>Wish:</b> <em>I<b>'d like to</b> see it.</em> 💭<br>
+        <b>Rules:</b> <em>must · mustn't · should</em> 📜<br>
+        <b>Places:</b> <em>There is a castle. There are two towers.</em> 🏰</div>
+    </div>
+    <div class="frame">💡 <b>The adventurer's check:</b> before you speak, ask — WHEN is it happening (now / right now / past / future)? And is it a fact, a comparison, a wish or a rule? Pick the right tool, then go! ⚔️</div>
+    <p class="hint">💡 Tip: this box is the whole of Level 2 on one screen. If one line feels foggy, tell your teacher NOW — today is the day to fix it.</p>
+    <h3>✏️ Practice — one question from every corner of Level 2</h3>
+    <div id="grammar-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>The 8 items sample S1–S9 in order (labels in brackets). Score by TOPIC, not just total: a miss on item 4 = redo present continuous; a miss on 7 = redo comparatives. Under 5/8 → consider one extra consolidation session before Level 3.</div>
+  </div>
+</div>
+
+<!-- MOVE BREAK -->
+<div class="move">
+  <h2>🤸 MOVE! — 1 minute break</h2>
+  <p>Victory dance time! Stand up and invent a 20-second "I finished Level 2" dance. Then 5 jumping jacks and one royal bow. 👑 Cameras stay on — teacher dances too! 😄</p>
+</div>
+
+<!-- STEP 6 CREATIVE TASK -->
+<div class="section task">
+  <div class="sec-head"><span class="icon">🎨</span> Create — My Own Adventure Page <span class="timing">10 min</span><span class="step">Step 6</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in her own browser, types here and shares her screen (Zoom → Share Screen) while you watch.</span>
+    <p>Write YOUR adventure at Greystone Castle — a mini-story with your Level 2 superpowers! 🦸</p>
+    <h3>First, tap the ingredients you want in your story:</h3>
+    <div class="chips" id="exp-chips"></div>
+    <div class="field-label">⏳ The story (past simple — what happened when YOU visited the castle?)</div>
+    <div class="editable tall" id="t-story" contenteditable="true" data-placeholder="Last week I visited Greystone Castle. I saw… Suddenly…"></div>
+    <div class="field-label">🏆 One comparison sentence about the castle</div>
+    <div class="editable" id="t-comp" contenteditable="true" data-placeholder="The castle was bigger than… / It was the most… place…"></div>
+    <div class="field-label">🔮 The ending — your future plan (going to / would like to)</div>
+    <div class="editable" id="t-future" contenteditable="true" data-placeholder="Next year I'm going to… One day I'd like to…"></div>
+    <div class="speak">🗣️ <b>Now tell your adventure out loud!</b> Past for the story, a comparison in the middle, future at the end — like a real storyteller by the campfire. 🔥</div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> do only the ⏳ story field + tell it aloud; the comparison and future lines become homework.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>This is the level's exit ticket: listen for (1) correct past forms, (2) one clean comparative/superlative, (3) one clean future form. Note gaps in the self-eval box — they are your Level 3 starting plan. Follow-ups: "What did you see? Was it scarier than school? What are you going to do next?"</div>
+  </div>
+</div>
+
+<!-- STEP 7 CHALLENGE GAME -->
+<div class="section challenge">
+  <div class="sec-head"><span class="icon">🎮</span> Challenge — The Three Gates of Greystone <span class="timing">8 min</span><span class="step">Step 7</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen, narrate the story and cheer at every gate. 🎉</span>
+    <p class="hint">🗝️ Three gates, each harder than the last. Open all three and beat 80% for ⭐⭐⭐ — and the golden key is yours!</p>
+    <h3>Gate 1 — The Gate of Words 🚪</h3>
+    <div id="ch-quiz1"></div>
+    <h3>Gate 2 — The Gate of Time ⏳</h3>
+    <div id="ch-quiz2"></div>
+    <h3>Gate 3 — The Dragon's Gate 🐉👑</h3>
+    <div id="ch-quiz3"></div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Gate 3 can be the start of the first Level 3 lesson's warm-up.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>Narrate between gates: "Gate 1 creaks open… the dragon wakes up…" Wrong answers auto-reveal the correct one in green — ask "why?" on each miss. If she beats 80%, declare the golden key officially won — it "unlocks" the certificate in Step 8.</div>
+  </div>
+</div>
+
+<!-- STEP 8 REVIEW + CERTIFICATE -->
+<div class="section review">
+  <div class="sec-head"><span class="icon">🏁</span> Review, Certificate &amp; What's Next <span class="timing">3 min</span><span class="step">Step 8</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on. Read the certificate aloud together with full ceremony — then 🖨️ Print it (or save as PDF) so it's real!</span>
+    <div class="frame">⚡ <b>30-second recap:</b> teacher names any Level 2 topic — you answer with one proud sentence about what you can do now: <em>"I can tell a story in the past!"</em></div>
+
+    <div style="border:6px double #FB8C00;border-radius:18px;background:#FFF8E1;padding:28px 22px;text-align:center;margin:18px 0;page-break-inside:avoid">
+      <div style="font-size:34px;letter-spacing:4px">🏰 ⭐ 🏆 ⭐ 🏰</div>
+      <div style="font-size:13px;font-weight:800;letter-spacing:2px;color:#BF360C;text-transform:uppercase;margin-top:10px">English Course Library</div>
+      <h2 style="font-size:28px;color:#E65100;margin:8px 0 4px">Certificate of Adventure</h2>
+      <p style="margin:8px 0 2px">This certifies that the brave adventurer</p>
+      <div id="cert-name" style="font-size:26px;font-weight:800;color:#BF360C;border-bottom:2px solid #FB8C00;display:inline-block;padding:2px 26px;margin:6px 0">____________</div>
+      <p style="margin:10px 0 4px">has completed all ten quests of<br><b>Level 2 — Elementary (A2)</b><br>and is the true finder of the Golden Key of Greystone. 🗝️</p>
+      <div style="font-size:22px;margin:8px 0">🍕 🐆 🏙️ ⏳ 📖 🏆 🔮 📜</div>
+      <p style="font-size:14px;color:#5D4037;margin-top:10px">Date: <span id="cert-date">…</span> &nbsp;·&nbsp; Teacher: ____________________</p>
+    </div>
+
+    <div class="frame">🧭 <b>What's next?</b> Your adventure continues in <b>Level 3 — Intermediate (B1)</b>! First stop: <em>"My Story So Far"</em> — where you learn to talk about everything you <b>have done</b> in your life. The castle was only the beginning. 🚀</div>
+
+    <h3>🏠 Homework (the fun kind)</h3>
+    <div class="frame">
+      <p>🎖️ <b>Show your certificate</b> to your family — and tell them, in English, your favourite thing from Level 2.</p>
+      <p>✏️ <b>Write 3 sentences</b> about Level 3: <em>"In Level 3 I'm going to… I'd like to… It's going to be…"</em></p>
+    </div>
+    <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="t-only">
+      <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
+      <div class="qa-item"><div class="q">Which Level 2 topics are SOLID?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">Which topics need a refresher inside Level 3?</div><div class="editable" id="tn-adjust" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">Ready for Level 3? (yes / one more consolidation session)</div><div class="editable" id="tn-notes" contenteditable="true" data-placeholder="…"></div></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="bottom-bar">
+  <button class="bb bb-save" onclick="saveWork()">💾 Save my work</button>
+  <button class="bb bb-print" onclick="window.print()">🖨️ Print</button>
+  <button class="bb bb-teach" id="teach-btn" onclick="unlockTeacher()">🔐</button>
+</div>
+
+<script>
+/* ============ ENGINE (identical across all Library sessions) ============ */
+var LEVEL=2, SESSION=10, K='ecl_L'+LEVEL+'s'+SESSION+'_';
+
+/* ---- TTS audio ---- */
+function say(text){try{window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(text);u.lang='en-GB';u.rate=0.9;window.speechSynthesis.speak(u);}catch(e){}}
+
+/* ---- Quiz engine ---- */
+var score=0,total=0;
+function buildQuiz(containerId,items){
+  var c=document.getElementById(containerId);
+  items.forEach(function(it){
+    total++;
+    var qz=document.createElement('div');qz.className='qz';
+    var opts='<div class="opts">';
+    it.options.forEach(function(o){opts+='<button class="opt" data-ok="'+(o===it.answer?'1':'0')+'" onclick="pick(this)">'+o+'</button>';});
+    opts+='</div><div class="fb"></div>';
+    qz.innerHTML='<div class="q">'+it.q+'</div>'+opts;
+    c.appendChild(qz);
+  });
+  updateScore();
+}
+function pick(btn){
+  var qz=btn.closest('.qz');if(qz.dataset.done)return;qz.dataset.done='1';
+  var ok=btn.dataset.ok==='1';var fb=qz.querySelector('.fb');
+  if(ok){btn.classList.add('correct');score++;fb.className='fb ok';fb.textContent='✓ Correct! Great job!';}
+  else{btn.classList.add('wrong');var good=qz.querySelector('[data-ok="1"]');if(good)good.classList.add('correct');
+    fb.className='fb no';fb.textContent='Almost! The green one is right. Try to remember it! 💪';}
+  qz.querySelectorAll('.opt').forEach(function(b){b.disabled=true;});
+  updateScore();
+}
+function updateScore(){
+  var answered=document.querySelectorAll('.qz[data-done]').length;
+  document.getElementById('score-num').textContent=score+' / '+total;
+  document.getElementById('score-fill').style.width=(total?Math.round(answered/total*100):0)+'%';
+  var st='',pct=total?score/total:0;
+  if(answered===total&&total>0){st=pct>=0.8?'⭐⭐⭐':pct>=0.5?'⭐⭐':'⭐';}
+  document.getElementById('score-stars').textContent=st;
+}
+
+/* ---- Student name ---- */
+var nameInput=document.getElementById('student-name');
+function applyName(){
+  var n=nameInput.value.trim();
+  document.getElementById('hello-msg').textContent=n?('Hello, '+n+'! 🌟'):'';
+  document.querySelectorAll('.stud-name').forEach(function(el){el.textContent=n?('Amazing work today, '+n+'!'):'Amazing work today!';});
+  localStorage.setItem(K+'name',n);
+}
+nameInput.addEventListener('input',applyName);
+
+/* ---- Agenda pills ---- */
+document.querySelectorAll('.ap').forEach(function(p){
+  p.onclick=function(){p.classList.toggle('done');localStorage.setItem(K+'ap'+p.dataset.s,p.classList.contains('done'));};
+});
+
+/* ---- Teacher mode ---- */
+function unlockTeacher(){
+  if(document.body.classList.contains('teacher-mode')){document.body.classList.remove('teacher-mode');document.getElementById('teach-btn').textContent='🔐';return;}
+  var pin=prompt('Teacher PIN:');
+  if(pin==='teach'){document.body.classList.add('teacher-mode');document.getElementById('teach-btn').textContent='🔓 Teacher';}
+}
+
+/* ---- Save work (.txt export) ---- */
+function saveWork(){
+  var n=(localStorage.getItem(K+'name')||'Student').replace(/[^\wÀ-ſ-]/g,'');
+  var out=n+' — Level '+LEVEL+' Session '+SESSION+'\n'+new Date().toLocaleDateString()+'\n'+'='.repeat(34)+'\n\n';
+  var picks=[].slice.call(document.querySelectorAll('.chips .chip.on')).map(function(x){return x.textContent.trim();});
+  if(picks.length)out+='Picked: '+picks.join(', ')+'\n\n';
+  var count=0;
+  document.querySelectorAll('.editable[id]').forEach(function(el){var t=el.innerText.trim();if(t){out+='['+el.id+'] '+t+'\n';count++;}});
+  out+='\nScore: '+score+' / '+total;
+  if(count===0&&!picks.length){alert('Type something first! 🙂');return;}
+  var b=new Blob([out],{type:'text/plain;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u;a.download=n+'_L'+LEVEL+'S'+SESSION+'_'+new Date().toISOString().slice(0,10)+'.txt';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);
+  var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show');},1600);
+}
+
+/* ---- Autosave / autoload ---- */
+function autosave(){document.querySelectorAll('.editable[id]').forEach(function(el){localStorage.setItem(K+el.id,el.innerHTML);});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){localStorage.setItem(K+'chip'+i,el.classList.contains('on'));});}
+function autoload(){
+  document.querySelectorAll('.editable[id]').forEach(function(el){var v=localStorage.getItem(K+el.id);if(v!==null)el.innerHTML=v;});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){if(localStorage.getItem(K+'chip'+i)==='true')el.classList.add('on');});
+  document.querySelectorAll('.ap').forEach(function(p){if(localStorage.getItem(K+'ap'+p.dataset.s)==='true')p.classList.add('done');});
+  var n=localStorage.getItem(K+'name');if(n){nameInput.value=n;applyName();}
+}
+document.addEventListener('input',function(){clearTimeout(window._t);window._t=setTimeout(autosave,600);});
+window.addEventListener('load',autoload);
+
+/* ============ SESSION CONTENT (changes per session) ============ */
+
+/* ---- Certificate: name + date (reads the same saved name as the engine) ---- */
+(function(){
+  function certUpdate(){
+    var n=nameInput.value.trim();
+    document.getElementById('cert-name').textContent=n||'____________';
+  }
+  nameInput.addEventListener('input',certUpdate);
+  window.addEventListener('load',function(){setTimeout(certUpdate,60);});
+  document.getElementById('cert-date').textContent=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+})();
+
+/* ---- Vocabulary: 12 power words from Sessions 1–9 ---- */
+var VOCAB=[
+  {w:'delicious',e:'🍕',p:'S1 Food — very, very tasty'},
+  {w:'vegetables',e:'🥕',p:'S1 Food — carrots, peas…'},
+  {w:'wild animal',e:'🦁',p:'S2 Animals — not a pet!'},
+  {w:'wings',e:'🪽',p:'S2 Animals — birds fly with these'},
+  {w:'bridge',e:'🌉',p:'S3 Town — it goes over the river'},
+  {w:'castle',e:'🏰',p:'S3 Town — a king lived here'},
+  {w:'right now',e:'⏳',p:'S4 — at this moment'},
+  {w:'yesterday',e:'🕰️',p:'S5 Past — the day before today'},
+  {w:'suddenly',e:'⚡',p:'S6 Story word — fast surprise!'},
+  {w:'the bravest',e:'🦸',p:'S7 — superlative of brave'},
+  {w:'plan',e:'🗺️',p:'S8 Future — going to…'},
+  {w:'rule',e:'📜',p:'S9 — you must follow it'}
+];
+(function buildVocab(){
+  var g=document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v){
+    var d=document.createElement('div');d.className='vc';
+    d.innerHTML='<div class="vc-play">🔊</div><div class="vc-emoji">'+v.e+'</div><div class="vc-word">'+v.w+'</div><div class="vc-pron">'+v.p+'</div>';
+    d.onclick=function(){say(v.w);};
+    g.appendChild(d);
+  });
+})();
+
+/* ---- Story-ingredient chips for Step 6 ---- */
+(function(){
+  var ING=['🐉 a sleepy dragon','🦉 an angry owl','👻 a friendly ghost','🗝️ a golden key','🍕 a magic pizza','🌧️ a storm','🐈 a talking cat','💎 a treasure room','🕯️ a dark corridor','🎩 a mysterious stranger','🪜 a secret ladder','🥪 a stolen sandwich'];
+  var c=document.getElementById('exp-chips');
+  ING.forEach(function(t){
+    var s=document.createElement('span');s.className='chip';s.textContent=t;
+    s.onclick=function(){s.classList.toggle('on');say(t.replace(/^[^ ]+ /,''));};
+    c.appendChild(s);
+  });
+})();
+
+/* ---- Quizzes ---- */
+buildQuiz('vocab-quiz',[
+  {q:'🥕 Carrots, peas and broccoli are all…',options:['vegetables','wild animals','bridges'],answer:'vegetables'},
+  {q:'🪽 A bird uses these to fly.',options:['rules','wings','plans'],answer:'wings'},
+  {q:'🏰 A king lived in this big stone building long ago.',options:['a castle','a bridge','a supermarket'],answer:'a castle'},
+  {q:'⚡ Everything was quiet. Then, ___, the door opened!',options:['suddenly','yesterday','delicious'],answer:'suddenly'},
+  {q:'📜 "No running by the pool" is a…',options:['rule','plan','wing'],answer:'rule'}
+]);
+buildQuiz('reading-quiz',[
+  {q:'What do people say about Greystone Castle?',options:['it is the oldest castle in the country','it is the newest castle in the country','it is the smallest castle in the country'],answer:'it is the oldest castle in the country'},
+  {q:'Who knew every answer at the door?',options:['Tarek','Juno','Sam'],answer:'Juno'},
+  {q:'What made the strange sound in the tower?',options:['a ghost','an old owl','a wet cat'],answer:'an old owl'},
+  {q:'What is the castle going to do next year?',options:['hide the key again','close forever','buy a new owl'],answer:'hide the key again'}
+]);
+buildQuiz('grammar-quiz',[
+  {q:'(S1 Food) "Do you like broccoli?" — "No, I ___."',options:['don\'t','doesn\'t'],answer:'don\'t'},
+  {q:'(S2 Animals) A penguin ___ fly, but it can swim.',options:['can\'t','mustn\'t'],answer:'can\'t'},
+  {q:'(S3 Town) ___ a castle in my town.',options:['There is','There are'],answer:'There is'},
+  {q:'(S4 Right now) Shh! The owl ___ right now.',options:['is sleeping','sleeps'],answer:'is sleeping'},
+  {q:'(S5 Yesterday) Yesterday we ___ at the castle all day.',options:['were','was'],answer:'were'},
+  {q:'(S6 Story) Tarek ___ a small box at the top.',options:['saw','seed'],answer:'saw'},
+  {q:'(S7 Compare) Juno was ___ of the four friends.',options:['the smartest','smarter'],answer:'the smartest'},
+  {q:'(S8 Future) Next year they ___ hide the key again.',options:['are going to','must to'],answer:'are going to'}
+]);
+buildQuiz('ch-quiz1',[
+  {q:'🚪 Gate 1 asks: "Which word means VERY tasty?"',options:['delicious','dangerous','dark'],answer:'delicious'},
+  {q:'🚪 Gate 1 asks: "Where does a wild lion live?"',options:['in nature, not in a house','in a supermarket','in your bag'],answer:'in nature, not in a house'},
+  {q:'🚪 Gate 1 asks: "What goes OVER a river?"',options:['a bridge','a rule','a picnic'],answer:'a bridge'}
+]);
+buildQuiz('ch-quiz2',[
+  {q:'⏳ Every day Sam ___ to school. But right now he ___ a dragon!',options:['walks / is riding','is walking / rides','walk / is ride'],answer:'walks / is riding'},
+  {q:'⏳ Last night the owl ___ very angry.',options:['was','were','is'],answer:'was'},
+  {q:'⏳ They ___ the key and ___ a photo. (irregular!)',options:['found / took','finded / taked','find / taked'],answer:'found / took'}
+]);
+buildQuiz('ch-quiz3',[
+  {q:'🐉 The dragon is ___ than the owl.',options:['bigger','more big','the biggest'],answer:'bigger'},
+  {q:'🐉 You ___ wake the dragon. (forbidden!)',options:['mustn\'t','don\'t have to','should'],answer:'mustn\'t'},
+  {q:'🐉 "I\'d like ___ the golden key!" whispered Bea.',options:['to find','find','finding'],answer:'to find'},
+  {q:'👑 BOSS: "Yesterday we ___ the castle. It was ___ day ever, and next year we ___ come back!"',options:['visited / the best / are going to','visit / the goodest / going to','have visit / better / would'],answer:'visited / the best / are going to'}
+]);
+</script>
+</body>
+</html>

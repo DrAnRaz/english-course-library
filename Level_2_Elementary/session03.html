@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>L2 · Session 3 — My Town</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--accent:#FB8C00;--accent2:#FFA726}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1a;font-size:17px;line-height:1.6;padding-bottom:90px}
+.page-header{background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;padding:26px 20px;text-align:center}
+.page-header h1{font-size:26px;font-weight:800;letter-spacing:-0.3px}
+.page-header .subtitle{font-size:14px;opacity:0.9;margin-top:4px}
+.badge{display:inline-block;background:rgba(255,255,255,0.2);padding:6px 16px;border-radius:20px;font-size:14px;margin-top:10px}
+.lvl{display:inline-block;background:#FFD54F;color:#5D4037;font-weight:800;font-size:12px;padding:3px 12px;border-radius:12px;letter-spacing:0.5px;margin-bottom:8px}
+.container{max-width:860px;margin:0 auto;padding:18px}
+
+/* Student name */
+.namebox{background:white;border:2px solid var(--accent);border-radius:14px;padding:14px 18px;margin:16px 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.namebox label{font-weight:700;font-size:15px}
+.namebox input{flex:1;min-width:160px;font-size:17px;padding:8px 12px;border:2px dashed #90A4AE;border-radius:8px;font-family:inherit}
+.namebox .hello{font-weight:700;color:var(--accent)}
+
+/* Agenda */
+.agenda{background:white;border-radius:14px;padding:16px 18px;margin:14px 0;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.agenda h2{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:#666;margin-bottom:10px}
+.agenda-pills{display:flex;flex-wrap:wrap;gap:8px}
+.ap{display:flex;align-items:center;gap:6px;background:#ECEFF1;border:2px solid transparent;border-radius:20px;padding:5px 13px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.ap.done{background:#C8E6C9;border-color:#2E7D32;text-decoration:line-through;opacity:0.8}
+
+/* Sections */
+.section{background:white;border-radius:16px;margin:18px 0;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,0.07)}
+.sec-head{padding:14px 20px;color:white;font-size:17px;font-weight:800;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sec-head .icon{font-size:22px}
+.sec-head .step{margin-left:auto;font-size:12px;font-weight:700;background:rgba(255,255,255,0.25);padding:3px 12px;border-radius:12px;white-space:nowrap}
+.sec-head .timing{font-size:12px;font-weight:400;background:rgba(255,255,255,0.18);padding:3px 10px;border-radius:12px;white-space:nowrap}
+.sec-body{padding:18px 20px}
+.zoom-cue{display:block;font-size:13px;font-weight:600;color:#37474F;background:#E1F5FE;border-left:4px solid #0288D1;border-radius:0 8px 8px 0;padding:7px 12px;margin:0 0 14px}
+.goal .sec-head{background:#2E7D32}
+.warmup .sec-head{background:#E65100}
+.vocab .sec-head{background:#1565C0}
+.reading .sec-head{background:#6A1B9A}
+.grammar .sec-head{background:#AD1457}
+.task .sec-head{background:#00695C}
+.challenge .sec-head{background:#F57F17}
+.review .sec-head{background:#BF360C}
+.skipif{background:#FFF8E1;border:1px dashed #F9A825;border-radius:10px;padding:10px 14px;margin-top:12px;font-size:14px}
+.skipif b{color:#F57F17}
+
+/* Movement break */
+.move{background:linear-gradient(135deg,#00BFA5,#00897B);color:white;border-radius:16px;margin:18px 0;padding:18px 22px;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,0.1)}
+.move h2{font-size:20px;font-weight:800}
+.move p{font-size:15px;opacity:0.95;margin-top:6px}
+
+/* Vocab cards */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:14px 0}
+.vc{background:#E3F2FD;border:2px solid #90CAF9;border-radius:12px;padding:12px 10px;text-align:center;cursor:pointer;transition:transform 0.12s}
+.vc:hover{transform:scale(1.04);border-color:var(--accent)}
+.vc .vc-emoji{font-size:30px}
+.vc .vc-word{font-weight:800;font-size:15px;margin-top:4px;color:#0D47A1}
+.vc .vc-pron{font-size:12px;color:#666}
+.vc .vc-play{font-size:13px;color:#1565C0}
+
+/* Quiz engine */
+.qz{background:#FAFAFA;border:1px solid #E0E0E0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.qz .q{font-weight:700;font-size:16px;margin-bottom:10px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{font-family:inherit;font-size:15px;font-weight:600;padding:8px 16px;border-radius:10px;border:2px solid #B0BEC5;background:white;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt.correct{background:#C8E6C9;border-color:#2E7D32}
+.opt.wrong{background:#FFCDD2;border-color:#C62828}
+.opt:disabled{cursor:default;opacity:0.85}
+.fb{font-size:14px;font-weight:600;margin-top:8px;display:none}
+.fb.ok{display:block;color:#2E7D32}
+.fb.no{display:block;color:#C62828}
+
+/* Score bar */
+.scorebar{position:sticky;top:0;z-index:50;background:white;box-shadow:0 2px 8px rgba(0,0,0,0.12);padding:8px 16px;display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px}
+.scorebar .bar{flex:1;height:10px;background:#ECEFF1;border-radius:6px;overflow:hidden}
+.scorebar .fill{height:100%;width:0;background:linear-gradient(90deg,#43A047,#66BB6A);transition:width 0.4s}
+.stars{font-size:16px}
+
+/* Reading */
+.reading-text{background:#F3E5F5;border-radius:12px;padding:18px 20px;font-size:17px;max-width:65ch}
+.reading-text h4{color:#6A1B9A;font-size:15px;margin:14px 0 6px;text-transform:uppercase;letter-spacing:0.4px}
+.reading-text h4:first-child{margin-top:0}
+.reading-text p{margin:8px 0}
+
+/* Editable fields */
+.field-label{font-weight:700;font-size:14px;margin:12px 0 4px;color:#37474F}
+.editable{min-height:34px;background:#FFFDE7;border:2px dashed #9E9D24;border-radius:8px;padding:8px 12px;font-size:16px;outline:none}
+.editable.tall{min-height:70px}
+.editable:focus{border-style:solid;border-color:var(--accent)}
+.editable:empty::before{content:attr(data-placeholder);color:#999}
+.qa-item{margin:12px 0}
+.qa-item .q{font-weight:700;font-size:15px;margin-bottom:5px}
+
+/* Frames / rule boxes */
+.frame{background:#FCE4EC;border-left:5px solid #AD1457;border-radius:0 10px 10px 0;padding:12px 16px;margin:12px 0;font-size:16px}
+.rulebox{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.rule{border-radius:12px;padding:14px 16px;font-size:15px}
+.rule h4{font-size:15px;margin-bottom:8px}
+.rule.a{background:#E8F5E9;border:2px solid #66BB6A}
+.rule.a h4{color:#2E7D32}
+.rule.b{background:#FFF3E0;border:2px solid #FFA726}
+.rule.b h4{color:#E65100}
+.hint{font-size:14px;color:#555;background:#F5F5F5;border-radius:8px;padding:8px 12px;margin:10px 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.chip{background:#E1F5FE;border:2px solid #81D4FA;border-radius:16px;padding:5px 14px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.chip.on{background:#0288D1;border-color:#01579B;color:white}
+.speak{background:#E8F5E9;border-radius:10px;padding:12px 16px;font-size:16px;margin:12px 0}
+
+/* Teacher mode */
+.t-only{display:none}
+body.teacher-mode .t-only{display:block}
+.teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
+.teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
+
+/* Bottom bar */
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:white;box-shadow:0 -3px 12px rgba(0,0,0,0.12);padding:10px 14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;z-index:60}
+.bb{font-family:inherit;font-size:14px;font-weight:700;padding:10px 18px;border-radius:10px;border:none;cursor:pointer;text-decoration:none;color:white;display:inline-block}
+.bb-save{background:#2E7D32}
+.bb-print{background:#546E7A}
+.bb-teach{background:#C62828}
+#toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:#2E7D32;color:white;font-weight:700;padding:10px 22px;border-radius:20px;opacity:0;transition:all 0.3s;z-index:70}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:640px){.rulebox{grid-template-columns:1fr}.vocab-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}}
+@media print{body{background:white;padding-bottom:0}.bottom-bar,.scorebar,#toast{display:none!important}.section{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid}.sec-head,.sec-body,.page-header{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="lvl">LEVEL 2 · ELEMENTARY (A2)</div>
+  <h1>🏙️ Session 3 — My Town</h1>
+  <div class="subtitle">English Course Library · Kids &amp; Teens</div>
+  <div class="badge">🎯 Today: describe a town with <b>there is / there are</b> + prepositions — and give simple <b>directions</b> · ≈50 min core</div>
+</div>
+
+<div class="scorebar">
+  <span>⭐ Score:</span><span id="score-num">0 / 0</span>
+  <div class="bar"><div class="fill" id="score-fill"></div></div>
+  <span class="stars" id="score-stars"></span>
+</div>
+
+<div id="toast">✓ Saved</div>
+
+<div class="container">
+
+<div class="namebox">
+  <label for="student-name">👋 Your name:</label>
+  <input id="student-name" type="text" placeholder="Type your name…">
+  <span class="hello" id="hello-msg"></span>
+</div>
+
+<div class="agenda">
+  <h2>📋 Today's plan — tap each step when you finish it</h2>
+  <div class="agenda-pills" id="agenda">
+    <span class="ap" data-s="1">1️⃣ Goal</span><span class="ap" data-s="2">2️⃣ Warm-up</span>
+    <span class="ap" data-s="3">3️⃣ New words</span><span class="ap" data-s="4">4️⃣ Reading</span>
+    <span class="ap" data-s="5">5️⃣ Grammar</span><span class="ap" data-s="6">6️⃣ Create</span>
+    <span class="ap" data-s="7">7️⃣ Game</span><span class="ap" data-s="8">8️⃣ Review</span>
+  </div>
+</div>
+
+<!-- STEP 1 GOAL -->
+<div class="section goal">
+  <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
+    <p><em>"Today you become a <b>city planner</b> — a person who designs whole towns! You will describe where things are with <b>there is / there are</b> and prepositions, and at the end you will design your own dream town."</em> 🗺️</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Ask: "Is there a park near your house?" Listen for whether "there is" comes back naturally or the student answers Hungarian-style ("Near my house is a park"). That is your live diagnostic for Step 5.</div>
+  </div>
+</div>
+
+<!-- STEP 2 WARM-UP -->
+<div class="section warmup">
+  <div class="sec-head"><span class="icon">⚡</span> Warm-Up — Draw My Words <span class="timing">5 min</span><span class="step">Step 2</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: open the Zoom Whiteboard and share it. Student annotates directly on the whiteboard.</span>
+    <p><b>How to play:</b></p>
+    <p>1. Your teacher slowly describes a mini town: <em>"There is a park. Next to the park, there is a school…"</em><br>
+    2. YOU draw it live on the whiteboard — a box for each building, quick and ugly is fine! 😄<br>
+    3. After 5 sentences, compare: does your drawing match the words?<br>
+    4. Switch: you describe 2 buildings, your teacher draws.</p>
+    <p class="hint">No score here — if the drawing matches, your English ears work! 👂</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 2</h4>Use only known prepositions (next to, behind, near). Speak slowly, repeat each sentence twice. This warm-up previews the whole lesson — if drawing fails on "behind", flag it for extra attention in Step 5.</div>
+  </div>
+</div>
+
+<!-- STEP 3 VOCAB -->
+<div class="section vocab">
+  <div class="sec-head"><span class="icon">📝</span> New Words — Places in Town &amp; Prepositions <span class="timing">10 min</span><span class="step">Step 3</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share your screen. YOU click 🔊 on each card — student repeats it twice, then says if their town has one ("Yes, there is one!").</span>
+    <p>Tap any card to <b>hear</b> it 🔊. Say it out loud after the sound!</p>
+    <div class="vocab-grid" id="vocab-grid"></div>
+    <div class="frame">📍 <b>The position words (prepositions):</b> <em>next to</em> 🤝 (right beside) · <em>between</em> ↔️ (in the middle of two) · <em>opposite</em> 🔁 (across the road) · <em>in front of</em> 🔜 · <em>behind</em> 🔙 · <em>near</em> 📍 (not far). Show each one with your two hands on camera — hands are buildings! ✋✋</div>
+    <h3>🎧 Practice — tap the right word</h3>
+    <p class="hint">Read the clue and tap the word that matches. Green = correct!</p>
+    <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Do the hand-demo for every preposition and have the student copy it — kinesthetic anchor. Pronunciation watch: <em>opposite</em> (OP-po-zit, not "oppo-SITE"), <em>square</em> (SKWAIR). Ask "Is there a cinema in your town?" per card to preview the grammar.</div>
+  </div>
+</div>
+
+<!-- STEP 4 READING -->
+<div class="section reading">
+  <div class="sec-head"><span class="icon">📖</span> Reading — Welcome to Millbrook! <span class="timing">10 min</span><span class="step">Step 4</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. Student reads one chunk aloud, you read the next — take turns. THEN: student sketches Millbrook on paper and holds it up to the camera — if the map is right, the reading is understood!</span>
+    <p>Read the town guide. Tap 🔊 to hear any part read aloud.
+      <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
+    <div class="reading-text" id="read-text">
+      <h4>🏙️ Welcome to Millbrook!</h4>
+      <p>Welcome to Millbrook, a small and friendly town in England! Let me show you around.</p>
+      <h4>🌳 The centre</h4>
+      <p>In the centre, there is a big park. The park has a fountain in the middle and lots of green trees. Next to the park, there is a lovely café with tables outside.</p>
+      <h4>🏛️ Around the park</h4>
+      <p>Opposite the park, there is the town hall. It is a big white building with tall columns. Between the town hall and the café, there is a car park — very useful for visitors!</p>
+      <h4>🛒 Shops and buses</h4>
+      <p>Near the car park, there is a supermarket. It is open every day from eight o'clock in the morning. In front of the supermarket, there is a bus stop, where people wait for the bus to the city.</p>
+      <h4>🏫 School and library</h4>
+      <p>The school is behind the park. It is a red brick building with a big playground and two football pitches. Next to the school, there is a small library with more than ten thousand books!</p>
+      <h4>🎬 And more…</h4>
+      <p>There is also a cinema, a hospital and three restaurants. There isn't a shopping mall — Millbrook is a small, quiet town. But there are lots of friendly people, and it is a wonderful place to live!</p>
+      <p>Would you like to live in Millbrook? What is there in YOUR town?</p>
+    </div>
+
+    <h3>🔎 Did you understand? Tap your answer</h3>
+    <div id="reading-quiz"></div>
+
+    <h3>💬 Your turn — write your answer</h3>
+    <div class="qa-item"><div class="q">1. How do we know Millbrook is a SMALL town? Find two clues in the text.</div><div class="editable tall" id="r-open1" contenteditable="true" data-placeholder="Clue 1: There isn't… Clue 2: …"></div></div>
+    <div class="qa-item"><div class="q">2. Describe ONE place in YOUR town with a preposition.</div><div class="editable" id="r-open2" contenteditable="true" data-placeholder="In my town, there is a… next to / behind / opposite the…"></div></div>
+
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> skip the map-sketch; the two written questions can be homework instead.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 4 + answer key</h4>Quiz answers: a big park · next to the park · a bus stop · behind the park · a shopping mall. Open Q1 key (any two): there isn't a shopping mall · it is "a small, quiet town" · only three restaurants / one small library. Open Q2: any "there is a X + preposition + the Y" sentence is correct. Vocabulary bonus: the water feature in the park = <em>fountain</em>.</div>
+  </div>
+</div>
+
+<!-- STEP 5 GRAMMAR -->
+<div class="section grammar">
+  <div class="sec-head"><span class="icon">🔧</span> Grammar — there is / there are + Where Is It? <span class="timing">10 min</span><span class="step">Step 5</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. For each quiz item, student says the answer BEFORE you click it.</span>
+    <div class="rulebox">
+      <div class="rule a"><h4>✅ ONE thing — there is</h4>
+        <em>There <b>is</b> a park.</em> 🌳<br>
+        <em>There <b>isn't</b> a cinema.</em><br>
+        <em><b>Is</b> there a hospital? — Yes, there <b>is</b>.</em><br><br>
+        🔑 + preposition = a real description:<br><em>There is a library <b>next to</b> the school.</em></div>
+      <div class="rule b"><h4>👥 MANY things — there are</h4>
+        <em>There <b>are</b> two cafés.</em> ☕☕<br>
+        <em>There <b>aren't any</b> buses.</em><br>
+        <em><b>Are</b> there any shops? — No, there <b>aren't</b>.</em><br><br>
+        🔑 negative &amp; question with many → add <b>any</b></div>
+    </div>
+    <div class="frame">🧭 <b>Directions — the traveller's four magic lines:</b> <em>"Excuse me, where is the library?"</em> → <em>"<b>Go straight on</b>. <b>Turn left</b> at the square. <b>Turn right</b> at the café. It's <b>on your left</b>!"</em> <button class="opt" style="padding:4px 12px" onclick="say('Excuse me, where is the library? Go straight on. Turn left at the square. Turn right at the café. It is on your left!')">🔊</button></div>
+    <p class="hint">💡 Hungarian tip: Hungarian starts with the place — <em>"A parkban VAN egy szökőkút."</em> English starts with <b>There</b>: <em>"There is a fountain in the park"</em> — NOT <em>"In the park is a fountain"</em>. Always launch the sentence with "There is / There are".</p>
+    <h3>✏️ Practice — tap the correct form</h3>
+    <div id="grammar-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>If the student gets 7+/9, do a live round about THEIR real town: "Is there a cinema? Are there any cafés?" If under 5, redo the wrong ones asking each time: "One thing or many things?" Keep the directions frame for Step 6 — they will use it to guide you.</div>
+  </div>
+</div>
+
+<!-- MOVE BREAK -->
+<div class="move">
+  <h2>🤸 MOVE! — 1 minute break</h2>
+  <p>Directions workout! Stand up and march on the spot. Teacher calls: "Turn left!" — "Turn right!" — "Go straight on!" — "STOP!" Follow the commands with your whole body. Cameras stay on — teacher marches too! 😄</p>
+</div>
+
+<!-- STEP 6 CREATIVE TASK -->
+<div class="section task">
+  <div class="sec-head"><span class="icon">🎨</span> Create — My Dream Town <span class="timing">10 min</span><span class="step">Step 6</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in their own browser, types here, and shares their screen so you can watch.</span>
+    <p>City planner, it's your moment! Design a dream town — it can have ANYTHING: a chocolate museum, a dragon tower, a flying-car station… 🚁</p>
+    <h3>First, tap the places your dream town has:</h3>
+    <div class="chips" id="place-chips"></div>
+    <div class="field-label">🏷️ My dream town is called…</div>
+    <div class="editable" id="t-townname" contenteditable="true" data-placeholder="My dream town is called…"></div>
+    <div class="field-label">🌳 What is in the centre?</div>
+    <div class="editable" id="t-centre" contenteditable="true" data-placeholder="In the centre, there is a…"></div>
+    <div class="field-label">📍 Two sentences with prepositions (next to / between / opposite…)</div>
+    <div class="editable tall" id="t-preps" contenteditable="true" data-placeholder="Next to the…, there is a… The… is between the… and the…"></div>
+    <div class="field-label">🔮 The ONE unusual place no other town has!</div>
+    <div class="editable" id="t-unusual" contenteditable="true" data-placeholder="There is also a… — no other town has one!"></div>
+    <div class="field-label">❌ What ISN'T there in your town? (there isn't / there aren't any)</div>
+    <div class="editable" id="t-not" contenteditable="true" data-placeholder="There isn't a… There aren't any…"></div>
+    <div class="speak">🗣️ <b>Now be the guide!</b> Your teacher is a lost tourist at the station of YOUR town: <em>"Excuse me, where is the [unusual place]?"</em> Guide them: <em>"Go straight on… turn left at… it's on your right!"</em></div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> do only the town name + the two preposition sentences + the tourist roleplay; type the rest as homework.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>In the roleplay, get genuinely "lost" — ask them to repeat: "Left? At the café?" — this forces re-phrasing. Recycling questions during presentation: "Can you swim in the river there?" (S2 — can), "Do you like the café in your town?" (S1 — like).</div>
+  </div>
+</div>
+
+<!-- STEP 7 CHALLENGE GAME -->
+<div class="section challenge">
+  <div class="sec-head"><span class="icon">🎮</span> Challenge Game — City Planner Exam <span class="timing">8 min</span><span class="step">Step 7</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: student's browser, their clicks, their score! You watch on their shared screen and cheer. 🎉</span>
+    <p class="hint">🗺️ Three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
+    <h3>Round 1 — Pick the preposition (Millbrook map!)</h3>
+    <div id="ch-quiz1"></div>
+    <h3>Round 2 — Negatives &amp; questions</h3>
+    <div id="ch-quiz2"></div>
+    <h3>Round 3 — Boss level: lost in town 👑</h3>
+    <div id="ch-quiz3"></div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can be the start of the next lesson's warm-up.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>All answers show live in the score. Wrong answers auto-reveal the correct one in green — ask "why?" on each miss. Round 1 re-tests the reading map from memory — allow a quick scroll-back peek if needed, that IS re-reading practice.</div>
+  </div>
+</div>
+
+<!-- STEP 8 REVIEW -->
+<div class="section review">
+  <div class="sec-head"><span class="icon">🏁</span> Review &amp; Homework <span class="timing">3 min</span><span class="step">Step 8</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, screens off. Finish with faces, not slides.</span>
+    <div class="frame">⚡ <b>30-second recap:</b> teacher says a place ("two cafés!") — you answer with a full sentence: <em>"There are two cafés!"</em> One thing or many things — ears open! 👂</div>
+    <h3>🏠 Homework</h3>
+    <div class="frame">
+      <p>🗺️ <b>Draw a real map</b> of YOUR street or neighbourhood (5+ places, labelled in English).</p>
+      <p>✏️ <b>Write 5 sentences</b> about it: use <em>there is / there are / there isn't</em> + a different preposition in each one.</p>
+      <p>📌 Example: <em>"There is a bakery opposite my house. Next to the bakery, there is a small shop."</em></p>
+    </div>
+    <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="t-only">
+      <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
+      <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">What to adjust next time?</div><div class="editable" id="tn-adjust" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">Student's strongest / weakest moment today?</div><div class="editable" id="tn-notes" contenteditable="true" data-placeholder="…"></div></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="bottom-bar">
+  <button class="bb bb-save" onclick="saveWork()">💾 Save my work</button>
+  <button class="bb bb-print" onclick="window.print()">🖨️ Print</button>
+  <button class="bb bb-teach" id="teach-btn" onclick="unlockTeacher()">🔐</button>
+</div>
+
+<script>
+/* ============ ENGINE (identical across all Library sessions) ============ */
+var LEVEL=2, SESSION=3, K='ecl_L'+LEVEL+'s'+SESSION+'_';
+
+/* ---- TTS audio ---- */
+function say(text){try{window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(text);u.lang='en-GB';u.rate=0.9;window.speechSynthesis.speak(u);}catch(e){}}
+
+/* ---- Quiz engine ---- */
+var score=0,total=0;
+function buildQuiz(containerId,items){
+  var c=document.getElementById(containerId);
+  items.forEach(function(it){
+    total++;
+    var qz=document.createElement('div');qz.className='qz';
+    var opts='<div class="opts">';
+    it.options.forEach(function(o){opts+='<button class="opt" data-ok="'+(o===it.answer?'1':'0')+'" onclick="pick(this)">'+o+'</button>';});
+    opts+='</div><div class="fb"></div>';
+    qz.innerHTML='<div class="q">'+it.q+'</div>'+opts;
+    c.appendChild(qz);
+  });
+  updateScore();
+}
+function pick(btn){
+  var qz=btn.closest('.qz');if(qz.dataset.done)return;qz.dataset.done='1';
+  var ok=btn.dataset.ok==='1';var fb=qz.querySelector('.fb');
+  if(ok){btn.classList.add('correct');score++;fb.className='fb ok';fb.textContent='✓ Correct! Great job!';}
+  else{btn.classList.add('wrong');var good=qz.querySelector('[data-ok="1"]');if(good)good.classList.add('correct');
+    fb.className='fb no';fb.textContent='Almost! The green one is right. Try to remember it! 💪';}
+  qz.querySelectorAll('.opt').forEach(function(b){b.disabled=true;});
+  updateScore();
+}
+function updateScore(){
+  var answered=document.querySelectorAll('.qz[data-done]').length;
+  document.getElementById('score-num').textContent=score+' / '+total;
+  document.getElementById('score-fill').style.width=(total?Math.round(answered/total*100):0)+'%';
+  var st='',pct=total?score/total:0;
+  if(answered===total&&total>0){st=pct>=0.8?'⭐⭐⭐':pct>=0.5?'⭐⭐':'⭐';}
+  document.getElementById('score-stars').textContent=st;
+}
+
+/* ---- Student name ---- */
+var nameInput=document.getElementById('student-name');
+function applyName(){
+  var n=nameInput.value.trim();
+  document.getElementById('hello-msg').textContent=n?('Hello, '+n+'! 🌟'):'';
+  document.querySelectorAll('.stud-name').forEach(function(el){el.textContent=n?('Amazing work today, '+n+'!'):'Amazing work today!';});
+  localStorage.setItem(K+'name',n);
+}
+nameInput.addEventListener('input',applyName);
+
+/* ---- Agenda pills ---- */
+document.querySelectorAll('.ap').forEach(function(p){
+  p.onclick=function(){p.classList.toggle('done');localStorage.setItem(K+'ap'+p.dataset.s,p.classList.contains('done'));};
+});
+
+/* ---- Teacher mode ---- */
+function unlockTeacher(){
+  if(document.body.classList.contains('teacher-mode')){document.body.classList.remove('teacher-mode');document.getElementById('teach-btn').textContent='🔐';return;}
+  var pin=prompt('Teacher PIN:');
+  if(pin==='teach'){document.body.classList.add('teacher-mode');document.getElementById('teach-btn').textContent='🔓 Teacher';}
+}
+
+/* ---- Save work (.txt export) ---- */
+function saveWork(){
+  var n=(localStorage.getItem(K+'name')||'Student').replace(/[^\wÀ-ſ-]/g,'');
+  var out=n+' — Level '+LEVEL+' Session '+SESSION+'\n'+new Date().toLocaleDateString()+'\n'+'='.repeat(34)+'\n\n';
+  var picks=[].slice.call(document.querySelectorAll('.chips .chip.on')).map(function(x){return x.textContent.trim();});
+  if(picks.length)out+='Picked: '+picks.join(', ')+'\n\n';
+  var count=0;
+  document.querySelectorAll('.editable[id]').forEach(function(el){var t=el.innerText.trim();if(t){out+='['+el.id+'] '+t+'\n';count++;}});
+  out+='\nScore: '+score+' / '+total;
+  if(count===0&&!picks.length){alert('Type something first! 🙂');return;}
+  var b=new Blob([out],{type:'text/plain;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u;a.download=n+'_L'+LEVEL+'S'+SESSION+'_'+new Date().toISOString().slice(0,10)+'.txt';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);
+  var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show');},1600);
+}
+
+/* ---- Autosave / autoload ---- */
+function autosave(){document.querySelectorAll('.editable[id]').forEach(function(el){localStorage.setItem(K+el.id,el.innerHTML);});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){localStorage.setItem(K+'chip'+i,el.classList.contains('on'));});}
+function autoload(){
+  document.querySelectorAll('.editable[id]').forEach(function(el){var v=localStorage.getItem(K+el.id);if(v!==null)el.innerHTML=v;});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){if(localStorage.getItem(K+'chip'+i)==='true')el.classList.add('on');});
+  document.querySelectorAll('.ap').forEach(function(p){if(localStorage.getItem(K+'ap'+p.dataset.s)==='true')p.classList.add('done');});
+  var n=localStorage.getItem(K+'name');if(n){nameInput.value=n;applyName();}
+}
+document.addEventListener('input',function(){clearTimeout(window._t);window._t=setTimeout(autosave,600);});
+window.addEventListener('load',autoload);
+
+/* ============ SESSION CONTENT (changes per session) ============ */
+
+/* ---- Vocabulary: places in town + prepositions ---- */
+var VOCAB=[
+  {w:'park',e:'🌳',p:'green place, trees',s:'park — There is a big park in the centre.'},
+  {w:'cinema',e:'🎬',p:'say: SI-ne-ma',s:'cinema — We watch films at the cinema.'},
+  {w:'library',e:'📚',p:'say: LY-bra-ry',s:'library — The library has ten thousand books.'},
+  {w:'hospital',e:'🏥',p:'doctors work here',s:'hospital — There is a hospital in Millbrook.'},
+  {w:'café',e:'☕',p:'say: KA-fay',s:'café — The café has tables outside.'},
+  {w:'supermarket',e:'🛒',p:'you buy food here',s:'supermarket — The supermarket opens at eight.'},
+  {w:'bus stop',e:'🚌',p:'wait for the bus',s:'bus stop — People wait at the bus stop.'},
+  {w:'bridge',e:'🌉',p:'goes over water',s:'bridge — There is a bridge over the river.'},
+  {w:'post office',e:'📮',p:'send letters here',s:'post office — You send letters at the post office.'},
+  {w:'square',e:'⛲',p:'say: SKWAIR',s:'square — There is a fountain in the square.'},
+  {w:'next to',e:'🤝',p:'right beside',s:'next to — The café is next to the park.'},
+  {w:'between',e:'↔️',p:'in the middle of two',s:'between — The car park is between the town hall and the café.'},
+  {w:'opposite',e:'🔁',p:'across the road',s:'opposite — The town hall is opposite the park.'},
+  {w:'in front of',e:'🔜',p:'before it',s:'in front of — The bus stop is in front of the supermarket.'},
+  {w:'behind',e:'🔙',p:'at the back of it',s:'behind — The school is behind the park.'},
+  {w:'near',e:'📍',p:'not far away',s:'near — The supermarket is near the car park.'}
+];
+(function buildVocab(){
+  var g=document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v){
+    var d=document.createElement('div');d.className='vc';
+    d.innerHTML='<div class="vc-play">🔊</div><div class="vc-emoji">'+v.e+'</div><div class="vc-word">'+v.w+'</div><div class="vc-pron">'+v.p+'</div>';
+    d.onclick=function(){say(v.s);};
+    g.appendChild(d);
+  });
+})();
+
+/* ---- Place chips for Step 6 (places only, no prepositions) ---- */
+(function(){
+  var c=document.getElementById('place-chips');
+  VOCAB.slice(0,10).forEach(function(v){
+    var s=document.createElement('span');s.className='chip';s.textContent=v.e+' '+v.w;
+    s.onclick=function(){s.classList.toggle('on');say('In my town, there is a '+v.w+'.');};
+    c.appendChild(s);
+  });
+})();
+
+/* ---- Quizzes ---- */
+buildQuiz('vocab-quiz',[
+  {q:'📚 You go here to read and borrow books…',options:['library','cinema','hospital'],answer:'library'},
+  {q:'🎬 You watch films here…',options:['post office','cinema','square'],answer:'cinema'},
+  {q:'🛒 You buy food and drinks here…',options:['bus stop','bridge','supermarket'],answer:'supermarket'},
+  {q:'🚌 You wait here for the bus…',options:['bus stop','café','park'],answer:'bus stop'},
+  {q:'↔️ B is in the middle: A — B — C. B is ___ A and C.',options:['between','behind','next to'],answer:'between'},
+  {q:'🔁 The café is across the road from the park. It is ___ the park.',options:['opposite','in front of','near'],answer:'opposite'}
+]);
+buildQuiz('reading-quiz',[
+  {q:'What is in the centre of Millbrook?',options:['a big park','a shopping mall','a hospital'],answer:'a big park'},
+  {q:'Where is the café?',options:['next to the park','behind the school','opposite the supermarket'],answer:'next to the park'},
+  {q:'What is in front of the supermarket?',options:['a fountain','a bus stop','a car park'],answer:'a bus stop'},
+  {q:'Where is the school?',options:['behind the park','between the café and the town hall','opposite the library'],answer:'behind the park'},
+  {q:'What ISN\'T there in Millbrook?',options:['a cinema','a shopping mall','a post office'],answer:'a shopping mall'}
+]);
+buildQuiz('grammar-quiz',[
+  {q:'There ___ a park in my town. 🌳',options:['is','are'],answer:'is'},
+  {q:'There ___ two cafés in the centre. ☕☕',options:['is','are'],answer:'are'},
+  {q:'There ___ a cinema in my village. ❌ (one thing)',options:['isn\'t','aren\'t'],answer:'isn\'t'},
+  {q:'There ___ any buses on Sunday. ❌ (many things)',options:['isn\'t','aren\'t'],answer:'aren\'t'},
+  {q:'___ there a hospital near here?',options:['Is','Are'],answer:'Is'},
+  {q:'___ there any shops on your street?',options:['Is','Are'],answer:'Are'},
+  {q:'Is there a bus stop? — Yes, there ___.',options:['is','are','does'],answer:'is'},
+  {q:'Are there any restaurants? — No, there ___.',options:['isn\'t','aren\'t'],answer:'aren\'t'},
+  {q:'The library is ___ the school. 🤝 (right beside it)',options:['next to','between','behind'],answer:'next to'}
+]);
+buildQuiz('ch-quiz1',[
+  {q:'🗺️ Millbrook: the cinema is ___ the library and the hospital.',options:['between','next to','behind'],answer:'between'},
+  {q:'🗺️ Millbrook: the bus stop is ___ the supermarket.',options:['in front of','behind','between'],answer:'in front of'},
+  {q:'🗺️ Millbrook: the town hall is ___ the park — across the road.',options:['opposite','under','between'],answer:'opposite'}
+]);
+buildQuiz('ch-quiz2',[
+  {q:'Make it negative: "There is a cinema." →',options:['There isn\'t a cinema.','There aren\'t a cinema.','There is no a cinema.'],answer:'There isn\'t a cinema.'},
+  {q:'Make it negative: "There are restaurants." →',options:['There aren\'t any restaurants.','There isn\'t any restaurants.','There are no any restaurants.'],answer:'There aren\'t any restaurants.'},
+  {q:'Make it a question: "There is a park near here." →',options:['Is there a park near here?','There is a park near here?','Are there a park near here?'],answer:'Is there a park near here?'}
+]);
+buildQuiz('ch-quiz3',[
+  {q:'🧭 "Go straight on, then take the first street on the LEFT." What do you do at that street?',options:['turn left','turn right','stop'],answer:'turn left'},
+  {q:'🧭 A polite start when you ask a stranger for directions:',options:['"Excuse me, where is the library?"','"Hey you! Library!"','"Give me the library."'],answer:'"Excuse me, where is the library?"'},
+  {q:'🧭 "The café is on your right" means the café is…',options:['on the right side as you walk','behind you','under a bridge'],answer:'on the right side as you walk'},
+  {q:'👑 BOSS: "Turn right at the square, and the museum is ___ your left, ___ the café and the park."',options:['on / between','in / next to','at / opposite'],answer:'on / between'}
+]);
+</script>
+</body>
+</html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>English Level Placement — Course Library</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--accent:#37474F;--accent2:#546E7A}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1a;font-size:17px;line-height:1.6;padding-bottom:90px}
+.page-header{background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;padding:26px 20px;text-align:center}
+.page-header h1{font-size:26px;font-weight:800}
+.page-header .subtitle{font-size:14px;opacity:0.9;margin-top:4px}
+.badge{display:inline-block;background:rgba(255,255,255,0.2);padding:6px 16px;border-radius:20px;font-size:14px;margin-top:10px}
+.container{max-width:860px;margin:0 auto;padding:18px}
+.namebox{background:white;border:2px solid var(--accent);border-radius:14px;padding:14px 18px;margin:16px 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.namebox label{font-weight:700;font-size:15px}
+.namebox input{flex:1;min-width:160px;font-size:17px;padding:8px 12px;border:2px dashed #90A4AE;border-radius:8px;font-family:inherit}
+.section{background:white;border-radius:16px;margin:18px 0;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,0.07)}
+.sec-head{padding:14px 20px;color:white;font-size:17px;font-weight:800;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sec-head .step{margin-left:auto;font-size:12px;font-weight:700;background:rgba(255,255,255,0.25);padding:3px 12px;border-radius:12px;white-space:nowrap}
+.sec-head .timing{font-size:12px;font-weight:400;background:rgba(255,255,255,0.18);padding:3px 10px;border-radius:12px}
+.sec-body{padding:18px 20px}
+.zoom-cue{display:block;font-size:13px;font-weight:600;color:#37474F;background:#E1F5FE;border-left:4px solid #0288D1;border-radius:0 8px 8px 0;padding:7px 12px;margin:0 0 14px}
+.s-a .sec-head{background:#1565C0}.s-b .sec-head{background:#AD1457}.s-c .sec-head{background:#6A1B9A}.s-d .sec-head{background:#00695C}.s-e .sec-head{background:#E65100}.s-f .sec-head{background:#2E7D32}
+.qz{background:#FAFAFA;border:1px solid #E0E0E0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.qz .q{font-weight:700;font-size:16px;margin-bottom:10px}
+.qz .tag{display:inline-block;font-size:11px;font-weight:800;background:#ECEFF1;color:#546E7A;border-radius:8px;padding:1px 8px;margin-left:6px;vertical-align:middle}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{font-family:inherit;font-size:15px;font-weight:600;padding:8px 16px;border-radius:10px;border:2px solid #B0BEC5;background:white;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt.correct{background:#C8E6C9;border-color:#2E7D32}
+.opt.wrong{background:#FFCDD2;border-color:#C62828}
+.opt:disabled{cursor:default;opacity:0.85}
+.hint{font-size:14px;color:#555;background:#F5F5F5;border-radius:8px;padding:8px 12px;margin:10px 0}
+.frame{background:#FCE4EC;border-left:5px solid #AD1457;border-radius:0 10px 10px 0;padding:12px 16px;margin:12px 0;font-size:15px}
+.reading-text{background:#F3E5F5;border-radius:12px;padding:16px 18px;font-size:16px;max-width:65ch;margin:10px 0}
+.reading-text h4{color:#6A1B9A;font-size:14px;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.4px}
+.reading-text p{margin:6px 0}
+.rubric{width:100%;border-collapse:collapse;font-size:14px;margin:10px 0}
+.rubric th,.rubric td{border:1px solid #CFD8DC;padding:8px 10px;text-align:left;vertical-align:top}
+.rubric th{background:#ECEFF1}
+.rubric select{font-family:inherit;font-size:15px;padding:4px 8px;border-radius:8px;border:2px solid #B0BEC5}
+.editable{min-height:34px;background:#FFFDE7;border:2px dashed #9E9D24;border-radius:8px;padding:8px 12px;font-size:16px;outline:none}
+.editable.tall{min-height:70px}
+.editable:empty::before{content:attr(data-placeholder);color:#999}
+/* Results */
+.levelbars{margin:14px 0}
+.lb{display:flex;align-items:center;gap:10px;margin:6px 0;font-size:14px;font-weight:600}
+.lb .lbl{width:210px}
+.lb .track{flex:1;height:16px;background:#ECEFF1;border-radius:8px;overflow:hidden}
+.lb .fillb{height:100%;width:0;background:linear-gradient(90deg,#42A5F5,#1E88E5);transition:width 0.5s}
+.lb .pc{width:88px;text-align:right}
+.verdict{background:linear-gradient(135deg,#1B5E20,#388E3C);color:white;border-radius:14px;padding:20px 24px;text-align:center;margin:14px 0}
+.verdict h2{font-size:22px}
+.verdict .lvl-name{font-size:30px;font-weight:800;margin:8px 0}
+.verdict p{font-size:14px;opacity:0.95}
+.t-only{display:none}
+body.teacher-mode .t-only{display:block}
+.teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
+.teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:white;box-shadow:0 -3px 12px rgba(0,0,0,0.12);padding:10px 14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;z-index:60}
+.bb{font-family:inherit;font-size:14px;font-weight:700;padding:10px 18px;border-radius:10px;border:none;cursor:pointer;color:white}
+.bb-calc{background:#1565C0}.bb-save{background:#2E7D32}.bb-print{background:#546E7A}.bb-teach{background:#C62828}
+#toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#2E7D32;color:white;font-weight:700;padding:10px 22px;border-radius:20px;opacity:0;transition:all 0.3s;z-index:70}
+#toast.show{opacity:1}
+@media print{body{padding-bottom:0}.bottom-bar,#toast{display:none!important}.section{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>🧭 English Level Placement</h1>
+  <div class="subtitle">English Course Library · finds the right starting level (0–6)</div>
+  <div class="badge">⏱ ≈20–25 min on Zoom · teacher-guided · kind &amp; low-pressure</div>
+</div>
+
+<div id="toast">✓ Saved</div>
+
+<div class="container">
+
+<div class="namebox">
+  <label for="student-name">👋 Student's name:</label>
+  <input id="student-name" type="text" placeholder="Type name…">
+  <label for="student-age">Age:</label>
+  <input id="student-age" type="text" style="flex:0;width:70px" placeholder="12">
+</div>
+
+<div class="frame">👩‍🏫 <b>How to run this (teacher):</b> share your screen on Zoom. Tell the student: <em>"This is not a test — it's a treasure map. It just shows me where we start. Wrong answers are useful answers!"</em> Work top to bottom. In Parts A–B <b>stop early</b> when the student misses most questions in a row — say "perfect, that's all I need!" and scroll on. Then press <b>🧮 Calculate level</b>.</div>
+
+<!-- PART A: VOCABULARY LADDER -->
+<div class="section s-a">
+  <div class="sec-head">📝 Part A — Word Ladder <span class="timing">5 min</span><span class="step">auto-scored</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: teacher screen-shares and clicks; student says the answer out loud first.</span>
+    <p class="hint">Questions get harder step by step (the little grey tag shows the level being tested). Stop when several in a row are too hard.</p>
+    <div id="quiz-vocab"></div>
+  </div>
+</div>
+
+<!-- PART B: GRAMMAR LADDER -->
+<div class="section s-b">
+  <div class="sec-head">🔧 Part B — Grammar Ladder <span class="timing">6 min</span><span class="step">auto-scored</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: same as Part A — student answers aloud, teacher clicks.</span>
+    <div id="quiz-grammar"></div>
+  </div>
+</div>
+
+<!-- PART C: READING -->
+<div class="section s-c">
+  <div class="sec-head">📖 Part C — Reading Steps <span class="timing">5 min</span><span class="step">auto-scored</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: student reads each text ALOUD (that's free speaking data!), then answers.</span>
+    <p class="hint">Three short texts: easy → medium → hard. Skip a text if the previous one was clearly too difficult.</p>
+    <div class="reading-text"><h4>Text 1 · easy</h4><p>This is Ben. He is ten. He has a dog. The dog is big and brown. Ben and the dog play in the park every day.</p></div>
+    <div id="quiz-read1"></div>
+    <div class="reading-text"><h4>Text 2 · medium</h4><p>Lena has just come back from her first summer camp, and she can't stop talking about it. She was nervous at the beginning because she didn't know anyone.</p><p>But on the second day, while everyone was building a raft, she made two new friends. If the camp runs again next year, she will definitely go back.</p></div>
+    <div id="quiz-read2"></div>
+    <div class="reading-text"><h4>Text 3 · hard</h4><p>It is often claimed that teenagers are addicted to their phones, yet the evidence is more nuanced than the headlines suggest. Had researchers relied on screen-time alone, they would have missed what actually matters: not how long young people are online, but what they do there.</p><p>A quiet hour spent reading articles is hardly comparable to an hour of doom-scrolling, however similar the two may look on a usage chart.</p></div>
+    <div id="quiz-read3"></div>
+  </div>
+</div>
+
+<!-- PART D: LISTENING -->
+<div class="section s-d">
+  <div class="sec-head">🎧 Part D — Listening <span class="timing">4 min</span><span class="step">auto-scored</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: turn your mic toward the speakers OR let the student open this page herself (drop the link in chat) so the audio is crystal clear.</span>
+    <p class="hint">Press ▶ to play each sentence (computer voice). The student listens — WITHOUT reading — and answers. Play max twice.</p>
+    <div id="quiz-listen"></div>
+  </div>
+</div>
+
+<!-- PART E: SPEAKING (teacher-scored) -->
+<div class="section s-e">
+  <div class="sec-head">🗣️ Part E — Speaking <span class="timing">5 min</span><span class="step">teacher-scored</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, screen share OFF. Just talk.</span>
+    <p>Ask 2–3 of these, going as deep as the student can follow:</p>
+    <div class="frame">
+      1️⃣ <b>Easy:</b> "Tell me about your family." / "What do you do after school?"<br>
+      2️⃣ <b>Medium:</b> "Tell me about the best day you have ever had. What happened?"<br>
+      3️⃣ <b>Hard:</b> "If you could change one rule at school, what would it be and why?"<br>
+      4️⃣ <b>Very hard:</b> "Some people say video games are bad for kids. Do you agree? Convince me."
+    </div>
+    <p><b>Now rate what you heard:</b></p>
+    <table class="rubric">
+      <tr><th>Dimension</th><th>Rate 0–6 (matches library levels)</th></tr>
+      <tr><td><b>Fluency</b> — flow, pauses, keeps going without translating in head</td><td><select id="r-flu"><option value="">—</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></td></tr>
+      <tr><td><b>Grammar range</b> — tenses attempted &amp; accuracy</td><td><select id="r-gra"><option value="">—</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></td></tr>
+      <tr><td><b>Vocabulary</b> — word variety, precision</td><td><select id="r-voc"><option value="">—</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></td></tr>
+    </table>
+    <p class="hint">Anchors: <b>0</b> = isolated words · <b>1</b> = memorized phrases ("I am 12") · <b>2</b> = simple sentences, frequent errors · <b>3</b> = connected speech, past/future attempted · <b>4</b> = comfortable opinions, complex sentences · <b>5</b> = nuanced, rare errors · <b>6</b> = near-native ease.</p>
+  </div>
+</div>
+
+<!-- PART F: RESULT -->
+<div class="section s-f">
+  <div class="sec-head">🏁 Part F — Result <span class="step">press Calculate</span></div>
+  <div class="sec-body">
+    <div class="levelbars" id="levelbars"></div>
+    <div class="verdict" id="verdict" style="display:none">
+      <h2>📍 Recommended starting level</h2>
+      <div class="lvl-name" id="v-level">—</div>
+      <p id="v-note"></p>
+    </div>
+    <div class="field-label" style="font-weight:700;font-size:14px;margin:12px 0 4px">👩‍🏫 Teacher's observations (included in the saved report)</div>
+    <div class="editable tall" id="t-obs" contenteditable="true" data-placeholder="Confidence, pronunciation, attention span, interests to build lessons around…"></div>
+    <div class="teacher-note t-only"><h4>How the recommendation works</h4>Every auto-scored item is tagged with a level (1–6). A level counts as "passed" when ≥60% of its items are correct. The recommendation = highest passed level such that all lower levels also passed (no gaps), averaged with your speaking rating (rounded down when in doubt — starting slightly low builds confidence; you can always jump a level after two easy sessions). Borderline (within half a level) → the note suggests trying the lower level first.</div>
+  </div>
+</div>
+
+</div>
+
+<div class="bottom-bar">
+  <button class="bb bb-calc" onclick="calc()">🧮 Calculate level</button>
+  <button class="bb bb-save" onclick="saveReport()">💾 Save report</button>
+  <button class="bb bb-print" onclick="window.print()">🖨️ Print</button>
+  <button class="bb bb-teach" id="teach-btn" onclick="unlockTeacher()">🔐</button>
+</div>
+
+<script>
+function say(text){try{window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(text);u.lang='en-GB';u.rate=0.9;window.speechSynthesis.speak(u);}catch(e){}}
+
+/* Tagged quiz engine: every item carries lvl (1-6) */
+var ITEMS=[]; // {lvl, ok}
+function buildTagged(containerId,items){
+  var c=document.getElementById(containerId);
+  items.forEach(function(it){
+    var rec={lvl:it.lvl,ok:null};ITEMS.push(rec);
+    var qz=document.createElement('div');qz.className='qz';
+    var head='<div class="q">'+(it.audio?'<button class="opt" style="padding:4px 12px" onclick="say(\''+it.audio.replace(/'/g,"\\'")+'\')">▶ Play</button> ':'')+it.q+'<span class="tag">L'+it.lvl+'</span></div>';
+    var opts='<div class="opts">';
+    it.options.forEach(function(o){opts+='<button class="opt" data-ok="'+(o===it.answer?'1':'0')+'">'+o+'</button>';});
+    opts+='</div>';
+    qz.innerHTML=head+opts;
+    qz.querySelectorAll('.opt[data-ok]').forEach(function(b){
+      b.onclick=function(){
+        if(qz.dataset.done)return;qz.dataset.done='1';
+        var ok=b.dataset.ok==='1';rec.ok=ok;
+        if(ok){b.classList.add('correct');}
+        else{b.classList.add('wrong');var g=qz.querySelector('[data-ok="1"]');if(g)g.classList.add('correct');}
+        qz.querySelectorAll('.opt[data-ok]').forEach(function(x){x.disabled=true;});
+      };
+    });
+    c.appendChild(qz);
+  });
+}
+
+/* PART A — vocabulary ladder (2 per level, L1-L6, + 2 easy L1 warmups=pre-A1 friendly) */
+buildTagged('quiz-vocab',[
+  {lvl:1,q:'🐕 It says "woof". It is a…',options:['dog','cat','bird'],answer:'dog'},
+  {lvl:1,q:'You sleep in a…',options:['kitchen','bed','shoe'],answer:'bed'},
+  {lvl:2,q:'The opposite of "expensive" is…',options:['cheap','empty','early'],answer:'cheap'},
+  {lvl:2,q:'You catch a train at the…',options:['library','station','farm'],answer:'station'},
+  {lvl:3,q:'Someone who is "reliable"…',options:['always does what they promise','tells funny jokes','runs very fast'],answer:'always does what they promise'},
+  {lvl:3,q:'To "give up" means to…',options:['stop trying','wake up','give a present'],answer:'stop trying'},
+  {lvl:4,q:'A "drawback" of a plan is…',options:['a disadvantage','a picture of it','its price'],answer:'a disadvantage'},
+  {lvl:4,q:'If news "spreads like wildfire", it…',options:['travels very fast','is about nature','is dangerous to read'],answer:'travels very fast'},
+  {lvl:5,q:'A "feasible" idea is…',options:['possible to do','very expensive','slightly illegal'],answer:'possible to do'},
+  {lvl:5,q:'To "downplay" a problem means to…',options:['make it seem less important','solve it quickly','write it down'],answer:'make it seem less important'},
+  {lvl:6,q:'Someone speaking "off the cuff" is speaking…',options:['without preparation','very rudely','in a whisper'],answer:'without preparation'},
+  {lvl:6,q:'A "watershed moment" is…',options:['a turning point','a rainy day','a moment of rest'],answer:'a turning point'}
+]);
+
+/* PART B — grammar ladder (3 per level L1-L6) */
+buildTagged('quiz-grammar',[
+  {lvl:1,q:'I ___ eleven years old.',options:['am','is','are'],answer:'am'},
+  {lvl:1,q:'She ___ my best friend.',options:['am','is','are'],answer:'is'},
+  {lvl:1,q:'My brother ___ football every day.',options:['play','plays','playing'],answer:'plays'},
+  {lvl:2,q:'Look! The cat ___ on the roof right now.',options:['sits','is sitting','sat'],answer:'is sitting'},
+  {lvl:2,q:'Yesterday we ___ to the cinema.',options:['go','went','have gone'],answer:'went'},
+  {lvl:2,q:'My bag is ___ than yours.',options:['heavier','more heavy','heaviest'],answer:'heavier'},
+  {lvl:3,q:'I ___ never ___ sushi.',options:['have / eaten','did / eat','was / eating'],answer:'have / eaten'},
+  {lvl:3,q:'If it rains tomorrow, we ___ at home.',options:['will stay','would stay','stayed'],answer:'will stay'},
+  {lvl:3,q:'While I ___ TV, the phone rang.',options:['was watching','watched','have watched'],answer:'was watching'},
+  {lvl:4,q:'She must ___ the bus — she\'s never this late.',options:['have missed','missed','to miss'],answer:'have missed'},
+  {lvl:4,q:'The book, ___ cover was torn, still sold well.',options:['whose','which','that'],answer:'whose'},
+  {lvl:4,q:'If I had studied, I ___ the exam.',options:['would have passed','would pass','passed'],answer:'would have passed'},
+  {lvl:5,q:'___ did she realize what the gift meant.',options:['Only later','Later only','Only was later'],answer:'Only later'},
+  {lvl:5,q:'It was the coach ___ convinced her to continue.',options:['who','whom','whose'],answer:'who'},
+  {lvl:5,q:'I\'d sooner you ___ anyone about this yet.',options:['didn\'t tell','don\'t tell','won\'t tell'],answer:'didn\'t tell'},
+  {lvl:6,q:'___ the storm, the match would have finished.',options:['But for','Except','Despite of'],answer:'But for'},
+  {lvl:6,q:'Not until the final page ___ the truth.',options:['does the reader learn','the reader learns','the reader does learn'],answer:'does the reader learn'},
+  {lvl:6,q:'"Scarcely had she arrived ___ the trouble began."',options:['when','than','that'],answer:'when'}
+]);
+
+/* PART C — reading (text1 L1, text2 L3, text3 L5) */
+buildTagged('quiz-read1',[
+  {lvl:1,q:'How old is Ben?',options:['nine','ten','eleven'],answer:'ten'},
+  {lvl:1,q:'What color is the dog?',options:['black','white','brown'],answer:'brown'}
+]);
+buildTagged('quiz-read2',[
+  {lvl:3,q:'Why was Lena nervous at first?',options:['She didn\'t know anyone','The camp was dangerous','She missed her dog'],answer:'She didn\'t know anyone'},
+  {lvl:3,q:'When did she make friends?',options:['while building a raft','on the bus home','at the campfire'],answer:'while building a raft'},
+  {lvl:3,q:'Will she go back?',options:['Yes, if the camp runs again','No, never','The text doesn\'t say'],answer:'Yes, if the camp runs again'}
+]);
+buildTagged('quiz-read3',[
+  {lvl:5,q:'The writer thinks the "addiction" headlines are…',options:['too simple','completely correct','a lie invented by parents'],answer:'too simple'},
+  {lvl:5,q:'According to the text, what matters most?',options:['what teens do online','how many hours teens are online','which phone teens own'],answer:'what teens do online'},
+  {lvl:5,q:'"Doom-scrolling" is contrasted with…',options:['reading articles','playing sport','sleeping'],answer:'reading articles'}
+]);
+
+/* PART D — listening (audio via TTS; do not show the sentence) */
+buildTagged('quiz-listen',[
+  {lvl:1,audio:'The cat is under the table.',q:'Where is the cat?',options:['under the table','on the table','in the box'],answer:'under the table'},
+  {lvl:2,audio:'Tom cannot come today because he is ill.',q:'Why can\'t Tom come?',options:['he is ill','he is busy','he is on holiday'],answer:'he is ill'},
+  {lvl:3,audio:'Anna has lived in three different countries, but she was born in Italy.',q:'Where was Anna born?',options:['Italy','France','It doesn\'t say'],answer:'Italy'},
+  {lvl:4,audio:'If the bus hadn\'t been late, Maria would have caught her flight.',q:'Did Maria catch her flight?',options:['No','Yes','She took a train'],answer:'No'},
+  {lvl:5,audio:'Far from being disappointed, the coach seemed almost relieved that the season was over.',q:'How did the coach feel?',options:['relieved','disappointed','angry'],answer:'relieved'},
+  {lvl:6,audio:'Had it not been for her sister\'s timely warning, the surprise party would have been anything but a surprise.',q:'Who saved the surprise?',options:['her sister','the party guests','nobody — it was ruined'],answer:'her sister'}
+]);
+
+/* ---- Calculation ---- */
+var LEVEL_NAMES={0:'Level 0 — No Proficiency (pre-A1)',1:'Level 1 — Beginner (A1)',2:'Level 2 — Elementary (A2)',3:'Level 3 — Intermediate (B1)',4:'Level 4 — Upper-Intermediate (B2)',5:'Level 5 — Proficient (C1)',6:'Level 6 — Near-Native (C2)'};
+var lastResult=null;
+function calc(){
+  var per={},bars=document.getElementById('levelbars');bars.innerHTML='';
+  for(var l=1;l<=6;l++)per[l]={ok:0,ans:0,tot:0};
+  ITEMS.forEach(function(it){per[it.lvl].tot++;if(it.ok!==null){per[it.lvl].ans++;if(it.ok)per[it.lvl].ok++;}});
+  var auto=0;
+  for(var l=1;l<=6;l++){
+    var p=per[l],pct=p.ans?Math.round(p.ok/p.ans*100):0;
+    var passed=p.ans>0&&(p.ok/p.ans)>=0.6;
+    if(passed&&auto===l-1)auto=l;
+    var row=document.createElement('div');row.className='lb';
+    row.innerHTML='<span class="lbl">'+LEVEL_NAMES[l].split(' — ')[0]+' ('+LEVEL_NAMES[l].match(/\(([^)]+)\)/)[1]+')</span><div class="track"><div class="fillb" style="width:'+(p.ans?pct:0)+'%"></div></div><span class="pc">'+(p.ans? p.ok+'/'+p.ans+' · '+pct+'%':'skipped')+'</span>';
+    bars.appendChild(row);
+  }
+  var sp=[document.getElementById('r-flu').value,document.getElementById('r-gra').value,document.getElementById('r-voc').value].filter(function(x){return x!=='';}).map(Number);
+  var spAvg=sp.length?sp.reduce(function(a,b){return a+b;},0)/sp.length:null;
+  var final,note;
+  if(spAvg===null){final=auto;note='Based on auto-scored parts only — add the speaking ratings (Part E) for a fuller picture.';}
+  else{final=Math.floor((auto+spAvg)/2);
+    note=(Math.abs(auto-spAvg)>=2)?'⚠️ Written level (L'+auto+') and speaking level (~L'+Math.round(spAvg)+') differ a lot — start at the LOWER one and stretch upward.':'Auto-scored level L'+auto+' + speaking ~L'+Math.round(spAvg)+'. When in doubt, start one lower: early wins build confidence, and you can jump a level after two easy sessions.';}
+  document.getElementById('verdict').style.display='block';
+  document.getElementById('v-level').textContent=LEVEL_NAMES[final];
+  document.getElementById('v-note').textContent=note;
+  lastResult={per:per,auto:auto,speaking:spAvg,final:final};
+}
+
+/* ---- Save report ---- */
+function saveReport(){
+  if(!lastResult){alert('Press 🧮 Calculate level first!');return;}
+  var n=(document.getElementById('student-name').value.trim()||'Student');
+  var out='ENGLISH PLACEMENT REPORT\n'+'='.repeat(34)+'\nStudent: '+n+'  ·  Age: '+(document.getElementById('student-age').value||'—')+'\nDate: '+new Date().toLocaleDateString()+'\n\n';
+  for(var l=1;l<=6;l++){var p=lastResult.per[l];out+='L'+l+': '+(p.ans?(p.ok+'/'+p.ans+' correct'):'skipped')+'\n';}
+  out+='\nAuto-scored level: L'+lastResult.auto;
+  out+='\nSpeaking rating: '+(lastResult.speaking===null?'—':('~L'+Math.round(lastResult.speaking)));
+  out+='\n\n>>> RECOMMENDED START: '+LEVEL_NAMES[lastResult.final]+' <<<\n';
+  var obs=document.getElementById('t-obs').innerText.trim();
+  if(obs)out+='\nTeacher observations:\n'+obs+'\n';
+  var b=new Blob([out],{type:'text/plain;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u;a.download='Placement_'+n.replace(/\s+/g,'')+'_'+new Date().toISOString().slice(0,10)+'.txt';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);
+  var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show');},1600);
+}
+
+function unlockTeacher(){
+  if(document.body.classList.contains('teacher-mode')){document.body.classList.remove('teacher-mode');document.getElementById('teach-btn').textContent='🔐';return;}
+  if(prompt('Teacher PIN:')==='teach'){document.body.classList.add('teacher-mode');document.getElementById('teach-btn').textContent='🔓 Teacher';}
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>L3 · Session 10 — Escape Room Review 🔐</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--accent:#1565C0;--accent2:#1E88E5}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1a;font-size:17px;line-height:1.6;padding-bottom:90px}
+.page-header{background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;padding:26px 20px;text-align:center}
+.page-header h1{font-size:26px;font-weight:800;letter-spacing:-0.3px}
+.page-header .subtitle{font-size:14px;opacity:0.9;margin-top:4px}
+.badge{display:inline-block;background:rgba(255,255,255,0.2);padding:6px 16px;border-radius:20px;font-size:14px;margin-top:10px}
+.lvl{display:inline-block;background:#FFD54F;color:#5D4037;font-weight:800;font-size:12px;padding:3px 12px;border-radius:12px;letter-spacing:0.5px;margin-bottom:8px}
+.container{max-width:860px;margin:0 auto;padding:18px}
+
+/* Student name */
+.namebox{background:white;border:2px solid var(--accent);border-radius:14px;padding:14px 18px;margin:16px 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.namebox label{font-weight:700;font-size:15px}
+.namebox input{flex:1;min-width:160px;font-size:17px;padding:8px 12px;border:2px dashed #90A4AE;border-radius:8px;font-family:inherit}
+.namebox .hello{font-weight:700;color:var(--accent)}
+
+/* Agenda */
+.agenda{background:white;border-radius:14px;padding:16px 18px;margin:14px 0;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.agenda h2{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:#666;margin-bottom:10px}
+.agenda-pills{display:flex;flex-wrap:wrap;gap:8px}
+.ap{display:flex;align-items:center;gap:6px;background:#ECEFF1;border:2px solid transparent;border-radius:20px;padding:5px 13px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.ap.done{background:#C8E6C9;border-color:#2E7D32;text-decoration:line-through;opacity:0.8}
+
+/* Sections */
+.section{background:white;border-radius:16px;margin:18px 0;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,0.07)}
+.sec-head{padding:14px 20px;color:white;font-size:17px;font-weight:800;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sec-head .icon{font-size:22px}
+.sec-head .step{margin-left:auto;font-size:12px;font-weight:700;background:rgba(255,255,255,0.25);padding:3px 12px;border-radius:12px;white-space:nowrap}
+.sec-head .timing{font-size:12px;font-weight:400;background:rgba(255,255,255,0.18);padding:3px 10px;border-radius:12px;white-space:nowrap}
+.sec-body{padding:18px 20px}
+.zoom-cue{display:block;font-size:13px;font-weight:600;color:#37474F;background:#E1F5FE;border-left:4px solid #0288D1;border-radius:0 8px 8px 0;padding:7px 12px;margin:0 0 14px}
+.goal .sec-head{background:#2E7D32}
+.warmup .sec-head{background:#E65100}
+.vocab .sec-head{background:#1565C0}
+.reading .sec-head{background:#6A1B9A}
+.grammar .sec-head{background:#AD1457}
+.task .sec-head{background:#00695C}
+.challenge .sec-head{background:#F57F17}
+.review .sec-head{background:#BF360C}
+.skipif{background:#FFF8E1;border:1px dashed #F9A825;border-radius:10px;padding:10px 14px;margin-top:12px;font-size:14px}
+.skipif b{color:#F57F17}
+
+/* Movement break */
+.move{background:linear-gradient(135deg,#00BFA5,#00897B);color:white;border-radius:16px;margin:18px 0;padding:18px 22px;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,0.1)}
+.move h2{font-size:20px;font-weight:800}
+.move p{font-size:15px;opacity:0.95;margin-top:6px}
+
+/* Vocab cards */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:14px 0}
+.vc{background:#E3F2FD;border:2px solid #90CAF9;border-radius:12px;padding:12px 10px;text-align:center;cursor:pointer;transition:transform 0.12s}
+.vc:hover{transform:scale(1.04);border-color:var(--accent)}
+.vc .vc-emoji{font-size:30px}
+.vc .vc-word{font-weight:800;font-size:15px;margin-top:4px;color:#0D47A1}
+.vc .vc-pron{font-size:12px;color:#666}
+.vc .vc-play{font-size:13px;color:#1565C0}
+
+/* Quiz engine */
+.qz{background:#FAFAFA;border:1px solid #E0E0E0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.qz .q{font-weight:700;font-size:16px;margin-bottom:10px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{font-family:inherit;font-size:15px;font-weight:600;padding:8px 16px;border-radius:10px;border:2px solid #B0BEC5;background:white;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt.correct{background:#C8E6C9;border-color:#2E7D32}
+.opt.wrong{background:#FFCDD2;border-color:#C62828}
+.opt:disabled{cursor:default;opacity:0.85}
+.fb{font-size:14px;font-weight:600;margin-top:8px;display:none}
+.fb.ok{display:block;color:#2E7D32}
+.fb.no{display:block;color:#C62828}
+
+/* Score bar */
+.scorebar{position:sticky;top:0;z-index:50;background:white;box-shadow:0 2px 8px rgba(0,0,0,0.12);padding:8px 16px;display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px}
+.scorebar .bar{flex:1;height:10px;background:#ECEFF1;border-radius:6px;overflow:hidden}
+.scorebar .fill{height:100%;width:0;background:linear-gradient(90deg,#43A047,#66BB6A);transition:width 0.4s}
+.stars{font-size:16px}
+
+/* Reading */
+.reading-text{background:#F3E5F5;border-radius:12px;padding:18px 20px;font-size:17px;max-width:65ch}
+.reading-text h4{color:#6A1B9A;font-size:15px;margin:14px 0 6px;text-transform:uppercase;letter-spacing:0.4px}
+.reading-text h4:first-child{margin-top:0}
+.reading-text p{margin:8px 0}
+
+/* Editable fields */
+.field-label{font-weight:700;font-size:14px;margin:12px 0 4px;color:#37474F}
+.editable{min-height:34px;background:#FFFDE7;border:2px dashed #9E9D24;border-radius:8px;padding:8px 12px;font-size:16px;outline:none}
+.editable.tall{min-height:70px}
+.editable:focus{border-style:solid;border-color:var(--accent)}
+.editable:empty::before{content:attr(data-placeholder);color:#999}
+.qa-item{margin:12px 0}
+.qa-item .q{font-weight:700;font-size:15px;margin-bottom:5px}
+
+/* Frames / rule boxes */
+.frame{background:#FCE4EC;border-left:5px solid #AD1457;border-radius:0 10px 10px 0;padding:12px 16px;margin:12px 0;font-size:16px}
+.rulebox{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.rule{border-radius:12px;padding:14px 16px;font-size:15px}
+.rule h4{font-size:15px;margin-bottom:8px}
+.rule.a{background:#E8F5E9;border:2px solid #66BB6A}
+.rule.a h4{color:#2E7D32}
+.rule.b{background:#FFF3E0;border:2px solid #FFA726}
+.rule.b h4{color:#E65100}
+.hint{font-size:14px;color:#555;background:#F5F5F5;border-radius:8px;padding:8px 12px;margin:10px 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.chip{background:#E1F5FE;border:2px solid #81D4FA;border-radius:16px;padding:5px 14px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.chip.on{background:#0288D1;border-color:#01579B;color:white}
+.speak{background:#E8F5E9;border-radius:10px;padding:12px 16px;font-size:16px;margin:12px 0}
+
+/* Teacher mode */
+.t-only{display:none}
+body.teacher-mode .t-only{display:block}
+.teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
+.teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
+
+/* Bottom bar */
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:white;box-shadow:0 -3px 12px rgba(0,0,0,0.12);padding:10px 14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;z-index:60}
+.bb{font-family:inherit;font-size:14px;font-weight:700;padding:10px 18px;border-radius:10px;border:none;cursor:pointer;text-decoration:none;color:white;display:inline-block}
+.bb-save{background:#2E7D32}
+.bb-print{background:#546E7A}
+.bb-teach{background:#C62828}
+#toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:#2E7D32;color:white;font-weight:700;padding:10px 22px;border-radius:20px;opacity:0;transition:all 0.3s;z-index:70}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:640px){.rulebox{grid-template-columns:1fr}.vocab-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}}
+@media print{body{background:white;padding-bottom:0}.bottom-bar,.scorebar,#toast{display:none!important}.section{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid}.sec-head,.sec-body,.page-header{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="lvl">LEVEL 3 · INTERMEDIATE (B1)</div>
+  <h1>⭐ Session 10 — Escape Room Review 🔐</h1>
+  <div class="subtitle">English Course Library · Kids &amp; Teens</div>
+  <div class="badge">🎯 Today: escape the Grammar Vault using EVERYTHING from Level 3 — and win your certificate! · ≈50 min core</div>
+</div>
+
+<div class="scorebar">
+  <span>⭐ Score:</span><span id="score-num">0 / 0</span>
+  <div class="bar"><div class="fill" id="score-fill"></div></div>
+  <span class="stars" id="score-stars"></span>
+</div>
+
+<div id="toast">✓ Saved</div>
+
+<div class="container">
+
+<div class="namebox">
+  <label for="student-name">👋 Your name:</label>
+  <input id="student-name" type="text" placeholder="Type your name…">
+  <span class="hello" id="hello-msg"></span>
+</div>
+
+<div class="agenda">
+  <h2>📋 Today's plan — tap each step when you finish it</h2>
+  <div class="agenda-pills" id="agenda">
+    <span class="ap" data-s="1">1️⃣ Goal</span><span class="ap" data-s="2">2️⃣ Warm-up</span>
+    <span class="ap" data-s="3">3️⃣ New words</span><span class="ap" data-s="4">4️⃣ Reading</span>
+    <span class="ap" data-s="5">5️⃣ Grammar</span><span class="ap" data-s="6">6️⃣ Create</span>
+    <span class="ap" data-s="7">7️⃣ Game</span><span class="ap" data-s="8">8️⃣ Review</span>
+  </div>
+</div>
+
+<!-- STEP 1 GOAL -->
+<div class="section goal">
+  <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Mission Briefing <span class="timing">2 min</span><span class="step">Step 1</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on. Read the mission in a dramatic spy voice — student says it back in their own words.</span>
+    <p><em>"Agent, you are locked inside the <b>Grammar Vault</b>. Nine sessions of Level 3 knowledge are the only keys: present perfect, past continuous, conditionals, passive, reported speech, phrasal verbs, opinions, quantifiers and used to. Solve the rooms, escape the vault — and your Level 3 certificate is yours."</em> 🔐</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>This is a REVIEW session — no new grammar. Play up the escape-room drama (timer sounds, whispering, "the vault is listening"). Note which of the nine topics the student names confidently in the mission read-back; the ones they skip are the ones to slow down on later.</div>
+  </div>
+</div>
+
+<!-- STEP 2 WARM-UP -->
+<div class="section warmup">
+  <div class="sec-head"><span class="icon">⚡</span> Warm-Up — The Password Door <span class="timing">5 min</span><span class="step">Step 2</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, no screen yet. Count correct passwords on your fingers at the camera — 8 fingers = the door creaks open.</span>
+    <p><b>How to play:</b> the first door needs 8 spoken passwords. Your teacher names a category from Level 3 — you say ONE example in 5 seconds. ⏱️</p>
+    <p>Examples: <em>"a phrasal verb!" → "give up!"</em> · <em>"a travel word!" → "boarding pass!"</em> · <em>"an opinion starter!" → "In my opinion…"</em></p>
+    <p class="hint">No score here — just wake up your English brain! 🧠</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 2</h4>Use all nine sessions as categories: a "have you ever" question (S1) · a storytelling word (S2) · a sentence with "if" (S3) · something that "was invented" (S4) · report my sentence (S5) · a phrasal verb (S6) · agree with me politely (S7) · a media word (S8) · a "used to" sentence (S9). Speed over perfection — this is retrieval practice.</div>
+  </div>
+</div>
+
+<!-- STEP 3 VOCAB -->
+<div class="section vocab">
+  <div class="sec-head"><span class="icon">📝</span> Key Words Vault — Level 3 Review <span class="timing">10 min</span><span class="step">Step 3</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share your screen. YOU click 🔊 — student repeats the word AND says which session it comes from.</span>
+    <p>These 13 keys open the vault — one or two from each session. Tap any card to <b>hear</b> it 🔊, say it out loud, and remember where you met it!</p>
+    <div class="vocab-grid" id="vocab-grid"></div>
+    <h3>🎧 Practice — tap the right key word</h3>
+    <p class="hint">Read the clue and tap the word that matches. Green = correct!</p>
+    <div id="vocab-quiz"></div>
+  </div>
+</div>
+
+<!-- STEP 4 READING -->
+<div class="section reading">
+  <div class="sec-head"><span class="icon">📖</span> Reading — The Mystery of Room 9 <span class="timing">10 min</span><span class="step">Step 4</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. Student reads one chunk aloud, you read the next — take turns. Then they annotate answers on your screen (Zoom → Annotate).</span>
+    <p>Read the story of Milo's escape. Tap 🔊 to hear any part read aloud.
+      <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
+    <div class="reading-text" id="read-text">
+      <h4>🔐 The strange invitation</h4>
+      <p>On Friday afternoon, Milo found a strange envelope in his schoolbag. Inside was a golden ticket.</p>
+      <p>It said: <em>"You <b>have been chosen</b>. Come to the old library at four o'clock. Bring your English brain."</em></p>
+      <h4>🚪 The locked room</h4>
+      <p>Milo <b>had never seen</b> the library so quiet. At exactly four o'clock, the heavy door closed behind him — click!</p>
+      <p>He looked around: dark shelves, a giant clock, and nine locked boxes on a long wooden table.</p>
+      <p>A friendly voice spoke from a hidden speaker: <em>"Welcome to Room 9. You have one hour. <b>If you solve</b> all the puzzles, you <b>will find</b> the key."</em></p>
+      <h4>🕰️ The first clue</h4>
+      <p>Milo <b>was looking</b> at the bookshelf <b>when</b> he noticed something odd. One green book was upside down.</p>
+      <p><b>While he was pulling</b> it out, a secret drawer opened in the old desk. Inside lay a yellow note.</p>
+      <p>The note said: <em>"This library <b>was built</b> in 1891. The first puzzle <b>was hidden</b> by the builder himself."</em></p>
+      <h4>🗝️ The riddle</h4>
+      <p>Under the desk, Milo found a small radio. The voice <b>told him that</b> the answer <b>was</b> on the ceiling.</p>
+      <p>He looked up and laughed. Many years ago, someone had painted a giant golden seven above the lamp.</p>
+      <p>Seven turned the lock. Then came a word puzzle, a number code, and a map that <b>was drawn</b> in invisible ink.</p>
+      <h4>🎉 The escape</h4>
+      <p>At five to five, Milo turned the final key. The door swung open, and his teacher was waiting outside with a huge smile.</p>
+      <p><em>"Congratulations! You <b>have used</b> everything you learned this year. <b>If you keep</b> practising, you <b>will be</b> unstoppable."</em></p>
+      <p>Milo grinned and asked: "Can I do it again?"</p>
+    </div>
+
+    <h3>🔎 Did you understand? Tap your answer</h3>
+    <div id="reading-quiz"></div>
+
+    <h3>💬 Your turn — write your answer</h3>
+    <div class="qa-item"><div class="q">1. Grammar detective 🕵️: find ONE sentence in the story with the PASSIVE voice and copy it here.</div><div class="editable" id="r-open1" contenteditable="true" data-placeholder="The library was… / The puzzle was…"></div></div>
+    <div class="qa-item"><div class="q">2. If YOU designed an escape room, what would you hide, and where? (second conditional!)</div><div class="editable tall" id="r-open2" contenteditable="true" data-placeholder="If I designed an escape room, I would hide…"></div></div>
+
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> the two written questions above can be homework instead.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 4 + answer key</h4>Quiz answers: a golden ticket · pulling out a book · in 1891 · that the answer was on the ceiling. Open Q1 accepts any of: "This library was built in 1891." / "The first puzzle was hidden by the builder himself." / "a map that was drawn in invisible ink." / "You have been chosen." Open Q2 needs "If I … I would…". The bold phrases are a tour of the whole level — after the quiz, ask the student to NAME the grammar of two bold phrases ("that's passive!", "that's past continuous!").</div>
+  </div>
+</div>
+
+<!-- STEP 5 GRAMMAR -->
+<div class="section grammar">
+  <div class="sec-head"><span class="icon">🔧</span> The Codebreaker — All of Level 3 in One Box <span class="timing">10 min</span><span class="step">Step 5</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. Before each answer, student must NAME the session topic ("that's reported speech!") — then say the answer, THEN you click.</span>
+    <div class="rulebox">
+      <div class="rule a"><h4>🧰 YOUR LEVEL 3 TOOLBOX</h4>
+        S1 · present perfect vs past simple<br>
+        S2 · past continuous ("was doing… when")<br>
+        S3 · first &amp; second conditional<br>
+        S4 · passive ("was built")<br>
+        S5 · reported speech ("she said that…")</div>
+      <div class="rule b"><h4>🧰 …AND THE REST</h4>
+        S6 · phrasal verbs (give up, find out…)<br>
+        S7 · opinions ("In my opinion… I agree")<br>
+        S8 · quantifiers (much/many/a few…)<br>
+        S9 · used to + polite questions<br><br>
+        🔑 Naming the tool is half the answer!</div>
+    </div>
+    <p class="hint">💡 Tip: for every codebreaker item, first ask yourself WHICH session the puzzle comes from. Recognise the tool → the answer almost clicks by itself.</p>
+    <h3>✏️ Crack the codes — tap the correct answer</h3>
+    <div id="grammar-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>Answer map: Q1→S1, Q2→S2, Q3→S3, Q4→S4, Q5→S5, Q6→S6, Q7→S7, Q8→S8, Q9→S9. Any topic with a miss = note it for the Step 8 recap and for the first minutes of Level 4 Session 1. 7+/9 means the level is solid.</div>
+  </div>
+</div>
+
+<!-- MOVE BREAK -->
+<div class="move">
+  <h2>🤸 MOVE! — 1 minute break</h2>
+  <p>Stand up, secret agent! Air-write the code word E-S-C-A-P-E with your whole arm — huge letters! Then 5 silent ninja jumps. 🥷 Cameras stay on — teacher does it too! 😄</p>
+</div>
+
+<!-- STEP 6 CREATIVE TASK -->
+<div class="section task">
+  <div class="sec-head"><span class="icon">🎨</span> Create — Build Your Own Escape Puzzle <span class="timing">10 min</span><span class="step">Step 6</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in their own browser and types here while you watch on their shared screen (Zoom → Share Screen).</span>
+    <p>Now YOU are the game master! 🎩 Design one escape-room puzzle in English — your teacher has to solve it live.</p>
+    <h3>First, tap a theme for your room:</h3>
+    <div class="chips" id="exp-chips"></div>
+    <div class="field-label">🗝️ What is hidden, and where? (use the PASSIVE: "The key is hidden…")</div>
+    <div class="editable" id="t-hidden" contenteditable="true" data-placeholder="The key is hidden… / A code was written…"></div>
+    <div class="field-label">🧩 Write your riddle or clue (any Level 3 grammar you like)</div>
+    <div class="editable tall" id="t-riddle" contenteditable="true" data-placeholder="If you want the key, you must… / I have never… but I…"></div>
+    <div class="field-label">🔓 The escape sentence — what must the player SAY to get out? (make it use present perfect!)</div>
+    <div class="editable" id="t-escape" contenteditable="true" data-placeholder="You can only leave if you say: 'I have…'"></div>
+    <div class="speak">🗣️ <b>Game on!</b> Read your puzzle to your teacher in your best game-master voice. Teacher gets TWO guesses. If they fail — you win the round! 🏆</div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> do only the riddle + the live game; type the other fields as homework.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>Guess wrong once on purpose — being smarter than the teacher for one minute is rocket fuel. Check the three fields use the target structures (passive / free choice / present perfect). If the riddle is too easy, ask them to add ONE more condition with "if".</div>
+  </div>
+</div>
+
+<!-- STEP 7 CHALLENGE GAME -->
+<div class="section challenge">
+  <div class="sec-head"><span class="icon">🎮</span> Challenge — Escape the Grammar Vault <span class="timing">8 min</span><span class="step">Step 7</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: student's browser, their clicks, their score! You watch on their shared screen, play dramatic music and cheer. 🎉</span>
+    <p class="hint">🔐 Three locked rooms stand between you and the certificate. Beat 80% overall for ⭐⭐⭐ and a heroic escape!</p>
+    <h3>🚪 Room 1 — The Tense Cellar (Sessions 1–2)</h3>
+    <div id="ch-quiz1"></div>
+    <h3>🪞 Room 2 — The Mirror Hall (Sessions 3–5)</h3>
+    <div id="ch-quiz2"></div>
+    <h3>🗝️ Room 3 — The Final Door (Sessions 6–9) 👑</h3>
+    <div id="ch-quiz3"></div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Room 3 can be the start of the Level 4 kickoff lesson.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>All answers show live in their score. Wrong answers auto-reveal the correct one in green — on each miss ask "which session was that tool from?" After Room 3, announce the escape dramatically: "The vault is OPEN!" — then scroll straight to the certificate in Step 8.</div>
+  </div>
+</div>
+
+<!-- STEP 8 REVIEW -->
+<div class="section review">
+  <div class="sec-head"><span class="icon">🏁</span> You Escaped! — Certificate &amp; What's Next <span class="timing">3 min</span><span class="step">Step 8</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen for the certificate reveal, then cameras on, screens off for the goodbye. Print or screenshot the certificate for the student!</span>
+    <div class="frame">⚡ <b>30-second victory lap:</b> teacher names a session topic — you say ONE example sentence from memory. As many as you can in 30 seconds!</div>
+
+    <div id="certificate" style="border:6px double #1565C0;border-radius:16px;padding:28px 24px;text-align:center;margin:18px 0;background:#FFFDE7">
+      <div style="font-size:42px">🏆</div>
+      <div style="font-size:13px;letter-spacing:2px;color:#F57F17;font-weight:800">CERTIFICATE OF ACHIEVEMENT</div>
+      <div style="font-size:26px;font-weight:800;color:#1565C0;margin:10px 0"><span id="cert-name">____________</span></div>
+      <p style="margin:4px 0">has escaped the Grammar Vault and completed</p>
+      <div style="font-weight:800;font-size:18px;color:#5D4037;margin:6px 0">LEVEL 3 · INTERMEDIATE (B1) — all 10 sessions</div>
+      <p style="margin:8px 0;font-size:14px">Present perfect ✓ Past continuous ✓ Conditionals ✓ Passive ✓ Reported speech ✓<br>Phrasal verbs ✓ Opinions ✓ Quantifiers ✓ Travel English &amp; used to ✓</p>
+      <div style="margin-top:12px;font-size:14px">Date: <span id="cert-date"></span> &nbsp;·&nbsp; Teacher: ______________________</div>
+      <div style="margin-top:8px;font-size:20px">🔐➡️🔓 ⭐⭐⭐</div>
+    </div>
+    <p class="hint">🖨️ Tap <b>Print</b> in the bottom bar to print your certificate — it deserves a wall!</p>
+
+    <div class="frame">🚀 <b>What's next?</b> <b>Level 4 — Upper-Intermediate (B2)</b> is waiting: mysteries &amp; deduction, the time machine, the news room, the art of persuasion, future worlds… You solved the vault — now you get the BIG cases. See you in Level 4, Session 1! 🕵️</div>
+
+    <h3>🏠 Homework — the victory lap</h3>
+    <div class="frame">
+      <p>🎩 <b>Run YOUR escape puzzle</b> (from Step 6) with someone at home — in English! Did they solve it?</p>
+      <p>✏️ <b>Write 3 sentences about Level 3:</b> <em>"I have learned… / My favourite session was… / If I could repeat one game, I would choose…"</em></p>
+    </div>
+    <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="t-only">
+      <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
+      <div class="qa-item"><div class="q">Which Level 3 topics still wobble? (bring them into L4 warm-ups)</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">What to adjust for the Level 4 kickoff?</div><div class="editable" id="tn-adjust" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">Student's strongest / weakest moment today?</div><div class="editable" id="tn-notes" contenteditable="true" data-placeholder="…"></div></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="bottom-bar">
+  <button class="bb bb-save" onclick="saveWork()">💾 Save my work</button>
+  <button class="bb bb-print" onclick="window.print()">🖨️ Print</button>
+  <button class="bb bb-teach" id="teach-btn" onclick="unlockTeacher()">🔐</button>
+</div>
+
+<script>
+/* ============ ENGINE (identical across all Library sessions) ============ */
+var LEVEL=3, SESSION=10, K='ecl_L'+LEVEL+'s'+SESSION+'_';
+
+/* ---- TTS audio ---- */
+function say(text){try{window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(text);u.lang='en-GB';u.rate=0.9;window.speechSynthesis.speak(u);}catch(e){}}
+
+/* ---- Quiz engine ---- */
+var score=0,total=0;
+function buildQuiz(containerId,items){
+  var c=document.getElementById(containerId);
+  items.forEach(function(it){
+    total++;
+    var qz=document.createElement('div');qz.className='qz';
+    var opts='<div class="opts">';
+    it.options.forEach(function(o){opts+='<button class="opt" data-ok="'+(o===it.answer?'1':'0')+'" onclick="pick(this)">'+o+'</button>';});
+    opts+='</div><div class="fb"></div>';
+    qz.innerHTML='<div class="q">'+it.q+'</div>'+opts;
+    c.appendChild(qz);
+  });
+  updateScore();
+}
+function pick(btn){
+  var qz=btn.closest('.qz');if(qz.dataset.done)return;qz.dataset.done='1';
+  var ok=btn.dataset.ok==='1';var fb=qz.querySelector('.fb');
+  if(ok){btn.classList.add('correct');score++;fb.className='fb ok';fb.textContent='✓ Correct! Great job!';}
+  else{btn.classList.add('wrong');var good=qz.querySelector('[data-ok="1"]');if(good)good.classList.add('correct');
+    fb.className='fb no';fb.textContent='Almost! The green one is right. Try to remember it! 💪';}
+  qz.querySelectorAll('.opt').forEach(function(b){b.disabled=true;});
+  updateScore();
+}
+function updateScore(){
+  var answered=document.querySelectorAll('.qz[data-done]').length;
+  document.getElementById('score-num').textContent=score+' / '+total;
+  document.getElementById('score-fill').style.width=(total?Math.round(answered/total*100):0)+'%';
+  var st='',pct=total?score/total:0;
+  if(answered===total&&total>0){st=pct>=0.8?'⭐⭐⭐':pct>=0.5?'⭐⭐':'⭐';}
+  document.getElementById('score-stars').textContent=st;
+}
+
+/* ---- Student name ---- */
+var nameInput=document.getElementById('student-name');
+function applyName(){
+  var n=nameInput.value.trim();
+  document.getElementById('hello-msg').textContent=n?('Hello, '+n+'! 🌟'):'';
+  document.querySelectorAll('.stud-name').forEach(function(el){el.textContent=n?('Amazing work today, '+n+'!'):'Amazing work today!';});
+  localStorage.setItem(K+'name',n);
+}
+nameInput.addEventListener('input',applyName);
+
+/* ---- Agenda pills ---- */
+document.querySelectorAll('.ap').forEach(function(p){
+  p.onclick=function(){p.classList.toggle('done');localStorage.setItem(K+'ap'+p.dataset.s,p.classList.contains('done'));};
+});
+
+/* ---- Teacher mode ---- */
+function unlockTeacher(){
+  if(document.body.classList.contains('teacher-mode')){document.body.classList.remove('teacher-mode');document.getElementById('teach-btn').textContent='🔐';return;}
+  var pin=prompt('Teacher PIN:');
+  if(pin==='teach'){document.body.classList.add('teacher-mode');document.getElementById('teach-btn').textContent='🔓 Teacher';}
+}
+
+/* ---- Save work (.txt export) ---- */
+function saveWork(){
+  var n=(localStorage.getItem(K+'name')||'Student').replace(/[^\wÀ-ſ-]/g,'');
+  var out=n+' — Level '+LEVEL+' Session '+SESSION+'\n'+new Date().toLocaleDateString()+'\n'+'='.repeat(34)+'\n\n';
+  var picks=[].slice.call(document.querySelectorAll('.chips .chip.on')).map(function(x){return x.textContent.trim();});
+  if(picks.length)out+='Picked: '+picks.join(', ')+'\n\n';
+  var count=0;
+  document.querySelectorAll('.editable[id]').forEach(function(el){var t=el.innerText.trim();if(t){out+='['+el.id+'] '+t+'\n';count++;}});
+  out+='\nScore: '+score+' / '+total;
+  if(count===0&&!picks.length){alert('Type something first! 🙂');return;}
+  var b=new Blob([out],{type:'text/plain;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u;a.download=n+'_L'+LEVEL+'S'+SESSION+'_'+new Date().toISOString().slice(0,10)+'.txt';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);
+  var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show');},1600);
+}
+
+/* ---- Autosave / autoload ---- */
+function autosave(){document.querySelectorAll('.editable[id]').forEach(function(el){localStorage.setItem(K+el.id,el.innerHTML);});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){localStorage.setItem(K+'chip'+i,el.classList.contains('on'));});}
+function autoload(){
+  document.querySelectorAll('.editable[id]').forEach(function(el){var v=localStorage.getItem(K+el.id);if(v!==null)el.innerHTML=v;});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){if(localStorage.getItem(K+'chip'+i)==='true')el.classList.add('on');});
+  document.querySelectorAll('.ap').forEach(function(p){if(localStorage.getItem(K+'ap'+p.dataset.s)==='true')p.classList.add('done');});
+  var n=localStorage.getItem(K+'name');if(n){nameInput.value=n;applyName();}
+}
+document.addEventListener('input',function(){clearTimeout(window._t);window._t=setTimeout(autosave,600);});
+window.addEventListener('load',autoload);
+
+/* ============ SESSION CONTENT (changes per session) ============ */
+
+/* ---- Vocabulary: Level 3 key words (review) ---- */
+var VOCAB=[
+  {w:'bucket list',e:'📜',p:'S1 · things to do in your life',s:'A trip to Japan is on my bucket list.'},
+  {w:'suddenly',e:'⚡',p:'S2 · the storytelling word',s:'Suddenly, the lights went out.'},
+  {w:'superpower',e:'🦸',p:'S3 · the conditionals session',s:'If I had a superpower, I would fly.'},
+  {w:'invent',e:'💡',p:'S4 · "it was invented…"',s:'The telephone was invented long ago.'},
+  {w:'whisper',e:'🤫',p:'S5 · to say very quietly',s:'She whispered the secret code.'},
+  {w:'give up',e:'🏳️',p:'S6 · to stop trying',s:'Never give up on a hard puzzle.'},
+  {w:'find out',e:'🔎',p:'S6 · to discover information',s:'We found out where the key was.'},
+  {w:'opinion',e:'💭',p:'S7 · what you think',s:'In my opinion, escape rooms are the best.'},
+  {w:'agree',e:'🤝',p:'S7 · to say yes to an idea',s:'I agree with you completely.'},
+  {w:'screen time',e:'📱',p:'S8 · time on your devices',s:'How much screen time do you get?'},
+  {w:'go viral',e:'🚀',p:'S8 · millions of views fast',s:'The escape video went viral.'},
+  {w:'souvenir',e:'🎁',p:'S9 · a trip memory gift',s:'I bought a souvenir in every country.'},
+  {w:'delay',e:'⏳',p:'S9 · when it\'s late',s:'The flight had a two-hour delay.'}
+];
+(function buildVocab(){
+  var g=document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v){
+    var d=document.createElement('div');d.className='vc';
+    d.innerHTML='<div class="vc-play">🔊</div><div class="vc-emoji">'+v.e+'</div><div class="vc-word">'+v.w+'</div><div class="vc-pron">'+v.p+'</div>';
+    d.onclick=function(){say(v.w+'. '+v.s);};
+    g.appendChild(d);
+  });
+})();
+
+/* ---- Room theme chips for Step 6 ---- */
+(function(){
+  var THEMES=['👻 haunted library','🚀 space station','🏴‍☠️ pirate ship','🍭 candy factory','🧪 secret lab','🗿 jungle temple','🏰 dragon castle','🎪 midnight circus'];
+  var c=document.getElementById('exp-chips');
+  THEMES.forEach(function(t){
+    var s=document.createElement('span');s.className='chip';s.textContent=t;
+    s.onclick=function(){s.classList.toggle('on');say(t.replace(/^\S+\s/,''));};
+    c.appendChild(s);
+  });
+})();
+
+/* ---- Cert name + date (student name via JS, never hard-coded) ---- */
+(function(){
+  var cn=document.getElementById('cert-name');
+  function upd(){var n=nameInput.value.trim()||localStorage.getItem(K+'name')||'';cn.textContent=n||'____________';}
+  nameInput.addEventListener('input',upd);
+  window.addEventListener('load',upd);
+  document.getElementById('cert-date').textContent=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+})();
+
+/* ---- Quizzes ---- */
+buildQuiz('vocab-quiz',[
+  {q:'📜 A list of things you want to do in your life (Session 1):',options:['bucket list','headline','guided tour'],answer:'bucket list'},
+  {q:'🏳️ To stop trying (Session 6 phrasal verb):',options:['give up','find out','check in'],answer:'give up'},
+  {q:'🔎 To discover new information (Session 6 phrasal verb):',options:['find out','give up','go viral'],answer:'find out'},
+  {q:'🎁 A small thing you buy to remember a trip (Session 9):',options:['souvenir','currency','notification'],answer:'souvenir'},
+  {q:'💭 What you think about something (Session 7):',options:['opinion','delay','whisper'],answer:'opinion'}
+]);
+buildQuiz('reading-quiz',[
+  {q:'What was inside the strange envelope?',options:['a golden ticket','a paper map','a small radio'],answer:'a golden ticket'},
+  {q:'What was Milo doing when the secret drawer opened?',options:['pulling out a book','looking at the ceiling','turning the final key'],answer:'pulling out a book'},
+  {q:'When was the library built?',options:['in 1891','in 1918','in 1981'],answer:'in 1891'},
+  {q:'What did the voice on the radio tell Milo?',options:['that the answer was on the ceiling','that the hour was over','that the door was open'],answer:'that the answer was on the ceiling'}
+]);
+buildQuiz('grammar-quiz',[
+  {q:'🔓 Code 1 (S1): "I ___ never ___ an escape room before today!"',options:['have / tried','did / tried','has / try'],answer:'have / tried'},
+  {q:'🔓 Code 2 (S2): "He ___ at the shelf when the drawer suddenly opened."',options:['was looking','looked','has looked'],answer:'was looking'},
+  {q:'🔓 Code 3 (S3): "If I ___ invisible, I would walk straight out of here!"',options:['were','am','will be'],answer:'were'},
+  {q:'🔓 Code 4 (S4): "The library ___ in 1891."',options:['was built','built','is building'],answer:'was built'},
+  {q:'🔓 Code 5 (S5): The voice said: "The key is under the clock." → The voice said that the key ___ under the clock.',options:['was','is being','were'],answer:'was'},
+  {q:'🔓 Code 6 (S6): "Don\'t give ___! The last code is close."',options:['up','out','in'],answer:'up'},
+  {q:'🔓 Code 7 (S7): "___ my opinion, the mirror room was the hardest."',options:['In','On','For'],answer:'In'},
+  {q:'🔓 Code 8 (S8): "Hurry! We don\'t have ___ time left!"',options:['much','many','a few'],answer:'much'},
+  {q:'🔓 Code 9 (S9): "People ___ to hide letters inside books."',options:['used','use','using'],answer:'used'}
+]);
+buildQuiz('ch-quiz1',[
+  {q:'🚪 The cellar door whispers: "I ___ this room before!" (your whole life so far)',options:['have never seen','never saw','was never seeing'],answer:'have never seen'},
+  {q:'🕯️ "He ___ the shelf when the candle suddenly went out."',options:['was searching','has searched','searches'],answer:'was searching'},
+  {q:'🧱 "The door closed while we ___ about the riddle."',options:['were talking','have talked','talk'],answer:'were talking'}
+]);
+buildQuiz('ch-quiz2',[
+  {q:'🪞 The mirror asks: "If I ___ you, I would check under the carpet."',options:['were','am','was being'],answer:'were'},
+  {q:'🪞 ❌ Fix the cracked code: "The code was wrote on the wall."',options:['The code was written on the wall.','The code was writing on the wall.'],answer:'The code was written on the wall.'},
+  {q:'🪞 The guard said: "The key is under the clock." — Report it!',options:['The guard said that the key was under the clock.','The guard said that the key will being under the clock.'],answer:'The guard said that the key was under the clock.'}
+]);
+buildQuiz('ch-quiz3',[
+  {q:'🗝️ "Don\'t give ___! The final lock is weak."',options:['up','out','away'],answer:'up'},
+  {q:'🗝️ "___ my opinion, the mirror hall was the trickiest room."',options:['In','At','By'],answer:'In'},
+  {q:'🗝️ "Hurry! We don\'t have ___ time before the vault re-locks!"',options:['much','many','a little of'],answer:'much'},
+  {q:'👑 BOSS: "This vault ___ in 1891, and nobody ___ ever ___ before you!"',options:['was built / has / escaped','built / did / escape','was built / did / escaped'],answer:'was built / has / escaped'}
+]);
+</script>
+</body>
+</html>

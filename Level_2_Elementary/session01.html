@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>L2 · Session 1 — Food and Me</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--accent:#FB8C00;--accent2:#FFA726}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1a;font-size:17px;line-height:1.6;padding-bottom:90px}
+.page-header{background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;padding:26px 20px;text-align:center}
+.page-header h1{font-size:26px;font-weight:800;letter-spacing:-0.3px}
+.page-header .subtitle{font-size:14px;opacity:0.9;margin-top:4px}
+.badge{display:inline-block;background:rgba(255,255,255,0.2);padding:6px 16px;border-radius:20px;font-size:14px;margin-top:10px}
+.lvl{display:inline-block;background:#FFD54F;color:#5D4037;font-weight:800;font-size:12px;padding:3px 12px;border-radius:12px;letter-spacing:0.5px;margin-bottom:8px}
+.container{max-width:860px;margin:0 auto;padding:18px}
+
+/* Student name */
+.namebox{background:white;border:2px solid var(--accent);border-radius:14px;padding:14px 18px;margin:16px 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.namebox label{font-weight:700;font-size:15px}
+.namebox input{flex:1;min-width:160px;font-size:17px;padding:8px 12px;border:2px dashed #90A4AE;border-radius:8px;font-family:inherit}
+.namebox .hello{font-weight:700;color:var(--accent)}
+
+/* Agenda */
+.agenda{background:white;border-radius:14px;padding:16px 18px;margin:14px 0;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.agenda h2{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:#666;margin-bottom:10px}
+.agenda-pills{display:flex;flex-wrap:wrap;gap:8px}
+.ap{display:flex;align-items:center;gap:6px;background:#ECEFF1;border:2px solid transparent;border-radius:20px;padding:5px 13px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.ap.done{background:#C8E6C9;border-color:#2E7D32;text-decoration:line-through;opacity:0.8}
+
+/* Sections */
+.section{background:white;border-radius:16px;margin:18px 0;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,0.07)}
+.sec-head{padding:14px 20px;color:white;font-size:17px;font-weight:800;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sec-head .icon{font-size:22px}
+.sec-head .step{margin-left:auto;font-size:12px;font-weight:700;background:rgba(255,255,255,0.25);padding:3px 12px;border-radius:12px;white-space:nowrap}
+.sec-head .timing{font-size:12px;font-weight:400;background:rgba(255,255,255,0.18);padding:3px 10px;border-radius:12px;white-space:nowrap}
+.sec-body{padding:18px 20px}
+.zoom-cue{display:block;font-size:13px;font-weight:600;color:#37474F;background:#E1F5FE;border-left:4px solid #0288D1;border-radius:0 8px 8px 0;padding:7px 12px;margin:0 0 14px}
+.goal .sec-head{background:#2E7D32}
+.warmup .sec-head{background:#E65100}
+.vocab .sec-head{background:#1565C0}
+.reading .sec-head{background:#6A1B9A}
+.grammar .sec-head{background:#AD1457}
+.task .sec-head{background:#00695C}
+.challenge .sec-head{background:#F57F17}
+.review .sec-head{background:#BF360C}
+.skipif{background:#FFF8E1;border:1px dashed #F9A825;border-radius:10px;padding:10px 14px;margin-top:12px;font-size:14px}
+.skipif b{color:#F57F17}
+
+/* Movement break */
+.move{background:linear-gradient(135deg,#00BFA5,#00897B);color:white;border-radius:16px;margin:18px 0;padding:18px 22px;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,0.1)}
+.move h2{font-size:20px;font-weight:800}
+.move p{font-size:15px;opacity:0.95;margin-top:6px}
+
+/* Vocab cards */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:14px 0}
+.vc{background:#E3F2FD;border:2px solid #90CAF9;border-radius:12px;padding:12px 10px;text-align:center;cursor:pointer;transition:transform 0.12s}
+.vc:hover{transform:scale(1.04);border-color:var(--accent)}
+.vc .vc-emoji{font-size:30px}
+.vc .vc-word{font-weight:800;font-size:15px;margin-top:4px;color:#0D47A1}
+.vc .vc-pron{font-size:12px;color:#666}
+.vc .vc-play{font-size:13px;color:#1565C0}
+
+/* Quiz engine */
+.qz{background:#FAFAFA;border:1px solid #E0E0E0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.qz .q{font-weight:700;font-size:16px;margin-bottom:10px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{font-family:inherit;font-size:15px;font-weight:600;padding:8px 16px;border-radius:10px;border:2px solid #B0BEC5;background:white;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt.correct{background:#C8E6C9;border-color:#2E7D32}
+.opt.wrong{background:#FFCDD2;border-color:#C62828}
+.opt:disabled{cursor:default;opacity:0.85}
+.fb{font-size:14px;font-weight:600;margin-top:8px;display:none}
+.fb.ok{display:block;color:#2E7D32}
+.fb.no{display:block;color:#C62828}
+
+/* Score bar */
+.scorebar{position:sticky;top:0;z-index:50;background:white;box-shadow:0 2px 8px rgba(0,0,0,0.12);padding:8px 16px;display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px}
+.scorebar .bar{flex:1;height:10px;background:#ECEFF1;border-radius:6px;overflow:hidden}
+.scorebar .fill{height:100%;width:0;background:linear-gradient(90deg,#43A047,#66BB6A);transition:width 0.4s}
+.stars{font-size:16px}
+
+/* Reading */
+.reading-text{background:#F3E5F5;border-radius:12px;padding:18px 20px;font-size:17px;max-width:65ch}
+.reading-text h4{color:#6A1B9A;font-size:15px;margin:14px 0 6px;text-transform:uppercase;letter-spacing:0.4px}
+.reading-text h4:first-child{margin-top:0}
+.reading-text p{margin:8px 0}
+
+/* Editable fields */
+.field-label{font-weight:700;font-size:14px;margin:12px 0 4px;color:#37474F}
+.editable{min-height:34px;background:#FFFDE7;border:2px dashed #9E9D24;border-radius:8px;padding:8px 12px;font-size:16px;outline:none}
+.editable.tall{min-height:70px}
+.editable:focus{border-style:solid;border-color:var(--accent)}
+.editable:empty::before{content:attr(data-placeholder);color:#999}
+.qa-item{margin:12px 0}
+.qa-item .q{font-weight:700;font-size:15px;margin-bottom:5px}
+
+/* Frames / rule boxes */
+.frame{background:#FCE4EC;border-left:5px solid #AD1457;border-radius:0 10px 10px 0;padding:12px 16px;margin:12px 0;font-size:16px}
+.rulebox{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.rule{border-radius:12px;padding:14px 16px;font-size:15px}
+.rule h4{font-size:15px;margin-bottom:8px}
+.rule.a{background:#E8F5E9;border:2px solid #66BB6A}
+.rule.a h4{color:#2E7D32}
+.rule.b{background:#FFF3E0;border:2px solid #FFA726}
+.rule.b h4{color:#E65100}
+.hint{font-size:14px;color:#555;background:#F5F5F5;border-radius:8px;padding:8px 12px;margin:10px 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.chip{background:#E1F5FE;border:2px solid #81D4FA;border-radius:16px;padding:5px 14px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.chip.on{background:#0288D1;border-color:#01579B;color:white}
+.speak{background:#E8F5E9;border-radius:10px;padding:12px 16px;font-size:16px;margin:12px 0}
+
+/* Teacher mode */
+.t-only{display:none}
+body.teacher-mode .t-only{display:block}
+.teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
+.teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
+
+/* Bottom bar */
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:white;box-shadow:0 -3px 12px rgba(0,0,0,0.12);padding:10px 14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;z-index:60}
+.bb{font-family:inherit;font-size:14px;font-weight:700;padding:10px 18px;border-radius:10px;border:none;cursor:pointer;text-decoration:none;color:white;display:inline-block}
+.bb-save{background:#2E7D32}
+.bb-print{background:#546E7A}
+.bb-teach{background:#C62828}
+#toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:#2E7D32;color:white;font-weight:700;padding:10px 22px;border-radius:20px;opacity:0;transition:all 0.3s;z-index:70}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:640px){.rulebox{grid-template-columns:1fr}.vocab-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}}
+@media print{body{background:white;padding-bottom:0}.bottom-bar,.scorebar,#toast{display:none!important}.section{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid}.sec-head,.sec-body,.page-header{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="lvl">LEVEL 2 · ELEMENTARY (A2)</div>
+  <h1>🍕 Session 1 — Food and Me</h1>
+  <div class="subtitle">English Course Library · Kids &amp; Teens</div>
+  <div class="badge">🎯 Today: say what food you <b>like</b> and <b>don't like</b> — and ask <b>Do you like…?</b> · ≈50 min core</div>
+</div>
+
+<div class="scorebar">
+  <span>⭐ Score:</span><span id="score-num">0 / 0</span>
+  <div class="bar"><div class="fill" id="score-fill"></div></div>
+  <span class="stars" id="score-stars"></span>
+</div>
+
+<div id="toast">✓ Saved</div>
+
+<div class="container">
+
+<div class="namebox">
+  <label for="student-name">👋 Your name:</label>
+  <input id="student-name" type="text" placeholder="Type your name…">
+  <span class="hello" id="hello-msg"></span>
+</div>
+
+<div class="agenda">
+  <h2>📋 Today's plan — tap each step when you finish it</h2>
+  <div class="agenda-pills" id="agenda">
+    <span class="ap" data-s="1">1️⃣ Goal</span><span class="ap" data-s="2">2️⃣ Warm-up</span>
+    <span class="ap" data-s="3">3️⃣ New words</span><span class="ap" data-s="4">4️⃣ Reading</span>
+    <span class="ap" data-s="5">5️⃣ Grammar</span><span class="ap" data-s="6">6️⃣ Create</span>
+    <span class="ap" data-s="7">7️⃣ Game</span><span class="ap" data-s="8">8️⃣ Review</span>
+  </div>
+</div>
+
+<!-- STEP 1 GOAL -->
+<div class="section goal">
+  <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
+    <p><em>"Today we talk about food — what you love, what you don't like, and why. By the end, you can say <b>I like / I don't like</b>, ask <b>Do you like…?</b>, and you will design the menu for your own dream restaurant!"</em> 👩‍🍳</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Ask: "What did you eat today?" Don't correct anything yet — just listen for whether "like/likes" appears and whether articles are used. That is your live diagnostic for Step 5.</div>
+  </div>
+</div>
+
+<!-- STEP 2 WARM-UP -->
+<div class="section warmup">
+  <div class="sec-head"><span class="icon">⚡</span> Warm-Up — Yum or Yuck? <span class="timing">5 min</span><span class="step">Step 2</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: pure talking game — student answers with the 👍 or 👎 reaction FIRST, then says the sentence.</span>
+    <p><b>How to play:</b></p>
+    <p>1. Your teacher says a food word: <em>"Pizza!"</em><br>
+    2. You react fast: 👍 <b>Yum!</b> or 👎 <b>Yuck!</b><br>
+    3. Then say the full sentence: <em>"I like pizza!"</em> or <em>"I don't like pizza!"</em><br>
+    4. After 5 foods, switch — YOU say the foods, your teacher reacts.</p>
+    <p class="hint">No score here — just wake up your English brain! 🧠</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 2</h4>Start with easy foods (pizza, chocolate, banana), then sneak in today's vocab (cheese, rice, salad). Slip in one question — "Is pizza your favourite food?" — to recycle <em>to be</em> from Level 1. Keep it fast and silly.</div>
+  </div>
+</div>
+
+<!-- STEP 3 VOCAB -->
+<div class="section vocab">
+  <div class="sec-head"><span class="icon">📝</span> New Words — Food, Drinks &amp; Tastes <span class="timing">10 min</span><span class="step">Step 3</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share your screen. YOU click 🔊 on each card — student repeats it twice, then says "Yum" or "Yuck" about it.</span>
+    <p>Tap any card to <b>hear</b> it 🔊. Say it out loud after the sound!</p>
+    <div class="vocab-grid" id="vocab-grid"></div>
+    <h3>🎧 Practice — tap the right word</h3>
+    <p class="hint">Read the clue and tap the word that matches. Green = correct!</p>
+    <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Watch pronunciation of <em>juice</em> (dzsúsz, one syllable) and <em>salad</em> (stress on SA-). For each taste word, mime it together on camera: sour = lemon face, spicy = fan your mouth. Movement locks the word in.</div>
+  </div>
+</div>
+
+<!-- STEP 4 READING -->
+<div class="section reading">
+  <div class="sec-head"><span class="icon">📖</span> Reading — Food Around the World <span class="timing">10 min</span><span class="step">Step 4</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. Student reads one chunk aloud, you read the next — take turns. Then student annotates the answers on your screen (Zoom → Annotate).</span>
+    <p>Read Priya's food blog. Tap 🔊 to hear any part read aloud.
+      <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
+    <div class="reading-text" id="read-text">
+      <h4>🍕 Food around the world — by Priya, 12</h4>
+      <p>Hi! My name is Priya and I am twelve years old. I love food — let me tell you!</p>
+      <h4>🍝 My favourite food</h4>
+      <p>My favourite food is pasta. I eat pasta three times a week! I really like tomato pasta and cheese pasta.</p>
+      <p>I also love pizza. My perfect pizza has mushrooms and olives on top.</p>
+      <h4>🌶️ Foods I don't like</h4>
+      <p>But I don't like everything. I don't like spicy food at all. When I eat something spicy, my eyes water and my face goes red!</p>
+      <p>I don't like fish very much either. My mum loves fish, but I think it smells funny.</p>
+      <h4>🧀 My friend Marco</h4>
+      <p>My friend Marco likes very different food. He likes rice and chicken, and he loves plantain — a type of banana that you cook.</p>
+      <p>Marco doesn't like cheese. He says it is too strong. We always laugh, because I love cheese and he hates it!</p>
+      <h4>🥤 What I drink</h4>
+      <p>With lunch, I usually drink water or apple juice. I don't like milk very much, but I love hot chocolate in winter.</p>
+      <h4>🌍 One world, many tastes</h4>
+      <p>In Japan, people eat sushi — raw fish with rice. In Mexico, people eat delicious tacos. In India, people love spicy curry.</p>
+      <p>Everyone likes different things, and that is fantastic. What do you love? What don't you like?</p>
+    </div>
+
+    <h3>🔎 Did you understand? Tap your answer</h3>
+    <div id="reading-quiz"></div>
+
+    <h3>💬 Your turn — write your answer</h3>
+    <div class="qa-item"><div class="q">1. Priya and Marco "always laugh" about cheese. Why?</div><div class="editable" id="r-open1" contenteditable="true" data-placeholder="They laugh because Priya… and Marco…"></div></div>
+    <div class="qa-item"><div class="q">2. Which food from the text would YOU like to try? Why?</div><div class="editable tall" id="r-open2" contenteditable="true" data-placeholder="I would like to try… because…"></div></div>
+
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> the two written questions above can be homework instead.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 4 + answer key</h4>Quiz answers: pasta · her eyes water and her face goes red · plantain · it is too strong · tacos. Open Q1 key: because Priya loves cheese and Marco hates it — opposite opinions. Open Q2: any answer with "I would like to try X because…" is correct — praise a full sentence. Bonus vocab hunt: ask the student to find the word that means "not cooked" (raw).</div>
+  </div>
+</div>
+
+<!-- STEP 5 GRAMMAR -->
+<div class="section grammar">
+  <div class="sec-head"><span class="icon">🔧</span> Grammar — like / don't like / Do you like…? <span class="timing">10 min</span><span class="step">Step 5</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. For each quiz item, student says the answer BEFORE you click it.</span>
+    <div class="rulebox">
+      <div class="rule a"><h4>✅ SAYING IT — like / don't like</h4>
+        <em>I <b>like</b> pizza.</em> 🍕<br>
+        <em>I <b>don't like</b> fish.</em><br>
+        <em>She <b>likes</b> pasta.</em> ← the magic <b>-s</b>!<br>
+        <em>He <b>doesn't like</b> eggs.</em> ← -s hides in <b>does</b><br><br>
+        🔑 like + food, or like + verb<b>-ing</b>: <em>I like cook<b>ing</b>.</em></div>
+      <div class="rule b"><h4>❓ ASKING IT — Do you like…?</h4>
+        <em><b>Do</b> you like chocolate?</em><br>
+        → <em>Yes, I <b>do</b>. / No, I <b>don't</b>.</em><br><br>
+        <em><b>Does</b> she like pasta?</em><br>
+        → <em>Yes, she <b>does</b>. / No, she <b>doesn't</b>.</em><br><br>
+        🔑 he / she / it → <b>does</b></div>
+    </div>
+    <div class="frame">💡 <b>The taste scale:</b> 😍 I love → 😊 I like → 😐 It's OK → 😕 I don't like → 🤢 I hate. Point at the scale and place today's foods on it!</div>
+    <p class="hint">💡 Hungarian tip: in Hungarian you say <em>"Szeretem A pizzát"</em> — with "a". In English, general likes drop "the": <em>"I like pizza"</em>, NOT <em>"I like the pizza"</em>. And remember: she like<b>s</b>, but she <b>doesn't like</b> (the -s moves into <em>does</em>).</p>
+    <h3>✏️ Practice — tap the correct form</h3>
+    <div id="grammar-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>If the student gets 7+/9, play "Food Reporter": you interview them — "Do you like cheese? Does your mum like coffee?" — full-sentence answers only. If under 5, redo the wrong ones aloud and ask each time: "Who is it about — I/you, or he/she?"</div>
+  </div>
+</div>
+
+<!-- MOVE BREAK -->
+<div class="move">
+  <h2>🤸 MOVE! — 1 minute break</h2>
+  <p>Stand up, chef! Stir a giant pot of soup — 5 big stirs left, 5 right. Then jump like popcorn 5 times and shout "YUM!" Cameras stay on — teacher does it too! 😄</p>
+</div>
+
+<!-- STEP 6 CREATIVE TASK -->
+<div class="section task">
+  <div class="sec-head"><span class="icon">🎨</span> Create — My Dream Restaurant <span class="timing">10 min</span><span class="step">Step 6</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in their own browser, types here, and shares their screen so you can watch.</span>
+    <p>You are opening your own restaurant! It can only serve food that YOU love. Dream big! 🌟</p>
+    <h3>First, tap the foods you LOVE (they go on your menu):</h3>
+    <div class="chips" id="food-chips"></div>
+    <div class="field-label">🏷️ My restaurant's name</div>
+    <div class="editable" id="t-restname" contenteditable="true" data-placeholder="My restaurant is called…"></div>
+    <div class="field-label">🥣 Starters (2 dishes you like)</div>
+    <div class="editable" id="t-starters" contenteditable="true" data-placeholder="Tomato soup, …"></div>
+    <div class="field-label">🍽️ Main courses (2 dishes you love)</div>
+    <div class="editable" id="t-mains" contenteditable="true" data-placeholder="Pasta with cheese, …"></div>
+    <div class="field-label">🍰 Desserts (1–2 sweet things)</div>
+    <div class="editable" id="t-desserts" contenteditable="true" data-placeholder="Chocolate cake, …"></div>
+    <div class="field-label">🚫 One food that is NEVER on my menu (and why!)</div>
+    <div class="editable" id="t-never" contenteditable="true" data-placeholder="There is no… because I don't like it. It is…"></div>
+    <div class="speak">🗣️ <b>Roleplay time!</b> Teacher is the customer, you are the waiter. Customer asks: <em>"What do you recommend?" — "Do you have pasta?"</em> You answer: <em>"I recommend the ___. It is delicious!"</em></div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> do only the name + main courses + the roleplay; type the rest as homework.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>Push for taste adjectives in the roleplay ("It is sweet / spicy / delicious"). Follow-up questions: "Why is it on your menu? Does your best friend like it too?" — the second one forces third-person <em>likes/doesn't like</em>.</div>
+  </div>
+</div>
+
+<!-- STEP 7 CHALLENGE GAME -->
+<div class="section challenge">
+  <div class="sec-head"><span class="icon">🎮</span> Challenge Game — Master Chef Quiz <span class="timing">8 min</span><span class="step">Step 7</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: student's browser, their clicks, their score! You watch on their shared screen and cheer. 🎉</span>
+    <p class="hint">👨‍🍳 Three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
+    <h3>Round 1 — Fix the broken sentence</h3>
+    <div id="ch-quiz1"></div>
+    <h3>Round 2 — How strong is the feeling? 💪</h3>
+    <div id="ch-quiz2"></div>
+    <h3>Round 3 — Boss level: questions &amp; answers 👑</h3>
+    <div id="ch-quiz3"></div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can be the start of the next lesson's warm-up.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>All answers show live in the score. Wrong answers auto-reveal the correct one in green — ask "why?" on each miss. Round 1 targets the three classic errors: like + -ing, doesn't + base verb, third-person -s.</div>
+  </div>
+</div>
+
+<!-- STEP 8 REVIEW -->
+<div class="section review">
+  <div class="sec-head"><span class="icon">🏁</span> Review &amp; Homework <span class="timing">3 min</span><span class="step">Step 8</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, screens off. Finish with faces, not slides.</span>
+    <div class="frame">⚡ <b>30-second recap:</b> teacher names a food fast — you answer with a FULL sentence: <em>"I like it!" / "I don't like it!"</em> Then one bonus question: <em>"Does your teacher like broccoli?"</em> 😄</div>
+    <h3>🏠 Homework</h3>
+    <div class="frame">
+      <p>📅 <b>Write your real lunch menu</b> for Monday to Friday (5 lines).</p>
+      <p>✏️ For each day add one sentence: <em>"I like/love/don't like this because it is ___."</em></p>
+      <p>📌 Example: <em>"Monday: soup and bread. I like the soup because it is warm and delicious."</em></p>
+    </div>
+    <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="t-only">
+      <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
+      <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">What to adjust next time?</div><div class="editable" id="tn-adjust" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">Student's strongest / weakest moment today?</div><div class="editable" id="tn-notes" contenteditable="true" data-placeholder="…"></div></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="bottom-bar">
+  <button class="bb bb-save" onclick="saveWork()">💾 Save my work</button>
+  <button class="bb bb-print" onclick="window.print()">🖨️ Print</button>
+  <button class="bb bb-teach" id="teach-btn" onclick="unlockTeacher()">🔐</button>
+</div>
+
+<script>
+/* ============ ENGINE (identical across all Library sessions) ============ */
+var LEVEL=2, SESSION=1, K='ecl_L'+LEVEL+'s'+SESSION+'_';
+
+/* ---- TTS audio ---- */
+function say(text){try{window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(text);u.lang='en-GB';u.rate=0.9;window.speechSynthesis.speak(u);}catch(e){}}
+
+/* ---- Quiz engine ---- */
+var score=0,total=0;
+function buildQuiz(containerId,items){
+  var c=document.getElementById(containerId);
+  items.forEach(function(it){
+    total++;
+    var qz=document.createElement('div');qz.className='qz';
+    var opts='<div class="opts">';
+    it.options.forEach(function(o){opts+='<button class="opt" data-ok="'+(o===it.answer?'1':'0')+'" onclick="pick(this)">'+o+'</button>';});
+    opts+='</div><div class="fb"></div>';
+    qz.innerHTML='<div class="q">'+it.q+'</div>'+opts;
+    c.appendChild(qz);
+  });
+  updateScore();
+}
+function pick(btn){
+  var qz=btn.closest('.qz');if(qz.dataset.done)return;qz.dataset.done='1';
+  var ok=btn.dataset.ok==='1';var fb=qz.querySelector('.fb');
+  if(ok){btn.classList.add('correct');score++;fb.className='fb ok';fb.textContent='✓ Correct! Great job!';}
+  else{btn.classList.add('wrong');var good=qz.querySelector('[data-ok="1"]');if(good)good.classList.add('correct');
+    fb.className='fb no';fb.textContent='Almost! The green one is right. Try to remember it! 💪';}
+  qz.querySelectorAll('.opt').forEach(function(b){b.disabled=true;});
+  updateScore();
+}
+function updateScore(){
+  var answered=document.querySelectorAll('.qz[data-done]').length;
+  document.getElementById('score-num').textContent=score+' / '+total;
+  document.getElementById('score-fill').style.width=(total?Math.round(answered/total*100):0)+'%';
+  var st='',pct=total?score/total:0;
+  if(answered===total&&total>0){st=pct>=0.8?'⭐⭐⭐':pct>=0.5?'⭐⭐':'⭐';}
+  document.getElementById('score-stars').textContent=st;
+}
+
+/* ---- Student name ---- */
+var nameInput=document.getElementById('student-name');
+function applyName(){
+  var n=nameInput.value.trim();
+  document.getElementById('hello-msg').textContent=n?('Hello, '+n+'! 🌟'):'';
+  document.querySelectorAll('.stud-name').forEach(function(el){el.textContent=n?('Amazing work today, '+n+'!'):'Amazing work today!';});
+  localStorage.setItem(K+'name',n);
+}
+nameInput.addEventListener('input',applyName);
+
+/* ---- Agenda pills ---- */
+document.querySelectorAll('.ap').forEach(function(p){
+  p.onclick=function(){p.classList.toggle('done');localStorage.setItem(K+'ap'+p.dataset.s,p.classList.contains('done'));};
+});
+
+/* ---- Teacher mode ---- */
+function unlockTeacher(){
+  if(document.body.classList.contains('teacher-mode')){document.body.classList.remove('teacher-mode');document.getElementById('teach-btn').textContent='🔐';return;}
+  var pin=prompt('Teacher PIN:');
+  if(pin==='teach'){document.body.classList.add('teacher-mode');document.getElementById('teach-btn').textContent='🔓 Teacher';}
+}
+
+/* ---- Save work (.txt export) ---- */
+function saveWork(){
+  var n=(localStorage.getItem(K+'name')||'Student').replace(/[^\wÀ-ſ-]/g,'');
+  var out=n+' — Level '+LEVEL+' Session '+SESSION+'\n'+new Date().toLocaleDateString()+'\n'+'='.repeat(34)+'\n\n';
+  var picks=[].slice.call(document.querySelectorAll('.chips .chip.on')).map(function(x){return x.textContent.trim();});
+  if(picks.length)out+='Picked: '+picks.join(', ')+'\n\n';
+  var count=0;
+  document.querySelectorAll('.editable[id]').forEach(function(el){var t=el.innerText.trim();if(t){out+='['+el.id+'] '+t+'\n';count++;}});
+  out+='\nScore: '+score+' / '+total;
+  if(count===0&&!picks.length){alert('Type something first! 🙂');return;}
+  var b=new Blob([out],{type:'text/plain;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u;a.download=n+'_L'+LEVEL+'S'+SESSION+'_'+new Date().toISOString().slice(0,10)+'.txt';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);
+  var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show');},1600);
+}
+
+/* ---- Autosave / autoload ---- */
+function autosave(){document.querySelectorAll('.editable[id]').forEach(function(el){localStorage.setItem(K+el.id,el.innerHTML);});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){localStorage.setItem(K+'chip'+i,el.classList.contains('on'));});}
+function autoload(){
+  document.querySelectorAll('.editable[id]').forEach(function(el){var v=localStorage.getItem(K+el.id);if(v!==null)el.innerHTML=v;});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){if(localStorage.getItem(K+'chip'+i)==='true')el.classList.add('on');});
+  document.querySelectorAll('.ap').forEach(function(p){if(localStorage.getItem(K+'ap'+p.dataset.s)==='true')p.classList.add('done');});
+  var n=localStorage.getItem(K+'name');if(n){nameInput.value=n;applyName();}
+}
+document.addEventListener('input',function(){clearTimeout(window._t);window._t=setTimeout(autosave,600);});
+window.addEventListener('load',autoload);
+
+/* ============ SESSION CONTENT (changes per session) ============ */
+
+/* ---- Vocabulary: food, drinks & tastes ---- */
+var VOCAB=[
+  {w:'apple',e:'🍎',p:'sweet 🍬',s:'apple — I like apples.'},
+  {w:'bread',e:'🍞',p:'say: BRED',s:'bread — I eat bread every day.'},
+  {w:'cheese',e:'🧀',p:'say: CHEEZ',s:'cheese — I love cheese!'},
+  {w:'chicken',e:'🍗',p:'say: CHIK-in',s:'chicken — Do you like chicken?'},
+  {w:'pasta',e:'🍝',p:'Italian food',s:'pasta — My favourite food is pasta.'},
+  {w:'salad',e:'🥗',p:'say: SA-lad',s:'salad — Salad is fresh and healthy.'},
+  {w:'cake',e:'🎂',p:'sweet 🍬',s:'cake — I love chocolate cake.'},
+  {w:'rice',e:'🍚',p:'say: RYSS',s:'rice — People in Japan eat rice.'},
+  {w:'fish',e:'🐟',p:'from the sea',s:'fish — I don\'t like fish very much.'},
+  {w:'juice',e:'🧃',p:'say: JOOSS',s:'juice — I drink apple juice.'},
+  {w:'milk',e:'🥛',p:'white drink',s:'milk — Do you like milk?'},
+  {w:'water',e:'💧',p:'say: WAW-ter',s:'water — I drink water with lunch.'},
+  {w:'spicy',e:'🌶️',p:'fire mouth! 🔥',s:'spicy — Curry is very spicy.'},
+  {w:'sour',e:'🍋',p:'lemon face! 😖',s:'sour — Lemons are sour.'},
+  {w:'delicious',e:'😋',p:'say: de-LI-shus',s:'delicious — This pizza is delicious!'}
+];
+(function buildVocab(){
+  var g=document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v){
+    var d=document.createElement('div');d.className='vc';
+    d.innerHTML='<div class="vc-play">🔊</div><div class="vc-emoji">'+v.e+'</div><div class="vc-word">'+v.w+'</div><div class="vc-pron">'+v.p+'</div>';
+    d.onclick=function(){say(v.s);};
+    g.appendChild(d);
+  });
+})();
+
+/* ---- Food chips for Step 6 (foods + drinks only, no taste words) ---- */
+(function(){
+  var c=document.getElementById('food-chips');
+  VOCAB.slice(0,12).forEach(function(v){
+    var s=document.createElement('span');s.className='chip';s.textContent=v.e+' '+v.w;
+    s.onclick=function(){s.classList.toggle('on');say('I love '+v.w+'!');};
+    c.appendChild(s);
+  });
+})();
+
+/* ---- Quizzes ---- */
+buildQuiz('vocab-quiz',[
+  {q:'🧀 It is yellow, salty, and made from milk…',options:['cheese','cake','rice'],answer:'cheese'},
+  {q:'🍝 Long soft food — people in Italy love it…',options:['salad','pasta','bread'],answer:'pasta'},
+  {q:'🌶️ Fire in your mouth! This food is…',options:['sweet','sour','spicy'],answer:'spicy'},
+  {q:'🥗 Green leaves and vegetables, very fresh…',options:['salad','chicken','fish'],answer:'salad'},
+  {q:'🍋 You bite a lemon and make a funny face. It is…',options:['delicious','sour','salty'],answer:'sour'},
+  {q:'😋 The food is SO good! You say: "It is…"',options:['horrible','delicious','sour'],answer:'delicious'}
+]);
+buildQuiz('reading-quiz',[
+  {q:'What is Priya\'s favourite food?',options:['pizza','pasta','rice'],answer:'pasta'},
+  {q:'What happens when Priya eats spicy food?',options:['she laughs','her eyes water and her face goes red','she feels happy'],answer:'her eyes water and her face goes red'},
+  {q:'What does Marco LOVE?',options:['plantain','cheese','fish'],answer:'plantain'},
+  {q:'Why doesn\'t Marco like cheese?',options:['it is too sweet','it is too strong','it is too spicy'],answer:'it is too strong'},
+  {q:'What do people in Mexico eat?',options:['sushi','curry','tacos'],answer:'tacos'}
+]);
+buildQuiz('grammar-quiz',[
+  {q:'I ___ pizza. 🍕',options:['like','likes'],answer:'like'},
+  {q:'She ___ pasta.',options:['like','likes'],answer:'likes'},
+  {q:'I ___ like fish.',options:['don\'t','doesn\'t'],answer:'don\'t'},
+  {q:'He ___ like eggs.',options:['don\'t','doesn\'t'],answer:'doesn\'t'},
+  {q:'___ you like chocolate?',options:['Do','Does'],answer:'Do'},
+  {q:'___ your mum like coffee?',options:['Do','Does'],answer:'Does'},
+  {q:'Do you like cheese? — Yes, I ___.',options:['do','does','like'],answer:'do'},
+  {q:'Does she like tea? — No, she ___.',options:['don\'t','doesn\'t'],answer:'doesn\'t'},
+  {q:'I like ___ with my dad. 👨‍🍳',options:['cook','cooking'],answer:'cooking'}
+]);
+buildQuiz('ch-quiz1',[
+  {q:'❌ "I like eat chocolate."',options:['I like eating chocolate.','I like eats chocolate.'],answer:'I like eating chocolate.'},
+  {q:'❌ "She don\'t like fish."',options:['She doesn\'t like fish.','She doesn\'t likes fish.'],answer:'She doesn\'t like fish.'},
+  {q:'❌ "He really love pizza."',options:['He really loves pizza.','He really loving pizza.'],answer:'He really loves pizza.'}
+]);
+buildQuiz('ch-quiz2',[
+  {q:'😍 Chocolate is your NUMBER ONE. "I ___ love chocolate!"',options:['absolutely','quite'],answer:'absolutely'},
+  {q:'😐 Salad is just OK for you. "I ___ like salad."',options:['quite','absolutely'],answer:'quite'},
+  {q:'🌶️🚫 Spicy food — big NO. "She ___ doesn\'t like spicy food."',options:['really','yum'],answer:'really'}
+]);
+buildQuiz('ch-quiz3',[
+  {q:'"___ your dad like cooking?"',options:['Do','Does'],answer:'Does'},
+  {q:'"Does Marco like cheese?" — No, he ___.',options:['doesn\'t','don\'t','isn\'t'],answer:'doesn\'t'},
+  {q:'"My friends ___ pizza." (friends = they!)',options:['like','likes'],answer:'like'},
+  {q:'👑 BOSS: "She ___ coffee, but she ___ like tea."',options:['likes / doesn\'t','like / don\'t','likes / don\'t'],answer:'likes / doesn\'t'}
+]);
+</script>
+</body>
+</html>

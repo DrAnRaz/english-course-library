@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>L2 · Session 9 — Rules &amp; Advice</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--accent:#FB8C00;--accent2:#FFA726}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1a;font-size:17px;line-height:1.6;padding-bottom:90px}
+.page-header{background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;padding:26px 20px;text-align:center}
+.page-header h1{font-size:26px;font-weight:800;letter-spacing:-0.3px}
+.page-header .subtitle{font-size:14px;opacity:0.9;margin-top:4px}
+.badge{display:inline-block;background:rgba(255,255,255,0.2);padding:6px 16px;border-radius:20px;font-size:14px;margin-top:10px}
+.lvl{display:inline-block;background:#FFD54F;color:#5D4037;font-weight:800;font-size:12px;padding:3px 12px;border-radius:12px;letter-spacing:0.5px;margin-bottom:8px}
+.container{max-width:860px;margin:0 auto;padding:18px}
+
+/* Student name */
+.namebox{background:white;border:2px solid var(--accent);border-radius:14px;padding:14px 18px;margin:16px 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.namebox label{font-weight:700;font-size:15px}
+.namebox input{flex:1;min-width:160px;font-size:17px;padding:8px 12px;border:2px dashed #90A4AE;border-radius:8px;font-family:inherit}
+.namebox .hello{font-weight:700;color:var(--accent)}
+
+/* Agenda */
+.agenda{background:white;border-radius:14px;padding:16px 18px;margin:14px 0;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.agenda h2{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:#666;margin-bottom:10px}
+.agenda-pills{display:flex;flex-wrap:wrap;gap:8px}
+.ap{display:flex;align-items:center;gap:6px;background:#ECEFF1;border:2px solid transparent;border-radius:20px;padding:5px 13px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.ap.done{background:#C8E6C9;border-color:#2E7D32;text-decoration:line-through;opacity:0.8}
+
+/* Sections */
+.section{background:white;border-radius:16px;margin:18px 0;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,0.07)}
+.sec-head{padding:14px 20px;color:white;font-size:17px;font-weight:800;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sec-head .icon{font-size:22px}
+.sec-head .step{margin-left:auto;font-size:12px;font-weight:700;background:rgba(255,255,255,0.25);padding:3px 12px;border-radius:12px;white-space:nowrap}
+.sec-head .timing{font-size:12px;font-weight:400;background:rgba(255,255,255,0.18);padding:3px 10px;border-radius:12px;white-space:nowrap}
+.sec-body{padding:18px 20px}
+.zoom-cue{display:block;font-size:13px;font-weight:600;color:#37474F;background:#E1F5FE;border-left:4px solid #0288D1;border-radius:0 8px 8px 0;padding:7px 12px;margin:0 0 14px}
+.goal .sec-head{background:#2E7D32}
+.warmup .sec-head{background:#E65100}
+.vocab .sec-head{background:#1565C0}
+.reading .sec-head{background:#6A1B9A}
+.grammar .sec-head{background:#AD1457}
+.task .sec-head{background:#00695C}
+.challenge .sec-head{background:#F57F17}
+.review .sec-head{background:#BF360C}
+.skipif{background:#FFF8E1;border:1px dashed #F9A825;border-radius:10px;padding:10px 14px;margin-top:12px;font-size:14px}
+.skipif b{color:#F57F17}
+
+/* Movement break */
+.move{background:linear-gradient(135deg,#00BFA5,#00897B);color:white;border-radius:16px;margin:18px 0;padding:18px 22px;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,0.1)}
+.move h2{font-size:20px;font-weight:800}
+.move p{font-size:15px;opacity:0.95;margin-top:6px}
+
+/* Vocab cards */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:14px 0}
+.vc{background:#E3F2FD;border:2px solid #90CAF9;border-radius:12px;padding:12px 10px;text-align:center;cursor:pointer;transition:transform 0.12s}
+.vc:hover{transform:scale(1.04);border-color:var(--accent)}
+.vc .vc-emoji{font-size:30px}
+.vc .vc-word{font-weight:800;font-size:15px;margin-top:4px;color:#0D47A1}
+.vc .vc-pron{font-size:12px;color:#666}
+.vc .vc-play{font-size:13px;color:#1565C0}
+
+/* Quiz engine */
+.qz{background:#FAFAFA;border:1px solid #E0E0E0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.qz .q{font-weight:700;font-size:16px;margin-bottom:10px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{font-family:inherit;font-size:15px;font-weight:600;padding:8px 16px;border-radius:10px;border:2px solid #B0BEC5;background:white;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt.correct{background:#C8E6C9;border-color:#2E7D32}
+.opt.wrong{background:#FFCDD2;border-color:#C62828}
+.opt:disabled{cursor:default;opacity:0.85}
+.fb{font-size:14px;font-weight:600;margin-top:8px;display:none}
+.fb.ok{display:block;color:#2E7D32}
+.fb.no{display:block;color:#C62828}
+
+/* Score bar */
+.scorebar{position:sticky;top:0;z-index:50;background:white;box-shadow:0 2px 8px rgba(0,0,0,0.12);padding:8px 16px;display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px}
+.scorebar .bar{flex:1;height:10px;background:#ECEFF1;border-radius:6px;overflow:hidden}
+.scorebar .fill{height:100%;width:0;background:linear-gradient(90deg,#43A047,#66BB6A);transition:width 0.4s}
+.stars{font-size:16px}
+
+/* Reading */
+.reading-text{background:#F3E5F5;border-radius:12px;padding:18px 20px;font-size:17px;max-width:65ch}
+.reading-text h4{color:#6A1B9A;font-size:15px;margin:14px 0 6px;text-transform:uppercase;letter-spacing:0.4px}
+.reading-text h4:first-child{margin-top:0}
+.reading-text p{margin:8px 0}
+
+/* Editable fields */
+.field-label{font-weight:700;font-size:14px;margin:12px 0 4px;color:#37474F}
+.editable{min-height:34px;background:#FFFDE7;border:2px dashed #9E9D24;border-radius:8px;padding:8px 12px;font-size:16px;outline:none}
+.editable.tall{min-height:70px}
+.editable:focus{border-style:solid;border-color:var(--accent)}
+.editable:empty::before{content:attr(data-placeholder);color:#999}
+.qa-item{margin:12px 0}
+.qa-item .q{font-weight:700;font-size:15px;margin-bottom:5px}
+
+/* Frames / rule boxes */
+.frame{background:#FCE4EC;border-left:5px solid #AD1457;border-radius:0 10px 10px 0;padding:12px 16px;margin:12px 0;font-size:16px}
+.rulebox{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.rule{border-radius:12px;padding:14px 16px;font-size:15px}
+.rule h4{font-size:15px;margin-bottom:8px}
+.rule.a{background:#E8F5E9;border:2px solid #66BB6A}
+.rule.a h4{color:#2E7D32}
+.rule.b{background:#FFF3E0;border:2px solid #FFA726}
+.rule.b h4{color:#E65100}
+.hint{font-size:14px;color:#555;background:#F5F5F5;border-radius:8px;padding:8px 12px;margin:10px 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.chip{background:#E1F5FE;border:2px solid #81D4FA;border-radius:16px;padding:5px 14px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.chip.on{background:#0288D1;border-color:#01579B;color:white}
+.speak{background:#E8F5E9;border-radius:10px;padding:12px 16px;font-size:16px;margin:12px 0}
+
+/* Teacher mode */
+.t-only{display:none}
+body.teacher-mode .t-only{display:block}
+.teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
+.teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
+
+/* Bottom bar */
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:white;box-shadow:0 -3px 12px rgba(0,0,0,0.12);padding:10px 14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;z-index:60}
+.bb{font-family:inherit;font-size:14px;font-weight:700;padding:10px 18px;border-radius:10px;border:none;cursor:pointer;text-decoration:none;color:white;display:inline-block}
+.bb-save{background:#2E7D32}
+.bb-print{background:#546E7A}
+.bb-teach{background:#C62828}
+#toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:#2E7D32;color:white;font-weight:700;padding:10px 22px;border-radius:20px;opacity:0;transition:all 0.3s;z-index:70}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:640px){.rulebox{grid-template-columns:1fr}.vocab-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}}
+@media print{body{background:white;padding-bottom:0}.bottom-bar,.scorebar,#toast{display:none!important}.section{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid}.sec-head,.sec-body,.page-header{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="lvl">LEVEL 2 · ELEMENTARY (A2)</div>
+  <h1>📜 Session 9 — Rules &amp; Advice</h1>
+  <div class="subtitle">English Course Library · Kids &amp; Teens</div>
+  <div class="badge">🎯 Today: give rules and advice with <b>must</b>, <b>have to</b> and <b>should</b> · ≈50 min core</div>
+</div>
+
+<div class="scorebar">
+  <span>⭐ Score:</span><span id="score-num">0 / 0</span>
+  <div class="bar"><div class="fill" id="score-fill"></div></div>
+  <span class="stars" id="score-stars"></span>
+</div>
+
+<div id="toast">✓ Saved</div>
+
+<div class="container">
+
+<div class="namebox">
+  <label for="student-name">👋 Your name:</label>
+  <input id="student-name" type="text" placeholder="Type your name…">
+  <span class="hello" id="hello-msg"></span>
+</div>
+
+<div class="agenda">
+  <h2>📋 Today's plan — tap each step when you finish it</h2>
+  <div class="agenda-pills" id="agenda">
+    <span class="ap" data-s="1">1️⃣ Goal</span><span class="ap" data-s="2">2️⃣ Warm-up</span>
+    <span class="ap" data-s="3">3️⃣ New words</span><span class="ap" data-s="4">4️⃣ Reading</span>
+    <span class="ap" data-s="5">5️⃣ Grammar</span><span class="ap" data-s="6">6️⃣ Create</span>
+    <span class="ap" data-s="7">7️⃣ Game</span><span class="ap" data-s="8">8️⃣ Review</span>
+  </div>
+</div>
+
+<!-- STEP 1 GOAL -->
+<div class="section goal">
+  <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
+    <p><em>"Today you learn the language of rules and good advice. By the end, you can say what people <b>must</b> do, what they <b>mustn't</b> do, and what they <b>should</b> do — like a wise camp leader."</em> 🏕️</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Quick diagnostic: ask "Tell me one rule at your school." Note the verb they choose ("we must…", "we can't…", "it is forbidden…"). Don't correct — it shows you their starting point for Step 5.</div>
+  </div>
+</div>
+
+<!-- STEP 2 WARM-UP -->
+<div class="section warmup">
+  <div class="sec-head"><span class="icon">⚡</span> Warm-Up — Rule or Advice? <span class="timing">5 min</span><span class="step">Step 2</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, hands visible! Student shows fingers to answer — no clicking, no screen yet.</span>
+    <p><b>How to play:</b></p>
+    <p>1. Your teacher says a sentence — for example: <em>"Stop at a red light!"</em> 🚦<br>
+    2. You show <b>1 finger</b> if it's a RULE (must!) — or <b>2 fingers</b> if it's just ADVICE (should).<br>
+    3. Then say it as a full sentence: <em>"You must stop at a red light."</em> Then swap roles! 🔄</p>
+    <p class="hint">No score here — just wake up your English brain! 🧠</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 2</h4>Good items: wear a seatbelt (rule) · drink water in summer (advice) · do your homework (rule at school) · go to bed early (advice) · don't run by the pool (rule). Some are debatable — GREAT, that debate is the point. Accept both answers if the student can defend them.</div>
+  </div>
+</div>
+
+<!-- STEP 3 VOCAB -->
+<div class="section vocab">
+  <div class="sec-head"><span class="icon">📝</span> New Words — Rules of Life <span class="timing">10 min</span><span class="step">Step 3</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share your screen. YOU click 🔊, the student repeats each phrase twice — second time with "You must…" or "You should…" in front.</span>
+    <p>Tap any card to <b>hear</b> it 🔊. Say it out loud after the sound!</p>
+    <div class="vocab-grid" id="vocab-grid"></div>
+    <h3>🎧 Practice — tap the right phrase</h3>
+    <p class="hint">Read the clue and tap the phrase that matches. Green = correct!</p>
+    <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3 + answer key</h4>Vocab quiz answers: wear a helmet · be quiet · arrive on time · take turns · get enough sleep. After the quiz, ask for each of 3 random cards: "Rule or advice at YOUR school?" — one-word answer plus a full sentence.</div>
+  </div>
+</div>
+
+<!-- STEP 4 READING -->
+<div class="section reading">
+  <div class="sec-head"><span class="icon">📖</span> Reading — Welcome to Camp Falcon <span class="timing">10 min</span><span class="step">Step 4</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. Take turns — student reads one chunk aloud, you read the next. Then she annotates every must / have to / should she finds (Zoom → Annotate).</span>
+    <p>Read Dalia's welcome letter for new campers. Tap 🔊 to hear any part read aloud.
+      <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
+    <div class="reading-text" id="read-text">
+      <h4>🏕️ Welcome to Camp Falcon! — a letter from Dalia</h4>
+      <p>Hi! My name is Dalia. Last year I was a camper here. This year I am a junior helper. Here is everything you must know — plus some friendly advice from me.</p>
+      <h4>📜 The rules — you must follow these</h4>
+      <p>You <b>must wear</b> a helmet on the climbing wall. No helmet, no climbing. That is the biggest rule at camp.</p>
+      <p>You <b>have to be</b> at breakfast at eight o'clock. Mr Okafor, the cook, closes the kitchen at half past eight — and he never waits.</p>
+      <p>You <b>mustn't feed</b> the squirrels. They look cute, but they are little thieves. Last year one took my whole sandwich!</p>
+      <h4>😊 The good news</h4>
+      <p>You <b>don't have to make</b> a campfire alone — a helper always does it with you. And you <b>don't have to swim</b> if you don't want to. Nobody has to do everything.</p>
+      <h4>💡 My advice</h4>
+      <p>You <b>should bring</b> a torch, because the path to the cabins is very dark at night. You <b>should write</b> your name on your socks. Trust me on this one.</p>
+      <p>And you <b>shouldn't leave</b> chocolate in your bag. Remember the squirrels? See you at Camp Falcon — I can't wait to meet you! 🦅</p>
+    </div>
+
+    <h3>🔎 Did you understand? Tap your answer</h3>
+    <div id="reading-quiz"></div>
+
+    <h3>💬 Your turn — write your answer</h3>
+    <div class="qa-item"><div class="q">1. Why shouldn't you leave chocolate in your bag at Camp Falcon?</div><div class="editable" id="r-open1" contenteditable="true" data-placeholder="Because the squirrels…"></div></div>
+    <div class="qa-item"><div class="q">2. Write ONE rule and ONE piece of advice for a new student at YOUR school. Use "must" and "should".</div><div class="editable tall" id="r-open2" contenteditable="true" data-placeholder="You must… You should…"></div></div>
+
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> the two written questions above can be homework instead.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 4 + answer key</h4>Quiz answers: a helmet · at eight o'clock · feed the squirrels · your name. Open 1: because the squirrels steal food / they are little thieves. Open 2: any sensible rule with must + advice with should. Before Step 5, point at "you don't have to swim" and ask: "Is swimming forbidden?" — the NO answer is the doorway to the mustn't vs don't-have-to rule.</div>
+  </div>
+</div>
+
+<!-- STEP 5 GRAMMAR -->
+<div class="section grammar">
+  <div class="sec-head"><span class="icon">🔧</span> Grammar — Must / Have To / Should <span class="timing">10 min</span><span class="step">Step 5</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. For each quiz item, the student says the answer out loud BEFORE you click it.</span>
+    <div class="rulebox">
+      <div class="rule a"><h4>📜 MUST / HAVE TO — strong rules</h4>
+        <b>must + verb · have/has to + verb</b><br><br>
+        <em>You <b>must wear</b> a helmet.</em> ⛑️<br>
+        <em>She <b>has to be</b> there at eight.</em><br><br>
+        🔑 No "to" after must: must wear, NOT "must to wear"!</div>
+      <div class="rule b"><h4>💡 SHOULD — friendly advice</h4>
+        <b>should / shouldn't + verb</b><br><br>
+        <em>You <b>should bring</b> a torch.</em> 🔦<br>
+        <em>You <b>shouldn't leave</b> chocolate in your bag.</em> 🍫<br><br>
+        🔑 It's a good idea — not a rule.</div>
+    </div>
+    <div class="frame">⚠️ <b>The danger pair — NOT the same!</b><br><b>mustn't</b> = ❌ forbidden! <em>"You mustn't feed the squirrels."</em><br><b>don't have to</b> = 🆗 not necessary, you choose. <em>"You don't have to swim."</em></div>
+    <p class="hint">💡 Hungarian tip: "kell" = must / have to, "nem szabad" = mustn't, "nem kell" = don't have to. Hungarian "nem kell" and "nem szabad" look like cousins — in English they are TOTAL strangers. Never swap them!</p>
+    <h3>✏️ Practice — tap the correct form</h3>
+    <div id="grammar-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>If the student gets 6+/8, bank time for Step 6. If under 5, redo wrong items aloud with the check question: "Rule, forbidden, not necessary, or just advice?" The mustn't/don't-have-to pair is the boss fight — expect to revisit it.</div>
+  </div>
+</div>
+
+<!-- MOVE BREAK -->
+<div class="move">
+  <h2>🤸 MOVE! — 1 minute break</h2>
+  <p>Stand up! March on the spot like a camp guard — 10 big steps. Then 5 slow arm circles. Finish: freeze like a statue for 5 seconds! Cameras stay on — teacher does it too! 😄</p>
+</div>
+
+<!-- STEP 6 CREATIVE TASK -->
+<div class="section task">
+  <div class="sec-head"><span class="icon">🎨</span> Create — My Rulebook <span class="timing">10 min</span><span class="step">Step 6</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in her own browser, types here and shares her screen (Zoom → Share Screen) while you watch.</span>
+    <p>You are the boss now! 👑 Pick a place and write its official rulebook.</p>
+    <h3>First, tap the place you are the boss of:</h3>
+    <div class="chips" id="exp-chips"></div>
+    <div class="field-label">📜 Two RULES (must / mustn't)</div>
+    <div class="editable" id="t-rules" contenteditable="true" data-placeholder="Everybody must… You mustn't…"></div>
+    <div class="field-label">🆗 One thing that is NOT necessary (don't have to)</div>
+    <div class="editable" id="t-nothaveto" contenteditable="true" data-placeholder="You don't have to…"></div>
+    <div class="field-label">💡 Two pieces of ADVICE (should / shouldn't)</div>
+    <div class="editable tall" id="t-advice" contenteditable="true" data-placeholder="You should… You shouldn't…"></div>
+    <div class="speak">🗣️ <b>Now say it out loud!</b> Read your rulebook like a serious boss — then answer your teacher's question: <em>"Do I have to…?"</em> 🎤</div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> do only the 📜 rules line + the spoken reading; the advice lines become homework.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>Fun boss questions to ask about their place: "Do I have to wear shoes? Can I bring my elephant? What happens if I break rule 1?" Each answer forces must/mustn't/don't have to naturally. Check they use base verb after must (no "to").</div>
+  </div>
+</div>
+
+<!-- STEP 7 CHALLENGE GAME -->
+<div class="section challenge">
+  <div class="sec-head"><span class="icon">🎮</span> Challenge Game — The Rule Keeper <span class="timing">8 min</span><span class="step">Step 7</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen and cheer. 🎉</span>
+    <p class="hint">🗝️ Three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
+    <h3>Round 1 — What does it mean?</h3>
+    <div id="ch-quiz1"></div>
+    <h3>Round 2 — Fix the broken sentence</h3>
+    <div id="ch-quiz2"></div>
+    <h3>Round 3 — Boss level: Dragon School rules 👑</h3>
+    <div id="ch-quiz3"></div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can be the start of the next lesson's warm-up.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>All answers show live in her score. Wrong answers auto-reveal the correct one in green — ask "why?" on each miss: "Forbidden, not necessary, or advice?"</div>
+  </div>
+</div>
+
+<!-- STEP 8 REVIEW -->
+<div class="section review">
+  <div class="sec-head"><span class="icon">🏁</span> Review &amp; Homework <span class="timing">3 min</span><span class="step">Step 8</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, screens off. Finish with faces, not slides.</span>
+    <div class="frame">⚡ <b>30-second recap:</b> teacher says a situation ("the floor is wet") — you answer with must, mustn't or should (<em>"You mustn't run!"</em>). Five situations, fast!</div>
+    <h3>🏠 Homework</h3>
+    <div class="frame">
+      <p>🏠 <b>The Secret Rules of My Home:</b> write 3 real rules from your home — one with <em>must</em>, one with <em>mustn't</em>, one with <em>don't have to</em>.</p>
+      <p>💡 <b>Plus one piece of advice</b> for your teacher with <em>should</em>!</p>
+      <p>📌 Example: <em>"You should drink tea before our lesson. It makes your brain faster."</em></p>
+    </div>
+    <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="t-only">
+      <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
+      <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">What to adjust next time?</div><div class="editable" id="tn-adjust" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">Student's strongest / weakest moment today?</div><div class="editable" id="tn-notes" contenteditable="true" data-placeholder="…"></div></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="bottom-bar">
+  <button class="bb bb-save" onclick="saveWork()">💾 Save my work</button>
+  <button class="bb bb-print" onclick="window.print()">🖨️ Print</button>
+  <button class="bb bb-teach" id="teach-btn" onclick="unlockTeacher()">🔐</button>
+</div>
+
+<script>
+/* ============ ENGINE (identical across all Library sessions) ============ */
+var LEVEL=2, SESSION=9, K='ecl_L'+LEVEL+'s'+SESSION+'_';
+
+/* ---- TTS audio ---- */
+function say(text){try{window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(text);u.lang='en-GB';u.rate=0.9;window.speechSynthesis.speak(u);}catch(e){}}
+
+/* ---- Quiz engine ---- */
+var score=0,total=0;
+function buildQuiz(containerId,items){
+  var c=document.getElementById(containerId);
+  items.forEach(function(it){
+    total++;
+    var qz=document.createElement('div');qz.className='qz';
+    var opts='<div class="opts">';
+    it.options.forEach(function(o){opts+='<button class="opt" data-ok="'+(o===it.answer?'1':'0')+'" onclick="pick(this)">'+o+'</button>';});
+    opts+='</div><div class="fb"></div>';
+    qz.innerHTML='<div class="q">'+it.q+'</div>'+opts;
+    c.appendChild(qz);
+  });
+  updateScore();
+}
+function pick(btn){
+  var qz=btn.closest('.qz');if(qz.dataset.done)return;qz.dataset.done='1';
+  var ok=btn.dataset.ok==='1';var fb=qz.querySelector('.fb');
+  if(ok){btn.classList.add('correct');score++;fb.className='fb ok';fb.textContent='✓ Correct! Great job!';}
+  else{btn.classList.add('wrong');var good=qz.querySelector('[data-ok="1"]');if(good)good.classList.add('correct');
+    fb.className='fb no';fb.textContent='Almost! The green one is right. Try to remember it! 💪';}
+  qz.querySelectorAll('.opt').forEach(function(b){b.disabled=true;});
+  updateScore();
+}
+function updateScore(){
+  var answered=document.querySelectorAll('.qz[data-done]').length;
+  document.getElementById('score-num').textContent=score+' / '+total;
+  document.getElementById('score-fill').style.width=(total?Math.round(answered/total*100):0)+'%';
+  var st='',pct=total?score/total:0;
+  if(answered===total&&total>0){st=pct>=0.8?'⭐⭐⭐':pct>=0.5?'⭐⭐':'⭐';}
+  document.getElementById('score-stars').textContent=st;
+}
+
+/* ---- Student name ---- */
+var nameInput=document.getElementById('student-name');
+function applyName(){
+  var n=nameInput.value.trim();
+  document.getElementById('hello-msg').textContent=n?('Hello, '+n+'! 🌟'):'';
+  document.querySelectorAll('.stud-name').forEach(function(el){el.textContent=n?('Amazing work today, '+n+'!'):'Amazing work today!';});
+  localStorage.setItem(K+'name',n);
+}
+nameInput.addEventListener('input',applyName);
+
+/* ---- Agenda pills ---- */
+document.querySelectorAll('.ap').forEach(function(p){
+  p.onclick=function(){p.classList.toggle('done');localStorage.setItem(K+'ap'+p.dataset.s,p.classList.contains('done'));};
+});
+
+/* ---- Teacher mode ---- */
+function unlockTeacher(){
+  if(document.body.classList.contains('teacher-mode')){document.body.classList.remove('teacher-mode');document.getElementById('teach-btn').textContent='🔐';return;}
+  var pin=prompt('Teacher PIN:');
+  if(pin==='teach'){document.body.classList.add('teacher-mode');document.getElementById('teach-btn').textContent='🔓 Teacher';}
+}
+
+/* ---- Save work (.txt export) ---- */
+function saveWork(){
+  var n=(localStorage.getItem(K+'name')||'Student').replace(/[^\wÀ-ſ-]/g,'');
+  var out=n+' — Level '+LEVEL+' Session '+SESSION+'\n'+new Date().toLocaleDateString()+'\n'+'='.repeat(34)+'\n\n';
+  var picks=[].slice.call(document.querySelectorAll('.chips .chip.on')).map(function(x){return x.textContent.trim();});
+  if(picks.length)out+='Picked: '+picks.join(', ')+'\n\n';
+  var count=0;
+  document.querySelectorAll('.editable[id]').forEach(function(el){var t=el.innerText.trim();if(t){out+='['+el.id+'] '+t+'\n';count++;}});
+  out+='\nScore: '+score+' / '+total;
+  if(count===0&&!picks.length){alert('Type something first! 🙂');return;}
+  var b=new Blob([out],{type:'text/plain;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u;a.download=n+'_L'+LEVEL+'S'+SESSION+'_'+new Date().toISOString().slice(0,10)+'.txt';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);
+  var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show');},1600);
+}
+
+/* ---- Autosave / autoload ---- */
+function autosave(){document.querySelectorAll('.editable[id]').forEach(function(el){localStorage.setItem(K+el.id,el.innerHTML);});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){localStorage.setItem(K+'chip'+i,el.classList.contains('on'));});}
+function autoload(){
+  document.querySelectorAll('.editable[id]').forEach(function(el){var v=localStorage.getItem(K+el.id);if(v!==null)el.innerHTML=v;});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){if(localStorage.getItem(K+'chip'+i)==='true')el.classList.add('on');});
+  document.querySelectorAll('.ap').forEach(function(p){if(localStorage.getItem(K+'ap'+p.dataset.s)==='true')p.classList.add('done');});
+  var n=localStorage.getItem(K+'name');if(n){nameInput.value=n;applyName();}
+}
+document.addEventListener('input',function(){clearTimeout(window._t);window._t=setTimeout(autosave,600);});
+window.addEventListener('load',autoload);
+
+/* ============ SESSION CONTENT (changes per session) ============ */
+
+/* ---- Vocabulary: rules & advice phrases ---- */
+var VOCAB=[
+  {w:'wear a helmet',e:'⛑️',p:'must — safety rule'},
+  {w:'follow the rules',e:'📜',p:'must — always'},
+  {w:'arrive on time',e:'⏰',p:'have to — school rule'},
+  {w:'be quiet',e:'🤫',p:'must — in the library'},
+  {w:'fasten your seatbelt',e:'🚗',p:'must — in the car'},
+  {w:'do your homework',e:'📚',p:'have to — sorry!'},
+  {w:'drop litter',e:'🚮',p:'mustn\'t — never!'},
+  {w:'be kind',e:'💛',p:'should — always a good idea'},
+  {w:'take turns',e:'🔄',p:'should — in games'},
+  {w:'ask for help',e:'🙋',p:'should — when stuck'},
+  {w:'get enough sleep',e:'😴',p:'should — brain fuel'},
+  {w:'drink water',e:'💧',p:'should — every day'}
+];
+(function buildVocab(){
+  var g=document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v){
+    var d=document.createElement('div');d.className='vc';
+    d.innerHTML='<div class="vc-play">🔊</div><div class="vc-emoji">'+v.e+'</div><div class="vc-word">'+v.w+'</div><div class="vc-pron">→ '+v.p+'</div>';
+    d.onclick=function(){say(v.w);};
+    g.appendChild(d);
+  });
+})();
+
+/* ---- Boss-place chips for Step 6 ---- */
+(function(){
+  var PLACES=['🏫 my classroom','🐉 a school for dragons','🎮 a gaming club','🏊 the swimming pool','🚌 the school bus','🐶 a dog park','🍕 a pizza restaurant','👑 my own castle','🛏️ my bedroom','🌋 a volcano research base'];
+  var c=document.getElementById('exp-chips');
+  PLACES.forEach(function(t){
+    var s=document.createElement('span');s.className='chip';s.textContent=t;
+    s.onclick=function(){s.classList.toggle('on');say(t.replace(/^[^ ]+ /,''));};
+    c.appendChild(s);
+  });
+})();
+
+/* ---- Quizzes ---- */
+buildQuiz('vocab-quiz',[
+  {q:'⛑️ Before you climb or ride a bike, you must…',options:['wear a helmet','drop litter','drink water'],answer:'wear a helmet'},
+  {q:'🤫 In the library, everybody has to…',options:['take turns','be quiet','ask for help'],answer:'be quiet'},
+  {q:'⏰ The lesson starts at 8:00. You have to…',options:['arrive on time','get enough sleep','be kind'],answer:'arrive on time'},
+  {q:'🔄 In a board game, players should…',options:['fasten your seatbelt','follow the rules','take turns'],answer:'take turns'},
+  {q:'😴 Your brain needs fuel for school. You should…',options:['get enough sleep','drop litter','wear a helmet'],answer:'get enough sleep'}
+]);
+buildQuiz('reading-quiz',[
+  {q:'What must you wear on the climbing wall?',options:['a helmet','a torch','special socks'],answer:'a helmet'},
+  {q:'What time do you have to be at breakfast?',options:['at seven o\'clock','at eight o\'clock','at half past eight'],answer:'at eight o\'clock'},
+  {q:'What mustn\'t you do at Camp Falcon?',options:['swim in the lake','feed the squirrels','bring a torch'],answer:'feed the squirrels'},
+  {q:'What should you write on your socks?',options:['your name','the camp rules','a smiley face'],answer:'your name'}
+]);
+buildQuiz('grammar-quiz',[
+  {q:'You ___ wear a helmet on the climbing wall. (strong rule!)',options:['must','should'],answer:'must'},
+  {q:'You ___ bring a torch. (friendly advice)',options:['should','mustn\'t'],answer:'should'},
+  {q:'You ___ feed the squirrels. (forbidden!)',options:['mustn\'t','don\'t have to'],answer:'mustn\'t'},
+  {q:'You ___ swim if you don\'t want to. (not necessary)',options:['don\'t have to','mustn\'t'],answer:'don\'t have to'},
+  {q:'She ___ to be at breakfast at eight.',options:['has','have'],answer:'has'},
+  {q:'You ___ eat sweets before dinner. (bad idea)',options:['shouldn\'t','don\'t have to'],answer:'shouldn\'t'},
+  {q:'___ I have to write my name on my socks?',options:['Do','Must'],answer:'Do'},
+  {q:'He must ___ his homework tonight.',options:['do','to do'],answer:'do'}
+]);
+buildQuiz('ch-quiz1',[
+  {q:'"You mustn\'t run by the pool." What does it mean?',options:['Don\'t do it — forbidden! ❌','You can choose 🆗','It\'s just a good idea 💡'],answer:'Don\'t do it — forbidden! ❌'},
+  {q:'"You should drink more water." What does it mean?',options:['It\'s advice — a good idea 💡','It\'s forbidden ❌','It\'s a strong rule 📜'],answer:'It\'s advice — a good idea 💡'},
+  {q:'"You don\'t have to come." What does it mean?',options:['Not necessary — you choose 🆗','It\'s forbidden ❌','It\'s a strong rule 📜'],answer:'Not necessary — you choose 🆗'}
+]);
+buildQuiz('ch-quiz2',[
+  {q:'❌ "He must to do his homework."',options:['He must do his homework.','He must doing his homework.'],answer:'He must do his homework.'},
+  {q:'❌ "You don\'t must feed the squirrels." (forbidden!)',options:['You mustn\'t feed the squirrels.','You don\'t should feed the squirrels.'],answer:'You mustn\'t feed the squirrels.'},
+  {q:'❌ "She have to arrive on time."',options:['She has to arrive on time.','She have to arrives on time.'],answer:'She has to arrive on time.'}
+]);
+buildQuiz('ch-quiz3',[
+  {q:'🐉 It\'s raining fire outside. You ___ take your dragon umbrella.',options:['should','mustn\'t','don\'t have to'],answer:'should'},
+  {q:'🐉 The sign says STOP. Every dragon ___ stop.',options:['must','doesn\'t have to','shouldn\'t'],answer:'must'},
+  {q:'🐉 Flying lessons are free. You ___ pay.',options:['don\'t have to','mustn\'t','must'],answer:'don\'t have to'},
+  {q:'👑 BOSS: "At Dragon School you ___ fly without a teacher (forbidden!), but you ___ wear the school hat (you choose)."',options:['mustn\'t / don\'t have to','don\'t have to / mustn\'t','shouldn\'t / must'],answer:'mustn\'t / don\'t have to'}
+]);
+</script>
+</body>
+</html>

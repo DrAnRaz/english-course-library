@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>L3 · Session 6 — Phrasal Verb Detective</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--accent:#1565C0;--accent2:#1E88E5}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1a;font-size:17px;line-height:1.6;padding-bottom:90px}
+.page-header{background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;padding:26px 20px;text-align:center}
+.page-header h1{font-size:26px;font-weight:800;letter-spacing:-0.3px}
+.page-header .subtitle{font-size:14px;opacity:0.9;margin-top:4px}
+.badge{display:inline-block;background:rgba(255,255,255,0.2);padding:6px 16px;border-radius:20px;font-size:14px;margin-top:10px}
+.lvl{display:inline-block;background:#FFD54F;color:#5D4037;font-weight:800;font-size:12px;padding:3px 12px;border-radius:12px;letter-spacing:0.5px;margin-bottom:8px}
+.container{max-width:860px;margin:0 auto;padding:18px}
+
+/* Student name */
+.namebox{background:white;border:2px solid var(--accent);border-radius:14px;padding:14px 18px;margin:16px 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.namebox label{font-weight:700;font-size:15px}
+.namebox input{flex:1;min-width:160px;font-size:17px;padding:8px 12px;border:2px dashed #90A4AE;border-radius:8px;font-family:inherit}
+.namebox .hello{font-weight:700;color:var(--accent)}
+
+/* Agenda */
+.agenda{background:white;border-radius:14px;padding:16px 18px;margin:14px 0;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.agenda h2{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:#666;margin-bottom:10px}
+.agenda-pills{display:flex;flex-wrap:wrap;gap:8px}
+.ap{display:flex;align-items:center;gap:6px;background:#ECEFF1;border:2px solid transparent;border-radius:20px;padding:5px 13px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.ap.done{background:#C8E6C9;border-color:#2E7D32;text-decoration:line-through;opacity:0.8}
+
+/* Sections */
+.section{background:white;border-radius:16px;margin:18px 0;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,0.07)}
+.sec-head{padding:14px 20px;color:white;font-size:17px;font-weight:800;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sec-head .icon{font-size:22px}
+.sec-head .step{margin-left:auto;font-size:12px;font-weight:700;background:rgba(255,255,255,0.25);padding:3px 12px;border-radius:12px;white-space:nowrap}
+.sec-head .timing{font-size:12px;font-weight:400;background:rgba(255,255,255,0.18);padding:3px 10px;border-radius:12px;white-space:nowrap}
+.sec-body{padding:18px 20px}
+.zoom-cue{display:block;font-size:13px;font-weight:600;color:#37474F;background:#E1F5FE;border-left:4px solid #0288D1;border-radius:0 8px 8px 0;padding:7px 12px;margin:0 0 14px}
+.goal .sec-head{background:#2E7D32}
+.warmup .sec-head{background:#E65100}
+.vocab .sec-head{background:#1565C0}
+.reading .sec-head{background:#6A1B9A}
+.grammar .sec-head{background:#AD1457}
+.task .sec-head{background:#00695C}
+.challenge .sec-head{background:#F57F17}
+.review .sec-head{background:#BF360C}
+.skipif{background:#FFF8E1;border:1px dashed #F9A825;border-radius:10px;padding:10px 14px;margin-top:12px;font-size:14px}
+.skipif b{color:#F57F17}
+
+/* Movement break */
+.move{background:linear-gradient(135deg,#00BFA5,#00897B);color:white;border-radius:16px;margin:18px 0;padding:18px 22px;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,0.1)}
+.move h2{font-size:20px;font-weight:800}
+.move p{font-size:15px;opacity:0.95;margin-top:6px}
+
+/* Vocab cards */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:14px 0}
+.vc{background:#E3F2FD;border:2px solid #90CAF9;border-radius:12px;padding:12px 10px;text-align:center;cursor:pointer;transition:transform 0.12s}
+.vc:hover{transform:scale(1.04);border-color:var(--accent)}
+.vc .vc-emoji{font-size:30px}
+.vc .vc-word{font-weight:800;font-size:15px;margin-top:4px;color:#0D47A1}
+.vc .vc-pron{font-size:12px;color:#666}
+.vc .vc-play{font-size:13px;color:#1565C0}
+
+/* Quiz engine */
+.qz{background:#FAFAFA;border:1px solid #E0E0E0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.qz .q{font-weight:700;font-size:16px;margin-bottom:10px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{font-family:inherit;font-size:15px;font-weight:600;padding:8px 16px;border-radius:10px;border:2px solid #B0BEC5;background:white;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt.correct{background:#C8E6C9;border-color:#2E7D32}
+.opt.wrong{background:#FFCDD2;border-color:#C62828}
+.opt:disabled{cursor:default;opacity:0.85}
+.fb{font-size:14px;font-weight:600;margin-top:8px;display:none}
+.fb.ok{display:block;color:#2E7D32}
+.fb.no{display:block;color:#C62828}
+
+/* Score bar */
+.scorebar{position:sticky;top:0;z-index:50;background:white;box-shadow:0 2px 8px rgba(0,0,0,0.12);padding:8px 16px;display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px}
+.scorebar .bar{flex:1;height:10px;background:#ECEFF1;border-radius:6px;overflow:hidden}
+.scorebar .fill{height:100%;width:0;background:linear-gradient(90deg,#43A047,#66BB6A);transition:width 0.4s}
+.stars{font-size:16px}
+
+/* Reading */
+.reading-text{background:#F3E5F5;border-radius:12px;padding:18px 20px;font-size:17px;max-width:65ch}
+.reading-text h4{color:#6A1B9A;font-size:15px;margin:14px 0 6px;text-transform:uppercase;letter-spacing:0.4px}
+.reading-text h4:first-child{margin-top:0}
+.reading-text p{margin:8px 0}
+
+/* Editable fields */
+.field-label{font-weight:700;font-size:14px;margin:12px 0 4px;color:#37474F}
+.editable{min-height:34px;background:#FFFDE7;border:2px dashed #9E9D24;border-radius:8px;padding:8px 12px;font-size:16px;outline:none}
+.editable.tall{min-height:70px}
+.editable:focus{border-style:solid;border-color:var(--accent)}
+.editable:empty::before{content:attr(data-placeholder);color:#999}
+.qa-item{margin:12px 0}
+.qa-item .q{font-weight:700;font-size:15px;margin-bottom:5px}
+
+/* Frames / rule boxes */
+.frame{background:#FCE4EC;border-left:5px solid #AD1457;border-radius:0 10px 10px 0;padding:12px 16px;margin:12px 0;font-size:16px}
+.rulebox{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.rule{border-radius:12px;padding:14px 16px;font-size:15px}
+.rule h4{font-size:15px;margin-bottom:8px}
+.rule.a{background:#E8F5E9;border:2px solid #66BB6A}
+.rule.a h4{color:#2E7D32}
+.rule.b{background:#FFF3E0;border:2px solid #FFA726}
+.rule.b h4{color:#E65100}
+.hint{font-size:14px;color:#555;background:#F5F5F5;border-radius:8px;padding:8px 12px;margin:10px 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.chip{background:#E1F5FE;border:2px solid #81D4FA;border-radius:16px;padding:5px 14px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.chip.on{background:#0288D1;border-color:#01579B;color:white}
+.speak{background:#E8F5E9;border-radius:10px;padding:12px 16px;font-size:16px;margin:12px 0}
+
+/* Teacher mode */
+.t-only{display:none}
+body.teacher-mode .t-only{display:block}
+.teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
+.teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
+
+/* Bottom bar */
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:white;box-shadow:0 -3px 12px rgba(0,0,0,0.12);padding:10px 14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;z-index:60}
+.bb{font-family:inherit;font-size:14px;font-weight:700;padding:10px 18px;border-radius:10px;border:none;cursor:pointer;text-decoration:none;color:white;display:inline-block}
+.bb-save{background:#2E7D32}
+.bb-print{background:#546E7A}
+.bb-teach{background:#C62828}
+#toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:#2E7D32;color:white;font-weight:700;padding:10px 22px;border-radius:20px;opacity:0;transition:all 0.3s;z-index:70}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:640px){.rulebox{grid-template-columns:1fr}.vocab-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}}
+@media print{body{background:white;padding-bottom:0}.bottom-bar,.scorebar,#toast{display:none!important}.section{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid}.sec-head,.sec-body,.page-header{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="lvl">LEVEL 3 · INTERMEDIATE (B1)</div>
+  <h1>🕵️ Session 6 — Phrasal Verb Detective</h1>
+  <div class="subtitle">English Course Library · Kids &amp; Teens</div>
+  <div class="badge">🎯 Today: crack the code of <b>12 phrasal verbs</b> — verb + little word = brand-new meaning · ≈50 min core</div>
+</div>
+
+<div class="scorebar">
+  <span>⭐ Score:</span><span id="score-num">0 / 0</span>
+  <div class="bar"><div class="fill" id="score-fill"></div></div>
+  <span class="stars" id="score-stars"></span>
+</div>
+
+<div id="toast">✓ Saved</div>
+
+<div class="container">
+
+<div class="namebox">
+  <label for="student-name">👋 Your name:</label>
+  <input id="student-name" type="text" placeholder="Type your name…">
+  <span class="hello" id="hello-msg"></span>
+</div>
+
+<div class="agenda">
+  <h2>📋 Today's plan — tap each step when you finish it</h2>
+  <div class="agenda-pills" id="agenda">
+    <span class="ap" data-s="1">1️⃣ Goal</span><span class="ap" data-s="2">2️⃣ Warm-up</span>
+    <span class="ap" data-s="3">3️⃣ New words</span><span class="ap" data-s="4">4️⃣ Reading</span>
+    <span class="ap" data-s="5">5️⃣ Grammar</span><span class="ap" data-s="6">6️⃣ Create</span>
+    <span class="ap" data-s="7">7️⃣ Game</span><span class="ap" data-s="8">8️⃣ Review</span>
+  </div>
+</div>
+
+<!-- STEP 1 GOAL -->
+<div class="section goal">
+  <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
+    <p><em>"Today you will crack the secret code of phrasal verbs — a verb plus a little word that together mean something completely NEW. By the end, you can use 12 of the most common ones like a native speaker."</em> 🕵️</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Live diagnostic: ask "What time do you get up?" and "What do you do when you can't find your phone?" Note whether the student understands / already uses any phrasal verbs. Don't teach yet.</div>
+  </div>
+</div>
+
+<!-- STEP 2 WARM-UP -->
+<div class="section warmup">
+  <div class="sec-head"><span class="icon">⚡</span> Warm-Up — Mime Detective <span class="timing">5 min</span><span class="step">Step 2</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, step back so your arms are visible — pure mime game, no screen needed yet.</span>
+    <p><b>How to play:</b></p>
+    <p>1. Your teacher MIMES an everyday action — getting out of bed, putting on a jacket, looking for lost keys… 🎭<br>
+    2. You guess in English: <em>"You are looking for something!"</em><br>
+    3. Swap roles! You mime, teacher guesses. Three actions each.</p>
+    <p class="hint">No score here — and don't worry about the exact verbs yet. That comes next! 🧠</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 2</h4>Mime actions from today's list (get up, put on, look for, pick up, turn on). Whatever the student says, echo it back WITH the phrasal verb: "Yes! I'm LOOKING FOR my keys." You're planting seeds for Step 3.</div>
+  </div>
+</div>
+
+<!-- STEP 3 VOCAB -->
+<div class="section vocab">
+  <div class="sec-head"><span class="icon">📝</span> New Words — 12 Phrasal Verbs <span class="timing">10 min</span><span class="step">Step 3</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share your screen. YOU click 🔊, the student repeats each phrasal verb + its meaning twice.</span>
+    <p>Tap any card to <b>hear</b> it 🔊. Verb + little word = new meaning. Learn the WHOLE chunk!</p>
+    <div class="vocab-grid" id="vocab-grid"></div>
+    <h3>🎧 Practice — tap the right phrasal verb</h3>
+    <p class="hint">Read the clue and tap the phrasal verb that matches. Green = correct!</p>
+    <div id="vocab-quiz"></div>
+  </div>
+</div>
+
+<!-- STEP 4 READING -->
+<div class="section reading">
+  <div class="sec-head"><span class="icon">📖</span> Reading — The Vanishing Cookies <span class="timing">10 min</span><span class="step">Step 4</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. Take turns reading chunks aloud. Bonus hunt: the student annotates every phrasal verb they can spot (Zoom → Annotate).</span>
+    <p>Read the detective story. Tap 🔊 to hear any part read aloud.
+      <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
+    <div class="reading-text" id="read-text">
+      <h4>🕵️ The Case of the Vanishing Cookies</h4>
+      <p>Detective Nadia Flores, age twelve, <b>got up</b> at seven o'clock on Saturday. She <b>put on</b> her lucky coat and <b>turned on</b> her computer. There was a new message: "HELP! Our cookies keep disappearing! — The Reyes family."</p>
+      <h4>🍪 The crime scene</h4>
+      <p>Nadia arrived at the Reyes house at nine. Mrs Reyes explained the mystery. Every night she baked cookies. Every morning, three or four were gone. "We have almost <b>run out of</b> chocolate chips," she said sadly.</p>
+      <p>Nadia <b>looked for</b> clues. She found crumbs on the floor and a small, muddy footprint near the window. She also found a long grey hair. It was not human hair. It was not cat hair either. Hmm.</p>
+      <h4>🌙 The stake-out</h4>
+      <p>That night, Nadia hid behind the sofa. She <b>turned off</b> all the lights and waited. She wanted to <b>find out</b> the truth. At midnight, she heard a soft sound. She almost <b>gave up</b> because she was so sleepy — but then the kitchen door opened!</p>
+      <h4>🐾 Case closed</h4>
+      <p>A fat raccoon climbed in, <b>picked up</b> two cookies with its little hands, and hurried away. Nadia laughed so hard she fell over. The next day she told the family everything.</p>
+      <p>Now Mr Reyes closes the window at night, and the raccoon <b>hangs out</b> in the garden instead — where the family leaves it a small, healthy snack. Nadia <b>took off</b> her lucky coat, went home, and wrote in her notebook: "Case number nine: closed. The cookie thief had a tail."</p>
+      <p>P.S. Nadia's little brother now wants her to <b>look after</b> his hamster. Detectives never rest.</p>
+    </div>
+
+    <h3>🔎 Did you understand? Tap your answer</h3>
+    <div id="reading-quiz"></div>
+
+    <h3>💬 Your turn — write your answer</h3>
+    <div class="qa-item"><div class="q">1. Nadia is a good detective. Find TWO things in the story that prove it.</div><div class="editable" id="r-open1" contenteditable="true" data-placeholder="She… and she…"></div></div>
+    <div class="qa-item"><div class="q">2. Invent case number ten! What mystery will Nadia solve next? Use at least ONE phrasal verb from today.</div><div class="editable tall" id="r-open2" contenteditable="true" data-placeholder="The case of the missing… Nadia finds out…"></div></div>
+
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> the two written questions above can be homework instead.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 4 + answer key</h4>Quiz answers: chocolate chips · a muddy footprint · a raccoon · she was so sleepy. Open 1 guide: she looked for clues, noticed the strange hair, waited all night, didn't give up, found out the truth. Open 2: any mystery is fine — verify the phrasal verb is used correctly. Bonus: the story contains ALL 12 phrasal verbs from Step 3 — challenge the student to find at least 8.</div>
+  </div>
+</div>
+
+<!-- STEP 5 GRAMMAR -->
+<div class="section grammar">
+  <div class="sec-head"><span class="icon">🔧</span> Grammar — How Phrasal Verbs Work <span class="timing">10 min</span><span class="step">Step 5</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. For each quiz item, the student says the answer BEFORE you click it.</span>
+    <div class="rulebox">
+      <div class="rule a"><h4>🧩 VERB + PARTICLE = NEW MEANING</h4>
+        give 🎁 + up ⬆️ = <b>give up</b> = stop trying 🏳️<br><br>
+        You often CANNOT guess the meaning from the parts. Learn the whole chunk, like one new word.<br><br>
+        <em><b>look for</b> = try to find</em> 🔍<br>
+        <em><b>look after</b> = take care of</em> 🐶<br>
+        Same verb, different little word — totally different meaning!</div>
+      <div class="rule b"><h4>✂️ SOME SPLIT, SOME DON'T</h4>
+        Many can split:<br>
+        <em>turn on the light = turn the light on</em> ✅<br><br>
+        With <b>it / them</b>, the little word goes LAST:<br>
+        <em>turn <b>it</b> on</em> ✅ · <em>turn on it</em> ❌<br><br>
+        Some NEVER split:<br>
+        <em>look after the dog</em> ✅ · <em>look the dog after</em> ❌</div>
+    </div>
+    <div class="frame">🔑 <b>Detective habit:</b> when you meet a new phrasal verb, write the WHOLE chunk plus one example sentence in your notebook. Chunks, not pieces!</div>
+    <p class="hint">💡 Hungarian tip: Hungarian igekötők work in a similar way — <em>FELkel = get up, KIderít = find out, FELad = give up</em>. The big difference: the English little word comes AFTER the verb, not before it.</p>
+    <h3>✏️ Practice — tap the correct answer</h3>
+    <div id="grammar-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>Item 4 tests the separable rule — if missed, drill three quick oral "it" swaps: turn it off, pick it up, put it on. If 6+/8, bank time for Step 6; under 5, redo the wrong ones aloud with the rule box visible.</div>
+  </div>
+</div>
+
+<!-- MOVE BREAK -->
+<div class="move">
+  <h2>🤸 MOVE! — 1 minute break</h2>
+  <p>Phrasal verb gym! Teacher calls: "Stand UP! Sit DOWN!" — three times, fast. Then mime it: PUT ON a jacket, TAKE OFF a hat, PICK UP something heavy. Cameras on — teacher plays too! 😄</p>
+</div>
+
+<!-- STEP 6 CREATIVE TASK -->
+<div class="section task">
+  <div class="sec-head"><span class="icon">🎨</span> Create — Your Mini-Mystery <span class="timing">10 min</span><span class="step">Step 6</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — the student opens it in their own browser, types here and shares their screen.</span>
+    <p>Detective time! Write a tiny mystery of your own — 4 to 6 sentences. Use <b>at least 4 phrasal verbs</b> from today. 🕵️</p>
+    <h3>First, tap the phrasal verbs you will use:</h3>
+    <div class="chips" id="pv-chips"></div>
+    <div class="field-label">🕵️ Your detective + the case</div>
+    <div class="editable" id="t-case" contenteditable="true" data-placeholder="Detective … and the case of the missing…"></div>
+    <div class="field-label">🔍 The clues — what does your detective look for and find out?</div>
+    <div class="editable tall" id="t-clues" contenteditable="true" data-placeholder="First, … looks for… Then they find out…"></div>
+    <div class="field-label">🎬 The ending — who (or what) did it?</div>
+    <div class="editable" id="t-ending" contenteditable="true" data-placeholder="In the end, …"></div>
+    <div class="speak">🗣️ <b>Now read your mystery out loud</b> — in your best detective voice. Dramatic pauses allowed! 🎬</div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> type only the case + the ending; tell the clues out loud instead of typing them.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>No fixed key — verify at least 4 phrasal verbs are used correctly and check particle placement ("turn it on", never "turn on it"). Ask one follow-up question that forces one more phrasal verb: "And then? Did she give up?"</div>
+  </div>
+</div>
+
+<!-- STEP 7 CHALLENGE GAME -->
+<div class="section challenge">
+  <div class="sec-head"><span class="icon">🎮</span> Challenge Game — Detective Exam <span class="timing">8 min</span><span class="step">Step 7</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: student's browser, their clicks, their score! You watch on their shared screen and cheer. 🎉</span>
+    <p class="hint">🎖️ Three rounds, getting harder. Beat 80% for ⭐⭐⭐ and your detective badge!</p>
+    <h3>Round 1 — What does it mean?</h3>
+    <div id="ch-quiz1"></div>
+    <h3>Round 2 — Complete the clue</h3>
+    <div id="ch-quiz2"></div>
+    <h3>Round 3 — Boss level: word order 👑</h3>
+    <div id="ch-quiz3"></div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can be the start of the next lesson's warm-up.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>Wrong answers auto-reveal the correct one in green — ask "why?" on each miss. Round 3 tests separable word order; if the BOSS item falls, replay the ✂️ rule box once.</div>
+  </div>
+</div>
+
+<!-- STEP 8 REVIEW -->
+<div class="section review">
+  <div class="sec-head"><span class="icon">🏁</span> Review &amp; Homework <span class="timing">3 min</span><span class="step">Step 8</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, screens off. Finish with faces, not slides.</span>
+    <div class="frame">⚡ <b>30-second recap:</b> teacher says a meaning ("stop trying") — you shout the phrasal verb ("give up!"). Six meanings, fast!</div>
+    <h3>🏠 Homework</h3>
+    <div class="frame">
+      <p>🕵️ <b>Phrasal verb hunt:</b> this week, find 3 phrasal verbs "in the wild" — in a song, a game, a video or a book.</p>
+      <p>✏️ <b>Write each one</b> with the sentence you found it in + what it means.</p>
+      <p>📌 Bonus: write one sentence about your morning using <em>get up</em> AND <em>put on</em>.</p>
+    </div>
+    <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="t-only">
+      <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
+      <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">What to adjust next time?</div><div class="editable" id="tn-adjust" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">Student's strongest / weakest moment today?</div><div class="editable" id="tn-notes" contenteditable="true" data-placeholder="…"></div></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="bottom-bar">
+  <button class="bb bb-save" onclick="saveWork()">💾 Save my work</button>
+  <button class="bb bb-print" onclick="window.print()">🖨️ Print</button>
+  <button class="bb bb-teach" id="teach-btn" onclick="unlockTeacher()">🔐</button>
+</div>
+
+<script>
+/* ============ ENGINE (identical across all Library sessions) ============ */
+var LEVEL=3, SESSION=6, K='ecl_L'+LEVEL+'s'+SESSION+'_';
+
+/* ---- TTS audio ---- */
+function say(text){try{window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(text);u.lang='en-GB';u.rate=0.9;window.speechSynthesis.speak(u);}catch(e){}}
+
+/* ---- Quiz engine ---- */
+var score=0,total=0;
+function buildQuiz(containerId,items){
+  var c=document.getElementById(containerId);
+  items.forEach(function(it){
+    total++;
+    var qz=document.createElement('div');qz.className='qz';
+    var opts='<div class="opts">';
+    it.options.forEach(function(o){opts+='<button class="opt" data-ok="'+(o===it.answer?'1':'0')+'" onclick="pick(this)">'+o+'</button>';});
+    opts+='</div><div class="fb"></div>';
+    qz.innerHTML='<div class="q">'+it.q+'</div>'+opts;
+    c.appendChild(qz);
+  });
+  updateScore();
+}
+function pick(btn){
+  var qz=btn.closest('.qz');if(qz.dataset.done)return;qz.dataset.done='1';
+  var ok=btn.dataset.ok==='1';var fb=qz.querySelector('.fb');
+  if(ok){btn.classList.add('correct');score++;fb.className='fb ok';fb.textContent='✓ Correct! Great job!';}
+  else{btn.classList.add('wrong');var good=qz.querySelector('[data-ok="1"]');if(good)good.classList.add('correct');
+    fb.className='fb no';fb.textContent='Almost! The green one is right. Try to remember it! 💪';}
+  qz.querySelectorAll('.opt').forEach(function(b){b.disabled=true;});
+  updateScore();
+}
+function updateScore(){
+  var answered=document.querySelectorAll('.qz[data-done]').length;
+  document.getElementById('score-num').textContent=score+' / '+total;
+  document.getElementById('score-fill').style.width=(total?Math.round(answered/total*100):0)+'%';
+  var st='',pct=total?score/total:0;
+  if(answered===total&&total>0){st=pct>=0.8?'⭐⭐⭐':pct>=0.5?'⭐⭐':'⭐';}
+  document.getElementById('score-stars').textContent=st;
+}
+
+/* ---- Student name ---- */
+var nameInput=document.getElementById('student-name');
+function applyName(){
+  var n=nameInput.value.trim();
+  document.getElementById('hello-msg').textContent=n?('Hello, '+n+'! 🌟'):'';
+  document.querySelectorAll('.stud-name').forEach(function(el){el.textContent=n?('Amazing work today, '+n+'!'):'Amazing work today!';});
+  localStorage.setItem(K+'name',n);
+}
+nameInput.addEventListener('input',applyName);
+
+/* ---- Agenda pills ---- */
+document.querySelectorAll('.ap').forEach(function(p){
+  p.onclick=function(){p.classList.toggle('done');localStorage.setItem(K+'ap'+p.dataset.s,p.classList.contains('done'));};
+});
+
+/* ---- Teacher mode ---- */
+function unlockTeacher(){
+  if(document.body.classList.contains('teacher-mode')){document.body.classList.remove('teacher-mode');document.getElementById('teach-btn').textContent='🔐';return;}
+  var pin=prompt('Teacher PIN:');
+  if(pin==='teach'){document.body.classList.add('teacher-mode');document.getElementById('teach-btn').textContent='🔓 Teacher';}
+}
+
+/* ---- Save work (.txt export) ---- */
+function saveWork(){
+  var n=(localStorage.getItem(K+'name')||'Student').replace(/[^\wÀ-ſ-]/g,'');
+  var out=n+' — Level '+LEVEL+' Session '+SESSION+'\n'+new Date().toLocaleDateString()+'\n'+'='.repeat(34)+'\n\n';
+  var picks=[].slice.call(document.querySelectorAll('.chips .chip.on')).map(function(x){return x.textContent.trim();});
+  if(picks.length)out+='Picked: '+picks.join(', ')+'\n\n';
+  var count=0;
+  document.querySelectorAll('.editable[id]').forEach(function(el){var t=el.innerText.trim();if(t){out+='['+el.id+'] '+t+'\n';count++;}});
+  out+='\nScore: '+score+' / '+total;
+  if(count===0&&!picks.length){alert('Type something first! 🙂');return;}
+  var b=new Blob([out],{type:'text/plain;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u;a.download=n+'_L'+LEVEL+'S'+SESSION+'_'+new Date().toISOString().slice(0,10)+'.txt';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);
+  var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show');},1600);
+}
+
+/* ---- Autosave / autoload ---- */
+function autosave(){document.querySelectorAll('.editable[id]').forEach(function(el){localStorage.setItem(K+el.id,el.innerHTML);});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){localStorage.setItem(K+'chip'+i,el.classList.contains('on'));});}
+function autoload(){
+  document.querySelectorAll('.editable[id]').forEach(function(el){var v=localStorage.getItem(K+el.id);if(v!==null)el.innerHTML=v;});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){if(localStorage.getItem(K+'chip'+i)==='true')el.classList.add('on');});
+  document.querySelectorAll('.ap').forEach(function(p){if(localStorage.getItem(K+'ap'+p.dataset.s)==='true')p.classList.add('done');});
+  var n=localStorage.getItem(K+'name');if(n){nameInput.value=n;applyName();}
+}
+document.addEventListener('input',function(){clearTimeout(window._t);window._t=setTimeout(autosave,600);});
+window.addEventListener('load',autoload);
+
+/* ============ SESSION CONTENT (changes per session) ============ */
+
+/* ---- Vocabulary: 12 high-frequency phrasal verbs ---- */
+var VOCAB=[
+  {w:'get up',e:'🌅',p:'leave your bed'},
+  {w:'put on',e:'🧥',p:'dress in clothes'},
+  {w:'take off',e:'🛫',p:'remove / plane flies'},
+  {w:'turn on',e:'💡',p:'start a machine'},
+  {w:'turn off',e:'🔌',p:'stop a machine'},
+  {w:'look for',e:'🔍',p:'try to find'},
+  {w:'find out',e:'🕵️',p:'discover the truth'},
+  {w:'look after',e:'🐶',p:'take care of'},
+  {w:'give up',e:'🏳️',p:'stop trying'},
+  {w:'pick up',e:'📦',p:'lift / collect'},
+  {w:'run out of',e:'⏳',p:'have no more left'},
+  {w:'hang out',e:'🛋️',p:'spend free time'}
+];
+(function buildVocab(){
+  var g=document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v){
+    var d=document.createElement('div');d.className='vc';
+    d.innerHTML='<div class="vc-play">🔊</div><div class="vc-emoji">'+v.e+'</div><div class="vc-word">'+v.w+'</div><div class="vc-pron">= '+v.p+'</div>';
+    d.onclick=function(){say(v.w+' — '+v.p);};
+    g.appendChild(d);
+  });
+})();
+
+/* ---- Phrasal verb chips for Step 6 ---- */
+(function(){
+  var c=document.getElementById('pv-chips');
+  VOCAB.forEach(function(v){
+    var s=document.createElement('span');s.className='chip';s.textContent=v.e+' '+v.w;
+    s.onclick=function(){s.classList.toggle('on');say(v.w);};
+    c.appendChild(s);
+  });
+})();
+
+/* ---- Quizzes ---- */
+buildQuiz('vocab-quiz',[
+  {q:'🔍 You can\'t find your keys, so you ___ them everywhere.',options:['look for','look after','give up'],answer:'look for'},
+  {q:'🕵️ A detective\'s number one job is to ___ the truth.',options:['find out','put on','hang out'],answer:'find out'},
+  {q:'🏳️ The puzzle is too hard and you stop trying. You…',options:['give up','get up','turn off'],answer:'give up'},
+  {q:'⏳ There is NO more milk in the fridge. You have…',options:['run out of milk','picked up milk','turned on milk'],answer:'run out of milk'},
+  {q:'🐶 Your neighbour\'s dog stays with you this weekend. You ___ it.',options:['look after','look for','take off'],answer:'look after'}
+]);
+buildQuiz('reading-quiz',[
+  {q:'What had the family almost run out of?',options:['chocolate chips','flour','milk'],answer:'chocolate chips'},
+  {q:'What clue did Nadia find near the window?',options:['a muddy footprint','a broken plate','a hat'],answer:'a muddy footprint'},
+  {q:'Who was the cookie thief?',options:['a raccoon','the little brother','a cat'],answer:'a raccoon'},
+  {q:'Why did Nadia almost give up during the night?',options:['she was so sleepy','she was hungry','she was scared'],answer:'she was so sleepy'}
+]);
+buildQuiz('grammar-quiz',[
+  {q:'It\'s dark in here. Please ___ the light.',options:['turn on','turn off'],answer:'turn on'},
+  {q:'The film is boring. Let\'s ___ the TV.',options:['turn off','look after'],answer:'turn off'},
+  {q:'I can\'t find my phone anywhere. Can you help me ___ it?',options:['look for','pick up'],answer:'look for'},
+  {q:'Which one is correct?',options:['turn it on','turn on it'],answer:'turn it on'},
+  {q:'My aunt will ___ our cat this weekend.',options:['look after','look for'],answer:'look after'},
+  {q:'Don\'t ___! You are SO close to winning!',options:['give up','get up'],answer:'give up'},
+  {q:'We have ___ bread — we need to buy more.',options:['run out of','taken off'],answer:'run out of'},
+  {q:'I ___ at half past six every school day.',options:['get up','pick up'],answer:'get up'}
+]);
+buildQuiz('ch-quiz1',[
+  {q:'"find out" means…',options:['discover information','lose something','wake up late'],answer:'discover information'},
+  {q:'"give up" means…',options:['stop trying','open a present','stand up'],answer:'stop trying'},
+  {q:'"hang out" means…',options:['spend free time somewhere','hold something tightly','fall down'],answer:'spend free time somewhere'}
+]);
+buildQuiz('ch-quiz2',[
+  {q:'The plane ___ at nine o\'clock exactly.',options:['took off','took after','took out'],answer:'took off'},
+  {q:'Can you ___ me ___ from school at three?',options:['pick / up','look / after','turn / on'],answer:'pick / up'},
+  {q:'Nadia ___ the truth about the cookie thief.',options:['found out','looked after','ran out'],answer:'found out'},
+  {q:'I stayed at home to ___ my little sister.',options:['look after','look for','get up'],answer:'look after'}
+]);
+buildQuiz('ch-quiz3',[
+  {q:'Where does "it" go? The TV is too loud, so…',options:['Turn it off.','Turn off it.'],answer:'Turn it off.'},
+  {q:'Only ONE is correct — which?',options:['I\'ll look after your dog.','I\'ll look your dog after.'],answer:'I\'ll look after your dog.'},
+  {q:'"We\'ve run out of time" means…',options:['there is no more time left','we ran very fast','the clock is broken'],answer:'there is no more time left'},
+  {q:'👑 BOSS: pick the sentence where EVERYTHING is correct:',options:['She got up, put her coat on and turned the light on.','She got on, put her coat up and turned up the light on.','She got herself up on, put on and turned the coat.'],answer:'She got up, put her coat on and turned the light on.'}
+]);
+</script>
+</body>
+</html>
