@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>L4 · Session 4 — The News Room</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--accent:#8E24AA;--accent2:#AB47BC}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1a;font-size:17px;line-height:1.6;padding-bottom:90px}
+.page-header{background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;padding:26px 20px;text-align:center}
+.page-header h1{font-size:26px;font-weight:800;letter-spacing:-0.3px}
+.page-header .subtitle{font-size:14px;opacity:0.9;margin-top:4px}
+.badge{display:inline-block;background:rgba(255,255,255,0.2);padding:6px 16px;border-radius:20px;font-size:14px;margin-top:10px}
+.lvl{display:inline-block;background:#FFD54F;color:#5D4037;font-weight:800;font-size:12px;padding:3px 12px;border-radius:12px;letter-spacing:0.5px;margin-bottom:8px}
+.container{max-width:860px;margin:0 auto;padding:18px}
+
+/* Student name */
+.namebox{background:white;border:2px solid var(--accent);border-radius:14px;padding:14px 18px;margin:16px 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.namebox label{font-weight:700;font-size:15px}
+.namebox input{flex:1;min-width:160px;font-size:17px;padding:8px 12px;border:2px dashed #90A4AE;border-radius:8px;font-family:inherit}
+.namebox .hello{font-weight:700;color:var(--accent)}
+
+/* Agenda */
+.agenda{background:white;border-radius:14px;padding:16px 18px;margin:14px 0;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.agenda h2{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:#666;margin-bottom:10px}
+.agenda-pills{display:flex;flex-wrap:wrap;gap:8px}
+.ap{display:flex;align-items:center;gap:6px;background:#ECEFF1;border:2px solid transparent;border-radius:20px;padding:5px 13px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.ap.done{background:#C8E6C9;border-color:#2E7D32;text-decoration:line-through;opacity:0.8}
+
+/* Sections */
+.section{background:white;border-radius:16px;margin:18px 0;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,0.07)}
+.sec-head{padding:14px 20px;color:white;font-size:17px;font-weight:800;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sec-head .icon{font-size:22px}
+.sec-head .step{margin-left:auto;font-size:12px;font-weight:700;background:rgba(255,255,255,0.25);padding:3px 12px;border-radius:12px;white-space:nowrap}
+.sec-head .timing{font-size:12px;font-weight:400;background:rgba(255,255,255,0.18);padding:3px 10px;border-radius:12px;white-space:nowrap}
+.sec-body{padding:18px 20px}
+.zoom-cue{display:block;font-size:13px;font-weight:600;color:#37474F;background:#E1F5FE;border-left:4px solid #0288D1;border-radius:0 8px 8px 0;padding:7px 12px;margin:0 0 14px}
+.goal .sec-head{background:#2E7D32}
+.warmup .sec-head{background:#E65100}
+.vocab .sec-head{background:#1565C0}
+.reading .sec-head{background:#6A1B9A}
+.grammar .sec-head{background:#AD1457}
+.task .sec-head{background:#00695C}
+.challenge .sec-head{background:#F57F17}
+.review .sec-head{background:#BF360C}
+.skipif{background:#FFF8E1;border:1px dashed #F9A825;border-radius:10px;padding:10px 14px;margin-top:12px;font-size:14px}
+.skipif b{color:#F57F17}
+
+/* Movement break */
+.move{background:linear-gradient(135deg,#00BFA5,#00897B);color:white;border-radius:16px;margin:18px 0;padding:18px 22px;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,0.1)}
+.move h2{font-size:20px;font-weight:800}
+.move p{font-size:15px;opacity:0.95;margin-top:6px}
+
+/* Vocab cards */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:14px 0}
+.vc{background:#E3F2FD;border:2px solid #90CAF9;border-radius:12px;padding:12px 10px;text-align:center;cursor:pointer;transition:transform 0.12s}
+.vc:hover{transform:scale(1.04);border-color:var(--accent)}
+.vc .vc-emoji{font-size:30px}
+.vc .vc-word{font-weight:800;font-size:15px;margin-top:4px;color:#0D47A1}
+.vc .vc-pron{font-size:12px;color:#666}
+.vc .vc-play{font-size:13px;color:#1565C0}
+
+/* Quiz engine */
+.qz{background:#FAFAFA;border:1px solid #E0E0E0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.qz .q{font-weight:700;font-size:16px;margin-bottom:10px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{font-family:inherit;font-size:15px;font-weight:600;padding:8px 16px;border-radius:10px;border:2px solid #B0BEC5;background:white;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt.correct{background:#C8E6C9;border-color:#2E7D32}
+.opt.wrong{background:#FFCDD2;border-color:#C62828}
+.opt:disabled{cursor:default;opacity:0.85}
+.fb{font-size:14px;font-weight:600;margin-top:8px;display:none}
+.fb.ok{display:block;color:#2E7D32}
+.fb.no{display:block;color:#C62828}
+
+/* Score bar */
+.scorebar{position:sticky;top:0;z-index:50;background:white;box-shadow:0 2px 8px rgba(0,0,0,0.12);padding:8px 16px;display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px}
+.scorebar .bar{flex:1;height:10px;background:#ECEFF1;border-radius:6px;overflow:hidden}
+.scorebar .fill{height:100%;width:0;background:linear-gradient(90deg,#43A047,#66BB6A);transition:width 0.4s}
+.stars{font-size:16px}
+
+/* Reading */
+.reading-text{background:#F3E5F5;border-radius:12px;padding:18px 20px;font-size:17px;max-width:65ch}
+.reading-text h4{color:#6A1B9A;font-size:15px;margin:14px 0 6px;text-transform:uppercase;letter-spacing:0.4px}
+.reading-text h4:first-child{margin-top:0}
+.reading-text p{margin:8px 0}
+
+/* Editable fields */
+.field-label{font-weight:700;font-size:14px;margin:12px 0 4px;color:#37474F}
+.editable{min-height:34px;background:#FFFDE7;border:2px dashed #9E9D24;border-radius:8px;padding:8px 12px;font-size:16px;outline:none}
+.editable.tall{min-height:70px}
+.editable:focus{border-style:solid;border-color:var(--accent)}
+.editable:empty::before{content:attr(data-placeholder);color:#999}
+.qa-item{margin:12px 0}
+.qa-item .q{font-weight:700;font-size:15px;margin-bottom:5px}
+
+/* Frames / rule boxes */
+.frame{background:#FCE4EC;border-left:5px solid #AD1457;border-radius:0 10px 10px 0;padding:12px 16px;margin:12px 0;font-size:16px}
+.rulebox{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.rule{border-radius:12px;padding:14px 16px;font-size:15px}
+.rule h4{font-size:15px;margin-bottom:8px}
+.rule.a{background:#E8F5E9;border:2px solid #66BB6A}
+.rule.a h4{color:#2E7D32}
+.rule.b{background:#FFF3E0;border:2px solid #FFA726}
+.rule.b h4{color:#E65100}
+.hint{font-size:14px;color:#555;background:#F5F5F5;border-radius:8px;padding:8px 12px;margin:10px 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.chip{background:#E1F5FE;border:2px solid #81D4FA;border-radius:16px;padding:5px 14px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.chip.on{background:#0288D1;border-color:#01579B;color:white}
+.speak{background:#E8F5E9;border-radius:10px;padding:12px 16px;font-size:16px;margin:12px 0}
+
+/* Teacher mode */
+.t-only{display:none}
+body.teacher-mode .t-only{display:block}
+.teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
+.teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
+
+/* Bottom bar */
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:white;box-shadow:0 -3px 12px rgba(0,0,0,0.12);padding:10px 14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;z-index:60}
+.bb{font-family:inherit;font-size:14px;font-weight:700;padding:10px 18px;border-radius:10px;border:none;cursor:pointer;text-decoration:none;color:white;display:inline-block}
+.bb-save{background:#2E7D32}
+.bb-print{background:#546E7A}
+.bb-teach{background:#C62828}
+#toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:#2E7D32;color:white;font-weight:700;padding:10px 22px;border-radius:20px;opacity:0;transition:all 0.3s;z-index:70}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:640px){.rulebox{grid-template-columns:1fr}.vocab-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}}
+@media print{body{background:white;padding-bottom:0}.bottom-bar,.scorebar,#toast{display:none!important}.section{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid}.sec-head,.sec-body,.page-header{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="lvl">LEVEL 4 · UPPER-INTERMEDIATE (B2)</div>
+  <h1>📰 Session 4 — The News Room</h1>
+  <div class="subtitle">English Course Library · Kids &amp; Teens</div>
+  <div class="badge">🎯 Today: report news with <b>passive reporting structures</b>, crack headline grammar, and spot fake news · ≈50 min core</div>
+</div>
+
+<div class="scorebar">
+  <span>⭐ Score:</span><span id="score-num">0 / 0</span>
+  <div class="bar"><div class="fill" id="score-fill"></div></div>
+  <span class="stars" id="score-stars"></span>
+</div>
+
+<div id="toast">✓ Saved</div>
+
+<div class="container">
+
+<div class="namebox">
+  <label for="student-name">👋 Your name:</label>
+  <input id="student-name" type="text" placeholder="Type your name…">
+  <span class="hello" id="hello-msg"></span>
+</div>
+
+<div class="agenda">
+  <h2>📋 Today's plan — tap each step when you finish it</h2>
+  <div class="agenda-pills" id="agenda">
+    <span class="ap" data-s="1">1️⃣ Goal</span><span class="ap" data-s="2">2️⃣ Warm-up</span>
+    <span class="ap" data-s="3">3️⃣ New words</span><span class="ap" data-s="4">4️⃣ Reading</span>
+    <span class="ap" data-s="5">5️⃣ Focus</span><span class="ap" data-s="6">6️⃣ Create</span>
+    <span class="ap" data-s="7">7️⃣ Game</span><span class="ap" data-s="8">8️⃣ Review</span>
+  </div>
+</div>
+
+<!-- STEP 1 GOAL -->
+<div class="section goal">
+  <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student repeats it back in their own words.</span>
+    <p><em>"Today you will learn to talk like a news room: report claims with the passive (<b>it is said that…</b>, <b>is thought to have…</b>), crack the secret grammar of headlines, and catch a fake story before it catches you."</em> 🗞️</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Diagnostic questions: "Where did you last see a news story — TV, YouTube, TikTok?" and "Have you ever believed something online that turned out to be false?" Note whether words like <em>viral</em>, <em>fake news</em>, <em>source</em> come up naturally — that sets your Step 3 speed.</div>
+  </div>
+</div>
+
+<!-- STEP 2 WARM-UP -->
+<div class="section warmup">
+  <div class="sec-head"><span class="icon">⚡</span> Warm-Up — Headline or Hoax? <span class="timing">5 min</span><span class="step">Step 2</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: pure talking game — student votes with 👍 (real) or 👎 (fake) reactions, then explains in one sentence.</span>
+    <p><b>How to play:</b></p>
+    <p>1. Your teacher reads <b>six headlines</b> — some are real-style, some are pure nonsense.<br>
+    2. You vote: REAL 👍 or FAKE 👎 — and say WHY in one sentence.<br>
+    3. Swap! Invent ONE headline of your own. Can your teacher guess if it could be real?</p>
+    <p class="hint">No score here — the point is: weird does NOT automatically mean fake! 🧠</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 2 (headline list)</h4>Read these: 1) "Octopus escapes aquarium through drain pipe" (real-style — Inky the octopus, NZ 2016). 2) "Scientists teach goldfish to drive a tiny car" (real-style — Israeli navigation study 2022). 3) "School bans the colour blue" (fake). 4) "Town elects a dog as mayor" (real-style — has happened in small US towns). 5) "WiFi signals make plants cry at night" (fake). 6) "Vegetables scream when you cut them" (fake/misleading). Punchline to land: the truth can be weird — what matters is the SOURCE, not the weirdness. Keep the pace fast.</div>
+  </div>
+</div>
+
+<!-- STEP 3 VOCAB -->
+<div class="section vocab">
+  <div class="sec-head"><span class="icon">📝</span> New Words — Media &amp; Fake News <span class="timing">10 min</span><span class="step">Step 3</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share your screen. YOU click 🔊, student repeats each word, then gives a one-line example or definition of their own.</span>
+    <p>Tap any card to <b>hear</b> it 🔊. Say it out loud, then use it in a quick sentence!</p>
+    <div class="vocab-grid" id="vocab-grid"></div>
+    <h3>🎧 Practice — tap the right word</h3>
+    <p class="hint">Read the clue and tap the word that matches. Green = correct!</p>
+    <div id="vocab-quiz"></div>
+  </div>
+</div>
+
+<!-- STEP 4 READING -->
+<div class="section reading">
+  <div class="sec-head"><span class="icon">📖</span> Reading — The Shark in the Lake <span class="timing">10 min</span><span class="step">Step 4</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen, take turns reading one chunk each. Then student annotates every passive reporting phrase she finds (Zoom → Annotate).</span>
+    <p>Read the true-to-life story of a hoax that fooled a whole town. As you read, hunt for reporting phrases like <b>was said to be</b>. Tap 🔊 to hear any part.
+      <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
+    <div class="reading-text" id="read-text">
+      <h4>🦈 The photo that started everything</h4>
+      <p>On a rainy Tuesday last October, a photo appeared on a local news page in the small town of Milford. It showed a large grey fin cutting through the water of Lake Harmon. Within an hour, the headline "SHARK SPOTTED IN LAKE HARMON" had been shared more than ten thousand times.</p>
+      <h4>📰 What the reports said</h4>
+      <p>The shark <b>was said to be</b> over three metres long. <b>It was reported that</b> a fisherman had seen it "with his own eyes", and one website even claimed that a dog had been chased out of the water.</p>
+      <p>By Wednesday morning, schools near the lake <b>were said to be</b> planning to cancel their swimming lessons. Panic travels fast.</p>
+      <h4>🕵️ Enter the fact-checkers</h4>
+      <p>At Milford High School, a media club led by fourteen-year-old Priya Nair decided to investigate. The club had been trained to ask three simple questions: Who published this? What is the evidence? Do other reliable sources agree?</p>
+      <p>The answers were worrying. The "local news page" had been created only two weeks earlier, the fisherman was never named, and no other newspaper had reported the story at all.</p>
+      <h4>🔍 The truth comes out</h4>
+      <p>Then came the breakthrough. Using a reverse image search, the club discovered that the photo had actually been taken in Australia in 2019 — <b>it is thought to have</b> appeared in at least twelve fake stories since then.</p>
+      <p>And the "fin" in Lake Harmon? It <b>was later confirmed to be</b> a piece of black plastic pipe, placed in the water as a prank by two bored college students.</p>
+      <h4>💭 Why it matters</h4>
+      <p>The hoax <b>was believed by</b> thousands of people, partly because it felt exciting, and partly because everyone else was already sharing it. As Priya told a real journalist afterwards, "A lie doesn't need to be clever. It just needs to be shared faster than the truth."</p>
+      <p>Experts say that stories which trigger strong emotions — fear, anger, excitement — are shared far more often than calm, true ones. So next time a headline makes your heart race, pause. Ask who, ask what, ask where else. The shark you are afraid of might just be a plastic pipe.</p>
+    </div>
+
+    <h3>🔎 Did you understand? Tap your answer</h3>
+    <div id="reading-quiz"></div>
+
+    <h3>💬 Your turn — write your answer</h3>
+    <div class="qa-item"><div class="q">1. Priya says: "A lie doesn't need to be clever. It just needs to be shared faster than the truth." What does she mean?</div><div class="editable" id="r-open1" contenteditable="true" data-placeholder="She means that…"></div></div>
+    <div class="qa-item"><div class="q">2. What would YOU do before sharing a shocking story? Name at least two checks.</div><div class="editable tall" id="r-open2" contenteditable="true" data-placeholder="First, I would… Second, I would…"></div></div>
+
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> the two written questions above can be homework instead.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 4 + answer key</h4>Quiz answers: Australia (2019) · a black plastic pipe · only two weeks old · reverse image search · stories that trigger strong emotions. Open Q1 model answer: even a simple lie wins if people share it without checking — speed beats truth online. Open Q2 model answer: check who published it and when, search whether other reliable sites report it, do a reverse image search, look for named sources/eyewitnesses. Annotation hunt: the passive reporting phrases are bolded — have the student circle all six before Step 5; that IS the grammar preview.</div>
+  </div>
+</div>
+
+<!-- STEP 5 GRAMMAR -->
+<div class="section grammar">
+  <div class="sec-head"><span class="icon">🔧</span> Grammar — Passive Reporting &amp; Headline Code <span class="timing">10 min</span><span class="step">Step 5</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. For each quiz item, student says the answer out loud BEFORE you click it.</span>
+    <div class="rulebox">
+      <div class="rule a"><h4>✅ IT + passive + THAT…</h4>
+        Report what "people in general" say — no source needed.<br><br>
+        <em><b>It is said that</b> the lake is dangerous.</em><br>
+        <em><b>It was reported that</b> a fisherman had seen it.</em><br>
+        <em><b>It is believed that</b> thousands shared it.</em><br><br>
+        🔑 Verbs that love this: <b>say, report, believe, think, claim</b></div>
+      <div class="rule b"><h4>🎯 SUBJECT + passive + TO-infinitive</h4>
+        Put the "star" of the story first — very news-style.<br><br>
+        <em>The shark <b>is said to be</b> 3 m long.</em> (now)<br>
+        <em>The photo <b>is thought to have come</b> from Australia.</em> (before now → <b>to have</b> + past participle!)<br><br>
+        🔑 Same verbs, fancier melody 🎵</div>
+    </div>
+    <div class="frame">🗞️ <b>Headline code:</b> headlines drop <em>a/the/is</em> and squeeze time: present simple = a PAST event ("TEEN <b>SAVES</b> DOG" = a teen has saved a dog) · <b>TO</b> + verb = FUTURE ("MAYOR <b>TO OPEN</b> POOL" = the mayor is going to open a pool).</div>
+    <p class="hint">💡 Hungarian tip: Hungarian does all this with one little word — <em>állítólag</em>. English builds it INTO the verb instead: <em>is said to…</em>, <em>is thought to…</em>. When your brain says "állítólag", reach for a passive reporting verb.</p>
+    <h3>✏️ Practice — tap the correct form</h3>
+    <div id="grammar-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>The hardest jump is the perfect infinitive (<em>is thought to have appeared</em>) for past reference — items 3 and 8 test it. If those two fail, drill orally: "People say he left." → "He is said to HAVE LEFT." three times with different verbs. 6+/8 = speed up and bank time for Step 6.</div>
+  </div>
+</div>
+
+<!-- MOVE BREAK -->
+<div class="move">
+  <h2>🤸 MOVE! — 1 minute break</h2>
+  <p>News-anchor warm-up! Stand up, roll your shoulders 5 times each way, do 8 chair squats, then read an imaginary teleprompter in your most serious voice: "Good evening — this is the news!" Teacher does it too! 😄</p>
+</div>
+
+<!-- STEP 6 CREATIVE TASK -->
+<div class="section task">
+  <div class="sec-head"><span class="icon">🎨</span> Create — You Are the Editor <span class="timing">10 min</span><span class="step">Step 6</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in her own browser, types here, and shares her screen so you can watch.</span>
+    <p>Your news desk just received a story tip! Pick ONE ingredient, then write it up three ways. 🖊️</p>
+    <h3>First, tap your story ingredient:</h3>
+    <div class="chips" id="story-chips"></div>
+    <div class="field-label">🗞️ An honest headline (use headline code: drop a/the/is!)</div>
+    <div class="editable" id="t-headline" contenteditable="true" data-placeholder="MYSTERY SMELL CLOSES GYM…"></div>
+    <div class="field-label">🖱️ Now the clickbait version (so you can recognise the enemy!)</div>
+    <div class="editable" id="t-clickbait" contenteditable="true" data-placeholder="You will NOT believe what they found in the gym…"></div>
+    <div class="field-label">📰 A 4-sentence news report — use at least TWO passive reporting phrases (is said to… / it is believed that… / is thought to have…)</div>
+    <div class="editable tall" id="t-report" contenteditable="true" data-placeholder="A strange smell is said to be… It is believed that…"></div>
+    <div class="speak">🗣️ <b>Now broadcast it!</b> Read your report out loud in your best news-anchor voice. Serious face, calm speed. 🎙️</div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> skip the clickbait line here — write it as homework instead.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>Push for both structures: one "It is believed that…" and one "X is said to be…". Sample (mystery smell): "A strange smell is said to be coming from the gym. It is believed that it started on Monday. The caretaker is thought to have found an old sandwich behind the lockers. The gym is reported to be open again tomorrow." Praise the clickbait version being deliberately terrible — that is the point.</div>
+  </div>
+</div>
+
+<!-- STEP 7 CHALLENGE GAME -->
+<div class="section challenge">
+  <div class="sec-head"><span class="icon">🎮</span> Challenge Game — Fact-Checker Academy <span class="timing">8 min</span><span class="step">Step 7</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen and cheer. 🎉</span>
+    <p class="hint">🕵️ Three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
+    <h3>Round 1 — Headline decoder</h3>
+    <div id="ch-quiz1"></div>
+    <h3>Round 2 — Report it with the passive</h3>
+    <div id="ch-quiz2"></div>
+    <h3>Round 3 — Boss level: fake-news detective 👑</h3>
+    <div id="ch-quiz3"></div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can be the start of the next lesson's warm-up.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>Wrong answers auto-reveal the correct one in green — ask "why?" on each miss. The BOSS item combines passive reporting + perfect infinitive: if she nails it unaided, she owns today's grammar.</div>
+  </div>
+</div>
+
+<!-- STEP 8 REVIEW -->
+<div class="section review">
+  <div class="sec-head"><span class="icon">🏁</span> Review &amp; Homework <span class="timing">3 min</span><span class="step">Step 8</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, screens off. Finish with faces, not slides.</span>
+    <div class="frame">⚡ <b>30-second recap:</b> teacher says a rumour ("People say our school has a ghost") — you re-report it with a passive: <em>"The school is said to have a ghost."</em> Three rumours, fast!</div>
+    <h3>🏠 Homework</h3>
+    <div class="frame">
+      <p>🗞️ <b>Headline hunt:</b> find one real English headline and rewrite it as a full grammatical sentence.</p>
+      <p>✏️ <b>Write three sentences</b> about your town or school using <em>is said to…</em>, <em>is thought to…</em>, and <em>it is believed that…</em></p>
+      <p>🖱️ <b>Bonus:</b> find one clickbait headline and explain in two sentences why it is clickbait.</p>
+    </div>
+    <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="t-only">
+      <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
+      <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">What to adjust next time?</div><div class="editable" id="tn-adjust" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">Student's strongest / weakest moment today?</div><div class="editable" id="tn-notes" contenteditable="true" data-placeholder="…"></div></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="bottom-bar">
+  <button class="bb bb-save" onclick="saveWork()">💾 Save my work</button>
+  <button class="bb bb-print" onclick="window.print()">🖨️ Print</button>
+  <button class="bb bb-teach" id="teach-btn" onclick="unlockTeacher()">🔐</button>
+</div>
+
+<script>
+/* ============ ENGINE (identical across all Library sessions) ============ */
+var LEVEL=4, SESSION=4, K='ecl_L'+LEVEL+'s'+SESSION+'_';
+
+/* ---- TTS audio ---- */
+function say(text){try{window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(text);u.lang='en-GB';u.rate=0.9;window.speechSynthesis.speak(u);}catch(e){}}
+
+/* ---- Quiz engine ---- */
+var score=0,total=0;
+function buildQuiz(containerId,items){
+  var c=document.getElementById(containerId);
+  items.forEach(function(it){
+    total++;
+    var qz=document.createElement('div');qz.className='qz';
+    var opts='<div class="opts">';
+    it.options.forEach(function(o){opts+='<button class="opt" data-ok="'+(o===it.answer?'1':'0')+'" onclick="pick(this)">'+o+'</button>';});
+    opts+='</div><div class="fb"></div>';
+    qz.innerHTML='<div class="q">'+it.q+'</div>'+opts;
+    c.appendChild(qz);
+  });
+  updateScore();
+}
+function pick(btn){
+  var qz=btn.closest('.qz');if(qz.dataset.done)return;qz.dataset.done='1';
+  var ok=btn.dataset.ok==='1';var fb=qz.querySelector('.fb');
+  if(ok){btn.classList.add('correct');score++;fb.className='fb ok';fb.textContent='✓ Correct! Great job!';}
+  else{btn.classList.add('wrong');var good=qz.querySelector('[data-ok="1"]');if(good)good.classList.add('correct');
+    fb.className='fb no';fb.textContent='Almost! The green one is right. Try to remember it! 💪';}
+  qz.querySelectorAll('.opt').forEach(function(b){b.disabled=true;});
+  updateScore();
+}
+function updateScore(){
+  var answered=document.querySelectorAll('.qz[data-done]').length;
+  document.getElementById('score-num').textContent=score+' / '+total;
+  document.getElementById('score-fill').style.width=(total?Math.round(answered/total*100):0)+'%';
+  var st='',pct=total?score/total:0;
+  if(answered===total&&total>0){st=pct>=0.8?'⭐⭐⭐':pct>=0.5?'⭐⭐':'⭐';}
+  document.getElementById('score-stars').textContent=st;
+}
+
+/* ---- Student name ---- */
+var nameInput=document.getElementById('student-name');
+function applyName(){
+  var n=nameInput.value.trim();
+  document.getElementById('hello-msg').textContent=n?('Hello, '+n+'! 🌟'):'';
+  document.querySelectorAll('.stud-name').forEach(function(el){el.textContent=n?('Amazing work today, '+n+'!'):'Amazing work today!';});
+  localStorage.setItem(K+'name',n);
+}
+nameInput.addEventListener('input',applyName);
+
+/* ---- Agenda pills ---- */
+document.querySelectorAll('.ap').forEach(function(p){
+  p.onclick=function(){p.classList.toggle('done');localStorage.setItem(K+'ap'+p.dataset.s,p.classList.contains('done'));};
+});
+
+/* ---- Teacher mode ---- */
+function unlockTeacher(){
+  if(document.body.classList.contains('teacher-mode')){document.body.classList.remove('teacher-mode');document.getElementById('teach-btn').textContent='🔐';return;}
+  var pin=prompt('Teacher PIN:');
+  if(pin==='teach'){document.body.classList.add('teacher-mode');document.getElementById('teach-btn').textContent='🔓 Teacher';}
+}
+
+/* ---- Save work (.txt export) ---- */
+function saveWork(){
+  var n=(localStorage.getItem(K+'name')||'Student').replace(/[^\wÀ-ſ-]/g,'');
+  var out=n+' — Level '+LEVEL+' Session '+SESSION+'\n'+new Date().toLocaleDateString()+'\n'+'='.repeat(34)+'\n\n';
+  var picks=[].slice.call(document.querySelectorAll('.chips .chip.on')).map(function(x){return x.textContent.trim();});
+  if(picks.length)out+='Picked: '+picks.join(', ')+'\n\n';
+  var count=0;
+  document.querySelectorAll('.editable[id]').forEach(function(el){var t=el.innerText.trim();if(t){out+='['+el.id+'] '+t+'\n';count++;}});
+  out+='\nScore: '+score+' / '+total;
+  if(count===0&&!picks.length){alert('Type something first! 🙂');return;}
+  var b=new Blob([out],{type:'text/plain;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u;a.download=n+'_L'+LEVEL+'S'+SESSION+'_'+new Date().toISOString().slice(0,10)+'.txt';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);
+  var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show');},1600);
+}
+
+/* ---- Autosave / autoload ---- */
+function autosave(){document.querySelectorAll('.editable[id]').forEach(function(el){localStorage.setItem(K+el.id,el.innerHTML);});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){localStorage.setItem(K+'chip'+i,el.classList.contains('on'));});}
+function autoload(){
+  document.querySelectorAll('.editable[id]').forEach(function(el){var v=localStorage.getItem(K+el.id);if(v!==null)el.innerHTML=v;});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){if(localStorage.getItem(K+'chip'+i)==='true')el.classList.add('on');});
+  document.querySelectorAll('.ap').forEach(function(p){if(localStorage.getItem(K+'ap'+p.dataset.s)==='true')p.classList.add('done');});
+  var n=localStorage.getItem(K+'name');if(n){nameInput.value=n;applyName();}
+}
+document.addEventListener('input',function(){clearTimeout(window._t);window._t=setTimeout(autosave,600);});
+window.addEventListener('load',autoload);
+
+/* ============ SESSION CONTENT (changes per session) ============ */
+
+/* ---- Vocabulary: media & fake news ---- */
+var VOCAB=[
+  {w:"headline",e:"📰",p:"HED-lyne · the title of a news story"},
+  {w:"breaking news",e:"🚨",p:"a big story happening right now"},
+  {w:"source",e:"🔗",p:"SORSS · where the information comes from"},
+  {w:"journalist",e:"🖊️",p:"JUR-nuh-list · a person who reports news"},
+  {w:"eyewitness",e:"👀",p:"someone who saw it happen"},
+  {w:"evidence",e:"🧾",p:"EV-i-dens · facts that prove something"},
+  {w:"claim",e:"🗣️",p:"something stated without proof yet"},
+  {w:"hoax",e:"🎭",p:"HOHKS · a trick designed to fool people"},
+  {w:"clickbait",e:"🖱️",p:"a headline made only to get clicks"},
+  {w:"go viral",e:"📈",p:"to spread extremely fast online"},
+  {w:"verify",e:"✅",p:"VER-i-fy · to check something is true"},
+  {w:"biased",e:"⚖️",p:"BY-uhst · unfairly favouring one side"},
+  {w:"anonymous",e:"🕶️",p:"uh-NON-i-muhs · with no name given"},
+  {w:"misleading",e:"🌀",p:"giving people the wrong idea"}
+];
+(function buildVocab(){
+  var g=document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v){
+    var d=document.createElement('div');d.className='vc';
+    d.innerHTML='<div class="vc-play">🔊</div><div class="vc-emoji">'+v.e+'</div><div class="vc-word">'+v.w+'</div><div class="vc-pron">'+v.p+'</div>';
+    d.onclick=function(){say(v.w);};
+    g.appendChild(d);
+  });
+})();
+
+/* ---- Story ingredient chips for Step 6 ---- */
+(function(){
+  var ING=["🦜 a lost parrot","🧀 a mystery smell in the gym","🏆 the missing trophy","👻 strange noises in the library","🍕 a free-pizza rumour","🚌 the school bus that vanished","🐈 a cat elected class president","🌩️ a storm cancels sports day"];
+  var c=document.getElementById('story-chips');
+  ING.forEach(function(t){
+    var s=document.createElement('span');s.className='chip';s.textContent=t;
+    s.onclick=function(){s.classList.toggle('on');say(t.slice(t.indexOf(' ')+1));};
+    c.appendChild(s);
+  });
+})();
+
+/* ---- Quizzes ---- */
+buildQuiz('vocab-quiz',[
+  {q:"🚨 A big story that is happening RIGHT NOW is…",options:["breaking news","a hoax","a source"],answer:"breaking news"},
+  {q:"🖱️ \"You will NOT believe number 7!!!\" is classic…",options:["evidence","clickbait","breaking news"],answer:"clickbait"},
+  {q:"🎭 A story invented on purpose to trick people is a…",options:["hoax","headline","claim"],answer:"hoax"},
+  {q:"✅ To check whether information is really true is to…",options:["verify it","go viral","exaggerate it"],answer:"verify it"},
+  {q:"👀 A person who actually SAW the event happen is an…",options:["eyewitness","editor","anonymous"],answer:"eyewitness"},
+  {q:"🕶️ A source that gives no name is…",options:["anonymous","biased","viral"],answer:"anonymous"}
+]);
+buildQuiz('reading-quiz',[
+  {q:"Where had the shark photo really been taken?",options:["Lake Harmon","Australia","Vienna"],answer:"Australia"},
+  {q:"What was the \"fin\" in the lake, in the end?",options:["a real shark","a black plastic pipe","a dog toy"],answer:"a black plastic pipe"},
+  {q:"What was suspicious about the \"local news page\"?",options:["it was only two weeks old","it had too many photos","it was printed on paper"],answer:"it was only two weeks old"},
+  {q:"Which tool revealed the photo's history?",options:["a drone","reverse image search","a lie detector"],answer:"reverse image search"},
+  {q:"According to experts, which stories get shared the most?",options:["calm, true ones","stories that trigger strong emotions","stories about science"],answer:"stories that trigger strong emotions"}
+]);
+buildQuiz('grammar-quiz',[
+  {q:"It ___ that the shark was three metres long.",options:["was said","said"],answer:"was said"},
+  {q:"The photo is thought ___ from Australia.",options:["to come","that it comes"],answer:"to come"},
+  {q:"The fisherman is said ___ the shark last Tuesday. (past!)",options:["to have seen","to see"],answer:"to have seen"},
+  {q:"Headline: \"MAYOR TO OPEN NEW POOL\" — the pool opens…",options:["in the future","in the past"],answer:"in the future"},
+  {q:"Headline: \"TEEN SAVES DOG FROM RIVER\" — this happened…",options:["in the past","right now, live"],answer:"in the past"},
+  {q:"\"SHARK SPOTTED IN LAKE\" in full grammar means:",options:["A shark has been spotted in the lake.","A shark is spotting the lake."],answer:"A shark has been spotted in the lake."},
+  {q:"It ___ believed that thousands of people shared the photo.",options:["is","has"],answer:"is"},
+  {q:"The two students ___ to have placed the pipe in the water.",options:["are thought","think"],answer:"are thought"}
+]);
+buildQuiz('ch-quiz1',[
+  {q:"\"SCHOOL TO GET NEW GYM\" means…",options:["The school will get a new gym.","The school got a new gym years ago."],answer:"The school will get a new gym."},
+  {q:"\"LOCAL TEEN WINS NATIONAL PRIZE\" — when?",options:["It has just happened.","It will happen next year."],answer:"It has just happened."},
+  {q:"\"BUS DRIVERS SET TO STRIKE\" means…",options:["They are going to stop working.","They painted the buses."],answer:"They are going to stop working."}
+]);
+buildQuiz('ch-quiz2',[
+  {q:"People say the new app is dangerous. →",options:["The new app is said to be dangerous.","The new app says it is dangerous."],answer:"The new app is said to be dangerous."},
+  {q:"Journalists report that the singer has left the band. →",options:["The singer is reported to have left the band.","The singer reports to leave the band."],answer:"The singer is reported to have left the band."},
+  {q:"People believe the video was edited. →",options:["The video is believed to have been edited.","The video believes it was edited."],answer:"The video is believed to have been edited."}
+]);
+buildQuiz('ch-quiz3',[
+  {q:"🕵️ The best warning sign that a story might be FAKE:",options:["no named sources or evidence","it has photos in it","it is very surprising"],answer:"no named sources or evidence"},
+  {q:"🔍 A reverse image search shows you…",options:["where a photo has appeared before","who owns the camera","how many likes it will get"],answer:"where a photo has appeared before"},
+  {q:"🖱️ Which headline is clickbait?",options:["\"You will NOT believe what this cat did — SHOCKING!!!\"","\"City council approves new bike lanes\""],answer:"\"You will NOT believe what this cat did — SHOCKING!!!\""},
+  {q:"👑 BOSS: \"The lake ___ to ___ closed since Friday.\"",options:["is said / have been","is saying / be","was said / being"],answer:"is said / have been"}
+]);
+</script>
+</body>
+</html>

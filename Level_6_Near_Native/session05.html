@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>L6 · Session 5 — Wit &amp; Banter</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--accent:#5D4037;--accent2:#8D6E63}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1a;font-size:17px;line-height:1.6;padding-bottom:90px}
+.page-header{background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;padding:26px 20px;text-align:center}
+.page-header h1{font-size:26px;font-weight:800;letter-spacing:-0.3px}
+.page-header .subtitle{font-size:14px;opacity:0.9;margin-top:4px}
+.badge{display:inline-block;background:rgba(255,255,255,0.2);padding:6px 16px;border-radius:20px;font-size:14px;margin-top:10px}
+.lvl{display:inline-block;background:#FFD54F;color:#5D4037;font-weight:800;font-size:12px;padding:3px 12px;border-radius:12px;letter-spacing:0.5px;margin-bottom:8px}
+.container{max-width:860px;margin:0 auto;padding:18px}
+
+/* Student name */
+.namebox{background:white;border:2px solid var(--accent);border-radius:14px;padding:14px 18px;margin:16px 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.namebox label{font-weight:700;font-size:15px}
+.namebox input{flex:1;min-width:160px;font-size:17px;padding:8px 12px;border:2px dashed #90A4AE;border-radius:8px;font-family:inherit}
+.namebox .hello{font-weight:700;color:var(--accent)}
+
+/* Agenda */
+.agenda{background:white;border-radius:14px;padding:16px 18px;margin:14px 0;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.agenda h2{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:#666;margin-bottom:10px}
+.agenda-pills{display:flex;flex-wrap:wrap;gap:8px}
+.ap{display:flex;align-items:center;gap:6px;background:#ECEFF1;border:2px solid transparent;border-radius:20px;padding:5px 13px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.ap.done{background:#C8E6C9;border-color:#2E7D32;text-decoration:line-through;opacity:0.8}
+
+/* Sections */
+.section{background:white;border-radius:16px;margin:18px 0;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,0.07)}
+.sec-head{padding:14px 20px;color:white;font-size:17px;font-weight:800;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sec-head .icon{font-size:22px}
+.sec-head .step{margin-left:auto;font-size:12px;font-weight:700;background:rgba(255,255,255,0.25);padding:3px 12px;border-radius:12px;white-space:nowrap}
+.sec-head .timing{font-size:12px;font-weight:400;background:rgba(255,255,255,0.18);padding:3px 10px;border-radius:12px;white-space:nowrap}
+.sec-body{padding:18px 20px}
+.zoom-cue{display:block;font-size:13px;font-weight:600;color:#37474F;background:#E1F5FE;border-left:4px solid #0288D1;border-radius:0 8px 8px 0;padding:7px 12px;margin:0 0 14px}
+.goal .sec-head{background:#2E7D32}
+.warmup .sec-head{background:#E65100}
+.vocab .sec-head{background:#1565C0}
+.reading .sec-head{background:#6A1B9A}
+.grammar .sec-head{background:#AD1457}
+.task .sec-head{background:#00695C}
+.challenge .sec-head{background:#F57F17}
+.review .sec-head{background:#BF360C}
+.skipif{background:#FFF8E1;border:1px dashed #F9A825;border-radius:10px;padding:10px 14px;margin-top:12px;font-size:14px}
+.skipif b{color:#F57F17}
+
+/* Movement break */
+.move{background:linear-gradient(135deg,#00BFA5,#00897B);color:white;border-radius:16px;margin:18px 0;padding:18px 22px;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,0.1)}
+.move h2{font-size:20px;font-weight:800}
+.move p{font-size:15px;opacity:0.95;margin-top:6px}
+
+/* Vocab cards */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:14px 0}
+.vc{background:#E3F2FD;border:2px solid #90CAF9;border-radius:12px;padding:12px 10px;text-align:center;cursor:pointer;transition:transform 0.12s}
+.vc:hover{transform:scale(1.04);border-color:var(--accent)}
+.vc .vc-emoji{font-size:30px}
+.vc .vc-word{font-weight:800;font-size:15px;margin-top:4px;color:#0D47A1}
+.vc .vc-pron{font-size:12px;color:#666}
+.vc .vc-play{font-size:13px;color:#1565C0}
+
+/* Quiz engine */
+.qz{background:#FAFAFA;border:1px solid #E0E0E0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.qz .q{font-weight:700;font-size:16px;margin-bottom:10px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{font-family:inherit;font-size:15px;font-weight:600;padding:8px 16px;border-radius:10px;border:2px solid #B0BEC5;background:white;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt.correct{background:#C8E6C9;border-color:#2E7D32}
+.opt.wrong{background:#FFCDD2;border-color:#C62828}
+.opt:disabled{cursor:default;opacity:0.85}
+.fb{font-size:14px;font-weight:600;margin-top:8px;display:none}
+.fb.ok{display:block;color:#2E7D32}
+.fb.no{display:block;color:#C62828}
+
+/* Score bar */
+.scorebar{position:sticky;top:0;z-index:50;background:white;box-shadow:0 2px 8px rgba(0,0,0,0.12);padding:8px 16px;display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px}
+.scorebar .bar{flex:1;height:10px;background:#ECEFF1;border-radius:6px;overflow:hidden}
+.scorebar .fill{height:100%;width:0;background:linear-gradient(90deg,#43A047,#66BB6A);transition:width 0.4s}
+.stars{font-size:16px}
+
+/* Reading */
+.reading-text{background:#F3E5F5;border-radius:12px;padding:18px 20px;font-size:17px;max-width:65ch}
+.reading-text h4{color:#6A1B9A;font-size:15px;margin:14px 0 6px;text-transform:uppercase;letter-spacing:0.4px}
+.reading-text h4:first-child{margin-top:0}
+.reading-text p{margin:8px 0}
+
+/* Editable fields */
+.field-label{font-weight:700;font-size:14px;margin:12px 0 4px;color:#37474F}
+.editable{min-height:34px;background:#FFFDE7;border:2px dashed #9E9D24;border-radius:8px;padding:8px 12px;font-size:16px;outline:none}
+.editable.tall{min-height:70px}
+.editable:focus{border-style:solid;border-color:var(--accent)}
+.editable:empty::before{content:attr(data-placeholder);color:#999}
+.qa-item{margin:12px 0}
+.qa-item .q{font-weight:700;font-size:15px;margin-bottom:5px}
+
+/* Frames / rule boxes */
+.frame{background:#FCE4EC;border-left:5px solid #AD1457;border-radius:0 10px 10px 0;padding:12px 16px;margin:12px 0;font-size:16px}
+.rulebox{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.rule{border-radius:12px;padding:14px 16px;font-size:15px}
+.rule h4{font-size:15px;margin-bottom:8px}
+.rule.a{background:#E8F5E9;border:2px solid #66BB6A}
+.rule.a h4{color:#2E7D32}
+.rule.b{background:#FFF3E0;border:2px solid #FFA726}
+.rule.b h4{color:#E65100}
+.hint{font-size:14px;color:#555;background:#F5F5F5;border-radius:8px;padding:8px 12px;margin:10px 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.chip{background:#E1F5FE;border:2px solid #81D4FA;border-radius:16px;padding:5px 14px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.chip.on{background:#0288D1;border-color:#01579B;color:white}
+.speak{background:#E8F5E9;border-radius:10px;padding:12px 16px;font-size:16px;margin:12px 0}
+
+/* Teacher mode */
+.t-only{display:none}
+body.teacher-mode .t-only{display:block}
+.teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
+.teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
+
+/* Bottom bar */
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:white;box-shadow:0 -3px 12px rgba(0,0,0,0.12);padding:10px 14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;z-index:60}
+.bb{font-family:inherit;font-size:14px;font-weight:700;padding:10px 18px;border-radius:10px;border:none;cursor:pointer;text-decoration:none;color:white;display:inline-block}
+.bb-save{background:#2E7D32}
+.bb-print{background:#546E7A}
+.bb-teach{background:#C62828}
+#toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:#2E7D32;color:white;font-weight:700;padding:10px 22px;border-radius:20px;opacity:0;transition:all 0.3s;z-index:70}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:640px){.rulebox{grid-template-columns:1fr}.vocab-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}}
+@media print{body{background:white;padding-bottom:0}.bottom-bar,.scorebar,#toast{display:none!important}.section{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid}.sec-head,.sec-body,.page-header{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="lvl">LEVEL 6 · NEAR-NATIVE (C2)</div>
+  <h1>⭐ Session 5 — Wit &amp; Banter</h1>
+  <div class="subtitle">English Course Library · Kids &amp; Teens</div>
+  <div class="badge">🎯 Today: master <b>understatement, comebacks &amp; politeness strategies</b> — be funny AND kind, like a native · ≈50 min core</div>
+</div>
+
+<div class="scorebar">
+  <span>⭐ Score:</span><span id="score-num">0 / 0</span>
+  <div class="bar"><div class="fill" id="score-fill"></div></div>
+  <span class="stars" id="score-stars"></span>
+</div>
+
+<div id="toast">✓ Saved</div>
+
+<div class="container">
+
+<div class="namebox">
+  <label for="student-name">👋 Your name:</label>
+  <input id="student-name" type="text" placeholder="Type your name…">
+  <span class="hello" id="hello-msg"></span>
+</div>
+
+<div class="agenda">
+  <h2>📋 Today's plan — tap each step when you finish it</h2>
+  <div class="agenda-pills" id="agenda">
+    <span class="ap" data-s="1">1️⃣ Goal</span><span class="ap" data-s="2">2️⃣ Warm-up</span>
+    <span class="ap" data-s="3">3️⃣ New words</span><span class="ap" data-s="4">4️⃣ Reading</span>
+    <span class="ap" data-s="5">5️⃣ Focus</span><span class="ap" data-s="6">6️⃣ Create</span>
+    <span class="ap" data-s="7">7️⃣ Game</span><span class="ap" data-s="8">8️⃣ Review</span>
+  </div>
+</div>
+
+<!-- STEP 1 GOAL -->
+<div class="section goal">
+  <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back with one deliberate understatement.</span>
+    <p><em>"Today you learn the hardest native-speaker skill there is: wit. You will decode understatement and deadpan, build comebacks that are quick AND kind, and learn the politeness tricks English hides inside tiny words like 'just' and 'a bit'."</em> ⚡😏</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Ask: "What's the funniest thing anyone has said to you in English — and did you get it immediately?" Delayed laughter usually means understatement or deadpan wasn't decoded in time. Name that gap: today closes it. Also state the ground rule early: today's humor is a sport with safety rules — kind targets only.</div>
+  </div>
+</div>
+
+<!-- STEP 2 WARM-UP -->
+<div class="section warmup">
+  <div class="sec-head"><span class="icon">⚡</span> Warm-Up — The Understatement Olympics <span class="timing">5 min</span><span class="step">Step 2</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: pure talking game, no screen yet. Award medals with 👍 reactions — gold for the driest delivery.</span>
+    <p><b>How to play:</b></p>
+    <p>1. Your teacher describes a DISASTER: <b>"A dragon has eaten your school."</b> 🐉<br>
+    2. You respond with maximum calm and minimum drama: <em>"Well. That's mildly inconvenient."</em><br>
+    3. Swap roles — you invent disasters, teacher underplays them. Straight faces only: whoever laughs first loses the round. 😐</p>
+    <p class="hint">This is understatement — the engine of English dry humor. The smaller your words, the bigger the joke. 🏅</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 2</h4>Feed escalating disasters: alien invasion, gravity cancelled, homework declared illegal. Useful stock responses to model: "Not ideal." / "That's a bit of a setback." / "Could be worse. Not sure how." Praise DELIVERY as much as wording — flat voice, tiny pause, raised eyebrow. That prosody IS the grammar of deadpan.</div>
+  </div>
+</div>
+
+<!-- STEP 3 VOCAB -->
+<div class="section vocab">
+  <div class="sec-head"><span class="icon">📝</span> New Words — The Wit Kit <span class="timing">10 min</span><span class="step">Step 3</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share your screen. Click 🔊 on each card — student repeats the term, then has 5 seconds to name a film/series moment that fits it.</span>
+    <p>Tap any card to <b>hear</b> the term and its meaning 🔊. Say it out loud after the sound!</p>
+    <div class="vocab-grid" id="vocab-grid"></div>
+    <h3>🎧 Practice — tap the right term</h3>
+    <p class="hint">Read the situation and tap the term that matches. Green = correct!</p>
+    <div id="vocab-quiz"></div>
+  </div>
+</div>
+
+<!-- STEP 4 READING -->
+<div class="section reading">
+  <div class="sec-head"><span class="icon">📖</span> Reading — The Gentle Art of Not Quite Saying It <span class="timing">10 min</span><span class="step">Step 4</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen, take turns reading chunks aloud — reader must keep a straight face. Then student annotates every softener word she can find (Zoom → Annotate).</span>
+    <p>Read this short essay on English wit. Tap 🔊 to hear any part read aloud.
+      <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
+    <div class="reading-text" id="read-text">
+      <h4>🌧️ A strange superpower</h4>
+      <p>In most languages, if your house burned down, you would say your house had burned down. In English — especially in Britain — you might say you'd had "a bit of a rough morning." This is understatement: describing an earthquake as a wobble, and trusting your listener to translate.</p>
+      <p>It works like a magic trick in reverse. Instead of making something look bigger, you shrink it, and the listener's imagination does the growing for you. "The exam didn't go entirely to plan" can land far harder than "It was a catastrophe."</p>
+      <h4>🏓 The rules of banter</h4>
+      <p>Banter is verbal ping-pong: quick, playful, and — this is the crucial part — friendly. A proper banter partner teases you about your questionable playlist, never about things that genuinely hurt. The target of good banter is always small, chosen, and safe.</p>
+      <p>There is a simple test. After the joke, is everyone laughing — including the person the joke was about? If yes, it was banter; if not, it was meanness wearing banter's jacket.</p>
+      <p>Timing matters as much as content. Banter has the rhythm of table tennis: a beat too slow and the joke curdles into commentary, a beat too fast and it becomes an ambush. The best players leave a tiny pause — just long enough for the other person to see the ball coming.</p>
+      <h4>🎯 The comeback clinic</h4>
+      <p>A great comeback is not the loudest reply; it is the quickest calm one. Suppose someone smirks, "Nice haircut — did you lose a bet?" Anger hands them the victory, but agreement with a twist takes it back: "I did, actually. Worth every centimetre."</p>
+      <p>Agreeing with an insult and then exaggerating it drains all the power out of it. There is nothing left to attack — you got there first, and you clearly don't mind.</p>
+      <p>Self-deprecating humor, joking about yourself, is the safest wit of all. You cannot lose a game in which you cheerfully play for both teams. Just keep it light: joke about your burnt toast, never about your worth.</p>
+      <h4>🧸 The polite escape</h4>
+      <p>English also hides tiny cushions everywhere: "just", "actually", "a bit", "I was wondering". These softeners turn commands into requests. "Move" becomes "Sorry, could you just scooch over a bit?" — the same message, entirely different weather.</p>
+      <p>Notice, too, the quiet genius of "I was wondering". Grammatically it is only a report on your own thoughts, so nobody has been ordered to do anything at all — and yet, somehow, the window gets opened.</p>
+      <p>Politeness and wit are not opposites; they are dance partners. The most admired speakers in English are rarely the loudest — they are the ones who can disagree so gracefully that you only realise an hour later that your argument has been quietly dismantled.</p>
+      <h4>🥇 The golden rule</h4>
+      <p>So here is the entire art in one sentence: aim your sharpest jokes at yourself, your gentlest jokes at your friends, and your politest sentences at your opponents. Anyone can be loud. Wit is quiet, quick, and kind — and that combination, in any language, is rare enough to be unforgettable.</p>
+    </div>
+
+    <h3>🔎 Did you decode it? Tap your answer</h3>
+    <div id="reading-quiz"></div>
+
+    <h3>💬 Your turn — write your answer</h3>
+    <div class="qa-item"><div class="q">1. "It was meanness wearing banter's jacket." Explain this image in your own words — how do you personally tell banter from bullying?</div><div class="editable tall" id="r-open1" contenteditable="true" data-placeholder="The image suggests that… For me, the line between banter and bullying is…"></div></div>
+    <div class="qa-item"><div class="q">2. Does your language use understatement like English does — or is humor built differently? Give one example from your culture.</div><div class="editable tall" id="r-open2" contenteditable="true" data-placeholder="In my language, humor usually works by… For example…"></div></div>
+
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> the two written questions can be homework — but discuss question 1 aloud first; it carries today's safety rule.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 4 + answer key</h4>Quiz key: it shrinks things and lets the listener's imagination enlarge them · everyone laughs, including the target · agree and exaggerate ("Worth every centimetre") · softeners/cushions that turn commands into requests · aim sharpest jokes at yourself. Open Q1 model: the cruelty is disguised as play; the test is whether the TARGET is laughing and whether the topic was safe. Q2: any honest cultural comparison is right — Hungarian humor often runs on irony and absurdity rather than understatement; delayed decoding of English dryness is normal and worth naming.</div>
+  </div>
+</div>
+
+<!-- STEP 5 FOCUS -->
+<div class="section grammar">
+  <div class="sec-head"><span class="icon">🔧</span> Language Focus — Softeners &amp; Politeness Strategies <span class="timing">10 min</span><span class="step">Step 5</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. Student answers each item aloud BEFORE you click — in her flattest, driest delivery. Voice is part of the answer today.</span>
+    <div class="rulebox">
+      <div class="rule a"><h4>✅ THE SOFT TOOLKIT — small words, big effect</h4>
+        <b>just · a bit · slightly · not exactly · I was wondering · could you · perhaps</b><br><br>
+        <em>"Could you <b>just</b> send it again?"</em><br>
+        <em>"That's <b>not exactly</b> what we agreed."</em><br>
+        <em>"You're coming, <b>aren't you</b>?" (tag = invitation, not attack)</em><br><br>
+        🔑 Softeners shrink the demand — the message stays full-size.</div>
+      <div class="rule b"><h4>⚠️ THE BLUNT VERSIONS — grammatical, but heavy</h4>
+        Direct forms sound fine on paper and harsh in the air.<br><br>
+        <em>"Send it again."</em><br>
+        <em>"That's wrong."</em><br>
+        <em>"Are you coming or not?"</em><br><br>
+        ⚠️ Not rude everywhere — but in English small talk they hit harder than most learners intend.</div>
+    </div>
+    <div class="frame">💡 <b>The understatement scale:</b> catastrophe → "a bit of a problem" · brilliant → "not bad at all" · furious → "slightly disappointed". Native listeners automatically multiply — learners must learn to do the same, in BOTH directions.</div>
+    <p class="hint">💡 Hungarian tip: Hungarian humor happily runs on direct irony, so English understatement can read as sincerity — if a British friend calls your idea "interesting" with a flat voice, multiply before you celebrate. And English "not exactly brilliant" usually means "bad", not "almost brilliant".</p>
+    <h3>✏️ Practice — tap the correct choice</h3>
+    <div id="grammar-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>7+/9: race through, bank time for the Comeback Lab. Under 6: replay misses aloud with exaggerated flat delivery — the meaning of softeners only clicks through the EAR. Common trap: students read "not exactly a masterpiece" as neutral; drill the multiply-down rule twice.</div>
+  </div>
+</div>
+
+<!-- MOVE BREAK -->
+<div class="move">
+  <h2>🤸 MOVE! — 1 minute break</h2>
+  <p>Stand up! Do your best victory dance for 20 seconds, then touch something blue, something round, and something that would survive a dragon attack. Cameras on — teacher dances too! 😄</p>
+</div>
+
+<!-- STEP 6 CREATIVE TASK -->
+<div class="section task">
+  <div class="sec-head"><span class="icon">🎨</span> Create — The Comeback Lab <span class="timing">10 min</span><span class="step">Step 6</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in her own browser, shares her screen, and types. You play the teaser; she fires the comebacks live.</span>
+    <p>Time to build your own comebacks — quick, calm, and kind. Rule of the lab: your reply must make BOTH people smile. 🧪</p>
+    <h3>First, tap the wit moves you'll use:</h3>
+    <div class="chips" id="exp-chips"></div>
+    <div class="field-label">🎯 Scenario 1 — "Nice trainers. Did they come free with the cereal?" Your comeback (try: agree + exaggerate)</div>
+    <div class="editable" id="t-comeback1" contenteditable="true" data-placeholder="They did, actually — …"></div>
+    <div class="field-label">🎯 Scenario 2 — You trip over absolutely nothing in front of everyone. Your self-deprecating line as you get up</div>
+    <div class="editable" id="t-comeback2" contenteditable="true" data-placeholder="And for my next trick…"></div>
+    <div class="field-label">🎯 Scenario 3 — A friend proudly shows you a truly terrible drawing of you. React with tact + one gentle tease</div>
+    <div class="editable" id="t-comeback3" contenteditable="true" data-placeholder="I love it. Is my head really…"></div>
+    <div class="field-label">🧸 Scenario 4 — Your teammate keeps interrupting you in a group project. Complain WITHOUT sounding harsh (use two softeners)</div>
+    <div class="editable tall" id="t-polite" contenteditable="true" data-placeholder="Could I just… I was wondering if…"></div>
+    <div class="speak">🗣️ <b>Now perform them!</b> Deliver each line aloud — deadpan face, calm voice, perfect timing. Teacher rates every comeback: ⚡ speed, 😄 wit, 💚 kindness. Three hearts or it goes back in the lab!</div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> do scenarios 1 and 4 only — one comeback, one politeness repair. The other two become homework material.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>Model answers: S1 "They did, actually — best prize I've ever eaten my way to." S2 "And for my next trick, the floor again." S3 "I love it. Is my head really that majestic?" S4 "Sorry — could I just finish this one thought? I was wondering if we could take turns a bit more." If a comeback drifts into sharpness, don't ban it — ask "would BOTH of you laugh?" and let her redesign it. That self-check is the actual skill.</div>
+  </div>
+</div>
+
+<!-- STEP 7 CHALLENGE GAME -->
+<div class="section challenge">
+  <div class="sec-head"><span class="icon">🎮</span> Challenge Game — The Wit Championship <span class="timing">8 min</span><span class="step">Step 7</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen — she must read each winning answer aloud in perfect deadpan. 🎉</span>
+    <p class="hint">🏆 Three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
+    <h3>Round 1 — Name that humor</h3>
+    <div id="ch-quiz1"></div>
+    <h3>Round 2 — Pick the champion comeback (witty AND kind)</h3>
+    <div id="ch-quiz2"></div>
+    <h3>Round 3 — Boss level: the politeness engineer 👑</h3>
+    <div id="ch-quiz3"></div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 makes a perfect warm-up for next lesson — park it there.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>Wrong answers auto-reveal in green. In Round 2 the wrong options are deliberately tempting: one too cruel, one too weak — debrief WHY the winner wins (fast + calm + both laugh). The BOSS item stacks three softeners; have her count them aloud after answering.</div>
+  </div>
+</div>
+
+<!-- STEP 8 REVIEW -->
+<div class="section review">
+  <div class="sec-head"><span class="icon">🏁</span> Review &amp; Homework <span class="timing">3 min</span><span class="step">Step 8</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, screens off. Finish with faces, not slides — ideally deadpan faces.</span>
+    <div class="frame">⚡ <b>30-second recap:</b> teacher announces a disaster — you respond with one understatement, one softener, and a straight face. Three disasters, rapid fire!</div>
+    <h3>🏠 Homework</h3>
+    <div class="frame">
+      <p>🎬 <b>Wit hunting:</b> watch any English comedy scene (series, film, stand-up clip — age-appropriate) and catch THREE wit techniques from today's kit in the wild.</p>
+      <p>✏️ <b>Write them down:</b> the line, the technique, and why it lands (one sentence each).</p>
+      <p>🧸 <b>Bonus:</b> soften this brutal text message for a friend: "You are late. Again. Fix this." — keep the message, change the weather.</p>
+    </div>
+    <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="t-only">
+      <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
+      <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">What to adjust next time?</div><div class="editable" id="tn-adjust" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">Student's strongest / weakest moment today?</div><div class="editable" id="tn-notes" contenteditable="true" data-placeholder="…"></div></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="bottom-bar">
+  <button class="bb bb-save" onclick="saveWork()">💾 Save my work</button>
+  <button class="bb bb-print" onclick="window.print()">🖨️ Print</button>
+  <button class="bb bb-teach" id="teach-btn" onclick="unlockTeacher()">🔐</button>
+</div>
+
+<script>
+/* ============ ENGINE (identical across all Library sessions) ============ */
+var LEVEL=6, SESSION=5, K='ecl_L'+LEVEL+'s'+SESSION+'_';
+
+/* ---- TTS audio ---- */
+function say(text){try{window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(text);u.lang='en-GB';u.rate=0.9;window.speechSynthesis.speak(u);}catch(e){}}
+
+/* ---- Quiz engine ---- */
+var score=0,total=0;
+function buildQuiz(containerId,items){
+  var c=document.getElementById(containerId);
+  items.forEach(function(it){
+    total++;
+    var qz=document.createElement('div');qz.className='qz';
+    var opts='<div class="opts">';
+    it.options.forEach(function(o){opts+='<button class="opt" data-ok="'+(o===it.answer?'1':'0')+'" onclick="pick(this)">'+o+'</button>';});
+    opts+='</div><div class="fb"></div>';
+    qz.innerHTML='<div class="q">'+it.q+'</div>'+opts;
+    c.appendChild(qz);
+  });
+  updateScore();
+}
+function pick(btn){
+  var qz=btn.closest('.qz');if(qz.dataset.done)return;qz.dataset.done='1';
+  var ok=btn.dataset.ok==='1';var fb=qz.querySelector('.fb');
+  if(ok){btn.classList.add('correct');score++;fb.className='fb ok';fb.textContent='✓ Correct! Great job!';}
+  else{btn.classList.add('wrong');var good=qz.querySelector('[data-ok="1"]');if(good)good.classList.add('correct');
+    fb.className='fb no';fb.textContent='Almost! The green one is right. Try to remember it! 💪';}
+  qz.querySelectorAll('.opt').forEach(function(b){b.disabled=true;});
+  updateScore();
+}
+function updateScore(){
+  var answered=document.querySelectorAll('.qz[data-done]').length;
+  document.getElementById('score-num').textContent=score+' / '+total;
+  document.getElementById('score-fill').style.width=(total?Math.round(answered/total*100):0)+'%';
+  var st='',pct=total?score/total:0;
+  if(answered===total&&total>0){st=pct>=0.8?'⭐⭐⭐':pct>=0.5?'⭐⭐':'⭐';}
+  document.getElementById('score-stars').textContent=st;
+}
+
+/* ---- Student name ---- */
+var nameInput=document.getElementById('student-name');
+function applyName(){
+  var n=nameInput.value.trim();
+  document.getElementById('hello-msg').textContent=n?('Hello, '+n+'! 🌟'):'';
+  document.querySelectorAll('.stud-name').forEach(function(el){el.textContent=n?('Amazing work today, '+n+'!'):'Amazing work today!';});
+  localStorage.setItem(K+'name',n);
+}
+nameInput.addEventListener('input',applyName);
+
+/* ---- Agenda pills ---- */
+document.querySelectorAll('.ap').forEach(function(p){
+  p.onclick=function(){p.classList.toggle('done');localStorage.setItem(K+'ap'+p.dataset.s,p.classList.contains('done'));};
+});
+
+/* ---- Teacher mode ---- */
+function unlockTeacher(){
+  if(document.body.classList.contains('teacher-mode')){document.body.classList.remove('teacher-mode');document.getElementById('teach-btn').textContent='🔐';return;}
+  var pin=prompt('Teacher PIN:');
+  if(pin==='teach'){document.body.classList.add('teacher-mode');document.getElementById('teach-btn').textContent='🔓 Teacher';}
+}
+
+/* ---- Save work (.txt export) ---- */
+function saveWork(){
+  var n=(localStorage.getItem(K+'name')||'Student').replace(/[^\wÀ-ſ-]/g,'');
+  var out=n+' — Level '+LEVEL+' Session '+SESSION+'\n'+new Date().toLocaleDateString()+'\n'+'='.repeat(34)+'\n\n';
+  var picks=[].slice.call(document.querySelectorAll('.chips .chip.on')).map(function(x){return x.textContent.trim();});
+  if(picks.length)out+='Picked: '+picks.join(', ')+'\n\n';
+  var count=0;
+  document.querySelectorAll('.editable[id]').forEach(function(el){var t=el.innerText.trim();if(t){out+='['+el.id+'] '+t+'\n';count++;}});
+  out+='\nScore: '+score+' / '+total;
+  if(count===0&&!picks.length){alert('Type something first! 🙂');return;}
+  var b=new Blob([out],{type:'text/plain;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u;a.download=n+'_L'+LEVEL+'S'+SESSION+'_'+new Date().toISOString().slice(0,10)+'.txt';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);
+  var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show');},1600);
+}
+
+/* ---- Autosave / autoload ---- */
+function autosave(){document.querySelectorAll('.editable[id]').forEach(function(el){localStorage.setItem(K+el.id,el.innerHTML);});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){localStorage.setItem(K+'chip'+i,el.classList.contains('on'));});}
+function autoload(){
+  document.querySelectorAll('.editable[id]').forEach(function(el){var v=localStorage.getItem(K+el.id);if(v!==null)el.innerHTML=v;});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){if(localStorage.getItem(K+'chip'+i)==='true')el.classList.add('on');});
+  document.querySelectorAll('.ap').forEach(function(p){if(localStorage.getItem(K+'ap'+p.dataset.s)==='true')p.classList.add('done');});
+  var n=localStorage.getItem(K+'name');if(n){nameInput.value=n;applyName();}
+}
+document.addEventListener('input',function(){clearTimeout(window._t);window._t=setTimeout(autosave,600);});
+window.addEventListener('load',autoload);
+
+/* ============ SESSION CONTENT (changes per session) ============ */
+
+/* ---- Vocabulary: the wit kit ---- */
+var VOCAB=[
+  {w:'banter',e:'🏓',p:'/ˈbæn-tə/',d:'playful, friendly back-and-forth teasing'},
+  {w:'quip',e:'⚡',p:'/kwɪp/',d:'a quick, clever remark made on the spot'},
+  {w:'comeback',e:'🎯',p:'/ˈkʌm-bæk/',d:'a fast, sharp reply to a tease or insult'},
+  {w:'deadpan',e:'😐',p:'/ˈded-pæn/',d:'joking with a completely serious face and flat voice'},
+  {w:'self-deprecating',e:'🙃',p:'self-DEP-re-cay-ting',d:'humor aimed gently at yourself'},
+  {w:'understatement',e:'🤏',p:'UN-der-state-ment',d:'saying far less than you mean: a flood is a bit damp'},
+  {w:'hyperbole',e:'🌋',p:'/haɪ-ˈpɜː-bə-li/',d:'wild exaggeration: I have told you a million times'},
+  {w:'tongue-in-cheek',e:'😏',p:'tongue-in-CHEEK',d:'said as if serious, but meant playfully'},
+  {w:'wordplay',e:'🔤',p:'/ˈwɜːd-pleɪ/',d:'jokes built on double meanings and sounds'},
+  {w:'tact',e:'🧤',p:'/tækt/',d:'the skill of saying hard things gently'},
+  {w:'backhanded compliment',e:'🎁',p:'BACK-han-ded',d:'praise with an insult hidden inside: you sing well… for you'},
+  {w:'softener',e:'🧸',p:'/ˈsɒf-nə/',d:'small cushion words: just, a bit, I was wondering'},
+  {w:'dry humor',e:'🏜️',p:'/draɪ ˈhjuː-mə/',d:'understated, unsmiling wit — the joke never announces itself'}
+];
+(function buildVocab(){
+  var g=document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v){
+    var d=document.createElement('div');d.className='vc';
+    d.innerHTML='<div class="vc-play">🔊</div><div class="vc-emoji">'+v.e+'</div><div class="vc-word">'+v.w+'</div><div class="vc-pron">'+v.p+'</div>';
+    d.onclick=function(){say(v.w+'. '+v.d);};
+    g.appendChild(d);
+  });
+})();
+
+/* ---- Wit-move chips for Step 6 ---- */
+(function(){
+  var c=document.getElementById('exp-chips');
+  VOCAB.forEach(function(v){
+    var s=document.createElement('span');s.className='chip';s.textContent=v.e+' '+v.w;
+    s.onclick=function(){s.classList.toggle('on');say(v.w);};
+    c.appendChild(s);
+  });
+})();
+
+/* ---- Quizzes ---- */
+buildQuiz('vocab-quiz',[
+  {q:'🤏 Your kitchen is under a metre of water. You report: "It\'s a bit damp in here."',options:['understatement','hyperbole','wordplay'],answer:'understatement'},
+  {q:'🌋 "I\'ve told you a MILLION times to knock!"',options:['deadpan','hyperbole','tact'],answer:'hyperbole'},
+  {q:'😐 She announces "I am thrilled beyond words" in a totally flat voice, no smile. That delivery is…',options:['deadpan','banter','a softener'],answer:'deadpan'},
+  {q:'🎁 "Wow, you actually played that quite well — for a beginner."',options:['a backhanded compliment','self-deprecating humor','a quip'],answer:'a backhanded compliment'},
+  {q:'🙃 "Don\'t worry, I\'ll navigate — we\'ll only get lost twice this time."',options:['self-deprecating humor','a comeback','hyperbole'],answer:'self-deprecating humor'},
+  {q:'🧸 "Sorry, could you just turn it down a bit?" The words "just" and "a bit" are…',options:['softeners','wordplay','understatement'],answer:'softeners'}
+]);
+buildQuiz('reading-quiz',[
+  {q:'According to the essay, HOW does understatement create its effect?',options:['it shrinks the event and lets the listener\'s imagination enlarge it','it makes events sound bigger and more dramatic','it hides the event completely so no one understands'],answer:'it shrinks the event and lets the listener\'s imagination enlarge it'},
+  {q:'The essay\'s test for real banter: after the joke…',options:['everyone laughs, including the person the joke was about','the joker laughs loudest','somebody changes the subject quickly'],answer:'everyone laughs, including the person the joke was about'},
+  {q:'What comeback strategy does the essay recommend against "Did you lose a bet?"',options:['agree with the insult, then exaggerate it','reply with a louder insult','walk away in dignified silence'],answer:'agree with the insult, then exaggerate it'},
+  {q:'"Just", "actually", "a bit", "I was wondering" are described as…',options:['cushions that turn commands into requests','filler words that weaken your English','words to avoid in polite speech'],answer:'cushions that turn commands into requests'},
+  {q:'The golden rule: your SHARPEST jokes should be aimed at…',options:['yourself','your friends','your opponents'],answer:'yourself'}
+]);
+buildQuiz('grammar-quiz',[
+  {q:'Soften the command "Give me the notes."',options:['Could you just send me the notes?','You will give me the notes.','Notes. Now. Please.'],answer:'Could you just send me the notes?'},
+  {q:'Your friend\'s new film was terrible. The kind-but-honest understatement:',options:['It\'s not exactly my favourite of yours.','It was the worst thing I have ever seen.','It was AMAZING (lie).'],answer:'It\'s not exactly my favourite of yours.'},
+  {q:'Friendly tag question: "You\'re coming to the match, ___?"',options:['aren\'t you','isn\'t it','no'],answer:'aren\'t you'},
+  {q:'"The film was not exactly a masterpiece" really means…',options:['the film was bad','the film was almost a masterpiece','the speaker has no opinion'],answer:'the film was bad'},
+  {q:'Politest disagreement:',options:['I see your point — I\'d just read it slightly differently.','Wrong, and here\'s why.','Interesting. Anyway.'],answer:'I see your point — I\'d just read it slightly differently.'},
+  {q:'Which set contains ONLY softeners?',options:['just · a bit · perhaps · I was wondering','now · immediately · obviously','very · totally · absolutely'],answer:'just · a bit · perhaps · I was wondering'},
+  {q:'Turn down an invitation with grace:',options:['I\'d love to, but I\'m drowning in homework this week.','No.','I\'ll think about it (meaning no).'],answer:'I\'d love to, but I\'m drowning in homework this week.'},
+  {q:'"With respect, I\'d see it differently." This register signals…',options:['formal, polite disagreement','sarcastic surrender','total agreement'],answer:'formal, polite disagreement'},
+  {q:'Your teammate\'s plan is weak. The tactful version:',options:['That might not be our strongest option — what if we tried…?','That\'s honestly a terrible plan.','Fine, whatever you want.'],answer:'That might not be our strongest option — what if we tried…?'}
+]);
+buildQuiz('ch-quiz1',[
+  {q:'A hurricane removes the roof. Dad, calmly: "Bit breezy today."',options:['understatement','hyperbole','wordplay'],answer:'understatement'},
+  {q:'"I\'m so hungry I could eat the whole cafeteria. Including the chairs."',options:['hyperbole','deadpan','tact'],answer:'hyperbole'},
+  {q:'"I used to be a banker, but I lost interest." The joke lives in…',options:['wordplay','understatement','a backhanded compliment'],answer:'wordplay'}
+]);
+buildQuiz('ch-quiz2',[
+  {q:'"Nice phone. Did it come with a museum ticket?" Champion comeback:',options:['Vintage, actually — you can\'t buy this kind of history.','At least I HAVE a phone, unlike your brain.','…(long embarrassed silence)'],answer:'Vintage, actually — you can\'t buy this kind of history.'},
+  {q:'You serve the ball into the wrong court. Entirely the wrong court. Best line as you fetch it:',options:['I\'m redefining the boundaries of the sport.','The wind did that. Obviously.','This sport is stupid anyway.'],answer:'I\'m redefining the boundaries of the sport.'},
+  {q:'"You\'ve worn that hoodie three days straight." Champion reply:',options:['Consistency is my brand.','So? At least I\'m not obsessed with clothes like some people.','(remove hoodie, never wear it again)'],answer:'Consistency is my brand.'},
+  {q:'Your quiz-team answer was hilariously wrong. Captain grins: "Bold choice." You:',options:['Somebody had to test if the obvious answer was a trap. You\'re welcome.','It wasn\'t THAT wrong.','Pick someone else then.'],answer:'Somebody had to test if the obvious answer was a trap. You\'re welcome.'}
+]);
+buildQuiz('ch-quiz3',[
+  {q:'Rewrite "You\'re wrong" for a formal debate:',options:['With respect, the evidence points the other way.','You are extremely wrong.','Wrong, but politely.'],answer:'With respect, the evidence points the other way.'},
+  {q:'Text a teacher about a mistake in YOUR grade — polite but clear:',options:['I was wondering if you could take another look at my grade — I think question 4 may have been marked twice.','You marked my test wrong, fix it please.','My mum says my grade is wrong.'],answer:'I was wondering if you could take another look at my grade — I think question 4 may have been marked twice.'},
+  {q:'A friend asks if you like their (bad) new song. Kind + honest + one softener:',options:['The chorus is a bit stronger than the verses — that hook is genuinely catchy.','It\'s perfect!! (lie)','Not really my thing. Or anyone\'s.'],answer:'The chorus is a bit stronger than the verses — that hook is genuinely catchy.'},
+  {q:'👑 BOSS: your group\'s presentation is a mess the night before. Message the group — calm, three softeners, zero panic:',options:['So, tiny thing — I was wondering if we could just tidy the slides a bit tonight? Might save us tomorrow.','EVERYTHING IS BROKEN. WHO DID THIS.','The slides are bad. Fix them by 9.'],answer:'So, tiny thing — I was wondering if we could just tidy the slides a bit tonight? Might save us tomorrow.'}
+]);
+</script>
+</body>
+</html>

@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>L6 · Session 9 — Creator Studio</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--accent:#5D4037;--accent2:#8D6E63}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1a;font-size:17px;line-height:1.6;padding-bottom:90px}
+.page-header{background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;padding:26px 20px;text-align:center}
+.page-header h1{font-size:26px;font-weight:800;letter-spacing:-0.3px}
+.page-header .subtitle{font-size:14px;opacity:0.9;margin-top:4px}
+.badge{display:inline-block;background:rgba(255,255,255,0.2);padding:6px 16px;border-radius:20px;font-size:14px;margin-top:10px}
+.lvl{display:inline-block;background:#FFD54F;color:#5D4037;font-weight:800;font-size:12px;padding:3px 12px;border-radius:12px;letter-spacing:0.5px;margin-bottom:8px}
+.container{max-width:860px;margin:0 auto;padding:18px}
+
+/* Student name */
+.namebox{background:white;border:2px solid var(--accent);border-radius:14px;padding:14px 18px;margin:16px 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.namebox label{font-weight:700;font-size:15px}
+.namebox input{flex:1;min-width:160px;font-size:17px;padding:8px 12px;border:2px dashed #90A4AE;border-radius:8px;font-family:inherit}
+.namebox .hello{font-weight:700;color:var(--accent)}
+
+/* Agenda */
+.agenda{background:white;border-radius:14px;padding:16px 18px;margin:14px 0;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.agenda h2{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:#666;margin-bottom:10px}
+.agenda-pills{display:flex;flex-wrap:wrap;gap:8px}
+.ap{display:flex;align-items:center;gap:6px;background:#ECEFF1;border:2px solid transparent;border-radius:20px;padding:5px 13px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.ap.done{background:#C8E6C9;border-color:#2E7D32;text-decoration:line-through;opacity:0.8}
+
+/* Sections */
+.section{background:white;border-radius:16px;margin:18px 0;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,0.07)}
+.sec-head{padding:14px 20px;color:white;font-size:17px;font-weight:800;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sec-head .icon{font-size:22px}
+.sec-head .step{margin-left:auto;font-size:12px;font-weight:700;background:rgba(255,255,255,0.25);padding:3px 12px;border-radius:12px;white-space:nowrap}
+.sec-head .timing{font-size:12px;font-weight:400;background:rgba(255,255,255,0.18);padding:3px 10px;border-radius:12px;white-space:nowrap}
+.sec-body{padding:18px 20px}
+.zoom-cue{display:block;font-size:13px;font-weight:600;color:#37474F;background:#E1F5FE;border-left:4px solid #0288D1;border-radius:0 8px 8px 0;padding:7px 12px;margin:0 0 14px}
+.goal .sec-head{background:#2E7D32}
+.warmup .sec-head{background:#E65100}
+.vocab .sec-head{background:#1565C0}
+.reading .sec-head{background:#6A1B9A}
+.grammar .sec-head{background:#AD1457}
+.task .sec-head{background:#00695C}
+.challenge .sec-head{background:#F57F17}
+.review .sec-head{background:#BF360C}
+.skipif{background:#FFF8E1;border:1px dashed #F9A825;border-radius:10px;padding:10px 14px;margin-top:12px;font-size:14px}
+.skipif b{color:#F57F17}
+
+/* Movement break */
+.move{background:linear-gradient(135deg,#00BFA5,#00897B);color:white;border-radius:16px;margin:18px 0;padding:18px 22px;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,0.1)}
+.move h2{font-size:20px;font-weight:800}
+.move p{font-size:15px;opacity:0.95;margin-top:6px}
+
+/* Vocab cards */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:14px 0}
+.vc{background:#E3F2FD;border:2px solid #90CAF9;border-radius:12px;padding:12px 10px;text-align:center;cursor:pointer;transition:transform 0.12s}
+.vc:hover{transform:scale(1.04);border-color:var(--accent)}
+.vc .vc-emoji{font-size:30px}
+.vc .vc-word{font-weight:800;font-size:15px;margin-top:4px;color:#0D47A1}
+.vc .vc-pron{font-size:12px;color:#666}
+.vc .vc-play{font-size:13px;color:#1565C0}
+
+/* Quiz engine */
+.qz{background:#FAFAFA;border:1px solid #E0E0E0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.qz .q{font-weight:700;font-size:16px;margin-bottom:10px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{font-family:inherit;font-size:15px;font-weight:600;padding:8px 16px;border-radius:10px;border:2px solid #B0BEC5;background:white;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt.correct{background:#C8E6C9;border-color:#2E7D32}
+.opt.wrong{background:#FFCDD2;border-color:#C62828}
+.opt:disabled{cursor:default;opacity:0.85}
+.fb{font-size:14px;font-weight:600;margin-top:8px;display:none}
+.fb.ok{display:block;color:#2E7D32}
+.fb.no{display:block;color:#C62828}
+
+/* Score bar */
+.scorebar{position:sticky;top:0;z-index:50;background:white;box-shadow:0 2px 8px rgba(0,0,0,0.12);padding:8px 16px;display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px}
+.scorebar .bar{flex:1;height:10px;background:#ECEFF1;border-radius:6px;overflow:hidden}
+.scorebar .fill{height:100%;width:0;background:linear-gradient(90deg,#43A047,#66BB6A);transition:width 0.4s}
+.stars{font-size:16px}
+
+/* Reading */
+.reading-text{background:#F3E5F5;border-radius:12px;padding:18px 20px;font-size:17px;max-width:65ch}
+.reading-text h4{color:#6A1B9A;font-size:15px;margin:14px 0 6px;text-transform:uppercase;letter-spacing:0.4px}
+.reading-text h4:first-child{margin-top:0}
+.reading-text p{margin:8px 0}
+
+/* Editable fields */
+.field-label{font-weight:700;font-size:14px;margin:12px 0 4px;color:#37474F}
+.editable{min-height:34px;background:#FFFDE7;border:2px dashed #9E9D24;border-radius:8px;padding:8px 12px;font-size:16px;outline:none}
+.editable.tall{min-height:70px}
+.editable:focus{border-style:solid;border-color:var(--accent)}
+.editable:empty::before{content:attr(data-placeholder);color:#999}
+.qa-item{margin:12px 0}
+.qa-item .q{font-weight:700;font-size:15px;margin-bottom:5px}
+
+/* Frames / rule boxes */
+.frame{background:#FCE4EC;border-left:5px solid #AD1457;border-radius:0 10px 10px 0;padding:12px 16px;margin:12px 0;font-size:16px}
+.rulebox{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.rule{border-radius:12px;padding:14px 16px;font-size:15px}
+.rule h4{font-size:15px;margin-bottom:8px}
+.rule.a{background:#E8F5E9;border:2px solid #66BB6A}
+.rule.a h4{color:#2E7D32}
+.rule.b{background:#FFF3E0;border:2px solid #FFA726}
+.rule.b h4{color:#E65100}
+.hint{font-size:14px;color:#555;background:#F5F5F5;border-radius:8px;padding:8px 12px;margin:10px 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.chip{background:#E1F5FE;border:2px solid #81D4FA;border-radius:16px;padding:5px 14px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.chip.on{background:#0288D1;border-color:#01579B;color:white}
+.speak{background:#E8F5E9;border-radius:10px;padding:12px 16px;font-size:16px;margin:12px 0}
+
+/* Teacher mode */
+.t-only{display:none}
+body.teacher-mode .t-only{display:block}
+.teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
+.teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
+
+/* Bottom bar */
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:white;box-shadow:0 -3px 12px rgba(0,0,0,0.12);padding:10px 14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;z-index:60}
+.bb{font-family:inherit;font-size:14px;font-weight:700;padding:10px 18px;border-radius:10px;border:none;cursor:pointer;text-decoration:none;color:white;display:inline-block}
+.bb-save{background:#2E7D32}
+.bb-print{background:#546E7A}
+.bb-teach{background:#C62828}
+#toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:#2E7D32;color:white;font-weight:700;padding:10px 22px;border-radius:20px;opacity:0;transition:all 0.3s;z-index:70}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:640px){.rulebox{grid-template-columns:1fr}.vocab-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}}
+@media print{body{background:white;padding-bottom:0}.bottom-bar,.scorebar,#toast{display:none!important}.section{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid}.sec-head,.sec-body,.page-header{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="lvl">LEVEL 6 · NEAR-NATIVE (C2)</div>
+  <h1>🎙️ Session 9 — Creator Studio</h1>
+  <div class="subtitle">English Course Library · Kids &amp; Teens</div>
+  <div class="badge">🎯 Today: think like a producer — <b>scriptwriting and podcast craft</b>, writing English for the ear · ≈50 min core</div>
+</div>
+
+<div class="scorebar">
+  <span>⭐ Score:</span><span id="score-num">0 / 0</span>
+  <div class="bar"><div class="fill" id="score-fill"></div></div>
+  <span class="stars" id="score-stars"></span>
+</div>
+
+<div id="toast">✓ Saved</div>
+
+<div class="container">
+
+<div class="namebox">
+  <label for="student-name">👋 Your name:</label>
+  <input id="student-name" type="text" placeholder="Type your name…">
+  <span class="hello" id="hello-msg"></span>
+</div>
+
+<div class="agenda">
+  <h2>📋 Today's plan — tap each step when you finish it</h2>
+  <div class="agenda-pills" id="agenda">
+    <span class="ap" data-s="1">1️⃣ Goal</span><span class="ap" data-s="2">2️⃣ Warm-up</span>
+    <span class="ap" data-s="3">3️⃣ New words</span><span class="ap" data-s="4">4️⃣ Reading</span>
+    <span class="ap" data-s="5">5️⃣ Focus</span><span class="ap" data-s="6">6️⃣ Create</span>
+    <span class="ap" data-s="7">7️⃣ Game</span><span class="ap" data-s="8">8️⃣ Review</span>
+  </div>
+</div>
+
+<!-- STEP 1 GOAL -->
+<div class="section goal">
+  <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on. Open like a podcast: teacher does a 10-second "cold open" hello, student answers in kind.</span>
+    <p><em>"Today you step into the producer's chair. You will learn the craft language of podcasts and scripts — and the near-native superpower behind them: writing English that sounds completely natural when spoken aloud. By the end, you'll have scripted your own pilot's cold open."</em> 🎙️</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Diagnostic: ask "What do you listen to or watch — and what makes you NOT click away in the first 30 seconds?" Her answer is raw material for Step 6; jot down the show she names.</div>
+  </div>
+</div>
+
+<!-- STEP 2 WARM-UP -->
+<div class="section warmup">
+  <div class="sec-head"><span class="icon">⚡</span> Warm-Up — The 20-Second Pitch <span class="timing">5 min</span><span class="step">Step 2</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: talking game, cameras on. Teacher counts down the 20 seconds on fingers, in view of the camera.</span>
+    <p><b>How to play:</b></p>
+    <p>1. Your teacher hands you a gloriously ridiculous podcast idea (example: <em>"a show entirely about socks"</em>). 🧦<br>
+    2. You have <b>20 seconds</b> to pitch it so well that a producer would fund it.<br>
+    3. Then swap: you invent an absurd show, your teacher pitches it. Vote: who would get the funding?</p>
+    <p class="hint">No score — the goal is speed, confidence and a hook in the first sentence. 🧠</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 2</h4>Absurd prompts: socks; a podcast reviewing silence; interviews with household objects; the history of Tuesday. Praise any pitch that OPENS with a hook ("What if your socks could talk?") rather than a description ("This is a podcast about…"). That instinct is today's whole lesson in miniature.</div>
+  </div>
+</div>
+
+<!-- STEP 3 VOCAB -->
+<div class="section vocab">
+  <div class="sec-head"><span class="icon">📝</span> New Words — Studio Jargon <span class="timing">10 min</span><span class="step">Step 3</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share your screen. Click 🔊 on each card; student repeats it, then points to where she has SEEN or HEARD the thing in real shows.</span>
+    <p>Tap any card to <b>hear</b> it 🔊. This is how creators actually talk about their work.</p>
+    <div class="vocab-grid" id="vocab-grid"></div>
+    <h3>🎧 Practice — tap the right term</h3>
+    <p class="hint">Read the studio moment and tap the term a producer would use. Green = correct!</p>
+    <div id="vocab-quiz"></div>
+  </div>
+</div>
+
+<!-- STEP 4 READING -->
+<div class="section reading">
+  <div class="sec-head"><span class="icon">📖</span> Reading — Anatomy of an Episode <span class="timing">10 min</span><span class="step">Step 4</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. Student reads the "spoken" quotes with full podcast-host energy; you read the narration. Then she annotates every craft term (Zoom → Annotate).</span>
+    <p>Read how two young creators produce their show. Tap 🔊 to hear it read aloud.
+      <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
+    <div class="reading-text" id="read-text">
+      <h4>🎧 Meet the show — by Leila, 14</h4>
+      <p>Every Sunday, my cousin Dawit and I record "Static &amp; Sundays", a podcast about the strange questions nobody asks out loud. We have 214 subscribers, one squeaky chair, and a production process we take extremely seriously. Here is how an episode actually gets made.</p>
+      <h4>🪝 Minute zero: the cold open</h4>
+      <p>We never start with "Hello and welcome". We start with a <b>cold open</b> — a slice of the episode's most dramatic moment, played before any introductions: "So the octopus has three hearts, and honestly, that explains everything about my week."</p>
+      <p>That is the <b>hook</b>. Podcast wisdom says you have about twenty seconds before a listener's thumb drifts towards another show; a good cold open buys you a full minute.</p>
+      <h4>📝 The script that doesn't sound like one</h4>
+      <p>People assume we improvise everything. In truth, every episode has a script — but it is written for the ear, not the eye: short sentences, contractions everywhere, questions that pull the listener forward.</p>
+      <p>We also mark spots for <b>ad-libs</b>, where Dawit is legally allowed to wander off script for fifteen seconds. His <b>banter</b> is the show's engine; my job is steering it back with a <b>segue</b>: "Speaking of disasters — the news segment."</p>
+      <h4>🎙️ Recording day</h4>
+      <p>We record inside a blanket fort, because blankets swallow echo. Each of us records a separate track, so if I laugh over Dawit's punchline, the edit can rescue it. When a take dies, we don't stop — we clap once, and the spike in the waveform marks the crime scene for later.</p>
+      <p>Our gear is humble: two borrowed microphones, a laptop older than either of us, and a "RECORDING — QUIET PLEASE" sign that our cat has never once respected. It turns out the script matters more than any of it.</p>
+      <h4>✂️ The edit: where the magic hides</h4>
+      <p>Editing is honest work: we cut every "um", every dead pause, every joke that only the two of us found funny. A <b>jump cut</b> in audio is forgivable; boredom is not.</p>
+      <p>We always rescue one <b>sound bite</b> — a quotable ten-second moment — and post it as a teaser clip. That clip recruits more listeners than anything else we do.</p>
+      <h4>📣 Shipping it</h4>
+      <p>Before upload, I write the <b>show notes</b>: a two-line summary, timestamps, and the links we mentioned. The <b>outro</b> lands the same two beats every week — a thank-you, then a <b>call to action</b>: "If the octopus facts improved your week, share the show with exactly one human."</p>
+      <p>And we always end on a <b>cliffhanger</b> for next Sunday. Dawit insists; he is usually right.</p>
+      <p>Upload time is six o'clock sharp, every single week. Consistency, Dawit read somewhere, is the only growth hack that actually works.</p>
+      <h4>🌟 Why this matters for your English</h4>
+      <p>Here is the secret we discovered by accident: scripting a podcast is the best English lesson we have ever had. Writing for the ear forces you to sound like yourself — only sharper.</p>
+      <p>When every sentence has to survive being spoken aloud, lazy phrases get exposed in seconds. Try it once, and you will never write a school presentation the same way again.</p>
+    </div>
+
+    <h3>🔎 Did you understand? Tap your answer</h3>
+    <div id="reading-quiz"></div>
+
+    <h3>💬 Your turn — write your answer</h3>
+    <div class="qa-item"><div class="q">1. Leila says their script is "written for the ear, not the eye." Using the text, explain what that means in practice — name at least two techniques.</div><div class="editable tall" id="r-open1" contenteditable="true" data-placeholder="Writing for the ear means…"></div></div>
+    <div class="qa-item"><div class="q">2. "A jump cut in audio is forgivable; boredom is not." Do you agree that keeping attention beats keeping every detail? Where is the line — what should creators NOT cut?</div><div class="editable tall" id="r-open2" contenteditable="true" data-placeholder="I agree/disagree because… Creators should never cut…"></div></div>
+
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> the two written questions above can be homework instead.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 4 + answer key</h4>Quiz answers: a slice of the most dramatic moment before the intro · about twenty seconds · blankets swallow echo · marks the spot in the waveform for the editor · a quotable ten-second moment posted as a teaser. Open q1 model: short sentences, contractions, direct questions, ad-lib room — language that mirrors natural speech rhythm. Open q2: any reasoned stance is fine; push for the ethics angle (don't cut content that changes MEANING — that's manipulation, connects back to L6 S6 The Editor).</div>
+  </div>
+</div>
+
+<!-- STEP 5 FOCUS -->
+<div class="section grammar">
+  <div class="sec-head"><span class="icon">🔧</span> Language Focus — Writing for the Ear <span class="timing">10 min</span><span class="step">Step 5</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. Student must read BOTH options of each quiz item ALOUD before choosing — her own ear is the judge.</span>
+    <div class="rulebox">
+      <div class="rule a"><h4>🎙️ SOUNDS SPOKEN — do this</h4>
+        <b>Contractions:</b> <em>"It&#39;s wild, isn&#39;t it?"</em><br>
+        <b>Short sentences.</b> Then a longer one for rhythm.<br>
+        <b>Talk TO them:</b> <em>"You know that feeling when…"</em><br>
+        <b>Signposts:</b> <em>"Here&#39;s the thing…", "First up…", "Stay with me…"</em><br><br>
+        🔑 Test: could you say it to a friend without sounding like a robot?</div>
+      <div class="rule b"><h4>📄 SOUNDS WRITTEN — avoid on air</h4>
+        <b>Heavy openers:</b> <em>"Notwithstanding the aforementioned factors,…"</em><br>
+        <b>Noun-stacking:</b> <em>"the implementation of the utilisation of…"</em><br>
+        <b>Endless sentences</b> the listener can&#39;t rewind.<br>
+        <b>Lists of seven items</b> — ears hold three.<br><br>
+        🔑 The eye can re-read; the ear gets ONE chance.</div>
+    </div>
+    <div class="frame">🥁 <b>The rule of the ear:</b> one idea per sentence · three items per list · a question every few lines to re-hook the listener · and read EVERYTHING aloud before you call it finished.</div>
+    <p class="hint">💡 Tip: this is why your favourite hosts sound "effortless" — the effort happened in the script. Effortless is a style, and styles can be learned.</p>
+    <h3>✏️ Practice — which line survives being spoken?</h3>
+    <div id="grammar-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>The aloud-first rule is non-negotiable here — the wrong options are designed to FEEL wrong in the mouth. If 8+/10, bonus: she converts one paragraph of a school textbook into podcast style live. If under 6, slow down and do the conversion together on two items.</div>
+  </div>
+</div>
+
+<!-- MOVE BREAK -->
+<div class="move">
+  <h2>🤸 MOVE! — 1 minute break</h2>
+  <p>Host warm-up! Stand up, shake out your arms and do 10 high knees. Then say "unique New York" three times fast — the official tongue-twister of radio people. Teacher goes first! 😄</p>
+</div>
+
+<!-- STEP 6 CREATIVE TASK -->
+<div class="section task">
+  <div class="sec-head"><span class="icon">🎨</span> Create — Your Pilot Episode <span class="timing">10 min</span><span class="step">Step 6</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in her own browser, shares her screen and scripts live. You are the producer taking notes.</span>
+    <p>Green light! 🟢 Script the opening of YOUR pilot episode — any topic you could talk about for ten minutes straight.</p>
+    <h3>First, tap the craft elements your pilot will use:</h3>
+    <div class="chips" id="exp-chips"></div>
+    <div class="field-label">📛 Show name + one-line concept (the "elevator line")</div>
+    <div class="editable" id="t-concept" contenteditable="true" data-placeholder="'…' — the show where…"></div>
+    <div class="field-label">🪝 Your cold open (3–4 scripted lines — start mid-drama, no "hello and welcome"!)</div>
+    <div class="editable tall" id="t-coldopen" contenteditable="true" data-placeholder="So there I was, holding…"></div>
+    <div class="field-label">🌉 One segue line (from your cold open into the first segment)</div>
+    <div class="editable" id="t-segue" contenteditable="true" data-placeholder="Which brings me, unbelievably, to…"></div>
+    <div class="field-label">📣 Your outro: thank-you + call to action + cliffhanger (2–3 lines)</div>
+    <div class="editable tall" id="t-outro" contenteditable="true" data-placeholder="Thanks for listening… If you enjoyed…, then… Next week:…"></div>
+    <div class="speak">🗣️ <b>ON AIR!</b> Perform your cold open + segue with full host energy — voice up, smile audible. Your teacher-producer gives one note, then you perform the improved take. Two takes, like a real studio.</div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> script + perform only the cold open; segue and outro become homework.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>Producer note should target EAR-writing, not content ("that sentence has three ideas — split it", "swap 'furthermore' for 'and here&#39;s the wild part'"). The two-take ritual matters: hearing her own improvement is the strongest feedback in this whole level.</div>
+  </div>
+</div>
+
+<!-- STEP 7 CHALLENGE GAME -->
+<div class="section challenge">
+  <div class="sec-head"><span class="icon">🎮</span> Challenge Game — The Production Meeting <span class="timing">8 min</span><span class="step">Step 7</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen and play the demanding executive. 🎉</span>
+    <p class="hint">🎬 Three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
+    <h3>Round 1 — Jargon check</h3>
+    <div id="ch-quiz1"></div>
+    <h3>Round 2 — Script doctor: fix the line</h3>
+    <div id="ch-quiz2"></div>
+    <h3>Round 3 — Boss level: cut for broadcast 👑</h3>
+    <div id="ch-quiz3"></div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can open the next lesson as a warm-up.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>In Round 2, after each answer, have her perform the WINNING line aloud — the game doubles as delivery practice. The BOSS item forces a structural decision (what to cut), which is producer thinking, not just language.</div>
+  </div>
+</div>
+
+<!-- STEP 8 REVIEW -->
+<div class="section review">
+  <div class="sec-head"><span class="icon">🏁</span> Review &amp; Homework <span class="timing">3 min</span><span class="step">Step 8</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, screens off. Sign off like co-hosts ending an episode.</span>
+    <div class="frame">⚡ <b>30-second recap:</b> teacher names a craft term ("segue!", "cold open!", "call to action!") — you define it in one breath AND give a 3-second example. Five terms, fast!</div>
+    <h3>🏠 Homework</h3>
+    <div class="frame">
+      <p>🎙️ <b>Record your cold open</b> (phone voice memo, 30–60 seconds). Listen back ONCE and write down one thing you'd change.</p>
+      <p>📝 <b>Write the show notes</b> for your imaginary pilot: two-line summary + three timestamps.</p>
+      <p>🕵️ Bonus: watch/listen to the first minute of any favourite show and name its hook out loud.</p>
+    </div>
+    <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="t-only">
+      <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
+      <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">What to adjust next time?</div><div class="editable" id="tn-adjust" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">Student's strongest / weakest moment today?</div><div class="editable" id="tn-notes" contenteditable="true" data-placeholder="…"></div></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="bottom-bar">
+  <button class="bb bb-save" onclick="saveWork()">💾 Save my work</button>
+  <button class="bb bb-print" onclick="window.print()">🖨️ Print</button>
+  <button class="bb bb-teach" id="teach-btn" onclick="unlockTeacher()">🔐</button>
+</div>
+
+<script>
+/* ============ ENGINE (identical across all Library sessions) ============ */
+var LEVEL=6, SESSION=9, K='ecl_L'+LEVEL+'s'+SESSION+'_';
+
+/* ---- TTS audio ---- */
+function say(text){try{window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(text);u.lang='en-GB';u.rate=0.9;window.speechSynthesis.speak(u);}catch(e){}}
+
+/* ---- Quiz engine ---- */
+var score=0,total=0;
+function buildQuiz(containerId,items){
+  var c=document.getElementById(containerId);
+  items.forEach(function(it){
+    total++;
+    var qz=document.createElement('div');qz.className='qz';
+    var opts='<div class="opts">';
+    it.options.forEach(function(o){opts+='<button class="opt" data-ok="'+(o===it.answer?'1':'0')+'" onclick="pick(this)">'+o+'</button>';});
+    opts+='</div><div class="fb"></div>';
+    qz.innerHTML='<div class="q">'+it.q+'</div>'+opts;
+    c.appendChild(qz);
+  });
+  updateScore();
+}
+function pick(btn){
+  var qz=btn.closest('.qz');if(qz.dataset.done)return;qz.dataset.done='1';
+  var ok=btn.dataset.ok==='1';var fb=qz.querySelector('.fb');
+  if(ok){btn.classList.add('correct');score++;fb.className='fb ok';fb.textContent='✓ Correct! Great job!';}
+  else{btn.classList.add('wrong');var good=qz.querySelector('[data-ok="1"]');if(good)good.classList.add('correct');
+    fb.className='fb no';fb.textContent='Almost! The green one is right. Try to remember it! 💪';}
+  qz.querySelectorAll('.opt').forEach(function(b){b.disabled=true;});
+  updateScore();
+}
+function updateScore(){
+  var answered=document.querySelectorAll('.qz[data-done]').length;
+  document.getElementById('score-num').textContent=score+' / '+total;
+  document.getElementById('score-fill').style.width=(total?Math.round(answered/total*100):0)+'%';
+  var st='',pct=total?score/total:0;
+  if(answered===total&&total>0){st=pct>=0.8?'⭐⭐⭐':pct>=0.5?'⭐⭐':'⭐';}
+  document.getElementById('score-stars').textContent=st;
+}
+
+/* ---- Student name ---- */
+var nameInput=document.getElementById('student-name');
+function applyName(){
+  var n=nameInput.value.trim();
+  document.getElementById('hello-msg').textContent=n?('Hello, '+n+'! 🌟'):'';
+  document.querySelectorAll('.stud-name').forEach(function(el){el.textContent=n?('Amazing work today, '+n+'!'):'Amazing work today!';});
+  localStorage.setItem(K+'name',n);
+}
+nameInput.addEventListener('input',applyName);
+
+/* ---- Agenda pills ---- */
+document.querySelectorAll('.ap').forEach(function(p){
+  p.onclick=function(){p.classList.toggle('done');localStorage.setItem(K+'ap'+p.dataset.s,p.classList.contains('done'));};
+});
+
+/* ---- Teacher mode ---- */
+function unlockTeacher(){
+  if(document.body.classList.contains('teacher-mode')){document.body.classList.remove('teacher-mode');document.getElementById('teach-btn').textContent='🔐';return;}
+  var pin=prompt('Teacher PIN:');
+  if(pin==='teach'){document.body.classList.add('teacher-mode');document.getElementById('teach-btn').textContent='🔓 Teacher';}
+}
+
+/* ---- Save work (.txt export) ---- */
+function saveWork(){
+  var n=(localStorage.getItem(K+'name')||'Student').replace(/[^\wÀ-ſ-]/g,'');
+  var out=n+' — Level '+LEVEL+' Session '+SESSION+'\n'+new Date().toLocaleDateString()+'\n'+'='.repeat(34)+'\n\n';
+  var picks=[].slice.call(document.querySelectorAll('.chips .chip.on')).map(function(x){return x.textContent.trim();});
+  if(picks.length)out+='Picked: '+picks.join(', ')+'\n\n';
+  var count=0;
+  document.querySelectorAll('.editable[id]').forEach(function(el){var t=el.innerText.trim();if(t){out+='['+el.id+'] '+t+'\n';count++;}});
+  out+='\nScore: '+score+' / '+total;
+  if(count===0&&!picks.length){alert('Type something first! 🙂');return;}
+  var b=new Blob([out],{type:'text/plain;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u;a.download=n+'_L'+LEVEL+'S'+SESSION+'_'+new Date().toISOString().slice(0,10)+'.txt';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);
+  var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show');},1600);
+}
+
+/* ---- Autosave / autoload ---- */
+function autosave(){document.querySelectorAll('.editable[id]').forEach(function(el){localStorage.setItem(K+el.id,el.innerHTML);});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){localStorage.setItem(K+'chip'+i,el.classList.contains('on'));});}
+function autoload(){
+  document.querySelectorAll('.editable[id]').forEach(function(el){var v=localStorage.getItem(K+el.id);if(v!==null)el.innerHTML=v;});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){if(localStorage.getItem(K+'chip'+i)==='true')el.classList.add('on');});
+  document.querySelectorAll('.ap').forEach(function(p){if(localStorage.getItem(K+'ap'+p.dataset.s)==='true')p.classList.add('done');});
+  var n=localStorage.getItem(K+'name');if(n){nameInput.value=n;applyName();}
+}
+document.addEventListener('input',function(){clearTimeout(window._t);window._t=setTimeout(autosave,600);});
+window.addEventListener('load',autoload);
+
+/* ============ SESSION CONTENT (changes per session) ============ */
+
+/* ---- Vocabulary: studio jargon ---- */
+var VOCAB=[
+  {w:'cold open',e:'🎬',p:'dramatic scene BEFORE the intro'},
+  {w:'hook',e:'🪝',p:'the moment that stops the scroll'},
+  {w:'segue',e:'🌉',p:'smooth bridge between topics (say: SEG-way)'},
+  {w:'voice-over',e:'🎙️',p:'narration recorded over footage'},
+  {w:'sound bite',e:'🔉',p:'short quotable clip'},
+  {w:'b-roll',e:'🎞️',p:'extra footage shown over the talking'},
+  {w:'show notes',e:'📝',p:'episode summary, timestamps, links'},
+  {w:'cliffhanger',e:'🧗',p:'unresolved ending that forces episode 2'},
+  {w:'banter',e:'💬',p:'playful back-and-forth talk'},
+  {w:'call to action',e:'📣',p:'"subscribe / share / comment" moment'},
+  {w:'outro',e:'🎵',p:'the closing section of an episode'},
+  {w:'jump cut',e:'✂️',p:'visible/audible edit that skips time'},
+  {w:'ad-lib',e:'🎭',p:'unscripted line invented on the spot'},
+  {w:'take',e:'🎯',p:'one recorded attempt at a scene'}
+];
+(function buildVocab(){
+  var g=document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v){
+    var d=document.createElement('div');d.className='vc';
+    d.innerHTML='<div class="vc-play">🔊</div><div class="vc-emoji">'+v.e+'</div><div class="vc-word">'+v.w+'</div><div class="vc-pron">= '+v.p+'</div>';
+    d.onclick=function(){say(v.w+'. '+d.querySelector('.vc-pron').innerText);};
+    g.appendChild(d);
+  });
+})();
+
+/* ---- Craft-element chips for Step 6 ---- */
+(function(){
+  var c=document.getElementById('exp-chips');
+  VOCAB.forEach(function(v){
+    var s=document.createElement('span');s.className='chip';s.textContent=v.e+' '+v.w;
+    s.onclick=function(){s.classList.toggle('on');say(v.w);};
+    c.appendChild(s);
+  });
+})();
+
+/* ---- Quizzes ---- */
+buildQuiz('vocab-quiz',[
+  {q:'🎬 The episode starts mid-argument, BEFORE any "welcome to the show". That&#39;s a…',options:['cold open','jump cut','voice-over'],answer:'cold open'},
+  {q:'🌉 "Speaking of disasters — the news segment." That steering sentence is a…',options:['segue','sound bite','cliffhanger'],answer:'segue'},
+  {q:'🎞️ While the host talks about bakeries, we SEE shots of bread ovens. Those shots are…',options:['b-roll','show notes','ad-libs'],answer:'b-roll'},
+  {q:'📣 "If you enjoyed this, share it with one human!" — that closing request is a…',options:['call to action','point of order','hook'],answer:'call to action'},
+  {q:'🎭 The scripted line vanished from his brain, so he invented a better one live. That was an…',options:['ad-lib','outro','edit'],answer:'ad-lib'},
+  {q:'🧗 The episode ends with "…and that&#39;s when the lights went out. See you next week." Classic…',options:['cliffhanger','banter','b-roll'],answer:'cliffhanger'}
+]);
+buildQuiz('reading-quiz',[
+  {q:'What exactly is played in "Static &amp; Sundays" BEFORE any introductions?',options:['a slice of the episode&#39;s most dramatic moment','a song they both like','a list of sponsors'],answer:'a slice of the episode&#39;s most dramatic moment'},
+  {q:'How long does podcast wisdom say you have before a listener&#39;s thumb drifts away?',options:['about twenty seconds','about five minutes','one full episode'],answer:'about twenty seconds'},
+  {q:'Why do Leila and Dawit record in a blanket fort?',options:['blankets swallow echo','it keeps them warm','their parents insist'],answer:'blankets swallow echo'},
+  {q:'What is the purpose of clapping once when a take dies?',options:['the spike marks the spot in the waveform for editing','it restarts the microphone','it cheers Dawit up'],answer:'the spike marks the spot in the waveform for editing'},
+  {q:'What do they post as a teaser to recruit listeners?',options:['a ten-second sound bite','the full script','a photo of the blanket fort'],answer:'a ten-second sound bite'}
+]);
+buildQuiz('grammar-quiz',[
+  {q:'Which opener survives being SPOKEN?',options:['Here&#39;s the thing about octopuses.','Notwithstanding the aforementioned considerations regarding octopuses,'],answer:'Here&#39;s the thing about octopuses.'},
+  {q:'Pick the ear-friendly version:',options:['It&#39;s weird, right? Nobody talks about this.','It is peculiar; nevertheless, the topic remains largely undiscussed.'],answer:'It&#39;s weird, right? Nobody talks about this.'},
+  {q:'Why do spoken scripts LOVE questions?',options:['they re-hook the listener&#39;s attention','they fill time cheaply','they sound more formal'],answer:'they re-hook the listener&#39;s attention'},
+  {q:'How many list items can a listener&#39;s ear comfortably hold?',options:['about three','about seven','unlimited, like the eye'],answer:'about three'},
+  {q:'Which is a signpost phrase for the ear?',options:['"Stay with me — this gets better."','"As per the previous paragraph."','"See figure 4 below."'],answer:'"Stay with me — this gets better."'},
+  {q:'The key difference between eye and ear:',options:['the eye can re-read; the ear gets one chance','the ear is faster than the eye','the eye prefers jokes'],answer:'the eye can re-read; the ear gets one chance'},
+  {q:'Fix this for air: "The implementation of the utilisation of new microphones was accomplished."',options:['We finally got new mics.','The utilisation was implemented successfully.'],answer:'We finally got new mics.'},
+  {q:'Best rhythm for spoken English:',options:['short sentences, then a longer one for music','all sentences exactly the same length','one enormous sentence per segment'],answer:'short sentences, then a longer one for music'},
+  {q:'The final test before a script is "finished":',options:['read it aloud','count the words','check the font'],answer:'read it aloud'},
+  {q:'Your favourite host sounds effortless because…',options:['the effort happened in the script','no script exists','the microphone is expensive'],answer:'the effort happened in the script'}
+]);
+buildQuiz('ch-quiz1',[
+  {q:'🎬 Narration recorded OVER footage of a storm:',options:['voice-over','cold open','banter'],answer:'voice-over'},
+  {q:'🎬 One recorded attempt at a scene is called a…',options:['take','beat','roll'],answer:'take'},
+  {q:'🎬 Summary + timestamps + links, published with the episode:',options:['show notes','sound bites','ad-libs'],answer:'show notes'},
+  {q:'🎬 The playful back-and-forth that makes co-hosts feel like friends:',options:['banter','sanction','segue'],answer:'banter'}
+]);
+buildQuiz('ch-quiz2',[
+  {q:'🩺 Script doctor! The intro says: "Hello and welcome to the show, today we will discuss bees." Better:',options:['"Three thousand bees. My bathroom. Saturday." (then the theme music)','"Greetings, esteemed audience, our apian topic commences now."'],answer:'"Three thousand bees. My bathroom. Saturday." (then the theme music)'},
+  {q:'🩺 The segue is broken: "Anyway. Different topic now." Better:',options:['"And if you think THAT was chaos — wait till you hear about the school trip."','"The subsequent segment will now be presented."'],answer:'"And if you think THAT was chaos — wait till you hear about the school trip."'},
+  {q:'🩺 The call to action mumbles: "Um, subscribe, or whatever." Better:',options:['"One favour: send this episode to the friend who NEEDS the bee story."','"Consumption of our content on a recurring basis would be appreciated."'],answer:'"One favour: send this episode to the friend who NEEDS the bee story."'}
+]);
+buildQuiz('ch-quiz3',[
+  {q:'🎯 Your 12-minute episode must fit 10 minutes. Cut first:',options:['the joke only you and your co-host find funny','the hook','the answer to the episode&#39;s main question'],answer:'the joke only you and your co-host find funny'},
+  {q:'🎯 Ethical editing line: you may cut "ums" and dead air, but NEVER…',options:['cuts that change what a speaker meant','pauses longer than a second','your co-host&#39;s laughter'],answer:'cuts that change what a speaker meant'},
+  {q:'🎯 Where does the cliffhanger belong?',options:['at the very end, after the call to action','before the cold open','in the show notes only'],answer:'at the very end, after the call to action'},
+  {q:'👑 BOSS: order a perfect episode:',options:['cold open → intro → segments with segues → outro + call to action → cliffhanger','intro → outro → cold open → segments → credits','call to action → segments → cold open → intro'],answer:'cold open → intro → segments with segues → outro + call to action → cliffhanger'}
+]);
+</script>
+</body>
+</html>

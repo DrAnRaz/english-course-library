@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>L4 · Session 10 — The Grand Debate 🏛️</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--accent:#8E24AA;--accent2:#AB47BC}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1a;font-size:17px;line-height:1.6;padding-bottom:90px}
+.page-header{background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;padding:26px 20px;text-align:center}
+.page-header h1{font-size:26px;font-weight:800;letter-spacing:-0.3px}
+.page-header .subtitle{font-size:14px;opacity:0.9;margin-top:4px}
+.badge{display:inline-block;background:rgba(255,255,255,0.2);padding:6px 16px;border-radius:20px;font-size:14px;margin-top:10px}
+.lvl{display:inline-block;background:#FFD54F;color:#5D4037;font-weight:800;font-size:12px;padding:3px 12px;border-radius:12px;letter-spacing:0.5px;margin-bottom:8px}
+.container{max-width:860px;margin:0 auto;padding:18px}
+
+/* Student name */
+.namebox{background:white;border:2px solid var(--accent);border-radius:14px;padding:14px 18px;margin:16px 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.namebox label{font-weight:700;font-size:15px}
+.namebox input{flex:1;min-width:160px;font-size:17px;padding:8px 12px;border:2px dashed #90A4AE;border-radius:8px;font-family:inherit}
+.namebox .hello{font-weight:700;color:var(--accent)}
+
+/* Agenda */
+.agenda{background:white;border-radius:14px;padding:16px 18px;margin:14px 0;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.agenda h2{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:#666;margin-bottom:10px}
+.agenda-pills{display:flex;flex-wrap:wrap;gap:8px}
+.ap{display:flex;align-items:center;gap:6px;background:#ECEFF1;border:2px solid transparent;border-radius:20px;padding:5px 13px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.ap.done{background:#C8E6C9;border-color:#2E7D32;text-decoration:line-through;opacity:0.8}
+
+/* Sections */
+.section{background:white;border-radius:16px;margin:18px 0;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,0.07)}
+.sec-head{padding:14px 20px;color:white;font-size:17px;font-weight:800;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sec-head .icon{font-size:22px}
+.sec-head .step{margin-left:auto;font-size:12px;font-weight:700;background:rgba(255,255,255,0.25);padding:3px 12px;border-radius:12px;white-space:nowrap}
+.sec-head .timing{font-size:12px;font-weight:400;background:rgba(255,255,255,0.18);padding:3px 10px;border-radius:12px;white-space:nowrap}
+.sec-body{padding:18px 20px}
+.zoom-cue{display:block;font-size:13px;font-weight:600;color:#37474F;background:#E1F5FE;border-left:4px solid #0288D1;border-radius:0 8px 8px 0;padding:7px 12px;margin:0 0 14px}
+.goal .sec-head{background:#2E7D32}
+.warmup .sec-head{background:#E65100}
+.vocab .sec-head{background:#1565C0}
+.reading .sec-head{background:#6A1B9A}
+.grammar .sec-head{background:#AD1457}
+.task .sec-head{background:#00695C}
+.challenge .sec-head{background:#F57F17}
+.review .sec-head{background:#BF360C}
+.skipif{background:#FFF8E1;border:1px dashed #F9A825;border-radius:10px;padding:10px 14px;margin-top:12px;font-size:14px}
+.skipif b{color:#F57F17}
+
+/* Movement break */
+.move{background:linear-gradient(135deg,#00BFA5,#00897B);color:white;border-radius:16px;margin:18px 0;padding:18px 22px;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,0.1)}
+.move h2{font-size:20px;font-weight:800}
+.move p{font-size:15px;opacity:0.95;margin-top:6px}
+
+/* Vocab cards */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:14px 0}
+.vc{background:#E3F2FD;border:2px solid #90CAF9;border-radius:12px;padding:12px 10px;text-align:center;cursor:pointer;transition:transform 0.12s}
+.vc:hover{transform:scale(1.04);border-color:var(--accent)}
+.vc .vc-emoji{font-size:30px}
+.vc .vc-word{font-weight:800;font-size:15px;margin-top:4px;color:#0D47A1}
+.vc .vc-pron{font-size:12px;color:#666}
+.vc .vc-play{font-size:13px;color:#1565C0}
+
+/* Quiz engine */
+.qz{background:#FAFAFA;border:1px solid #E0E0E0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.qz .q{font-weight:700;font-size:16px;margin-bottom:10px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{font-family:inherit;font-size:15px;font-weight:600;padding:8px 16px;border-radius:10px;border:2px solid #B0BEC5;background:white;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt.correct{background:#C8E6C9;border-color:#2E7D32}
+.opt.wrong{background:#FFCDD2;border-color:#C62828}
+.opt:disabled{cursor:default;opacity:0.85}
+.fb{font-size:14px;font-weight:600;margin-top:8px;display:none}
+.fb.ok{display:block;color:#2E7D32}
+.fb.no{display:block;color:#C62828}
+
+/* Score bar */
+.scorebar{position:sticky;top:0;z-index:50;background:white;box-shadow:0 2px 8px rgba(0,0,0,0.12);padding:8px 16px;display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px}
+.scorebar .bar{flex:1;height:10px;background:#ECEFF1;border-radius:6px;overflow:hidden}
+.scorebar .fill{height:100%;width:0;background:linear-gradient(90deg,#43A047,#66BB6A);transition:width 0.4s}
+.stars{font-size:16px}
+
+/* Reading */
+.reading-text{background:#F3E5F5;border-radius:12px;padding:18px 20px;font-size:17px;max-width:65ch}
+.reading-text h4{color:#6A1B9A;font-size:15px;margin:14px 0 6px;text-transform:uppercase;letter-spacing:0.4px}
+.reading-text h4:first-child{margin-top:0}
+.reading-text p{margin:8px 0}
+
+/* Editable fields */
+.field-label{font-weight:700;font-size:14px;margin:12px 0 4px;color:#37474F}
+.editable{min-height:34px;background:#FFFDE7;border:2px dashed #9E9D24;border-radius:8px;padding:8px 12px;font-size:16px;outline:none}
+.editable.tall{min-height:70px}
+.editable:focus{border-style:solid;border-color:var(--accent)}
+.editable:empty::before{content:attr(data-placeholder);color:#999}
+.qa-item{margin:12px 0}
+.qa-item .q{font-weight:700;font-size:15px;margin-bottom:5px}
+
+/* Frames / rule boxes */
+.frame{background:#FCE4EC;border-left:5px solid #AD1457;border-radius:0 10px 10px 0;padding:12px 16px;margin:12px 0;font-size:16px}
+.rulebox{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.rule{border-radius:12px;padding:14px 16px;font-size:15px}
+.rule h4{font-size:15px;margin-bottom:8px}
+.rule.a{background:#E8F5E9;border:2px solid #66BB6A}
+.rule.a h4{color:#2E7D32}
+.rule.b{background:#FFF3E0;border:2px solid #FFA726}
+.rule.b h4{color:#E65100}
+.hint{font-size:14px;color:#555;background:#F5F5F5;border-radius:8px;padding:8px 12px;margin:10px 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.chip{background:#E1F5FE;border:2px solid #81D4FA;border-radius:16px;padding:5px 14px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.chip.on{background:#0288D1;border-color:#01579B;color:white}
+.speak{background:#E8F5E9;border-radius:10px;padding:12px 16px;font-size:16px;margin:12px 0}
+
+/* Teacher mode */
+.t-only{display:none}
+body.teacher-mode .t-only{display:block}
+.teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
+.teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
+
+/* Bottom bar */
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:white;box-shadow:0 -3px 12px rgba(0,0,0,0.12);padding:10px 14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;z-index:60}
+.bb{font-family:inherit;font-size:14px;font-weight:700;padding:10px 18px;border-radius:10px;border:none;cursor:pointer;text-decoration:none;color:white;display:inline-block}
+.bb-save{background:#2E7D32}
+.bb-print{background:#546E7A}
+.bb-teach{background:#C62828}
+#toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:#2E7D32;color:white;font-weight:700;padding:10px 22px;border-radius:20px;opacity:0;transition:all 0.3s;z-index:70}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:640px){.rulebox{grid-template-columns:1fr}.vocab-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}}
+@media print{body{background:white;padding-bottom:0}.bottom-bar,.scorebar,#toast{display:none!important}.section{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid}.sec-head,.sec-body,.page-header{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="lvl">LEVEL 4 · UPPER-INTERMEDIATE (B2)</div>
+  <h1>🏛️ Session 10 — The Grand Debate</h1>
+  <div class="subtitle">English Course Library · Kids &amp; Teens</div>
+  <div class="badge">🎯 Today: everything from Level 4 goes into one formal debate — then you earn your certificate! · ≈50 min core</div>
+</div>
+
+<div class="scorebar">
+  <span>⭐ Score:</span><span id="score-num">0 / 0</span>
+  <div class="bar"><div class="fill" id="score-fill"></div></div>
+  <span class="stars" id="score-stars"></span>
+</div>
+
+<div id="toast">✓ Saved</div>
+
+<div class="container">
+
+<div class="namebox">
+  <label for="student-name">👋 Your name:</label>
+  <input id="student-name" type="text" placeholder="Type your name…">
+  <span class="hello" id="hello-msg"></span>
+</div>
+
+<div class="agenda">
+  <h2>📋 Today's plan — tap each step when you finish it</h2>
+  <div class="agenda-pills" id="agenda">
+    <span class="ap" data-s="1">1️⃣ Goal</span><span class="ap" data-s="2">2️⃣ Warm-up</span>
+    <span class="ap" data-s="3">3️⃣ New words</span><span class="ap" data-s="4">4️⃣ Reading</span>
+    <span class="ap" data-s="5">5️⃣ Mega-review</span><span class="ap" data-s="6">6️⃣ Create</span>
+    <span class="ap" data-s="7">7️⃣ Debate</span><span class="ap" data-s="8">8️⃣ Certificate</span>
+  </div>
+</div>
+
+<!-- STEP 1 GOAL -->
+<div class="section goal">
+  <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, quick hello — formal handshake into the camera, debate-champion style. Read the goal together.</span>
+    <p><em>"Today is the final of Level 4: The Grand Debate. You will use everything from Sessions 1–9 — deduction, conditionals, relative clauses, reported news, idioms, persuasion, future forms, gerunds and speaker skills — to argue like a champion. Win the debate, win your certificate."</em> 🏆</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Frame it as a championship final, not a test. Quick verbal warm-check of the level: "Give me one sentence with 'must have', one with 'will have', and one idiom." Whatever is shaky here, quietly emphasise it in Steps 5 and 7.</div>
+  </div>
+</div>
+
+<!-- STEP 2 WARM-UP -->
+<div class="section warmup">
+  <div class="sec-head"><span class="icon">⚡</span> Warm-Up — Hot Takes Tribunal <span class="timing">5 min</span><span class="step">Step 2</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: pure talking game. Use the 👍/👎 reactions to vote BEFORE anyone explains — then defend your vote out loud.</span>
+    <p><b>How to play:</b></p>
+    <p>1. Your teacher reads a spicy opinion: <em>"Cats are better teammates than dogs." "Homework should be optional." "Pineapple belongs on pizza."</em> 🍍<br>
+    2. Both of you vote instantly with 👍 or 👎 — no thinking time!<br>
+    3. Then each of you defends your vote in ONE sentence starting with <b>"I firmly believe…"</b> or <b>"Let's be honest, …"</b></p>
+    <p class="hint">No score here — just wake up your inner lawyer! ⚖️</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 2</h4>Deliberately vote OPPOSITE to the student at least once so they must argue against you. Model debate register: "I firmly believe cats are superior because they respect personal space." Keep rounds under 30 seconds each; 5–6 opinions max.</div>
+  </div>
+</div>
+
+<!-- STEP 3 VOCAB -->
+<div class="section vocab">
+  <div class="sec-head"><span class="icon">📝</span> New Words — The Debater's Dictionary <span class="timing">10 min</span><span class="step">Step 3</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share your screen. You click 🔊 on each card, student repeats twice — then uses "motion", "rebuttal" and "evidence" in one improvised sentence.</span>
+    <p>Tap any card to <b>hear</b> it 🔊. Say it out loud after the sound!</p>
+    <div class="vocab-grid" id="vocab-grid"></div>
+    <h3>🎧 Practice — tap the right word</h3>
+    <p class="hint">Read the clue and tap the word that matches. Green = correct!</p>
+    <div id="vocab-quiz"></div>
+  </div>
+</div>
+
+<!-- STEP 4 READING -->
+<div class="section reading">
+  <div class="sec-head"><span class="icon">📖</span> Reading — Inside the Grand Final <span class="timing">10 min</span><span class="step">Step 4</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. Take turns reading one chunk each. Then the student uses Zoom → Annotate to mark one example of REPORTED speech, one RELATIVE clause and one IDIOM in the text.</span>
+    <p>Read this report from a national schools debating final. Tap 🔊 to hear any part read aloud.
+      <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
+    <div class="reading-text" id="read-text">
+      <h4>🏛️ Inside the Grand Final — school report by Noor, 15</h4>
+      <p>Last Friday, our school hall stopped being a place where people eat sandwiches and became a courtroom of ideas. Two teams reached the national final, and I had a press pass.</p>
+      <h4>📜 The motion</h4>
+      <p>Every debate begins with a motion — the statement the teams fight over. Friday's motion, <b>which had been kept secret until one hour before</b>, was: "Social media does more harm than good to teenagers."</p>
+      <p>The proposition team had to defend the motion. The opposition, <b>whose captain was our own Lena Kovač</b>, had to destroy it. Both teams got sixty minutes, one laptop and a mountain of nerves.</p>
+      <h4>🎤 Opening statements</h4>
+      <p>The proposition opened with a hook: "By the time you finish school today, you <b>will have scrolled</b> through more posts than your grandparents read newspapers in a year."</p>
+      <p>Strong start. <b>However</b>, Lena's opening was ice-cold: "It <b>has been claimed</b> that social media harms us. Interesting — that claim was posted… on social media." The hall actually gasped.</p>
+      <h4>⚔️ The rebuttals</h4>
+      <p>A rebuttal is the counter-attack: you take the other team's best argument and calmly take it apart. Lena's teammate Omar reminded everyone that banning things rarely works: "If prohibition had worked, my little brother <b>would have stopped</b> eating sugar years ago."</p>
+      <p>The proposition <b>must have prepared</b> for that line, because their answer came fast: regulation, not prohibition. The audience was on the edge of their seats.</p>
+      <h4>🧑‍⚖️ The verdict</h4>
+      <p>The judges praised both teams for avoiding <b>getting</b> personal and for remembering <b>to attack</b> ideas, never people. That rule is the heart of formal debate.</p>
+      <p>In the end, the opposition won by two points. Lena said the trophy belonged to the whole team, then carried it around the hall for an hour anyway.</p>
+      <h4>💬 Why it matters</h4>
+      <p>You may never enter a debating hall, but you will argue — with friends, parents, and one day, bosses. Debate teaches you to disagree without <b>burning bridges</b>.</p>
+      <p>Noor's tip if you want to try it: start small. Challenge a friend to a two-minute kitchen debate about breakfast cereal, and appoint a parent as judge.</p>
+      <p>As Lena put it: "Anyone can shout. Champions persuade."</p>
+    </div>
+
+    <h3>🔎 Did you understand? Tap your answer</h3>
+    <div id="reading-quiz"></div>
+
+    <h3>💬 Your turn — write your answer</h3>
+    <div class="qa-item"><div class="q">1. Lena says: "Anyone can shout. Champions persuade." What is the difference between shouting and persuading?</div><div class="editable" id="r-open1" contenteditable="true" data-placeholder="Shouting is… while persuading means…"></div></div>
+    <div class="qa-item"><div class="q">2. Which side of Friday's motion would YOU have joined — proposition or opposition? Give one argument for your side.</div><div class="editable tall" id="r-open2" contenteditable="true" data-placeholder="I would have joined the… because I firmly believe that…"></div></div>
+
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> the two written questions above can be homework instead.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 4 + answer key</h4>Quiz answers: the statement the teams fight over · one hour before · the opposition (Lena's team) · attack ideas, never people. Open Q1 sample: shouting uses volume/emotion with no evidence; persuading uses arguments, evidence and calm language to change minds. Open Q2: any side + one real argument. Annotation key — reported: "It has been claimed that…"; relative clauses: "which had been kept secret…", "whose captain was…"; idioms: "on the edge of their seats", "burning bridges", "ice-cold". Bonus retrieval: the text also hides a future perfect ("will have scrolled"), a third conditional ("would have stopped"), a deduction ("must have prepared") and gerund/infinitive ("avoiding getting", "remembering to attack") — a scavenger hunt if time allows.</div>
+  </div>
+</div>
+
+<!-- STEP 5 MEGA-REVIEW -->
+<div class="section grammar">
+  <div class="sec-head"><span class="icon">🔧</span> Mega-Review — Everything from Level 4 <span class="timing">10 min</span><span class="step">Step 5</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. This is the pre-debate training montage 🥊 — student answers out loud BEFORE you click, one fist-pump per correct answer.</span>
+    <div class="rulebox">
+      <div class="rule a"><h4>🧰 YOUR LEVEL 4 GRAMMAR TOOLBOX</h4>
+        S1 🕵️ must / might / can't have (deduction)<br>
+        S2 ⏳ mixed conditionals, wishes<br>
+        S3 🔗 who / which / whose clauses<br>
+        S4 📰 "It has been reported that…"<br>
+        S7 🔮 will have done / will be doing<br>
+        S8 🌏 remember doing vs remember to do</div>
+      <div class="rule b"><h4>🎤 YOUR LEVEL 4 SPEAKER TOOLBOX</h4>
+        S5 🎭 idioms &amp; figurative language<br>
+        S6 🗣️ arguments, linking words, counter-arguments<br>
+        S9 🪧 hooks, discourse markers, pauses<br><br>
+        In a debate you need BOTH boxes at once — that's why this is the final boss level. 👑</div>
+    </div>
+    <div class="frame">💡 <b>Debate armour:</b> a deduction proves you think ("The ban <b>can't have</b> worked…"), a conditional shows consequences ("If we banned phones, students <b>would</b>…"), and a marker keeps the judge with you ("<b>However</b>, consider this…").</div>
+    <p class="hint">💡 Tip: this quiz has one question from almost every session of Level 4. Anything you miss here, glance back at that session before the debate!</p>
+    <h3>✏️ The gauntlet — one question per session</h3>
+    <div id="grammar-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>This is diagnostic gold: each item maps to a session (order: S1 deduction, S2 mixed conditional, S3 relative, S4 passive reporting, S5 idiom, S6 linker, S7 future perfect, S8 gerund/infinitive, S9 marker). Note which sessions the student misses — recommend a 5-minute revisit of those files before starting Level 5. 7+/9 = ready to advance confidently.</div>
+  </div>
+</div>
+
+<!-- MOVE BREAK -->
+<div class="move">
+  <h2>🤸 MOVE! — 1 minute break</h2>
+  <p>Stand up! Do 5 <b>victory jumping jacks</b> ⭐, strike a champion pose, then touch something <b>gold or yellow</b> in your room for luck. Cameras stay on — teacher jumps too! 😄</p>
+</div>
+
+<!-- STEP 6 CREATIVE TASK -->
+<div class="section task">
+  <div class="sec-head"><span class="icon">🎨</span> Create — Build Your Case <span class="timing">10 min</span><span class="step">Step 6</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in their own browser, shares their screen and builds the case while you play "coach".</span>
+    <p>Choose your motion, pick your side, and build a champion's case. This is your script for the Grand Debate in Step 7! 🏛️</p>
+    <h3>Tap ONE motion (your teacher takes the other side!):</h3>
+    <div class="chips" id="motion-chips"></div>
+    <div class="field-label">⚖️ My motion and my side (proposition = for, opposition = against)</div>
+    <div class="editable" id="t-motion" contenteditable="true" data-placeholder="Motion: … — I speak for the proposition/opposition."></div>
+    <div class="field-label">🪝 My hook (question, shocking fact or 10-second story)</div>
+    <div class="editable" id="t-hook" contenteditable="true" data-placeholder="What if I told you… / By 2030, we will have…"></div>
+    <div class="field-label">1️⃣ My strongest argument + one piece of evidence or example</div>
+    <div class="editable tall" id="t-arg" contenteditable="true" data-placeholder="First of all, … For instance, …"></div>
+    <div class="field-label">🛡️ The other side will say… and my rebuttal is…</div>
+    <div class="editable tall" id="t-rebuttal" contenteditable="true" data-placeholder="Some people claim that… However, if that were true, …"></div>
+    <div class="field-label">🏁 My closing line (marker + mic-drop)</div>
+    <div class="editable" id="t-closing" contenteditable="true" data-placeholder="To sum up, … Anyone can shout — champions persuade."></div>
+    <div class="speak">🗣️ <b>Coach check:</b> read your case aloud once for practice. Does it contain a hook, a marker, a conditional or future form, and a rebuttal? Then you're battle-ready. ⚔️</div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> fill only the motion + strongest argument, and improvise the rebuttal live in Step 7.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>Hold the coach role: don't feed arguments, ask for them ("What would a parent say against you? Now beat it."). Require at least ONE Level-4 structure in writing — conditional, deduction, future perfect or relative clause. Save 30 seconds for the read-aloud; it doubles as rehearsal (S9 skill).</div>
+  </div>
+</div>
+
+<!-- STEP 7 CHALLENGE GAME -->
+<div class="section challenge">
+  <div class="sec-head"><span class="icon">🎮</span> The Grand Debate — Championship Rounds <span class="timing">8 min</span><span class="step">Step 7</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: two phases! Phase 1: the LIVE debate — 1 minute each side, using the Step 6 case, teacher rings an imaginary bell. Phase 2: student's browser, their clicks — the quiz rounds decide the "judges' technical score".</span>
+    <p class="hint">🏛️ The judges score three championship rounds. Beat 80% for ⭐⭐⭐ and the title!</p>
+    <h3>Round 1 — Opening statements (spot the champion move)</h3>
+    <div id="ch-quiz1"></div>
+    <h3>Round 2 — Rebuttal round (repair the broken arguments)</h3>
+    <div id="ch-quiz2"></div>
+    <h3>Round 3 — Closing arguments: the final verdict 👑</h3>
+    <div id="ch-quiz3"></div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> play only Rounds 1–2 now; Round 3 becomes the opening ceremony of your first Level 5 lesson.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>Run the LIVE debate first (2–3 min total): student speaks 1 minute from their case, you give a 30-second counter-speech, student gets 30 seconds of rebuttal. Judge out loud on: hook ✓ marker ✓ rebuttal ✓ calm tone ✓. THEN the quiz rounds. Wrong quiz answers auto-reveal green — ask "which session is this from?" on each miss. The BOSS item chains three Level-4 structures in one sentence.</div>
+  </div>
+</div>
+
+<!-- STEP 8 REVIEW + CERTIFICATE -->
+<div class="section review">
+  <div class="sec-head"><span class="icon">🏁</span> Review, Certificate &amp; What's Next <span class="timing">3 min</span><span class="step">Step 8</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on for the award ceremony! Read the certificate aloud together, then 🖨️ Print (or save as PDF) so it's real.</span>
+    <div class="frame">⚡ <b>30-second recap:</b> teacher names a session ("Session 3!") — you say ONE thing you remember from it. Race through all nine!</div>
+
+    <div id="certificate" style="background:linear-gradient(135deg,#F3E5F5,#FFF8E1);border:6px double #8E24AA;border-radius:14px;padding:28px 20px;text-align:center;margin:18px 0;page-break-inside:avoid">
+      <div style="font-size:36px">🏛️🎓</div>
+      <h2 style="color:#8E24AA;letter-spacing:1.5px;font-size:22px;margin-top:6px">CERTIFICATE OF ACHIEVEMENT</h2>
+      <p style="margin-top:10px;font-size:15px">This certifies that</p>
+      <div id="cert-name" style="font-size:28px;font-weight:800;color:#6A1B9A;margin:10px 0;border-bottom:3px solid #8E24AA;display:inline-block;padding:0 30px">____________</div>
+      <p style="margin-top:10px;font-size:16px">has completed <b>Level 4 — Upper-Intermediate (B2)</b><br>of the English Course Library<br>and triumphed in <b>The Grand Debate</b> 🏆</p>
+      <p style="margin-top:12px;font-size:13px;color:#555">🕵️ Master of Deduction · ⏳ Time Traveller · 🔗 Clause Connector · 📰 News Detective · 🎭 Idiom Artist · 🗣️ Persuader · 🔮 Future Forecaster · 🌏 Culture Explorer · 🎤 Confident Speaker</p>
+      <p style="margin-top:14px;font-size:14px">Date: <span id="cert-date">…</span> &nbsp;·&nbsp; Teacher's signature: ____________________</p>
+    </div>
+
+    <h3>🗺️ What's next?</h3>
+    <div class="frame">🚀 <b>Level 5 — Proficient (C1)</b> awaits: shades of meaning, collocations, storytelling mastery, humour and wordplay, debate club PRO and your own capstone project. Folder: <b>Level_5_Proficient → session01.html "Shades of Meaning"</b>. You've earned the big leagues!</div>
+    <h3>🏠 Homework (a champion's lap)</h3>
+    <div class="frame">
+      <p>🏛️ <b>Hold a two-minute mini-debate at home</b> — pick any motion from today and let a family member choose their side first.</p>
+      <p>✏️ <b>Write a 5-sentence "judge's report"</b> about your own performance: one deduction ("I must have…"), one conditional, and at least two discourse markers.</p>
+    </div>
+    <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="t-only">
+      <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
+      <div class="qa-item"><div class="q">Which Level 4 topics still need revision before Level 5?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">Debate performance: hook / markers / rebuttal / tone — strongest and weakest?</div><div class="editable" id="tn-adjust" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">Ready for Level 5? Notes for the first C1 session:</div><div class="editable" id="tn-notes" contenteditable="true" data-placeholder="…"></div></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="bottom-bar">
+  <button class="bb bb-save" onclick="saveWork()">💾 Save my work</button>
+  <button class="bb bb-print" onclick="window.print()">🖨️ Print</button>
+  <button class="bb bb-teach" id="teach-btn" onclick="unlockTeacher()">🔐</button>
+</div>
+
+<script>
+/* ============ ENGINE (identical across all Library sessions) ============ */
+var LEVEL=4, SESSION=10, K='ecl_L'+LEVEL+'s'+SESSION+'_';
+
+/* ---- TTS audio ---- */
+function say(text){try{window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(text);u.lang='en-GB';u.rate=0.9;window.speechSynthesis.speak(u);}catch(e){}}
+
+/* ---- Quiz engine ---- */
+var score=0,total=0;
+function buildQuiz(containerId,items){
+  var c=document.getElementById(containerId);
+  items.forEach(function(it){
+    total++;
+    var qz=document.createElement('div');qz.className='qz';
+    var opts='<div class="opts">';
+    it.options.forEach(function(o){opts+='<button class="opt" data-ok="'+(o===it.answer?'1':'0')+'" onclick="pick(this)">'+o+'</button>';});
+    opts+='</div><div class="fb"></div>';
+    qz.innerHTML='<div class="q">'+it.q+'</div>'+opts;
+    c.appendChild(qz);
+  });
+  updateScore();
+}
+function pick(btn){
+  var qz=btn.closest('.qz');if(qz.dataset.done)return;qz.dataset.done='1';
+  var ok=btn.dataset.ok==='1';var fb=qz.querySelector('.fb');
+  if(ok){btn.classList.add('correct');score++;fb.className='fb ok';fb.textContent='✓ Correct! Great job!';}
+  else{btn.classList.add('wrong');var good=qz.querySelector('[data-ok="1"]');if(good)good.classList.add('correct');
+    fb.className='fb no';fb.textContent='Almost! The green one is right. Try to remember it! 💪';}
+  qz.querySelectorAll('.opt').forEach(function(b){b.disabled=true;});
+  updateScore();
+}
+function updateScore(){
+  var answered=document.querySelectorAll('.qz[data-done]').length;
+  document.getElementById('score-num').textContent=score+' / '+total;
+  document.getElementById('score-fill').style.width=(total?Math.round(answered/total*100):0)+'%';
+  var st='',pct=total?score/total:0;
+  if(answered===total&&total>0){st=pct>=0.8?'⭐⭐⭐':pct>=0.5?'⭐⭐':'⭐';}
+  document.getElementById('score-stars').textContent=st;
+}
+
+/* ---- Student name ---- */
+var nameInput=document.getElementById('student-name');
+function applyName(){
+  var n=nameInput.value.trim();
+  document.getElementById('hello-msg').textContent=n?('Hello, '+n+'! 🌟'):'';
+  document.querySelectorAll('.stud-name').forEach(function(el){el.textContent=n?('Amazing work today, '+n+'!'):'Amazing work today!';});
+  localStorage.setItem(K+'name',n);
+}
+nameInput.addEventListener('input',applyName);
+
+/* ---- Agenda pills ---- */
+document.querySelectorAll('.ap').forEach(function(p){
+  p.onclick=function(){p.classList.toggle('done');localStorage.setItem(K+'ap'+p.dataset.s,p.classList.contains('done'));};
+});
+
+/* ---- Teacher mode ---- */
+function unlockTeacher(){
+  if(document.body.classList.contains('teacher-mode')){document.body.classList.remove('teacher-mode');document.getElementById('teach-btn').textContent='🔐';return;}
+  var pin=prompt('Teacher PIN:');
+  if(pin==='teach'){document.body.classList.add('teacher-mode');document.getElementById('teach-btn').textContent='🔓 Teacher';}
+}
+
+/* ---- Save work (.txt export) ---- */
+function saveWork(){
+  var n=(localStorage.getItem(K+'name')||'Student').replace(/[^\wÀ-ſ-]/g,'');
+  var out=n+' — Level '+LEVEL+' Session '+SESSION+'\n'+new Date().toLocaleDateString()+'\n'+'='.repeat(34)+'\n\n';
+  var picks=[].slice.call(document.querySelectorAll('.chips .chip.on')).map(function(x){return x.textContent.trim();});
+  if(picks.length)out+='Picked: '+picks.join(', ')+'\n\n';
+  var count=0;
+  document.querySelectorAll('.editable[id]').forEach(function(el){var t=el.innerText.trim();if(t){out+='['+el.id+'] '+t+'\n';count++;}});
+  out+='\nScore: '+score+' / '+total;
+  if(count===0&&!picks.length){alert('Type something first! 🙂');return;}
+  var b=new Blob([out],{type:'text/plain;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u;a.download=n+'_L'+LEVEL+'S'+SESSION+'_'+new Date().toISOString().slice(0,10)+'.txt';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);
+  var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show');},1600);
+}
+
+/* ---- Autosave / autoload ---- */
+function autosave(){document.querySelectorAll('.editable[id]').forEach(function(el){localStorage.setItem(K+el.id,el.innerHTML);});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){localStorage.setItem(K+'chip'+i,el.classList.contains('on'));});}
+function autoload(){
+  document.querySelectorAll('.editable[id]').forEach(function(el){var v=localStorage.getItem(K+el.id);if(v!==null)el.innerHTML=v;});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){if(localStorage.getItem(K+'chip'+i)==='true')el.classList.add('on');});
+  document.querySelectorAll('.ap').forEach(function(p){if(localStorage.getItem(K+'ap'+p.dataset.s)==='true')p.classList.add('done');});
+  var n=localStorage.getItem(K+'name');if(n){nameInput.value=n;applyName();}
+}
+document.addEventListener('input',function(){clearTimeout(window._t);window._t=setTimeout(autosave,600);});
+window.addEventListener('load',autoload);
+
+/* ============ SESSION CONTENT (changes per session) ============ */
+
+/* ---- Certificate: name + date fill (uses same saved name as engine) ---- */
+(function(){
+  function fillCert(){
+    var n=nameInput.value.trim();
+    document.getElementById('cert-name').textContent=n||'____________';
+    document.getElementById('cert-date').textContent=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+  }
+  nameInput.addEventListener('input',fillCert);
+  window.addEventListener('load',fillCert);
+})();
+
+/* ---- Vocabulary: the debater's dictionary ---- */
+var VOCAB=[
+  {w:'motion',e:'📜',p:'the statement the debate is about'},
+  {w:'proposition',e:'✅',p:'the team FOR the motion'},
+  {w:'opposition',e:'❌',p:'the team AGAINST the motion'},
+  {w:'rebuttal',e:'⚔️',p:'/ri-BUT-l/ — the counter-attack'},
+  {w:'evidence',e:'🔍',p:'facts that support your argument'},
+  {w:'chairperson',e:'🔨',p:'runs the debate, keeps order'},
+  {w:'timekeeper',e:'⏱️',p:'rings the bell when time is up'},
+  {w:'judge',e:'🧑‍⚖️',p:'decides which team wins'},
+  {w:'persuasive',e:'🗣️',p:'able to change people\'s minds'},
+  {w:'counter-argument',e:'🛡️',p:'the other side\'s best attack'},
+  {w:'point of information',e:'🙋',p:'a quick question mid-speech'},
+  {w:'closing statement',e:'🏁',p:'the final speech of your side'},
+  {w:'verdict',e:'🏆',p:'/VER-dikt/ — the final decision'}
+];
+(function buildVocab(){
+  var g=document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v){
+    var d=document.createElement('div');d.className='vc';
+    d.innerHTML='<div class="vc-play">🔊</div><div class="vc-emoji">'+v.e+'</div><div class="vc-word">'+v.w+'</div><div class="vc-pron">'+v.p+'</div>';
+    d.onclick=function(){say(v.w);};
+    g.appendChild(d);
+  });
+})();
+
+/* ---- Motion chips for Step 6 ---- */
+(function(){
+  var MOTIONS=['📱 Phones should be allowed in class','📚 Homework should be banned','🏫 School should start at 10 am','🤖 AI should mark our tests','🦁 Zoos should be closed','📅 The school week should be 4 days','🎮 Esports deserve school teams','🌐 Social media minimum age: 16'];
+  var c=document.getElementById('motion-chips');
+  MOTIONS.forEach(function(t){
+    var s=document.createElement('span');s.className='chip';s.textContent=t;
+    s.onclick=function(){s.classList.toggle('on');say(t.replace(/^\S+\s/,''));};
+    c.appendChild(s);
+  });
+})();
+
+/* ---- Quizzes ---- */
+buildQuiz('vocab-quiz',[
+  {q:'📜 "Homework should be banned" — in a debate, this statement is the…',options:['verdict','motion','rebuttal'],answer:'motion'},
+  {q:'✅ The team that argues FOR the motion is the…',options:['opposition','proposition','jury'],answer:'proposition'},
+  {q:'⚔️ You take the other team\'s argument apart. That speech is a…',options:['rebuttal','motion','point of information'],answer:'rebuttal'},
+  {q:'🙋 You politely interrupt with a quick question. That\'s a…',options:['closing statement','counter-argument','point of information'],answer:'point of information'},
+  {q:'🧑‍⚖️ The final decision about who won is the…',options:['verdict','evidence','motion'],answer:'verdict'},
+  {q:'🔍 Numbers, studies and examples that support your point are…',options:['rebuttals','evidence','motions'],answer:'evidence'}
+]);
+buildQuiz('reading-quiz',[
+  {q:'What is a "motion" in a debate?',options:['the statement the teams fight over','the judges\' final speech','a rule about time limits'],answer:'the statement the teams fight over'},
+  {q:'When was Friday\'s motion revealed to the teams?',options:['one week before','one hour before','during the debate'],answer:'one hour before'},
+  {q:'Which team won the final?',options:['the proposition','the opposition','it was a tie'],answer:'the opposition'},
+  {q:'What is "the heart of formal debate", according to the judges?',options:['attack ideas, never people','speak as fast as possible','always use statistics'],answer:'attack ideas, never people'},
+  {q:'What did Omar\'s rebuttal claim rarely works?',options:['banning things','asking questions','using social media'],answer:'banning things'}
+]);
+buildQuiz('grammar-quiz',[
+  {q:'S1 🕵️ The lights are off and the car is gone. They ___ be home.',options:['can\'t','must','might not have'],answer:'can\'t'},
+  {q:'S2 ⏳ If I had joined the debate club last year, I ___ so nervous now.',options:['wouldn\'t be','won\'t be','wasn\'t'],answer:'wouldn\'t be'},
+  {q:'S3 🔗 The captain, ___ speech won the final, is only fifteen.',options:['whose','who\'s','which'],answer:'whose'},
+  {q:'S4 📰 It ___ that teenagers check their phones 100 times a day.',options:['has been claimed','has claimed','is claiming'],answer:'has been claimed'},
+  {q:'S5 🎭 The audience was "on the edge of their seats" — they were…',options:['extremely excited','falling asleep','sitting badly'],answer:'extremely excited'},
+  {q:'S6 🗣️ "Phones distract students. ___ , they can be powerful learning tools."',options:['On the other hand','As a result','For instance'],answer:'On the other hand'},
+  {q:'S7 🔮 By the end of this lesson, you ___ Level 4!',options:['will have finished','will be finishing','have finished'],answer:'will have finished'},
+  {q:'S8 🌏 The judges praised the teams for remembering ___ ideas, not people.',options:['to attack','attacking','attack'],answer:'to attack'},
+  {q:'S9 🪧 "___ , let me remind you of our three arguments." (closing!)',options:['In conclusion','For example','What if'],answer:'In conclusion'}
+]);
+buildQuiz('ch-quiz1',[
+  {q:'Which opening is the champion move?',options:['"By 2030, you will have spent a year of your life scrolling."','"Hello. My topic is, um, social media, I think."'],answer:'"By 2030, you will have spent a year of your life scrolling."'},
+  {q:'Your opponent makes a GOOD point. A champion debater…',options:['admits it, then shows why their side still wins','pretends not to hear it and talks louder'],answer:'admits it, then shows why their side still wins'},
+  {q:'"It has been suggested that homework improves discipline." Why do debaters love this passive form?',options:['it sounds objective — the claim, not the person, is on trial','it hides that they forgot the person\'s name'],answer:'it sounds objective — the claim, not the person, is on trial'}
+]);
+buildQuiz('ch-quiz2',[
+  {q:'❌ Broken deduction: "The other team is smiling. They can\'t have prepared something big."',options:['They must have prepared something big.','They mustn\'t have prepared something big.'],answer:'They must have prepared something big.'},
+  {q:'❌ Broken conditional: "If schools would ban phones, students will have panicked."',options:['If schools banned phones, students would panic.','If schools ban phones, students would have panic.'],answer:'If schools banned phones, students would panic.'},
+  {q:'❌ Broken clause: "The argument who won the debate was about sleep."',options:['The argument that won the debate was about sleep.','The argument whose won the debate was about sleep.'],answer:'The argument that won the debate was about sleep.'},
+  {q:'❌ Broken marker: "Our plan is cheap. HOWEVER, it is also easy to start."',options:['Our plan is cheap. Moreover, it is easy to start.','Our plan is cheap. In conclusion, it is easy to start.'],answer:'Our plan is cheap. Moreover, it is easy to start.'}
+]);
+buildQuiz('ch-quiz3',[
+  {q:'The verdict is close. Your closing line should…',options:['repeat your strongest argument with a marker and a pause','introduce three brand-new arguments very fast'],answer:'repeat your strongest argument with a marker and a pause'},
+  {q:'"Anyone can shout. Champions persuade." — persuading means winning with…',options:['arguments, evidence and calm delivery','volume, speed and interruptions'],answer:'arguments, evidence and calm delivery'},
+  {q:'Which line disagrees POLITELY, debate-style?',options:['"I see the point; however, the evidence tells another story."','"That is the silliest thing I have ever heard."'],answer:'"I see the point; however, the evidence tells another story."'},
+  {q:'👑 BOSS: pick the sentence that chains deduction + conditional + marker correctly:',options:['"They must have expected our argument; however, if they had checked the evidence, they would have dropped theirs."','"They must expected our argument; however, if they would check the evidence, they will have dropped theirs."'],answer:'"They must have expected our argument; however, if they had checked the evidence, they would have dropped theirs."'}
+]);
+</script>
+</body>
+</html>

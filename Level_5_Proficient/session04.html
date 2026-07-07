@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>L5 · Session 4 — Between the Lines</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--accent:#00838F;--accent2:#26A69A}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1a;font-size:17px;line-height:1.6;padding-bottom:90px}
+.page-header{background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;padding:26px 20px;text-align:center}
+.page-header h1{font-size:26px;font-weight:800;letter-spacing:-0.3px}
+.page-header .subtitle{font-size:14px;opacity:0.9;margin-top:4px}
+.badge{display:inline-block;background:rgba(255,255,255,0.2);padding:6px 16px;border-radius:20px;font-size:14px;margin-top:10px}
+.lvl{display:inline-block;background:#FFD54F;color:#5D4037;font-weight:800;font-size:12px;padding:3px 12px;border-radius:12px;letter-spacing:0.5px;margin-bottom:8px}
+.container{max-width:860px;margin:0 auto;padding:18px}
+
+/* Student name */
+.namebox{background:white;border:2px solid var(--accent);border-radius:14px;padding:14px 18px;margin:16px 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.namebox label{font-weight:700;font-size:15px}
+.namebox input{flex:1;min-width:160px;font-size:17px;padding:8px 12px;border:2px dashed #90A4AE;border-radius:8px;font-family:inherit}
+.namebox .hello{font-weight:700;color:var(--accent)}
+
+/* Agenda */
+.agenda{background:white;border-radius:14px;padding:16px 18px;margin:14px 0;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.agenda h2{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:#666;margin-bottom:10px}
+.agenda-pills{display:flex;flex-wrap:wrap;gap:8px}
+.ap{display:flex;align-items:center;gap:6px;background:#ECEFF1;border:2px solid transparent;border-radius:20px;padding:5px 13px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.ap.done{background:#C8E6C9;border-color:#2E7D32;text-decoration:line-through;opacity:0.8}
+
+/* Sections */
+.section{background:white;border-radius:16px;margin:18px 0;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,0.07)}
+.sec-head{padding:14px 20px;color:white;font-size:17px;font-weight:800;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sec-head .icon{font-size:22px}
+.sec-head .step{margin-left:auto;font-size:12px;font-weight:700;background:rgba(255,255,255,0.25);padding:3px 12px;border-radius:12px;white-space:nowrap}
+.sec-head .timing{font-size:12px;font-weight:400;background:rgba(255,255,255,0.18);padding:3px 10px;border-radius:12px;white-space:nowrap}
+.sec-body{padding:18px 20px}
+.zoom-cue{display:block;font-size:13px;font-weight:600;color:#37474F;background:#E1F5FE;border-left:4px solid #0288D1;border-radius:0 8px 8px 0;padding:7px 12px;margin:0 0 14px}
+.goal .sec-head{background:#2E7D32}
+.warmup .sec-head{background:#E65100}
+.vocab .sec-head{background:#1565C0}
+.reading .sec-head{background:#6A1B9A}
+.grammar .sec-head{background:#AD1457}
+.task .sec-head{background:#00695C}
+.challenge .sec-head{background:#F57F17}
+.review .sec-head{background:#BF360C}
+.skipif{background:#FFF8E1;border:1px dashed #F9A825;border-radius:10px;padding:10px 14px;margin-top:12px;font-size:14px}
+.skipif b{color:#F57F17}
+
+/* Movement break */
+.move{background:linear-gradient(135deg,#00BFA5,#00897B);color:white;border-radius:16px;margin:18px 0;padding:18px 22px;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,0.1)}
+.move h2{font-size:20px;font-weight:800}
+.move p{font-size:15px;opacity:0.95;margin-top:6px}
+
+/* Vocab cards */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:14px 0}
+.vc{background:#E3F2FD;border:2px solid #90CAF9;border-radius:12px;padding:12px 10px;text-align:center;cursor:pointer;transition:transform 0.12s}
+.vc:hover{transform:scale(1.04);border-color:var(--accent)}
+.vc .vc-emoji{font-size:30px}
+.vc .vc-word{font-weight:800;font-size:15px;margin-top:4px;color:#0D47A1}
+.vc .vc-pron{font-size:12px;color:#666}
+.vc .vc-play{font-size:13px;color:#1565C0}
+
+/* Quiz engine */
+.qz{background:#FAFAFA;border:1px solid #E0E0E0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.qz .q{font-weight:700;font-size:16px;margin-bottom:10px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{font-family:inherit;font-size:15px;font-weight:600;padding:8px 16px;border-radius:10px;border:2px solid #B0BEC5;background:white;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt.correct{background:#C8E6C9;border-color:#2E7D32}
+.opt.wrong{background:#FFCDD2;border-color:#C62828}
+.opt:disabled{cursor:default;opacity:0.85}
+.fb{font-size:14px;font-weight:600;margin-top:8px;display:none}
+.fb.ok{display:block;color:#2E7D32}
+.fb.no{display:block;color:#C62828}
+
+/* Score bar */
+.scorebar{position:sticky;top:0;z-index:50;background:white;box-shadow:0 2px 8px rgba(0,0,0,0.12);padding:8px 16px;display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px}
+.scorebar .bar{flex:1;height:10px;background:#ECEFF1;border-radius:6px;overflow:hidden}
+.scorebar .fill{height:100%;width:0;background:linear-gradient(90deg,#43A047,#66BB6A);transition:width 0.4s}
+.stars{font-size:16px}
+
+/* Reading */
+.reading-text{background:#F3E5F5;border-radius:12px;padding:18px 20px;font-size:17px;max-width:65ch}
+.reading-text h4{color:#6A1B9A;font-size:15px;margin:14px 0 6px;text-transform:uppercase;letter-spacing:0.4px}
+.reading-text h4:first-child{margin-top:0}
+.reading-text p{margin:8px 0}
+
+/* Editable fields */
+.field-label{font-weight:700;font-size:14px;margin:12px 0 4px;color:#37474F}
+.editable{min-height:34px;background:#FFFDE7;border:2px dashed #9E9D24;border-radius:8px;padding:8px 12px;font-size:16px;outline:none}
+.editable.tall{min-height:70px}
+.editable:focus{border-style:solid;border-color:var(--accent)}
+.editable:empty::before{content:attr(data-placeholder);color:#999}
+.qa-item{margin:12px 0}
+.qa-item .q{font-weight:700;font-size:15px;margin-bottom:5px}
+
+/* Frames / rule boxes */
+.frame{background:#FCE4EC;border-left:5px solid #AD1457;border-radius:0 10px 10px 0;padding:12px 16px;margin:12px 0;font-size:16px}
+.rulebox{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.rule{border-radius:12px;padding:14px 16px;font-size:15px}
+.rule h4{font-size:15px;margin-bottom:8px}
+.rule.a{background:#E8F5E9;border:2px solid #66BB6A}
+.rule.a h4{color:#2E7D32}
+.rule.b{background:#FFF3E0;border:2px solid #FFA726}
+.rule.b h4{color:#E65100}
+.hint{font-size:14px;color:#555;background:#F5F5F5;border-radius:8px;padding:8px 12px;margin:10px 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.chip{background:#E1F5FE;border:2px solid #81D4FA;border-radius:16px;padding:5px 14px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.chip.on{background:#0288D1;border-color:#01579B;color:white}
+.speak{background:#E8F5E9;border-radius:10px;padding:12px 16px;font-size:16px;margin:12px 0}
+
+/* Teacher mode */
+.t-only{display:none}
+body.teacher-mode .t-only{display:block}
+.teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
+.teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
+
+/* Bottom bar */
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:white;box-shadow:0 -3px 12px rgba(0,0,0,0.12);padding:10px 14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;z-index:60}
+.bb{font-family:inherit;font-size:14px;font-weight:700;padding:10px 18px;border-radius:10px;border:none;cursor:pointer;text-decoration:none;color:white;display:inline-block}
+.bb-save{background:#2E7D32}
+.bb-print{background:#546E7A}
+.bb-teach{background:#C62828}
+#toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:#2E7D32;color:white;font-weight:700;padding:10px 22px;border-radius:20px;opacity:0;transition:all 0.3s;z-index:70}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:640px){.rulebox{grid-template-columns:1fr}.vocab-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}}
+@media print{body{background:white;padding-bottom:0}.bottom-bar,.scorebar,#toast{display:none!important}.section{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid}.sec-head,.sec-body,.page-header{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="lvl">LEVEL 5 · PROFICIENT (C1)</div>
+  <h1>🕵️ Session 4 — Between the Lines</h1>
+  <div class="subtitle">English Course Library · Kids &amp; Teens</div>
+  <div class="badge">🎯 Today: read between the lines — spot <b>implied meaning</b> and <b>hidden bias</b> · ≈50 min core</div>
+</div>
+
+<div class="scorebar">
+  <span>⭐ Score:</span><span id="score-num">0 / 0</span>
+  <div class="bar"><div class="fill" id="score-fill"></div></div>
+  <span class="stars" id="score-stars"></span>
+</div>
+
+<div id="toast">✓ Saved</div>
+
+<div class="container">
+
+<div class="namebox">
+  <label for="student-name">👋 Your name:</label>
+  <input id="student-name" type="text" placeholder="Type your name…">
+  <span class="hello" id="hello-msg"></span>
+</div>
+
+<div class="agenda">
+  <h2>📋 Today's plan — tap each step when you finish it</h2>
+  <div class="agenda-pills" id="agenda">
+    <span class="ap" data-s="1">1️⃣ Goal</span><span class="ap" data-s="2">2️⃣ Warm-up</span>
+    <span class="ap" data-s="3">3️⃣ New words</span><span class="ap" data-s="4">4️⃣ Reading</span>
+    <span class="ap" data-s="5">5️⃣ Focus</span><span class="ap" data-s="6">6️⃣ Create</span>
+    <span class="ap" data-s="7">7️⃣ Game</span><span class="ap" data-s="8">8️⃣ Review</span>
+  </div>
+</div>
+
+<!-- STEP 1 GOAL -->
+<div class="section goal">
+  <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
+    <p><em>"Today you become a language detective. You will learn to notice what a text says <b>without saying it</b> — the implied meaning, the loaded words, the missing facts — so nobody can quietly steer your opinion again."</em> 🔍</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Warm diagnostic: say, completely flat, "Interesting haircut." Ask: "What did I SAY, and what did I MEAN?" If the student separates the two immediately, they're ready for speed today. If not, that gap IS the lesson — return to this example in Step 5.</div>
+  </div>
+</div>
+
+<!-- STEP 2 WARM-UP -->
+<div class="section warmup">
+  <div class="sec-head"><span class="icon">⚡</span> Warm-Up — Detective Ears <span class="timing">5 min</span><span class="step">Step 2</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: pure listening game, no screen yet. Student uses the 💡 reaction the moment they've decoded the hidden meaning.</span>
+    <p><b>How to play:</b></p>
+    <p>1. Your teacher says a sentence that means MORE than it says.<br>
+    2. You decode it: <b>"What are you really telling me?"</b> 🕵️<br>
+    3. Then swap — you try one on your teacher. Can you make THEM decode it?</p>
+    <p class="hint">Examples of the kind of sentence: "Wow, someone's up early." · "It's quite… colourful in here." · "I see you've been busy." No score — just tune your radar! 📡</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 2</h4>Good prompts: "Someone's in a good mood today." (implies: usually not) · "That's certainly one way to do it." (implies: the wrong way) · "The dog looks well fed." (implies: maybe too well fed). Praise every decoded LAYER, not just correct answers. Model one for them if they freeze on their turn.</div>
+  </div>
+</div>
+
+<!-- STEP 3 VOCAB -->
+<div class="section vocab">
+  <div class="sec-head"><span class="icon">📝</span> New Words — The Detective's Toolkit <span class="timing">10 min</span><span class="step">Step 3</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share your screen. You click 🔊, student repeats the word, then gives their OWN one-line example before the next card.</span>
+    <p>Tap any card to <b>hear</b> it 🔊. Say it out loud, then try to use it in a sentence!</p>
+    <div class="vocab-grid" id="vocab-grid"></div>
+    <h3>🎧 Practice — tap the right word</h3>
+    <p class="hint">Read the clue and tap the term that matches. Green = correct!</p>
+    <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Priority words for the reading: <b>loaded language, omission, framing, infer, imply</b>. Drill the imply/infer pair hard: the WRITER implies, the READER infers. If time is tight, do cards aloud in 4 minutes and let the quiz confirm rather than teach.</div>
+  </div>
+</div>
+
+<!-- STEP 4 READING -->
+<div class="section reading">
+  <div class="sec-head"><span class="icon">📖</span> Reading — One Match, Two Stories <span class="timing">10 min</span><span class="step">Step 4</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. Take turns reading chunks aloud. Then student uses Zoom → Annotate to circle every loaded word they can find in the two headlines.</span>
+    <p>Read this media-literacy column from a school magazine. Tap 🔊 to hear any part read aloud.
+      <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
+    <div class="reading-text" id="read-text">
+      <h4>🗞️ One match, two stories</h4>
+      <p>Last month, Riverside School's football team lost the regional final 2–1. You might think there is only one way to report that. Yet the two local sites that covered the match told stories so different that readers could wonder whether their journalists had watched the same game.</p>
+      <h4>📐 Spot the slant</h4>
+      <p>The Riverside Herald ran the headline "Brave Riverside Falls to Controversial Late Penalty". Its report described a team that "battled heroically" and was "robbed" by a referee's decision "that many spectators questioned".</p>
+      <p>The Northgate Post saw things differently: "Northgate Cruise Past Nervous Riverside". Its version mentioned the penalty in a single sentence, calling it "a routine decision", and devoted three paragraphs to Northgate's "dominant" midfield.</p>
+      <p>Even the photographs disagreed. The Herald chose a Riverside player face-down on the grass; the Post chose Northgate's captain lifting the trophy under confetti. Neither image is false, yet each tells you how to feel before you read a word.</p>
+      <h4>🧰 The tricks to watch for</h4>
+      <p>Neither article contains an outright lie. The bias lives in subtler choices: loaded language, selective omission, and framing. "Robbed" and "cruise past" carry an emotional charge that plain "lost" and "won" do not.</p>
+      <p>Omission is quieter but just as powerful. The Herald never mentions that Riverside's goalkeeper made two costly errors; the Post never mentions that the referee also waved away a strong Northgate appeal. Each outlet simply leaves out whatever weakens its story.</p>
+      <p>Framing decides where the spotlight lands before a single word is judged. Open with the penalty, and the match becomes a story about injustice. Open with the midfield, and it becomes a story about superiority.</p>
+      <h4>🧪 A quick experiment</h4>
+      <p>Try this with tonight's news. Pick one story and find it on two different sites. Underline every adjective, every dramatic verb and every quotation — then compare.</p>
+      <p>Most students who try it report the same surprise: the facts overlap almost completely, while the feeling of each article differs wildly. The information is shared; the attitude is engineered.</p>
+      <h4>👓 Reading between the lines</h4>
+      <p>Skilled readers treat every text as a set of decisions. Who wrote this, and what do they want me to feel? What has been emphasised — and, more importantly, what has been left out?</p>
+      <p>Notice the verbs, too. When a writer says a coach "admitted" something, we sense guilt; "explained" sounds calm and reasonable; "claimed" plants a seed of doubt. Same event, three flavours of meaning.</p>
+      <p>None of this means journalism is worthless. It means reading is an active sport: the honest reader checks a second source, questions emotional vocabulary, and asks who benefits from each version.</p>
+      <p>So, who really deserved to win the final? The honest answer is that one report alone cannot tell you. That, perhaps, is the most useful lesson of all.</p>
+    </div>
+
+    <h3>🔎 Did you understand? Tap your answer</h3>
+    <div id="reading-quiz"></div>
+
+    <h3>💬 Your turn — write your answer</h3>
+    <div class="qa-item"><div class="q">1. The article says neither photograph is false — so why do the photos still count as bias?</div><div class="editable" id="r-open1" contenteditable="true" data-placeholder="Even though the photos are real, they…"></div></div>
+    <div class="qa-item"><div class="q">2. Pick ONE loaded word from either headline and rewrite it in neutral language. Explain what changed.</div><div class="editable tall" id="r-open2" contenteditable="true" data-placeholder="The word … is loaded because… A neutral version would be…"></div></div>
+
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> the two written questions above can be homework instead — but do the annotation hunt for loaded words live.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 4 + answer key</h4>Quiz answers: 2–1 · the Northgate Post · the goalkeeper's two errors · "claimed" · framing. Open Q1 key idea: photo CHOICE is framing/selection — it sets the emotion before reading; selecting which true image to show is itself an editorial decision. Open Q2 examples: "robbed" → "lost after a late penalty"; "cruise past" → "beat"; "nervous" → deleted or "young". Accept any answer that names the emotional charge and removes it.</div>
+  </div>
+</div>
+
+<!-- STEP 5 FOCUS -->
+<div class="section grammar">
+  <div class="sec-head"><span class="icon">🔧</span> Focus — The Language of Implication <span class="timing">10 min</span><span class="step">Step 5</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. For each quiz item, student says the answer and a one-line WHY before you click.</span>
+    <div class="rulebox">
+      <div class="rule a"><h4>✅ STATED — on the page</h4>
+        The text says it directly. You can point at the exact words.<br><br>
+        <b>"The team lost 2–1."</b><br>
+        <b>"The referee gave a penalty."</b><br><br>
+        🔑 Test: could you quote it in court? Then it's stated.</div>
+      <div class="rule b"><h4>🫥 IMPLIED — between the lines</h4>
+        The writer <b>implies</b>; the reader <b>infers</b>. The meaning is built from clues.<br><br>
+        <b>"Even Marco passed the test."</b> → the writer expected Marco to fail.<br>
+        <b>"She's stopped copying homework."</b> → she used to copy.<br><br>
+        🔑 Test: nobody wrote it — but everybody understood it.</div>
+    </div>
+    <div class="frame">💡 <b>The reporter's verb is never innocent:</b> <b>said</b> = neutral · <b>explained</b> = reasonable · <b>admitted</b> = guilty · <b>claimed</b> = doubtful · <b>insisted</b> = desperate. One little verb quietly tells you whom to believe.</div>
+    <p class="hint">💡 Hungarian tip: Hungarian packs distance into one tiny word — "állítólag". English spreads the same doubt across choices: <b>allegedly, reportedly, so-called, "claimed"</b>. Watch for them: each one is the writer stepping back from the claim.</p>
+    <h3>✏️ Practice — tap the correct answer</h3>
+    <div id="grammar-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>If the student scores 7+/9, skip ahead and bank time for Step 6 (the creative task is the payoff today). Under 6: re-do the reporting-verb items aloud — say each verb theatrically ("ADMITTED…", "CLAIMED…") so the flavour becomes audible, not theoretical.</div>
+  </div>
+</div>
+
+<!-- MOVE BREAK -->
+<div class="move">
+  <h2>🤸 MOVE! — 1 minute break</h2>
+  <p>Stand up, detective! Find and touch something <b>blue</b>, something <b>made of paper</b>, and something <b>softer than a cat</b> — and announce each one in English. Cameras stay on — teacher hunts too! 😄</p>
+</div>
+
+<!-- STEP 6 CREATIVE TASK -->
+<div class="section task">
+  <div class="sec-head"><span class="icon">🎨</span> Create — Spin Doctor Lab <span class="timing">10 min</span><span class="step">Step 6</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in their own browser, shares their screen, and types while you watch and react live.</span>
+    <p>Here is one boring, 100% neutral fact:</p>
+    <div class="frame">📄 <b>THE FACT:</b> "From September, the school day will start 30 minutes later and finish 30 minutes later."</div>
+    <p>Your mission: spin it three ways — then confess your tricks. 😈</p>
+    <h3>First, tap every technique you plan to use:</h3>
+    <div class="chips" id="exp-chips"></div>
+    <div class="field-label">😍 Headline 1 — make the change sound WONDERFUL</div>
+    <div class="editable" id="t-spin-pro" contenteditable="true" data-placeholder="Students finally get… / Victory for…"></div>
+    <div class="field-label">😱 Headline 2 — make the SAME change sound TERRIBLE</div>
+    <div class="editable" id="t-spin-anti" contenteditable="true" data-placeholder="Chaos as… / Parents furious over…"></div>
+    <div class="field-label">😐 Version 3 — report it with ZERO bias (the hardest one!)</div>
+    <div class="editable" id="t-spin-neutral" contenteditable="true" data-placeholder="From September, the school day will…"></div>
+    <div class="field-label">🕵️ Confession: which loaded words did you use, and what do they imply?</div>
+    <div class="editable tall" id="t-spin-confess" contenteditable="true" data-placeholder="In headline 1, the word … implies… In headline 2, I left out…"></div>
+    <div class="speak">🗣️ <b>Now read all three aloud</b> — as a cheerful TV host, an angry TV host, and a calm newsreader. Same fact, three voices. Feel the difference!</div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> do the two spun headlines + the spoken performance live; the neutral version and the confession become homework.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>Push for genuinely loaded verbs, not just adjectives ("slashes", "gifts", "forces"). The neutral version is the real test — most students smuggle in a tiny slant ("only 30 minutes"). Catch it gleefully and let them fix it. Follow-up: "Whose agenda does each headline serve?"</div>
+  </div>
+</div>
+
+<!-- STEP 7 CHALLENGE GAME -->
+<div class="section challenge">
+  <div class="sec-head"><span class="icon">🎮</span> Challenge Game — The Inference Files <span class="timing">8 min</span><span class="step">Step 7</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: student's browser, their clicks, their score! You watch on their shared screen and demand a one-line justification for each answer. 🎉</span>
+    <p class="hint">🕵️ Three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
+    <h3>Round 1 — Stated or implied?</h3>
+    <div id="ch-quiz1"></div>
+    <h3>Round 2 — Name the technique</h3>
+    <div id="ch-quiz2"></div>
+    <h3>Round 3 — Boss level: decode the hidden message 👑</h3>
+    <div id="ch-quiz3"></div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can open the next lesson's warm-up.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>Wrong answers auto-reveal the correct one in green — every miss, ask "what clue did you skip?" The 👑 BOSS item is genuinely subtle (implication without accusation); if they nail it unaided, say so explicitly — that's C1 reading in the wild.</div>
+  </div>
+</div>
+
+<!-- STEP 8 REVIEW -->
+<div class="section review">
+  <div class="sec-head"><span class="icon">🏁</span> Review &amp; Homework <span class="timing">3 min</span><span class="step">Step 8</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, screens off. Finish with faces, not slides.</span>
+    <div class="frame">⚡ <b>30-second recap:</b> teacher fires a term — "framing!", "omission!", "loaded language!" — you define it in under ten words. Then one final decode: teacher says "That's certainly one way to park a car." What's implied?</div>
+    <h3>🏠 Homework</h3>
+    <div class="frame">
+      <p>🗞️ <b>The two-source experiment:</b> find ONE news story covered by TWO different sites (sport or entertainment is perfect).</p>
+      <p>✏️ <b>List 3 differences</b> — a loaded word, an omission, a framing choice — and write one paragraph: which version steers the reader, and how?</p>
+      <p>📌 Bonus: bring the sneakiest loaded word you found. We'll open the next session with it.</p>
+    </div>
+    <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="t-only">
+      <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
+      <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">What to adjust next time?</div><div class="editable" id="tn-adjust" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">Student's strongest / weakest moment today?</div><div class="editable" id="tn-notes" contenteditable="true" data-placeholder="…"></div></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="bottom-bar">
+  <button class="bb bb-save" onclick="saveWork()">💾 Save my work</button>
+  <button class="bb bb-print" onclick="window.print()">🖨️ Print</button>
+  <button class="bb bb-teach" id="teach-btn" onclick="unlockTeacher()">🔐</button>
+</div>
+
+<script>
+/* ============ ENGINE (identical across all Library sessions) ============ */
+var LEVEL=5, SESSION=4, K='ecl_L'+LEVEL+'s'+SESSION+'_';
+
+/* ---- TTS audio ---- */
+function say(text){try{window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(text);u.lang='en-GB';u.rate=0.9;window.speechSynthesis.speak(u);}catch(e){}}
+
+/* ---- Quiz engine ---- */
+var score=0,total=0;
+function buildQuiz(containerId,items){
+  var c=document.getElementById(containerId);
+  items.forEach(function(it){
+    total++;
+    var qz=document.createElement('div');qz.className='qz';
+    var opts='<div class="opts">';
+    it.options.forEach(function(o){opts+='<button class="opt" data-ok="'+(o===it.answer?'1':'0')+'" onclick="pick(this)">'+o+'</button>';});
+    opts+='</div><div class="fb"></div>';
+    qz.innerHTML='<div class="q">'+it.q+'</div>'+opts;
+    c.appendChild(qz);
+  });
+  updateScore();
+}
+function pick(btn){
+  var qz=btn.closest('.qz');if(qz.dataset.done)return;qz.dataset.done='1';
+  var ok=btn.dataset.ok==='1';var fb=qz.querySelector('.fb');
+  if(ok){btn.classList.add('correct');score++;fb.className='fb ok';fb.textContent='✓ Correct! Great job!';}
+  else{btn.classList.add('wrong');var good=qz.querySelector('[data-ok="1"]');if(good)good.classList.add('correct');
+    fb.className='fb no';fb.textContent='Almost! The green one is right. Try to remember it! 💪';}
+  qz.querySelectorAll('.opt').forEach(function(b){b.disabled=true;});
+  updateScore();
+}
+function updateScore(){
+  var answered=document.querySelectorAll('.qz[data-done]').length;
+  document.getElementById('score-num').textContent=score+' / '+total;
+  document.getElementById('score-fill').style.width=(total?Math.round(answered/total*100):0)+'%';
+  var st='',pct=total?score/total:0;
+  if(answered===total&&total>0){st=pct>=0.8?'⭐⭐⭐':pct>=0.5?'⭐⭐':'⭐';}
+  document.getElementById('score-stars').textContent=st;
+}
+
+/* ---- Student name ---- */
+var nameInput=document.getElementById('student-name');
+function applyName(){
+  var n=nameInput.value.trim();
+  document.getElementById('hello-msg').textContent=n?('Hello, '+n+'! 🌟'):'';
+  document.querySelectorAll('.stud-name').forEach(function(el){el.textContent=n?('Amazing work today, '+n+'!'):'Amazing work today!';});
+  localStorage.setItem(K+'name',n);
+}
+nameInput.addEventListener('input',applyName);
+
+/* ---- Agenda pills ---- */
+document.querySelectorAll('.ap').forEach(function(p){
+  p.onclick=function(){p.classList.toggle('done');localStorage.setItem(K+'ap'+p.dataset.s,p.classList.contains('done'));};
+});
+
+/* ---- Teacher mode ---- */
+function unlockTeacher(){
+  if(document.body.classList.contains('teacher-mode')){document.body.classList.remove('teacher-mode');document.getElementById('teach-btn').textContent='🔐';return;}
+  var pin=prompt('Teacher PIN:');
+  if(pin==='teach'){document.body.classList.add('teacher-mode');document.getElementById('teach-btn').textContent='🔓 Teacher';}
+}
+
+/* ---- Save work (.txt export) ---- */
+function saveWork(){
+  var n=(localStorage.getItem(K+'name')||'Student').replace(/[^\wÀ-ſ-]/g,'');
+  var out=n+' — Level '+LEVEL+' Session '+SESSION+'\n'+new Date().toLocaleDateString()+'\n'+'='.repeat(34)+'\n\n';
+  var picks=[].slice.call(document.querySelectorAll('.chips .chip.on')).map(function(x){return x.textContent.trim();});
+  if(picks.length)out+='Picked: '+picks.join(', ')+'\n\n';
+  var count=0;
+  document.querySelectorAll('.editable[id]').forEach(function(el){var t=el.innerText.trim();if(t){out+='['+el.id+'] '+t+'\n';count++;}});
+  out+='\nScore: '+score+' / '+total;
+  if(count===0&&!picks.length){alert('Type something first! 🙂');return;}
+  var b=new Blob([out],{type:'text/plain;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u;a.download=n+'_L'+LEVEL+'S'+SESSION+'_'+new Date().toISOString().slice(0,10)+'.txt';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);
+  var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show');},1600);
+}
+
+/* ---- Autosave / autoload ---- */
+function autosave(){document.querySelectorAll('.editable[id]').forEach(function(el){localStorage.setItem(K+el.id,el.innerHTML);});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){localStorage.setItem(K+'chip'+i,el.classList.contains('on'));});}
+function autoload(){
+  document.querySelectorAll('.editable[id]').forEach(function(el){var v=localStorage.getItem(K+el.id);if(v!==null)el.innerHTML=v;});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){if(localStorage.getItem(K+'chip'+i)==='true')el.classList.add('on');});
+  document.querySelectorAll('.ap').forEach(function(p){if(localStorage.getItem(K+'ap'+p.dataset.s)==='true')p.classList.add('done');});
+  var n=localStorage.getItem(K+'name');if(n){nameInput.value=n;applyName();}
+}
+document.addEventListener('input',function(){clearTimeout(window._t);window._t=setTimeout(autosave,600);});
+window.addEventListener('load',autoload);
+
+/* ============ SESSION CONTENT (changes per session) ============ */
+
+/* ---- Vocabulary: the detective's toolkit ---- */
+var VOCAB=[
+  {w:'infer',e:'🔍',p:'the READER works it out from clues'},
+  {w:'imply',e:'💬',p:'the WRITER suggests without saying'},
+  {w:'bias',e:'⚖️',p:'a lean to one side'},
+  {w:'loaded language',e:'💣',p:'words with emotional charge'},
+  {w:'omission',e:'🕳️',p:'what is left OUT'},
+  {w:'framing',e:'🖼️',p:'choosing where the spotlight lands'},
+  {w:'slant',e:'📐',p:'the article’s tilt'},
+  {w:'euphemism',e:'🌸',p:'a soft word for a hard thing'},
+  {w:'insinuate',e:'🐍',p:'hint at something bad indirectly'},
+  {w:'subtext',e:'🫥',p:'the meaning under the surface'},
+  {w:'credibility',e:'🏅',p:'can we trust this source?'},
+  {w:'agenda',e:'🗂️',p:'the hidden goal behind a text'},
+  {w:'understatement',e:'🤏',p:'saying much less than you mean'},
+  {w:'read between the lines',e:'👓',p:'see what is NOT written'}
+];
+(function buildVocab(){
+  var g=document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v){
+    var d=document.createElement('div');d.className='vc';
+    d.innerHTML='<div class="vc-play">🔊</div><div class="vc-emoji">'+v.e+'</div><div class="vc-word">'+v.w+'</div><div class="vc-pron">'+v.p+'</div>';
+    d.onclick=function(){say(v.w+'. '+v.p);};
+    g.appendChild(d);
+  });
+})();
+
+/* ---- Technique chips for Step 6 ---- */
+(function(){
+  var TECH=['💣 loaded language','🕳️ omission','🖼️ framing','🌸 euphemism','🐍 insinuation','📸 photo choice','📢 dramatic verbs','❓ leading question'];
+  var c=document.getElementById('exp-chips');
+  TECH.forEach(function(t){
+    var s=document.createElement('span');s.className='chip';s.textContent=t;
+    s.onclick=function(){s.classList.toggle('on');say(t.replace(/^\S+\s/,''));};
+    c.appendChild(s);
+  });
+})();
+
+/* ---- Quizzes ---- */
+buildQuiz('vocab-quiz',[
+  {q:'💣 "Robbed", "hero", "chaos" — words chosen to trigger emotion are…',options:['loaded language','euphemism','subtext'],answer:'loaded language'},
+  {q:'🕳️ Quietly leaving out the facts that hurt your side is…',options:['framing','omission','credibility'],answer:'omission'},
+  {q:'🌸 Saying "let go" instead of "fired" is a classic…',options:['euphemism','slant','inference'],answer:'euphemism'},
+  {q:'🐍 To hint that someone did something bad — without ever accusing them:',options:['insinuate','infer','concede'],answer:'insinuate'},
+  {q:'🖼️ Deciding which part of the story gets the spotlight first:',options:['framing','omission','understatement'],answer:'framing'},
+  {q:'🔍 The writer implies; the reader…',options:['infers','insinuates','omits'],answer:'infers'}
+]);
+buildQuiz('reading-quiz',[
+  {q:'What was the final score of the match?',options:['1–0','2–1','3–2'],answer:'2–1'},
+  {q:'Which outlet called the penalty "a routine decision"?',options:['the Riverside Herald','the Northgate Post','both of them'],answer:'the Northgate Post'},
+  {q:'What did the Riverside Herald leave OUT of its report?',options:['the final score','the goalkeeper’s two errors','the referee’s name'],answer:'the goalkeeper’s two errors'},
+  {q:'According to the article, which reporting verb "plants a seed of doubt"?',options:['explained','admitted','claimed'],answer:'claimed'},
+  {q:'Opening with the penalty vs opening with the midfield is an example of…',options:['framing','euphemism','understatement'],answer:'framing'}
+]);
+buildQuiz('grammar-quiz',[
+  {q:'Which verb makes the reader DOUBT the speaker? "He ___ he was home all evening."',options:['claimed','stated','said'],answer:'claimed'},
+  {q:'"The coach admitted the plan had failed." — "admitted" implies the coach…',options:['feels responsible','is joking','is proud'],answer:'feels responsible'},
+  {q:'"The so-called expert gave her opinion." — "so-called" implies the writer thinks she is…',options:['not a real expert','very famous','extremely helpful'],answer:'not a real expert'},
+  {q:'Tap the NEUTRAL report:',options:['The team lost 2–1.','The team was crushed.','The team was robbed.'],answer:'The team lost 2–1.'},
+  {q:'"Downsizing" instead of "firing people" is…',options:['a euphemism','loaded language','an inference'],answer:'a euphemism'},
+  {q:'"He reportedly missed the meeting." — "reportedly" shows the writer…',options:['is not fully sure','saw it happen','is angry about it'],answer:'is not fully sure'},
+  {q:'"Zara looked at the burnt toast, sighed, and put on her coat." — Zara will have breakfast somewhere else. This is…',options:['implied','stated'],answer:'implied'},
+  {q:'Which sentence insinuates WITHOUT accusing?',options:['Funny how his results improved right after he moved next door to the referee.','He cheated in the competition.'],answer:'Funny how his results improved right after he moved next door to the referee.'},
+  {q:'"The politician dodged the question" vs "did not answer the question" — "dodged" adds…',options:['a judgment','a fact','a euphemism'],answer:'a judgment'}
+]);
+buildQuiz('ch-quiz1',[
+  {q:'"Mia glanced at her watch for the fifth time in ten minutes." What is IMPLIED?',options:['She wants the meeting to end','She loves her new watch','She lost track of the date'],answer:'She wants the meeting to end'},
+  {q:'"Dad opened every window the moment Leo finished cooking." Implied:',options:['The kitchen smelled terrible','Dad was feeling hot','Leo is an excellent cook'],answer:'The kitchen smelled terrible'},
+  {q:'"‘Nice haircut,’ said Priya, without looking up from her phone." Implied:',options:['Priya isn’t sincerely interested','Priya loves the haircut','Priya wants the same haircut'],answer:'Priya isn’t sincerely interested'}
+]);
+buildQuiz('ch-quiz2',[
+  {q:'"Heroic locals defend beloved park from greedy developers" — main technique?',options:['loaded language','omission','euphemism'],answer:'loaded language'},
+  {q:'A phone review praises the battery for three paragraphs and never mentions the famous cracked-screen problem.',options:['omission','framing','insinuation'],answer:'omission'},
+  {q:'The report opens with the ONE protester who shouted — not the 500 who marched quietly.',options:['framing','euphemism','understatement'],answer:'framing'},
+  {q:'"The residents were relocated" (in fact, they were forced to move out).',options:['euphemism','loaded language','inference'],answer:'euphemism'}
+]);
+buildQuiz('ch-quiz3',[
+  {q:'"Even Marco passed the test." — the little word "even" implies…',options:['the speaker expected Marco to fail','Marco got the best mark','the test was cancelled'],answer:'the speaker expected Marco to fail'},
+  {q:'"She has stopped copying her homework." — hidden inside this sentence:',options:['she used to copy it','she never copied it','she will copy it again'],answer:'she used to copy it'},
+  {q:'"Oh sure, the dog ate your report. Again." — the speaker really means:',options:['I don’t believe your excuse','Your dog needs a vet','Please print a new report'],answer:'I don’t believe your excuse'},
+  {q:'👑 BOSS: Headline: "Questions raised over head teacher’s spending." No source is named. The trick?',options:['it spreads suspicion without any named accuser','it directly accuses the head teacher','it praises the head teacher’s honesty'],answer:'it spreads suspicion without any named accuser'}
+]);
+</script>
+</body>
+</html>

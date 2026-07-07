@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>L0 · Session 10 — Review Party 🎉</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--accent:#E91E63;--accent2:#F06292}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1a;font-size:17px;line-height:1.6;padding-bottom:90px}
+.page-header{background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;padding:26px 20px;text-align:center}
+.page-header h1{font-size:26px;font-weight:800;letter-spacing:-0.3px}
+.page-header .subtitle{font-size:14px;opacity:0.9;margin-top:4px}
+.badge{display:inline-block;background:rgba(255,255,255,0.2);padding:6px 16px;border-radius:20px;font-size:14px;margin-top:10px}
+.lvl{display:inline-block;background:#FFD54F;color:#5D4037;font-weight:800;font-size:12px;padding:3px 12px;border-radius:12px;letter-spacing:0.5px;margin-bottom:8px}
+.container{max-width:860px;margin:0 auto;padding:18px}
+
+/* Student name */
+.namebox{background:white;border:2px solid var(--accent);border-radius:14px;padding:14px 18px;margin:16px 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.namebox label{font-weight:700;font-size:15px}
+.namebox input{flex:1;min-width:160px;font-size:17px;padding:8px 12px;border:2px dashed #90A4AE;border-radius:8px;font-family:inherit}
+.namebox .hello{font-weight:700;color:var(--accent)}
+
+/* Agenda */
+.agenda{background:white;border-radius:14px;padding:16px 18px;margin:14px 0;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.agenda h2{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:#666;margin-bottom:10px}
+.agenda-pills{display:flex;flex-wrap:wrap;gap:8px}
+.ap{display:flex;align-items:center;gap:6px;background:#ECEFF1;border:2px solid transparent;border-radius:20px;padding:5px 13px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.ap.done{background:#C8E6C9;border-color:#2E7D32;text-decoration:line-through;opacity:0.8}
+
+/* Sections */
+.section{background:white;border-radius:16px;margin:18px 0;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,0.07)}
+.sec-head{padding:14px 20px;color:white;font-size:17px;font-weight:800;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sec-head .icon{font-size:22px}
+.sec-head .step{margin-left:auto;font-size:12px;font-weight:700;background:rgba(255,255,255,0.25);padding:3px 12px;border-radius:12px;white-space:nowrap}
+.sec-head .timing{font-size:12px;font-weight:400;background:rgba(255,255,255,0.18);padding:3px 10px;border-radius:12px;white-space:nowrap}
+.sec-body{padding:18px 20px}
+.zoom-cue{display:block;font-size:13px;font-weight:600;color:#37474F;background:#E1F5FE;border-left:4px solid #0288D1;border-radius:0 8px 8px 0;padding:7px 12px;margin:0 0 14px}
+.goal .sec-head{background:#2E7D32}
+.warmup .sec-head{background:#E65100}
+.vocab .sec-head{background:#1565C0}
+.reading .sec-head{background:#6A1B9A}
+.grammar .sec-head{background:#AD1457}
+.task .sec-head{background:#00695C}
+.challenge .sec-head{background:#F57F17}
+.review .sec-head{background:#BF360C}
+.skipif{background:#FFF8E1;border:1px dashed #F9A825;border-radius:10px;padding:10px 14px;margin-top:12px;font-size:14px}
+.skipif b{color:#F57F17}
+
+/* Movement break */
+.move{background:linear-gradient(135deg,#00BFA5,#00897B);color:white;border-radius:16px;margin:18px 0;padding:18px 22px;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,0.1)}
+.move h2{font-size:20px;font-weight:800}
+.move p{font-size:15px;opacity:0.95;margin-top:6px}
+
+/* Vocab cards */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:14px 0}
+.vc{background:#E3F2FD;border:2px solid #90CAF9;border-radius:12px;padding:12px 10px;text-align:center;cursor:pointer;transition:transform 0.12s}
+.vc:hover{transform:scale(1.04);border-color:var(--accent)}
+.vc .vc-emoji{font-size:30px}
+.vc .vc-word{font-weight:800;font-size:15px;margin-top:4px;color:#0D47A1}
+.vc .vc-pron{font-size:12px;color:#666}
+.vc .vc-play{font-size:13px;color:#1565C0}
+
+/* Quiz engine */
+.qz{background:#FAFAFA;border:1px solid #E0E0E0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.qz .q{font-weight:700;font-size:16px;margin-bottom:10px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{font-family:inherit;font-size:15px;font-weight:600;padding:8px 16px;border-radius:10px;border:2px solid #B0BEC5;background:white;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt.correct{background:#C8E6C9;border-color:#2E7D32}
+.opt.wrong{background:#FFCDD2;border-color:#C62828}
+.opt:disabled{cursor:default;opacity:0.85}
+.fb{font-size:14px;font-weight:600;margin-top:8px;display:none}
+.fb.ok{display:block;color:#2E7D32}
+.fb.no{display:block;color:#C62828}
+
+/* Score bar */
+.scorebar{position:sticky;top:0;z-index:50;background:white;box-shadow:0 2px 8px rgba(0,0,0,0.12);padding:8px 16px;display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px}
+.scorebar .bar{flex:1;height:10px;background:#ECEFF1;border-radius:6px;overflow:hidden}
+.scorebar .fill{height:100%;width:0;background:linear-gradient(90deg,#43A047,#66BB6A);transition:width 0.4s}
+.stars{font-size:16px}
+
+/* Reading */
+.reading-text{background:#F3E5F5;border-radius:12px;padding:18px 20px;font-size:17px;max-width:65ch}
+.reading-text h4{color:#6A1B9A;font-size:15px;margin:14px 0 6px;text-transform:uppercase;letter-spacing:0.4px}
+.reading-text h4:first-child{margin-top:0}
+.reading-text p{margin:8px 0}
+
+/* Editable fields */
+.field-label{font-weight:700;font-size:14px;margin:12px 0 4px;color:#37474F}
+.editable{min-height:34px;background:#FFFDE7;border:2px dashed #9E9D24;border-radius:8px;padding:8px 12px;font-size:16px;outline:none}
+.editable.tall{min-height:70px}
+.editable:focus{border-style:solid;border-color:var(--accent)}
+.editable:empty::before{content:attr(data-placeholder);color:#999}
+.qa-item{margin:12px 0}
+.qa-item .q{font-weight:700;font-size:15px;margin-bottom:5px}
+
+/* Frames / rule boxes */
+.frame{background:#FCE4EC;border-left:5px solid #AD1457;border-radius:0 10px 10px 0;padding:12px 16px;margin:12px 0;font-size:16px}
+.rulebox{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.rule{border-radius:12px;padding:14px 16px;font-size:15px}
+.rule h4{font-size:15px;margin-bottom:8px}
+.rule.a{background:#E8F5E9;border:2px solid #66BB6A}
+.rule.a h4{color:#2E7D32}
+.rule.b{background:#FFF3E0;border:2px solid #FFA726}
+.rule.b h4{color:#E65100}
+.hint{font-size:14px;color:#555;background:#F5F5F5;border-radius:8px;padding:8px 12px;margin:10px 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.chip{background:#E1F5FE;border:2px solid #81D4FA;border-radius:16px;padding:5px 14px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.chip.on{background:#0288D1;border-color:#01579B;color:white}
+.speak{background:#E8F5E9;border-radius:10px;padding:12px 16px;font-size:16px;margin:12px 0}
+
+/* Teacher mode */
+.t-only{display:none}
+body.teacher-mode .t-only{display:block}
+.teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
+.teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
+
+/* Bottom bar */
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:white;box-shadow:0 -3px 12px rgba(0,0,0,0.12);padding:10px 14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;z-index:60}
+.bb{font-family:inherit;font-size:14px;font-weight:700;padding:10px 18px;border-radius:10px;border:none;cursor:pointer;text-decoration:none;color:white;display:inline-block}
+.bb-save{background:#2E7D32}
+.bb-print{background:#546E7A}
+.bb-teach{background:#C62828}
+#toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:#2E7D32;color:white;font-weight:700;padding:10px 22px;border-radius:20px;opacity:0;transition:all 0.3s;z-index:70}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:640px){.rulebox{grid-template-columns:1fr}.vocab-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}}
+@media print{body{background:white;padding-bottom:0}.bottom-bar,.scorebar,#toast{display:none!important}.section{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid}.sec-head,.sec-body,.page-header{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="lvl">LEVEL 0 · NO PROFICIENCY (PRE-A1)</div>
+  <h1>🎉 Session 10 — Review Party!</h1>
+  <div class="subtitle">English Course Library · Kids &amp; Teens</div>
+  <div class="badge">🎯 Today: party games with EVERYTHING from Level 0 + your <b>certificate</b>! 🏅 · ≈50 min core</div>
+</div>
+
+<div class="scorebar">
+  <span>⭐ Score:</span><span id="score-num">0 / 0</span>
+  <div class="bar"><div class="fill" id="score-fill"></div></div>
+  <span class="stars" id="score-stars"></span>
+</div>
+
+<div id="toast">✓ Saved</div>
+
+<div class="container">
+
+<div class="namebox">
+  <label for="student-name">👋 Your name:</label>
+  <input id="student-name" type="text" placeholder="Type your name…">
+  <span class="hello" id="hello-msg"></span>
+</div>
+
+<div class="agenda">
+  <h2>📋 Today's plan — tap each step when you finish it</h2>
+  <div class="agenda-pills" id="agenda">
+    <span class="ap" data-s="1">1️⃣ Goal</span><span class="ap" data-s="2">2️⃣ Warm-up</span>
+    <span class="ap" data-s="3">3️⃣ Star words</span><span class="ap" data-s="4">4️⃣ Reading</span>
+    <span class="ap" data-s="5">5️⃣ Patterns</span><span class="ap" data-s="6">6️⃣ Create</span>
+    <span class="ap" data-s="7">7️⃣ Party games</span><span class="ap" data-s="8">8️⃣ Certificate</span>
+  </div>
+</div>
+
+<!-- STEP 1 GOAL -->
+<div class="section goal">
+  <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on. Party wave! 🎉 Teacher plays the goal with 🔊. Student says it back.</span>
+    <p style="font-size:20px"><em>"Today is a <b>party</b>! I play games. I show ALL my English. I get my <b>certificate</b>! 🏅"</em>
+      <button class="opt" style="padding:5px 14px" onclick="say('Today is a party! I play games. I show all my English. I get my certificate!')">🔊 Listen</button></p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Make it feel like a real party: party hat, balloon, or a 🎉 virtual background if you have one. Today is CELEBRATION + review diagnostic — note which of the 9 topics wobble, they tell you where Level 1 needs extra support.</div>
+  </div>
+</div>
+
+<!-- STEP 2 WARM-UP -->
+<div class="section warmup">
+  <div class="sec-head"><span class="icon">⚡</span> Warm-Up — Party Countdown <span class="timing">5 min</span><span class="step">Step 2</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, no screen yet. Big voices! Use 🎉 reactions.</span>
+    <p><b>How to play:</b></p>
+    <p>1. Say hello! "Hello! How are you?" 👋<br>
+    2. Count down: 10, 9, 8… 1!<br>
+    3. Shout: "PARTY!" 🎉<br>
+    4. Teacher asks: "How old are you?" You answer!</p>
+    <p class="hint">No score here. Loud and happy! 🧠</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 2</h4>This quietly reviews S1 (greetings) + S3 (numbers/age). If the countdown is easy, count UP too, or count body parts (S6): "two hands, ten fingers!" Keep the party energy — mistakes get a 🎉 too.</div>
+  </div>
+</div>
+
+<!-- STEP 3 VOCAB -->
+<div class="section vocab">
+  <div class="sec-head"><span class="icon">📝</span> Star Words — Best of Level 0 <span class="timing">10 min</span><span class="step">Step 3</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share your screen. YOU tap 🔊 on each card. Student repeats — she knows these! Cheer!</span>
+    <p>You know ALL these words! Tap. Listen 🔊. Say it loud! ⭐</p>
+    <div class="vocab-grid" id="vocab-grid"></div>
+    <h3>🎧 Practice — tap the right answer</h3>
+    <p class="hint">Read the clue. Tap the answer. Green = correct!</p>
+    <div id="vocab-quiz"></div>
+  </div>
+</div>
+
+<!-- STEP 4 READING -->
+<div class="section reading">
+  <div class="sec-head"><span class="icon">📖</span> Reading — The Party <span class="timing">10 min</span><span class="step">Step 4</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. Student reads FIRST this time — she can! Teacher echoes. 🔊 helps if stuck. Student annotates answers.</span>
+    <p>Big moment: YOU read first! 🔊 can help you.
+      <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
+    <div class="reading-text" id="read-text">
+      <h4>🎉 Welcome!</h4>
+      <p>🎈 Hello! Welcome to my party!</p>
+      <p>🔟 I am ten years old.</p>
+      <p>🎈 Look! Ten red balloons.</p>
+      <h4>👨‍👩‍👧 My party friends</h4>
+      <p>👩 This is my mum.</p>
+      <p>🐶 My dog is here. Woof!</p>
+      <p>🐱 My cat is here too. Meow!</p>
+      <h4>🍕 Party food</h4>
+      <p>🍕 I like pizza. Yum!</p>
+      <p>🎂 This is my cake.</p>
+      <p>👏 Clap your hands! Sing!</p>
+      <p>😊 Goodbye, Level 0! Hello, Level 1!</p>
+    </div>
+
+    <h3>🔎 Did you understand? Tap your answer</h3>
+    <div id="reading-quiz"></div>
+
+    <h3>💬 Your turn — write a little</h3>
+    <div class="qa-item"><div class="q">1. Who comes to YOUR party? Write 2 people or animals.</div><div class="editable" id="r-open1" contenteditable="true" data-placeholder="My…, my…"></div></div>
+    <div class="qa-item"><div class="q">2. What party food do you like? Write: I like ___. Yum!</div><div class="editable" id="r-open2" contenteditable="true" data-placeholder="I like… Yum!"></div></div>
+
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> the two written lines can be homework instead.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 4 + answer key</h4>Quiz answers: ten · my mum · Woof! · pizza. Open questions — any people/animals/foods count ("my dad, my dog"; "I like cake"). The reading deliberately recycles S1 hello, S3 numbers, S4 colors, S5 family, S7 animals, S8 food, S9 "this is my". If she reads it mostly alone — that IS the Level 0 exam. Celebrate!</div>
+  </div>
+</div>
+
+<!-- STEP 5 LANGUAGE FOCUS -->
+<div class="section grammar">
+  <div class="sec-head"><span class="icon">🔧</span> Big Pattern Review — All 4 Magics <span class="timing">10 min</span><span class="step">Step 5</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. Student SAYS each answer out loud BEFORE you click it.</span>
+    <div class="rulebox">
+      <div class="rule a"><h4>⭐ YOUR MAGIC PATTERNS 1–2</h4>
+        <em>👋 <b>Hello! I'm</b> ___. <b>I am</b> ___ years old.</em> <button class="opt" style="padding:3px 10px" onclick="say('Hello! I am Leo. I am nine years old.')">🔊</button><br><br>
+        <em>🐶 <b>It's a</b> dog. Woof!</em> <button class="opt" style="padding:3px 10px" onclick="say('It is a dog. Woof!')">🔊</button></div>
+      <div class="rule b"><h4>⭐ YOUR MAGIC PATTERNS 3–4</h4>
+        <em>🍕 <b>I like</b> pizza. Yum!</em> <button class="opt" style="padding:3px 10px" onclick="say('I like pizza. Yum!')">🔊</button><br><br>
+        <em>🎒 <b>This is my</b> bag.</em> <button class="opt" style="padding:3px 10px" onclick="say('This is my bag.')">🔊</button></div>
+    </div>
+    <div class="frame">💡 <b>You know 4 magic patterns now!</b> Hello, I'm… · It's a… · I like… · This is my… — that's real English! 🚀</div>
+    <p class="hint">💡 Tip: say each pattern like a song. Same music, new words! 🎵</p>
+    <h3>✏️ Practice — tap the correct one</h3>
+    <div id="grammar-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>This is the cumulative pattern check: items cover S1 greetings, S3 age, S4 colors, S5 family, S6 body, S7 animals, S8 food, S9 things. Log every miss — it's your Level 1 entry map. 7+/9 = confidently ready for Level 1.</div>
+  </div>
+</div>
+
+<!-- MOVE BREAK -->
+<div class="move">
+  <h2>🤸 MOVE! — Freeze Dance! 🎵</h2>
+  <p>Stand up! Dance, dance, dance! Teacher says "FREEZE!" — you stop like a statue! Three rounds. Teacher dances too! 😄</p>
+</div>
+
+<!-- STEP 6 CREATIVE TASK -->
+<div class="section task">
+  <div class="sec-head"><span class="icon">🎨</span> Create — My Level 0 Star Sheet <span class="timing">10 min</span><span class="step">Step 6</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat. Student opens it and types. Student shares screen — you watch and cheer.</span>
+    <p>Show what YOU know best! Tap, type, then say it all! 🌟</p>
+    <h3>First, tap your favorite Level 0 words:</h3>
+    <div class="chips" id="exp-chips"></div>
+    <div class="field-label">👋 Line 1 — Hello! I'm ___. I am ___ years old.</div>
+    <div class="editable" id="t-hello" contenteditable="true" data-placeholder="Hello! I'm… I am… years old."></div>
+    <div class="field-label">⭐ Line 2 — My favorite word is ___.</div>
+    <div class="editable" id="t-word" contenteditable="true" data-placeholder="My favorite word is…"></div>
+    <div class="field-label">🏆 Line 3 — My best sentence! (any pattern you like)</div>
+    <div class="editable tall" id="t-sentence" contenteditable="true" data-placeholder="It's a… / I like… / This is my…"></div>
+    <div class="speak">🗣️ <b>Show time!</b> Read your 3 lines to the camera. Like a star! 🎤⭐</div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> do only Line 1 + say it. Type the rest as homework.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>This mini-performance is the "graduation speech" — film-frame it: ask for a drum roll, applaud after. Accept any pattern in Line 3; correct only by echoing the right chunk. Screenshot her star sheet for the parents if appropriate.</div>
+  </div>
+</div>
+
+<!-- STEP 7 CHALLENGE GAME -->
+<div class="section challenge">
+  <div class="sec-head"><span class="icon">🎮</span> Party Games — Level 0 Grand Final <span class="timing">8 min</span><span class="step">Step 7</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! Watch on her shared screen. Drum roll before Round 3! 🥁</span>
+    <p class="hint">🎉 Three party games. All of Level 0! Beat 80% for ⭐⭐⭐!</p>
+    <h3>Game 1 — 🎈 Balloon Pop</h3>
+    <div id="ch-quiz1"></div>
+    <h3>Game 2 — 🎂 Cake Quiz</h3>
+    <div id="ch-quiz2"></div>
+    <h3>Game 3 — 🪅 Piñata Boss 👑</h3>
+    <div id="ch-quiz3"></div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Game 3 can start the first Level 1 lesson.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>Every correct answer = one "balloon popped" — make a pop sound! Student says answers aloud before clicking. The BOSS item mixes two patterns; give a dramatic drum roll 🥁. Whatever the score: today everyone wins.</div>
+  </div>
+</div>
+
+<!-- STEP 8 REVIEW + CERTIFICATE -->
+<div class="section review">
+  <div class="sec-head"><span class="icon">🏁</span> Your Certificate &amp; What's Next <span class="timing">3 min</span><span class="step">Step 8</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen for the certificate reveal 🥁 — then cameras on for the final cheer. Print it after class!</span>
+    <div class="frame">⚡ <b>30-second recap:</b> say one thing from every session you remember. Teacher counts on fingers. How many? 🖐️</div>
+
+    <div id="certificate" style="border:8px double var(--accent);border-radius:18px;background:#FFF8E1;text-align:center;padding:30px 24px;margin:18px 0;page-break-inside:avoid">
+      <div style="font-size:40px">🏅</div>
+      <div style="font-size:14px;letter-spacing:2px;color:#8D6E63;text-transform:uppercase;font-weight:700">Certificate of Awesome</div>
+      <div style="font-size:30px;font-weight:800;color:var(--accent);margin:12px 0"><span class="cert-name">_____________</span></div>
+      <div style="font-size:17px">finished <b>Level 0 — No Proficiency</b>! 🎉</div>
+      <div style="font-size:15px;margin-top:8px">12 animals 🐶 · 12 foods 🍕 · school things 🎒<br>numbers 🔟 · colors 🌈 · family 👨‍👩‍👧 · body 🖐️ · ABC 🔤 · hello! 👋</div>
+      <div style="font-size:15px;margin-top:14px">⭐ 4 magic patterns learned ⭐</div>
+      <div style="display:flex;justify-content:space-between;gap:10px;margin-top:22px;font-size:13px;color:#555;flex-wrap:wrap">
+        <span>Date: <b class="cert-date">________</b></span>
+        <span>Teacher: ________________</span>
+      </div>
+    </div>
+    <p style="text-align:center"><button class="bb bb-print" onclick="window.print()">🖨️ Print my certificate!</button></p>
+
+    <h3>🚀 What's next?</h3>
+    <div class="frame">
+      <p>🗺️ <b>Level 1 — Beginner (A1) is waiting!</b></p>
+      <p>First adventure: <em>"Me and My World"</em> — all about YOU.</p>
+      <p>You are ready. See you there! 💪</p>
+    </div>
+    <h3>🏠 Homework (a fun one!)</h3>
+    <div class="frame">
+      <p>🖼️ <b>Show your certificate to your family.</b> Be proud!</p>
+      <p>🗣️ <b>Teach them 3 English words.</b> You are the teacher now!</p>
+      <p>📌 Example: <em>"This is my certificate! I like English!"</em> <button class="opt" style="padding:3px 10px" onclick="say('This is my certificate! I like English!')">🔊</button></p>
+    </div>
+    <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="t-only">
+      <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
+      <div class="qa-item"><div class="q">Which Level 0 topics still wobble? (take these into L1)</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">Ready for Level 1? What pace?</div><div class="editable" id="tn-adjust" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">Student's strongest / weakest moment today?</div><div class="editable" id="tn-notes" contenteditable="true" data-placeholder="…"></div></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="bottom-bar">
+  <button class="bb bb-save" onclick="saveWork()">💾 Save my work</button>
+  <button class="bb bb-print" onclick="window.print()">🖨️ Print</button>
+  <button class="bb bb-teach" id="teach-btn" onclick="unlockTeacher()">🔐</button>
+</div>
+
+<script>
+/* ============ ENGINE (identical across all Library sessions) ============ */
+var LEVEL=0, SESSION=10, K='ecl_L'+LEVEL+'s'+SESSION+'_';
+
+/* ---- TTS audio ---- */
+function say(text){try{window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(text);u.lang='en-GB';u.rate=0.9;window.speechSynthesis.speak(u);}catch(e){}}
+
+/* ---- Quiz engine ---- */
+var score=0,total=0;
+function buildQuiz(containerId,items){
+  var c=document.getElementById(containerId);
+  items.forEach(function(it){
+    total++;
+    var qz=document.createElement('div');qz.className='qz';
+    var opts='<div class="opts">';
+    it.options.forEach(function(o){opts+='<button class="opt" data-ok="'+(o===it.answer?'1':'0')+'" onclick="pick(this)">'+o+'</button>';});
+    opts+='</div><div class="fb"></div>';
+    qz.innerHTML='<div class="q">'+it.q+'</div>'+opts;
+    c.appendChild(qz);
+  });
+  updateScore();
+}
+function pick(btn){
+  var qz=btn.closest('.qz');if(qz.dataset.done)return;qz.dataset.done='1';
+  var ok=btn.dataset.ok==='1';var fb=qz.querySelector('.fb');
+  if(ok){btn.classList.add('correct');score++;fb.className='fb ok';fb.textContent='✓ Correct! Great job!';}
+  else{btn.classList.add('wrong');var good=qz.querySelector('[data-ok="1"]');if(good)good.classList.add('correct');
+    fb.className='fb no';fb.textContent='Almost! The green one is right. Try to remember it! 💪';}
+  qz.querySelectorAll('.opt').forEach(function(b){b.disabled=true;});
+  updateScore();
+}
+function updateScore(){
+  var answered=document.querySelectorAll('.qz[data-done]').length;
+  document.getElementById('score-num').textContent=score+' / '+total;
+  document.getElementById('score-fill').style.width=(total?Math.round(answered/total*100):0)+'%';
+  var st='',pct=total?score/total:0;
+  if(answered===total&&total>0){st=pct>=0.8?'⭐⭐⭐':pct>=0.5?'⭐⭐':'⭐';}
+  document.getElementById('score-stars').textContent=st;
+}
+
+/* ---- Student name ---- */
+var nameInput=document.getElementById('student-name');
+function applyName(){
+  var n=nameInput.value.trim();
+  document.getElementById('hello-msg').textContent=n?('Hello, '+n+'! 🌟'):'';
+  document.querySelectorAll('.stud-name').forEach(function(el){el.textContent=n?('Amazing work today, '+n+'!'):'Amazing work today!';});
+  localStorage.setItem(K+'name',n);
+}
+nameInput.addEventListener('input',applyName);
+
+/* ---- Agenda pills ---- */
+document.querySelectorAll('.ap').forEach(function(p){
+  p.onclick=function(){p.classList.toggle('done');localStorage.setItem(K+'ap'+p.dataset.s,p.classList.contains('done'));};
+});
+
+/* ---- Teacher mode ---- */
+function unlockTeacher(){
+  if(document.body.classList.contains('teacher-mode')){document.body.classList.remove('teacher-mode');document.getElementById('teach-btn').textContent='🔐';return;}
+  var pin=prompt('Teacher PIN:');
+  if(pin==='teach'){document.body.classList.add('teacher-mode');document.getElementById('teach-btn').textContent='🔓 Teacher';}
+}
+
+/* ---- Save work (.txt export) ---- */
+function saveWork(){
+  var n=(localStorage.getItem(K+'name')||'Student').replace(/[^\wÀ-ſ-]/g,'');
+  var out=n+' — Level '+LEVEL+' Session '+SESSION+'\n'+new Date().toLocaleDateString()+'\n'+'='.repeat(34)+'\n\n';
+  var picks=[].slice.call(document.querySelectorAll('.chips .chip.on')).map(function(x){return x.textContent.trim();});
+  if(picks.length)out+='Picked: '+picks.join(', ')+'\n\n';
+  var count=0;
+  document.querySelectorAll('.editable[id]').forEach(function(el){var t=el.innerText.trim();if(t){out+='['+el.id+'] '+t+'\n';count++;}});
+  out+='\nScore: '+score+' / '+total;
+  if(count===0&&!picks.length){alert('Type something first! 🙂');return;}
+  var b=new Blob([out],{type:'text/plain;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u;a.download=n+'_L'+LEVEL+'S'+SESSION+'_'+new Date().toISOString().slice(0,10)+'.txt';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);
+  var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show');},1600);
+}
+
+/* ---- Autosave / autoload ---- */
+function autosave(){document.querySelectorAll('.editable[id]').forEach(function(el){localStorage.setItem(K+el.id,el.innerHTML);});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){localStorage.setItem(K+'chip'+i,el.classList.contains('on'));});}
+function autoload(){
+  document.querySelectorAll('.editable[id]').forEach(function(el){var v=localStorage.getItem(K+el.id);if(v!==null)el.innerHTML=v;});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){if(localStorage.getItem(K+'chip'+i)==='true')el.classList.add('on');});
+  document.querySelectorAll('.ap').forEach(function(p){if(localStorage.getItem(K+'ap'+p.dataset.s)==='true')p.classList.add('done');});
+  var n=localStorage.getItem(K+'name');if(n){nameInput.value=n;applyName();}
+}
+document.addEventListener('input',function(){clearTimeout(window._t);window._t=setTimeout(autosave,600);});
+window.addEventListener('load',autoload);
+
+/* ============ SESSION CONTENT (changes per session) ============ */
+
+/* ---- Certificate: student name + date sync ---- */
+function updateCert(){
+  var n=nameInput.value.trim()||'_____________';
+  document.querySelectorAll('.cert-name').forEach(function(el){el.textContent=n;});
+  document.querySelectorAll('.cert-date').forEach(function(el){el.textContent=new Date().toLocaleDateString();});
+}
+nameInput.addEventListener('input',updateCert);
+window.addEventListener('load',updateCert);
+
+/* ---- Vocabulary: 12 star words from Sessions 1–9 ---- */
+var VOCAB=[
+  {w:'hello',e:'👋',p:'Session 1'},
+  {w:'my name',e:'🔤',p:'Session 2'},
+  {w:'seven',e:'7️⃣',p:'Session 3'},
+  {w:'red',e:'🔴',p:'Session 4'},
+  {w:'mum',e:'👩',p:'Session 5'},
+  {w:'hand',e:'🖐️',p:'Session 6'},
+  {w:'dog',e:'🐶',p:'Session 7'},
+  {w:'cat',e:'🐱',p:'Session 7'},
+  {w:'apple',e:'🍎',p:'Session 8'},
+  {w:'pizza',e:'🍕',p:'Session 8'},
+  {w:'bag',e:'🎒',p:'Session 9'},
+  {w:'book',e:'📖',p:'Session 9'}
+];
+(function buildVocab(){
+  var g=document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v){
+    var d=document.createElement('div');d.className='vc';
+    d.innerHTML='<div class="vc-play">🔊</div><div class="vc-emoji">'+v.e+'</div><div class="vc-word">'+v.w+'</div><div class="vc-pron">⭐ '+v.p+'</div>';
+    d.onclick=function(){say(v.w);};
+    g.appendChild(d);
+  });
+})();
+
+/* ---- Favorite-word chips for Step 6 ---- */
+(function(){
+  var c=document.getElementById('exp-chips');
+  VOCAB.forEach(function(v){
+    var s=document.createElement('span');s.className='chip';s.textContent=v.e+' '+v.w;
+    s.onclick=function(){s.classList.toggle('on');say(v.w);};
+    c.appendChild(s);
+  });
+})();
+
+/* ---- Quizzes ---- */
+buildQuiz('vocab-quiz',[
+  {q:'👋 What do you say first?',options:['Hello!','Yuck!','Woof!'],answer:'Hello!'},
+  {q:'7️⃣ What number is it?',options:['seven','ten','three'],answer:'seven'},
+  {q:'🔴 What color is it?',options:['red','blue','green'],answer:'red'},
+  {q:'👩 Who is she?',options:['mum','dad','grandpa'],answer:'mum'},
+  {q:'🐶 What is it?',options:['a dog','a cat','a fish'],answer:'a dog'}
+]);
+buildQuiz('reading-quiz',[
+  {q:'How old am I?',options:['ten','seven','three'],answer:'ten'},
+  {q:'Who is at the party?',options:['my mum','my teacher','a cow'],answer:'my mum'},
+  {q:'What does the dog say?',options:['Woof!','Meow!','Quack!'],answer:'Woof!'},
+  {q:'I like ___. Yum!',options:['pizza','carrots','soup'],answer:'pizza'}
+]);
+buildQuiz('grammar-quiz',[
+  {q:'👋 First words to a friend:',options:['Hello!','Goodbye!'],answer:'Hello!'},
+  {q:'"How are you?" → you say:',options:["I'm fine!","It's a cat!"],answer:"I'm fine!"},
+  {q:'I ___ ten years old.',options:['am','is'],answer:'am'},
+  {q:"🔵 It's a ___ circle.",options:['blue','dog'],answer:'blue'},
+  {q:'👩 This is my ___.',options:['mum','pizza'],answer:'mum'},
+  {q:'🖐️ Touch your ___.',options:['hand','cake'],answer:'hand'},
+  {q:'🐱 → Say it!',options:["It's a cat.",'I am a cat.'],answer:"It's a cat."},
+  {q:'🍕😋 → Say it!',options:['I like pizza.',"I don't like pizza."],answer:'I like pizza.'},
+  {q:'🎒 → Say it!',options:['This is my bag.','This is my woof.'],answer:'This is my bag.'}
+]);
+buildQuiz('ch-quiz1',[
+  {q:'🎈 Pop! 👋 A friend says "Hello!" You say…',options:['Hello!','Yuck!','Moo!'],answer:'Hello!'},
+  {q:'🎈 Pop! 🔵 What color?',options:['blue','red','yellow'],answer:'blue'},
+  {q:'🎈 Pop! 3️⃣ What number?',options:['three','seven','ten'],answer:'three'},
+  {q:"🎈 Pop! 🐱 It's a…",options:['cat','dog','duck'],answer:'cat'}
+]);
+buildQuiz('ch-quiz2',[
+  {q:'🎂 I ___ nine years old.',options:['am','is','like'],answer:'am'},
+  {q:'🎂 👃 What is it?',options:['a nose','a hand','a foot'],answer:'a nose'},
+  {q:'🎂 🍌 Say it!',options:['I like bananas.','I like books.','I am bananas.'],answer:'I like bananas.'}
+]);
+buildQuiz('ch-quiz3',[
+  {q:'🪅 This is ___ dad.',options:['my','I','it'],answer:'my'},
+  {q:'🪅 The duck says ___',options:['Quack!','Woof!','Meow!'],answer:'Quack!'},
+  {q:'👑 BOSS: 🐮 says ___, and I ___ milk!',options:['Moo! / like','Meow! / like','Moo! / am'],answer:'Moo! / like'}
+]);
+</script>
+</body>
+</html>

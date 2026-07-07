@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>L6 · Session 1 — Style &amp; Voice</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--accent:#5D4037;--accent2:#8D6E63}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1a;font-size:17px;line-height:1.6;padding-bottom:90px}
+.page-header{background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;padding:26px 20px;text-align:center}
+.page-header h1{font-size:26px;font-weight:800;letter-spacing:-0.3px}
+.page-header .subtitle{font-size:14px;opacity:0.9;margin-top:4px}
+.badge{display:inline-block;background:rgba(255,255,255,0.2);padding:6px 16px;border-radius:20px;font-size:14px;margin-top:10px}
+.lvl{display:inline-block;background:#FFD54F;color:#5D4037;font-weight:800;font-size:12px;padding:3px 12px;border-radius:12px;letter-spacing:0.5px;margin-bottom:8px}
+.container{max-width:860px;margin:0 auto;padding:18px}
+
+/* Student name */
+.namebox{background:white;border:2px solid var(--accent);border-radius:14px;padding:14px 18px;margin:16px 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.namebox label{font-weight:700;font-size:15px}
+.namebox input{flex:1;min-width:160px;font-size:17px;padding:8px 12px;border:2px dashed #90A4AE;border-radius:8px;font-family:inherit}
+.namebox .hello{font-weight:700;color:var(--accent)}
+
+/* Agenda */
+.agenda{background:white;border-radius:14px;padding:16px 18px;margin:14px 0;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.agenda h2{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:#666;margin-bottom:10px}
+.agenda-pills{display:flex;flex-wrap:wrap;gap:8px}
+.ap{display:flex;align-items:center;gap:6px;background:#ECEFF1;border:2px solid transparent;border-radius:20px;padding:5px 13px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.ap.done{background:#C8E6C9;border-color:#2E7D32;text-decoration:line-through;opacity:0.8}
+
+/* Sections */
+.section{background:white;border-radius:16px;margin:18px 0;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,0.07)}
+.sec-head{padding:14px 20px;color:white;font-size:17px;font-weight:800;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sec-head .icon{font-size:22px}
+.sec-head .step{margin-left:auto;font-size:12px;font-weight:700;background:rgba(255,255,255,0.25);padding:3px 12px;border-radius:12px;white-space:nowrap}
+.sec-head .timing{font-size:12px;font-weight:400;background:rgba(255,255,255,0.18);padding:3px 10px;border-radius:12px;white-space:nowrap}
+.sec-body{padding:18px 20px}
+.zoom-cue{display:block;font-size:13px;font-weight:600;color:#37474F;background:#E1F5FE;border-left:4px solid #0288D1;border-radius:0 8px 8px 0;padding:7px 12px;margin:0 0 14px}
+.goal .sec-head{background:#2E7D32}
+.warmup .sec-head{background:#E65100}
+.vocab .sec-head{background:#1565C0}
+.reading .sec-head{background:#6A1B9A}
+.grammar .sec-head{background:#AD1457}
+.task .sec-head{background:#00695C}
+.challenge .sec-head{background:#F57F17}
+.review .sec-head{background:#BF360C}
+.skipif{background:#FFF8E1;border:1px dashed #F9A825;border-radius:10px;padding:10px 14px;margin-top:12px;font-size:14px}
+.skipif b{color:#F57F17}
+
+/* Movement break */
+.move{background:linear-gradient(135deg,#00BFA5,#00897B);color:white;border-radius:16px;margin:18px 0;padding:18px 22px;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,0.1)}
+.move h2{font-size:20px;font-weight:800}
+.move p{font-size:15px;opacity:0.95;margin-top:6px}
+
+/* Vocab cards */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:14px 0}
+.vc{background:#E3F2FD;border:2px solid #90CAF9;border-radius:12px;padding:12px 10px;text-align:center;cursor:pointer;transition:transform 0.12s}
+.vc:hover{transform:scale(1.04);border-color:var(--accent)}
+.vc .vc-emoji{font-size:30px}
+.vc .vc-word{font-weight:800;font-size:15px;margin-top:4px;color:#0D47A1}
+.vc .vc-pron{font-size:12px;color:#666}
+.vc .vc-play{font-size:13px;color:#1565C0}
+
+/* Quiz engine */
+.qz{background:#FAFAFA;border:1px solid #E0E0E0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.qz .q{font-weight:700;font-size:16px;margin-bottom:10px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{font-family:inherit;font-size:15px;font-weight:600;padding:8px 16px;border-radius:10px;border:2px solid #B0BEC5;background:white;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt.correct{background:#C8E6C9;border-color:#2E7D32}
+.opt.wrong{background:#FFCDD2;border-color:#C62828}
+.opt:disabled{cursor:default;opacity:0.85}
+.fb{font-size:14px;font-weight:600;margin-top:8px;display:none}
+.fb.ok{display:block;color:#2E7D32}
+.fb.no{display:block;color:#C62828}
+
+/* Score bar */
+.scorebar{position:sticky;top:0;z-index:50;background:white;box-shadow:0 2px 8px rgba(0,0,0,0.12);padding:8px 16px;display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px}
+.scorebar .bar{flex:1;height:10px;background:#ECEFF1;border-radius:6px;overflow:hidden}
+.scorebar .fill{height:100%;width:0;background:linear-gradient(90deg,#43A047,#66BB6A);transition:width 0.4s}
+.stars{font-size:16px}
+
+/* Reading */
+.reading-text{background:#F3E5F5;border-radius:12px;padding:18px 20px;font-size:17px;max-width:65ch}
+.reading-text h4{color:#6A1B9A;font-size:15px;margin:14px 0 6px;text-transform:uppercase;letter-spacing:0.4px}
+.reading-text h4:first-child{margin-top:0}
+.reading-text p{margin:8px 0}
+
+/* Editable fields */
+.field-label{font-weight:700;font-size:14px;margin:12px 0 4px;color:#37474F}
+.editable{min-height:34px;background:#FFFDE7;border:2px dashed #9E9D24;border-radius:8px;padding:8px 12px;font-size:16px;outline:none}
+.editable.tall{min-height:70px}
+.editable:focus{border-style:solid;border-color:var(--accent)}
+.editable:empty::before{content:attr(data-placeholder);color:#999}
+.qa-item{margin:12px 0}
+.qa-item .q{font-weight:700;font-size:15px;margin-bottom:5px}
+
+/* Frames / rule boxes */
+.frame{background:#FCE4EC;border-left:5px solid #AD1457;border-radius:0 10px 10px 0;padding:12px 16px;margin:12px 0;font-size:16px}
+.rulebox{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.rule{border-radius:12px;padding:14px 16px;font-size:15px}
+.rule h4{font-size:15px;margin-bottom:8px}
+.rule.a{background:#E8F5E9;border:2px solid #66BB6A}
+.rule.a h4{color:#2E7D32}
+.rule.b{background:#FFF3E0;border:2px solid #FFA726}
+.rule.b h4{color:#E65100}
+.hint{font-size:14px;color:#555;background:#F5F5F5;border-radius:8px;padding:8px 12px;margin:10px 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.chip{background:#E1F5FE;border:2px solid #81D4FA;border-radius:16px;padding:5px 14px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.chip.on{background:#0288D1;border-color:#01579B;color:white}
+.speak{background:#E8F5E9;border-radius:10px;padding:12px 16px;font-size:16px;margin:12px 0}
+
+/* Teacher mode */
+.t-only{display:none}
+body.teacher-mode .t-only{display:block}
+.teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
+.teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
+
+/* Bottom bar */
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:white;box-shadow:0 -3px 12px rgba(0,0,0,0.12);padding:10px 14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;z-index:60}
+.bb{font-family:inherit;font-size:14px;font-weight:700;padding:10px 18px;border-radius:10px;border:none;cursor:pointer;text-decoration:none;color:white;display:inline-block}
+.bb-save{background:#2E7D32}
+.bb-print{background:#546E7A}
+.bb-teach{background:#C62828}
+#toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:#2E7D32;color:white;font-weight:700;padding:10px 22px;border-radius:20px;opacity:0;transition:all 0.3s;z-index:70}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:640px){.rulebox{grid-template-columns:1fr}.vocab-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}}
+@media print{body{background:white;padding-bottom:0}.bottom-bar,.scorebar,#toast{display:none!important}.section{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid}.sec-head,.sec-body,.page-header{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="lvl">LEVEL 6 · NEAR-NATIVE (C2)</div>
+  <h1>🎭 Session 1 — Style &amp; Voice</h1>
+  <div class="subtitle">English Course Library · Kids &amp; Teens</div>
+  <div class="badge">🎯 Today: learn how writers <b>shift tone and register on demand</b> — and do it yourself · ≈50 min core</div>
+</div>
+
+<div class="scorebar">
+  <span>⭐ Score:</span><span id="score-num">0 / 0</span>
+  <div class="bar"><div class="fill" id="score-fill"></div></div>
+  <span class="stars" id="score-stars"></span>
+</div>
+
+<div id="toast">✓ Saved</div>
+
+<div class="container">
+
+<div class="namebox">
+  <label for="student-name">👋 Your name:</label>
+  <input id="student-name" type="text" placeholder="Type your name…">
+  <span class="hello" id="hello-msg"></span>
+</div>
+
+<div class="agenda">
+  <h2>📋 Today's plan — tap each step when you finish it</h2>
+  <div class="agenda-pills" id="agenda">
+    <span class="ap" data-s="1">1️⃣ Goal</span><span class="ap" data-s="2">2️⃣ Warm-up</span>
+    <span class="ap" data-s="3">3️⃣ New words</span><span class="ap" data-s="4">4️⃣ Reading</span>
+    <span class="ap" data-s="5">5️⃣ Style lab</span><span class="ap" data-s="6">6️⃣ Create</span>
+    <span class="ap" data-s="7">7️⃣ Game</span><span class="ap" data-s="8">8️⃣ Review</span>
+  </div>
+</div>
+
+<!-- STEP 1 GOAL -->
+<div class="section goal">
+  <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
+    <p><em>"Today you will discover that <b>style is a decision, not decoration</b>. By the end, you can take one plain sentence and deliver it in five different voices — formal, deadpan, lyrical, minimalist, and pure you."</em> 🎛️</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Diagnostic: ask "How would you describe YOUR writing voice in three words?" Most C2 students have never been asked. Whatever they answer, you'll revisit it in Step 8 — write it down now.</div>
+  </div>
+</div>
+
+<!-- STEP 2 WARM-UP -->
+<div class="section warmup">
+  <div class="sec-head"><span class="icon">⚡</span> Warm-Up — Say It in Style <span class="timing">5 min</span><span class="step">Step 2</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, pure voice game — no screen share yet. Teacher uses the 👏 reaction for each successful transformation.</span>
+    <p><b>How to play:</b></p>
+    <p>1. Your teacher gives you a painfully boring sentence, e.g. <em>"I am hungry."</em><br>
+    2. You must say it in the style your teacher calls out: 👑 <b>royal announcement</b> · 🎬 <b>horror-film trailer</b> · 🎙️ <b>sports commentator</b> · 😐 <b>bored robot</b><br>
+    3. Then swap — YOU pick the sentence and call the styles for your teacher. Be merciless. 😈</p>
+    <p class="hint">No score here — the goal is to feel how the SAME meaning changes costume. 🧠</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 2</h4>Model one first: "I am hungry" as royal announcement → "Let it be known throughout the realm that We require sustenance." Push for exaggeration; the bigger the swing between styles, the easier Step 5 lands. Note which stylistic moves the student reaches for instinctively (vocabulary? intonation? sentence length?).</div>
+  </div>
+</div>
+
+<!-- STEP 3 VOCAB -->
+<div class="section vocab">
+  <div class="sec-head"><span class="icon">📝</span> New Words — The Stylist's Toolkit <span class="timing">10 min</span><span class="step">Step 3</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share your screen. Click 🔊 on each card; student repeats the term, then gives a fresh example of their own before you move on.</span>
+    <p>Tap any card to <b>hear</b> it 🔊. These are the words critics and editors actually use — own them.</p>
+    <div class="vocab-grid" id="vocab-grid"></div>
+    <h3>🎧 Practice — tap the right term</h3>
+    <p class="hint">Read the clue and tap the term that matches. Green = correct!</p>
+    <div id="vocab-quiz"></div>
+  </div>
+</div>
+
+<!-- STEP 4 READING -->
+<div class="section reading">
+  <div class="sec-head"><span class="icon">📖</span> Reading — One Tuesday, Five Voices <span class="timing">10 min</span><span class="step">Step 4</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. Take turns reading — student performs each "voice" with matching delivery. Then student annotates the strongest word choices on your screen (Zoom → Annotate).</span>
+    <p>Read Leilani's essay. Tap 🔊 to hear any part read aloud.
+      <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
+    <div class="reading-text" id="read-text">
+      <h4>🎬 One Tuesday, five voices — by Leilani, 15</h4>
+      <p>Last Tuesday, at exactly 12:47, I dropped my lunch tray in front of the entire cafeteria. Spaghetti everywhere. Someone slow-clapped, and a Year 7 filmed it, obviously.</p>
+      <p>My writing teacher, Mr. Okafor, refused to let me suffer in peace. "Write it five ways," he said, "and you'll never fear a blank page again." So here it is: one small disaster, five completely different voices.</p>
+      <h4>📰 Voice one — the news report</h4>
+      <p>"At 12:47 on Tuesday, a Year 10 student suffered a catastrophic tray failure in the east cafeteria. Witnesses describe a scene of widespread marinara. Authorities have not ruled out gravity, and the student is expected to make a full recovery — though the same cannot be said for the garlic bread."</p>
+      <p>Notice the deadpan tone. The vocabulary stays solemn — <b>suffered</b>, <b>witnesses</b>, <b>authorities</b> — while the subject is ridiculous, and that gap is exactly where the humour lives.</p>
+      <h4>🕯️ Voice two — the gothic novel</h4>
+      <p>"The tray trembled in my pale hands, as though it sensed its doom. Time slowed; the fluorescent lights flickered like dying stars. Then — oh, cruel fate! — the spaghetti descended, as empires fall: slowly, and then all at once."</p>
+      <p>Everything here is exaggerated and lyrical. The sentences stretch out, the punctuation gasps, and the tray practically has feelings.</p>
+      <h4>✂️ Voice three — the minimalist</h4>
+      <p>"Tuesday. Tray. Floor. Silence, then laughter. I ate an apple standing up."</p>
+      <p>Five fragments, one complete story. Minimalism trusts the reader to supply the emotion, and that restraint somehow makes it hit harder. Notice what it leaves out: no adjectives, no excuses, no self-pity.</p>
+      <h4>📋 Voice four — the corporate memo</h4>
+      <p>"Regarding Tuesday's incident: a comprehensive review of tray-handling procedures is now underway. Moving forward, all pasta-based items will be transported with two hands. We thank you for your patience during this challenging time."</p>
+      <p>This voice hides behind nouns — <b>incident</b>, <b>review</b>, <b>procedures</b>. Nobody drops anything; things merely occur. Passive, foggy phrasing does the heavy lifting, and responsibility quietly evaporates.</p>
+      <h4>🎤 Voice five — me, talking to my best friend</h4>
+      <p>"Okay, so you know how I have zero hand-eye coordination? Yeah. Whole cafeteria. <b>Whole. Cafeteria.</b> I genuinely wanted the floor to swallow me — but honestly, by Wednesday it was my best story."</p>
+      <p>This is my natural register: contractions, fragments, repetition for drama. Notice <b>genuinely</b> and <b>honestly</b> — spoken English leans on these little sincerity markers. It sounds like me because the rhythm copies how I actually speak.</p>
+      <h4>💡 What actually changed?</h4>
+      <p>Read the five versions again and you'll notice something strange: the facts never moved. What changed was the distance. The news report stands far away; the gothic version drowns in feeling; the memo hides; the friend version leans close.</p>
+      <p>Style, it turns out, is a set of decisions: which words, how long the sentences run, how near the reader stands. Change the decisions and you change the voice — on demand. You already do this, by the way: you talk one way to your grandmother and another way to your group chat.</p>
+      <p>Mr. Okafor was right in the end. I haven't feared a blank page since. I fear the cafeteria instead.</p>
+    </div>
+
+    <h3>🔎 Did you understand? Tap your answer</h3>
+    <div id="reading-quiz"></div>
+
+    <h3>💬 Your turn — write your answer</h3>
+    <div class="qa-item"><div class="q">1. Leilani says humour lives in "the gap" in the news-report voice. Explain the gap in your own words.</div><div class="editable" id="r-open1" contenteditable="true" data-placeholder="The gap is between… and…"></div></div>
+    <div class="qa-item"><div class="q">2. Which of the five voices is closest to YOUR natural style — and which one would stretch you the most? Why?</div><div class="editable tall" id="r-open2" contenteditable="true" data-placeholder="My natural voice is closest to… because… The one that would stretch me is…"></div></div>
+
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> the two written questions above can be homework instead.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 4 + answer key</h4>Quiz answers: the corporate memo · deadpan (serious voice, silly content) · five fragments / minimalist · the distance between writer and reader. Open Q1 model answer: the gap between the formal, serious VOCABULARY (suffered, authorities) and the trivial, silly CONTENT (dropped spaghetti) — the mismatch itself is the joke. Open Q2: any answer with a reason is correct; push for style vocabulary from Step 3 (register, terse, lyrical…) in the justification.</div>
+  </div>
+</div>
+
+<!-- STEP 5 STYLE LAB -->
+<div class="section grammar">
+  <div class="sec-head"><span class="icon">🔧</span> Style Lab — The Register Dials <span class="timing">10 min</span><span class="step">Step 5</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. For each quiz item, student says the answer BEFORE you click — and names WHICH dial it turns.</span>
+    <p>Think of style as a mixing desk with four dials. Every text you'll ever write sets them somewhere:</p>
+    <div class="rulebox">
+      <div class="rule a"><h4>🎚️ DIAL 1 &amp; 2 — Words &amp; Grammar</h4>
+        <b>Word origin:</b> everyday vs Latinate<br>
+        <em>buy → purchase · ask → inquire · put off → postpone</em><br><br>
+        <b>Agent visibility:</b> active vs passive/nominalised<br>
+        <em>"I broke it" → "It got broken" → "A breakage occurred"</em><br><br>
+        🔑 Formal English hides people behind nouns and passives.</div>
+      <div class="rule b"><h4>🎚️ DIAL 3 &amp; 4 — Rhythm &amp; Distance</h4>
+        <b>Sentence length:</b> terse fragments vs flowing clauses<br>
+        <em>"Tuesday. Tray. Floor." vs "The tray trembled in my pale hands, as though…"</em><br><br>
+        <b>Distance:</b> how close the reader stands<br>
+        <em>contractions, "honestly", direct address = close · impersonal "one", "it is regrettable" = far</em></div>
+    </div>
+    <div class="frame">💡 <b>The C2 move:</b> deliberate MISMATCH. Deadpan = formal dials + silly content. Mock-epic = gothic dials + tiny event ("oh, cruel fate! — the spaghetti descended"). Control the mismatch and you control the humour.</div>
+    <p class="hint">💡 Hungarian tip: Hungarian shifts formality mainly through grammar (tegezés/magázás). English has no "ön" — it shifts formality through WORD CHOICE and structure instead. Same grammar, different wardrobe: "Can you help me?" vs "Would you be so kind as to assist me?"</p>
+    <h3>✏️ Practice — turn the dials</h3>
+    <div id="grammar-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>If the student scores 7+/8, add a live twist: give them "The dog ate my homework" and call out dial settings ("Latinate + passive!" → "The assignment was consumed by a domestic animal"). If under 5, slow down and sort the quiz sentences into the two rule boxes aloud.</div>
+  </div>
+</div>
+
+<!-- MOVE BREAK -->
+<div class="move">
+  <h2>🤸 MOVE! — 1 minute break</h2>
+  <p>Stand up! Strike a dramatic gothic pose 🕯️, freeze… now snap into stiff news-anchor posture 📰… now do 5 chair squats while announcing them like a sports commentator. Cameras stay on — teacher does it too! 😄</p>
+</div>
+
+<!-- STEP 6 CREATIVE TASK -->
+<div class="section task">
+  <div class="sec-head"><span class="icon">🎨</span> Create — The Voice Machine <span class="timing">10 min</span><span class="step">Step 6</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in their own browser, shares their screen, and types while you watch and coach.</span>
+    <p>Your turn at the mixing desk. Pick ONE tiny, ordinary event — then rewrite it in two contrasting voices, exactly like Leilani did. 🎛️</p>
+    <h3>First, tap the event you'll transform:</h3>
+    <div class="chips" id="exp-chips"></div>
+    <div class="field-label">📰 Version 1 — deadpan news report (formal words, solemn tone, silly content)</div>
+    <div class="editable tall" id="t-voice1" contenteditable="true" data-placeholder="At approximately… witnesses report… authorities…"></div>
+    <div class="field-label">🕯️ Version 2 — your choice: gothic drama OR minimalist fragments</div>
+    <div class="editable tall" id="t-voice2" contenteditable="true" data-placeholder="Oh, cruel fate!… / Monday. Bus. Gone."></div>
+    <div class="field-label">🔍 Director's commentary — which THREE word choices do the most work, and which dial does each turn?</div>
+    <div class="editable" id="t-analysis" contenteditable="true" data-placeholder="I chose '…' because it turns the … dial towards…"></div>
+    <div class="speak">🗣️ <b>Now perform both versions out loud</b> — with the matching delivery. Then your teacher will name a THIRD voice (memo? best friend?) and you improvise it with no writing time. That's tone on demand.</div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> write only Version 1; do Version 2 as spoken improvisation instead of writing.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>Quality bar for C2: at least one Latinate verb in Version 1, at least one deliberate rhythm effect in Version 2. The director's commentary is the real assessment — a student who can NAME why a word works has internalised the lesson. If the improvised third voice collapses, ask "which dial did you forget?" rather than correcting directly.</div>
+  </div>
+</div>
+
+<!-- STEP 7 CHALLENGE GAME -->
+<div class="section challenge">
+  <div class="sec-head"><span class="icon">🎮</span> Challenge Game — The Style Detective <span class="timing">8 min</span><span class="step">Step 7</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: student's browser, their clicks, their score! You watch on their shared screen and cheer. 🎉</span>
+    <p class="hint">🕵️ Three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
+    <h3>Round 1 — Whose voice is this?</h3>
+    <div id="ch-quiz1"></div>
+    <h3>Round 2 — Shift the register</h3>
+    <div id="ch-quiz2"></div>
+    <h3>Round 3 — Boss level: reading between the styles 👑</h3>
+    <div id="ch-quiz3"></div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can open the next lesson as a warm-up.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>All answers show live in the student's score. Wrong answers auto-reveal the correct one in green — on each miss, ask "which dial did the sentence turn?" The BOSS item tests whether they understand that formality + trivial content = comedy, which is the session's core insight.</div>
+  </div>
+</div>
+
+<!-- STEP 8 REVIEW -->
+<div class="section review">
+  <div class="sec-head"><span class="icon">🏁</span> Review &amp; Homework <span class="timing">3 min</span><span class="step">Step 8</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, screens off. Finish with faces, not slides.</span>
+    <div class="frame">⚡ <b>30-second recap:</b> teacher says a plain sentence ("The bus was late") — you fire back TWO versions: one pompous, one terse. Fast, no thinking time!</div>
+    <h3>🏠 Homework</h3>
+    <div class="frame">
+      <p>✍️ <b>The Two-Voice Diary:</b> take one small moment from your week and write it twice — once as a deadpan news report, once as a minimalist (max 12 words total).</p>
+      <p>🔎 <b>Pompous-hunting:</b> find ONE real sentence in the wild (website, sign, school letter) that hides behind nouns and passives. Copy it, then translate it into plain human English.</p>
+      <p>📌 Example: <em>"The consumption of food is prohibited on the premises" → "Don't eat here."</em></p>
+    </div>
+    <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="t-only">
+      <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
+      <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">What to adjust next time?</div><div class="editable" id="tn-adjust" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">Student's strongest / weakest moment today?</div><div class="editable" id="tn-notes" contenteditable="true" data-placeholder="…"></div></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="bottom-bar">
+  <button class="bb bb-save" onclick="saveWork()">💾 Save my work</button>
+  <button class="bb bb-print" onclick="window.print()">🖨️ Print</button>
+  <button class="bb bb-teach" id="teach-btn" onclick="unlockTeacher()">🔐</button>
+</div>
+
+<script>
+/* ============ ENGINE (identical across all Library sessions) ============ */
+var LEVEL=6, SESSION=1, K='ecl_L'+LEVEL+'s'+SESSION+'_';
+
+/* ---- TTS audio ---- */
+function say(text){try{window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(text);u.lang='en-GB';u.rate=0.9;window.speechSynthesis.speak(u);}catch(e){}}
+
+/* ---- Quiz engine ---- */
+var score=0,total=0;
+function buildQuiz(containerId,items){
+  var c=document.getElementById(containerId);
+  items.forEach(function(it){
+    total++;
+    var qz=document.createElement('div');qz.className='qz';
+    var opts='<div class="opts">';
+    it.options.forEach(function(o){opts+='<button class="opt" data-ok="'+(o===it.answer?'1':'0')+'" onclick="pick(this)">'+o+'</button>';});
+    opts+='</div><div class="fb"></div>';
+    qz.innerHTML='<div class="q">'+it.q+'</div>'+opts;
+    c.appendChild(qz);
+  });
+  updateScore();
+}
+function pick(btn){
+  var qz=btn.closest('.qz');if(qz.dataset.done)return;qz.dataset.done='1';
+  var ok=btn.dataset.ok==='1';var fb=qz.querySelector('.fb');
+  if(ok){btn.classList.add('correct');score++;fb.className='fb ok';fb.textContent='✓ Correct! Great job!';}
+  else{btn.classList.add('wrong');var good=qz.querySelector('[data-ok="1"]');if(good)good.classList.add('correct');
+    fb.className='fb no';fb.textContent='Almost! The green one is right. Try to remember it! 💪';}
+  qz.querySelectorAll('.opt').forEach(function(b){b.disabled=true;});
+  updateScore();
+}
+function updateScore(){
+  var answered=document.querySelectorAll('.qz[data-done]').length;
+  document.getElementById('score-num').textContent=score+' / '+total;
+  document.getElementById('score-fill').style.width=(total?Math.round(answered/total*100):0)+'%';
+  var st='',pct=total?score/total:0;
+  if(answered===total&&total>0){st=pct>=0.8?'⭐⭐⭐':pct>=0.5?'⭐⭐':'⭐';}
+  document.getElementById('score-stars').textContent=st;
+}
+
+/* ---- Student name ---- */
+var nameInput=document.getElementById('student-name');
+function applyName(){
+  var n=nameInput.value.trim();
+  document.getElementById('hello-msg').textContent=n?('Hello, '+n+'! 🌟'):'';
+  document.querySelectorAll('.stud-name').forEach(function(el){el.textContent=n?('Amazing work today, '+n+'!'):'Amazing work today!';});
+  localStorage.setItem(K+'name',n);
+}
+nameInput.addEventListener('input',applyName);
+
+/* ---- Agenda pills ---- */
+document.querySelectorAll('.ap').forEach(function(p){
+  p.onclick=function(){p.classList.toggle('done');localStorage.setItem(K+'ap'+p.dataset.s,p.classList.contains('done'));};
+});
+
+/* ---- Teacher mode ---- */
+function unlockTeacher(){
+  if(document.body.classList.contains('teacher-mode')){document.body.classList.remove('teacher-mode');document.getElementById('teach-btn').textContent='🔐';return;}
+  var pin=prompt('Teacher PIN:');
+  if(pin==='teach'){document.body.classList.add('teacher-mode');document.getElementById('teach-btn').textContent='🔓 Teacher';}
+}
+
+/* ---- Save work (.txt export) ---- */
+function saveWork(){
+  var n=(localStorage.getItem(K+'name')||'Student').replace(/[^\wÀ-ſ-]/g,'');
+  var out=n+' — Level '+LEVEL+' Session '+SESSION+'\n'+new Date().toLocaleDateString()+'\n'+'='.repeat(34)+'\n\n';
+  var picks=[].slice.call(document.querySelectorAll('.chips .chip.on')).map(function(x){return x.textContent.trim();});
+  if(picks.length)out+='Picked: '+picks.join(', ')+'\n\n';
+  var count=0;
+  document.querySelectorAll('.editable[id]').forEach(function(el){var t=el.innerText.trim();if(t){out+='['+el.id+'] '+t+'\n';count++;}});
+  out+='\nScore: '+score+' / '+total;
+  if(count===0&&!picks.length){alert('Type something first! 🙂');return;}
+  var b=new Blob([out],{type:'text/plain;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u;a.download=n+'_L'+LEVEL+'S'+SESSION+'_'+new Date().toISOString().slice(0,10)+'.txt';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);
+  var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show');},1600);
+}
+
+/* ---- Autosave / autoload ---- */
+function autosave(){document.querySelectorAll('.editable[id]').forEach(function(el){localStorage.setItem(K+el.id,el.innerHTML);});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){localStorage.setItem(K+'chip'+i,el.classList.contains('on'));});}
+function autoload(){
+  document.querySelectorAll('.editable[id]').forEach(function(el){var v=localStorage.getItem(K+el.id);if(v!==null)el.innerHTML=v;});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){if(localStorage.getItem(K+'chip'+i)==='true')el.classList.add('on');});
+  document.querySelectorAll('.ap').forEach(function(p){if(localStorage.getItem(K+'ap'+p.dataset.s)==='true')p.classList.add('done');});
+  var n=localStorage.getItem(K+'name');if(n){nameInput.value=n;applyName();}
+}
+document.addEventListener('input',function(){clearTimeout(window._t);window._t=setTimeout(autosave,600);});
+window.addEventListener('load',autoload);
+
+/* ============ SESSION CONTENT (changes per session) ============ */
+
+/* ---- Vocabulary: the stylist's toolkit ---- */
+var VOCAB=[
+  {w:'register',e:'🎚️',p:'how formal the language is',s:'Register. A scholarship letter and a group chat use very different registers.'},
+  {w:'tone',e:'🎭',p:'the attitude behind the words',s:'Tone. Her tone was polite, but you could hear the anger underneath.'},
+  {w:'deadpan',e:'😐',p:'serious voice, silly content',s:'Deadpan. He announced the spaghetti disaster in a completely deadpan news voice.'},
+  {w:'understatement',e:'🤏',p:'saying LESS than you mean',s:'Understatement. Calling that storm a bit of drizzle was quite an understatement.'},
+  {w:'hyperbole',e:'🌋',p:'hy-PER-bo-lee · wild exaggeration',s:'Hyperbole. I have told you a million times is classic hyperbole.'},
+  {w:'euphemism',e:'🫧',p:'YOO-fuh-mizm · soft words for hard things',s:'Euphemism. Passed away is a euphemism for died.'},
+  {w:'lyrical',e:'🎻',p:'musical, flowing, poetic',s:'Lyrical. The gothic version is lyrical — the lights flickered like dying stars.'},
+  {w:'terse',e:'✂️',p:'clipped, using very few words',s:'Terse. Tuesday. Tray. Floor. That is a terse style.'},
+  {w:'verbose',e:'📜',p:'ver-BOHS · using far too many words',s:'Verbose. The memo is verbose — twenty words where three would do.'},
+  {w:'colloquial',e:'💬',p:'kuh-LOH-kwee-ul · chatty, everyday',s:'Colloquial. Wanna and gonna are colloquial forms.'},
+  {w:'pompous',e:'🎩',p:'self-important, showing off',s:'Pompous. Saying utilize instead of use can sound pompous.'},
+  {w:'nuance',e:'🎨',p:'NYOO-ahns · a tiny shade of meaning',s:'Nuance. Slim and skinny differ only in nuance — one is kind, one is not.'}
+];
+(function buildVocab(){
+  var g=document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v){
+    var d=document.createElement('div');d.className='vc';
+    d.innerHTML='<div class="vc-play">🔊</div><div class="vc-emoji">'+v.e+'</div><div class="vc-word">'+v.w+'</div><div class="vc-pron">'+v.p+'</div>';
+    d.onclick=function(){say(v.s);};
+    g.appendChild(d);
+  });
+})();
+
+/* ---- Event chips for Step 6 ---- */
+(function(){
+  var EVENTS=['🚌 missed the bus','📱 cracked my phone screen','🐶 the dog ate my homework','☔ forgot my umbrella','🥶 school heating broke','🧦 wore odd socks all day','🍞 burnt the toast','🎮 lost by one point','💤 slept through my alarm','🧃 juice box exploded in my bag'];
+  var c=document.getElementById('exp-chips');
+  EVENTS.forEach(function(v){
+    var s=document.createElement('span');s.className='chip';s.textContent=v;
+    s.onclick=function(){s.classList.toggle('on');say(v.replace(/^\S+\s/,''));};
+    c.appendChild(s);
+  });
+})();
+
+/* ---- Quizzes ---- */
+buildQuiz('vocab-quiz',[
+  {q:'😐 "The student is expected to make a full recovery. The garlic bread is not." — solemn voice, silly content. This is…',options:['deadpan','lyrical','verbose'],answer:'deadpan'},
+  {q:'🤏 You failed the test completely and say: "It didn\'t go brilliantly." This is…',options:['hyperbole','understatement','euphemism'],answer:'understatement'},
+  {q:'🫧 A company fires 200 people and calls it "streamlining the team". This is…',options:['a euphemism','a nuance','an understatement'],answer:'a euphemism'},
+  {q:'✂️ "Monday. Rain. No umbrella." — this style is…',options:['terse','pompous','colloquial'],answer:'terse'},
+  {q:'🎩 "I shall now utilize the aforementioned writing implement" (= I\'ll use this pen). This sounds…',options:['pompous','lyrical','deadpan'],answer:'pompous'},
+  {q:'🎨 "Slim" vs "skinny" mean almost the same — the difference is a matter of…',options:['nuance','register','hyperbole'],answer:'nuance'}
+]);
+buildQuiz('reading-quiz',[
+  {q:'Which voice hides responsibility behind nouns like "incident" and "review"?',options:['the corporate memo','the gothic novel','the best-friend version'],answer:'the corporate memo'},
+  {q:'Why is the news-report version funny, according to Leilani?',options:['the vocabulary is serious but the subject is ridiculous','it uses lots of slang','it exaggerates everything wildly'],answer:'the vocabulary is serious but the subject is ridiculous'},
+  {q:'The minimalist version works because it…',options:['trusts the reader to supply the emotion','describes every feeling in detail','uses dramatic punctuation'],answer:'trusts the reader to supply the emotion'},
+  {q:'What does Leilani say actually changed between the five versions?',options:['the distance between writer and reader','the facts of the story','the time of the event'],answer:'the distance between writer and reader'},
+  {q:'Which little words does spoken English lean on as "sincerity markers"?',options:['genuinely, honestly','regarding, underway','moreover, therefore'],answer:'genuinely, honestly'}
+]);
+buildQuiz('grammar-quiz',[
+  {q:'Turn the dial FORMAL: "put off the meeting" →',options:['postpone the meeting','kick the meeting down the road'],answer:'postpone the meeting'},
+  {q:'"A decision has been made to cancel the trip." Who decided?',options:['The sentence deliberately hides that','The students'],answer:'The sentence deliberately hides that'},
+  {q:'Which version stands FURTHEST from the reader?',options:['A refund would be regrettably impossible','Sorry, we can\'t give your money back'],answer:'A refund would be regrettably impossible'},
+  {q:'"I\'ve told you a MILLION times!" — which device?',options:['hyperbole','understatement'],answer:'hyperbole'},
+  {q:'Which word choice turns the pompous dial up?',options:['utilize','use'],answer:'utilize'},
+  {q:'Which pair of features signals INFORMAL register?',options:['contractions + phrasal verbs','passive voice + Latinate vocabulary'],answer:'contractions + phrasal verbs'},
+  {q:'"I broke the vase" → "The vase got broken." The rewrite…',options:['hides the person responsible','makes the action more dramatic'],answer:'hides the person responsible'},
+  {q:'Terse or verbose? "In light of recent developments, it may perhaps be advisable to consider the possibility of departing."',options:['verbose','terse'],answer:'verbose'}
+]);
+buildQuiz('ch-quiz1',[
+  {q:'"The incident remains under review." — whose voice?',options:['corporate memo','gothic novel','best friend'],answer:'corporate memo'},
+  {q:'"It fell as empires fall: slowly, then all at once." — whose voice?',options:['gothic novel','news report','minimalist'],answer:'gothic novel'},
+  {q:'"Monday. Rain. No umbrella." — whose voice?',options:['minimalist','corporate memo','gothic novel'],answer:'minimalist'}
+]);
+buildQuiz('ch-quiz2',[
+  {q:'Make it FORMAL: "Sorry, can\'t make it tonight."',options:['I\'m afraid I will be unable to attend this evening.','Sadly tonight is a no-go from me.'],answer:'I\'m afraid I will be unable to attend this evening.'},
+  {q:'Make it FRIENDLY: "I request that you reduce the volume."',options:['Mind turning it down a bit?','It is requested that volume be reduced.'],answer:'Mind turning it down a bit?'},
+  {q:'Opening an email to a museum curator you\'ve never met:',options:['Dear Dr Adeyemi,','Hey!!','Yo, quick question'],answer:'Dear Dr Adeyemi,'}
+]);
+buildQuiz('ch-quiz3',[
+  {q:'Your friend surveys the burnt dinner and says: "Well, that went well." The tone is…',options:['ironic','sincere','lyrical'],answer:'ironic'},
+  {q:'Which rewrite moves the reader CLOSER?',options:['Honestly? I was terrified.','Considerable apprehension was experienced.'],answer:'Honestly? I was terrified.'},
+  {q:'A eulogy says someone "lost their long battle". Formal register uses euphemism here to…',options:['soften a painful subject','confuse the listener','show off vocabulary'],answer:'soften a painful subject'},
+  {q:'👑 BOSS: "The spaghetti descended." Why does "descended" work so well in the gothic version?',options:['a grand, formal verb for a trivial fall — the mismatch creates the drama','it is the only grammatically correct verb','gothic writers never use short words'],answer:'a grand, formal verb for a trivial fall — the mismatch creates the drama'}
+]);
+</script>
+</body>
+</html>

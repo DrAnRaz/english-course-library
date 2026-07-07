@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>L6 · Session 10 — Graduation 🎓</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--accent:#5D4037;--accent2:#8D6E63}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1a;font-size:17px;line-height:1.6;padding-bottom:90px}
+.page-header{background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;padding:26px 20px;text-align:center}
+.page-header h1{font-size:26px;font-weight:800;letter-spacing:-0.3px}
+.page-header .subtitle{font-size:14px;opacity:0.9;margin-top:4px}
+.badge{display:inline-block;background:rgba(255,255,255,0.2);padding:6px 16px;border-radius:20px;font-size:14px;margin-top:10px}
+.lvl{display:inline-block;background:#FFD54F;color:#5D4037;font-weight:800;font-size:12px;padding:3px 12px;border-radius:12px;letter-spacing:0.5px;margin-bottom:8px}
+.container{max-width:860px;margin:0 auto;padding:18px}
+
+/* Student name */
+.namebox{background:white;border:2px solid var(--accent);border-radius:14px;padding:14px 18px;margin:16px 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.namebox label{font-weight:700;font-size:15px}
+.namebox input{flex:1;min-width:160px;font-size:17px;padding:8px 12px;border:2px dashed #90A4AE;border-radius:8px;font-family:inherit}
+.namebox .hello{font-weight:700;color:var(--accent)}
+
+/* Agenda */
+.agenda{background:white;border-radius:14px;padding:16px 18px;margin:14px 0;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.agenda h2{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:#666;margin-bottom:10px}
+.agenda-pills{display:flex;flex-wrap:wrap;gap:8px}
+.ap{display:flex;align-items:center;gap:6px;background:#ECEFF1;border:2px solid transparent;border-radius:20px;padding:5px 13px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.ap.done{background:#C8E6C9;border-color:#2E7D32;text-decoration:line-through;opacity:0.8}
+
+/* Sections */
+.section{background:white;border-radius:16px;margin:18px 0;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,0.07)}
+.sec-head{padding:14px 20px;color:white;font-size:17px;font-weight:800;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sec-head .icon{font-size:22px}
+.sec-head .step{margin-left:auto;font-size:12px;font-weight:700;background:rgba(255,255,255,0.25);padding:3px 12px;border-radius:12px;white-space:nowrap}
+.sec-head .timing{font-size:12px;font-weight:400;background:rgba(255,255,255,0.18);padding:3px 10px;border-radius:12px;white-space:nowrap}
+.sec-body{padding:18px 20px}
+.zoom-cue{display:block;font-size:13px;font-weight:600;color:#37474F;background:#E1F5FE;border-left:4px solid #0288D1;border-radius:0 8px 8px 0;padding:7px 12px;margin:0 0 14px}
+.goal .sec-head{background:#2E7D32}
+.warmup .sec-head{background:#E65100}
+.vocab .sec-head{background:#1565C0}
+.reading .sec-head{background:#6A1B9A}
+.grammar .sec-head{background:#AD1457}
+.task .sec-head{background:#00695C}
+.challenge .sec-head{background:#F57F17}
+.review .sec-head{background:#BF360C}
+.skipif{background:#FFF8E1;border:1px dashed #F9A825;border-radius:10px;padding:10px 14px;margin-top:12px;font-size:14px}
+.skipif b{color:#F57F17}
+
+/* Movement break */
+.move{background:linear-gradient(135deg,#00BFA5,#00897B);color:white;border-radius:16px;margin:18px 0;padding:18px 22px;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,0.1)}
+.move h2{font-size:20px;font-weight:800}
+.move p{font-size:15px;opacity:0.95;margin-top:6px}
+
+/* Vocab cards */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:14px 0}
+.vc{background:#E3F2FD;border:2px solid #90CAF9;border-radius:12px;padding:12px 10px;text-align:center;cursor:pointer;transition:transform 0.12s}
+.vc:hover{transform:scale(1.04);border-color:var(--accent)}
+.vc .vc-emoji{font-size:30px}
+.vc .vc-word{font-weight:800;font-size:15px;margin-top:4px;color:#0D47A1}
+.vc .vc-pron{font-size:12px;color:#666}
+.vc .vc-play{font-size:13px;color:#1565C0}
+
+/* Quiz engine */
+.qz{background:#FAFAFA;border:1px solid #E0E0E0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.qz .q{font-weight:700;font-size:16px;margin-bottom:10px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{font-family:inherit;font-size:15px;font-weight:600;padding:8px 16px;border-radius:10px;border:2px solid #B0BEC5;background:white;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt.correct{background:#C8E6C9;border-color:#2E7D32}
+.opt.wrong{background:#FFCDD2;border-color:#C62828}
+.opt:disabled{cursor:default;opacity:0.85}
+.fb{font-size:14px;font-weight:600;margin-top:8px;display:none}
+.fb.ok{display:block;color:#2E7D32}
+.fb.no{display:block;color:#C62828}
+
+/* Score bar */
+.scorebar{position:sticky;top:0;z-index:50;background:white;box-shadow:0 2px 8px rgba(0,0,0,0.12);padding:8px 16px;display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px}
+.scorebar .bar{flex:1;height:10px;background:#ECEFF1;border-radius:6px;overflow:hidden}
+.scorebar .fill{height:100%;width:0;background:linear-gradient(90deg,#43A047,#66BB6A);transition:width 0.4s}
+.stars{font-size:16px}
+
+/* Reading */
+.reading-text{background:#F3E5F5;border-radius:12px;padding:18px 20px;font-size:17px;max-width:65ch}
+.reading-text h4{color:#6A1B9A;font-size:15px;margin:14px 0 6px;text-transform:uppercase;letter-spacing:0.4px}
+.reading-text h4:first-child{margin-top:0}
+.reading-text p{margin:8px 0}
+
+/* Editable fields */
+.field-label{font-weight:700;font-size:14px;margin:12px 0 4px;color:#37474F}
+.editable{min-height:34px;background:#FFFDE7;border:2px dashed #9E9D24;border-radius:8px;padding:8px 12px;font-size:16px;outline:none}
+.editable.tall{min-height:70px}
+.editable:focus{border-style:solid;border-color:var(--accent)}
+.editable:empty::before{content:attr(data-placeholder);color:#999}
+.qa-item{margin:12px 0}
+.qa-item .q{font-weight:700;font-size:15px;margin-bottom:5px}
+
+/* Frames / rule boxes */
+.frame{background:#FCE4EC;border-left:5px solid #AD1457;border-radius:0 10px 10px 0;padding:12px 16px;margin:12px 0;font-size:16px}
+.rulebox{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.rule{border-radius:12px;padding:14px 16px;font-size:15px}
+.rule h4{font-size:15px;margin-bottom:8px}
+.rule.a{background:#E8F5E9;border:2px solid #66BB6A}
+.rule.a h4{color:#2E7D32}
+.rule.b{background:#FFF3E0;border:2px solid #FFA726}
+.rule.b h4{color:#E65100}
+.hint{font-size:14px;color:#555;background:#F5F5F5;border-radius:8px;padding:8px 12px;margin:10px 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.chip{background:#E1F5FE;border:2px solid #81D4FA;border-radius:16px;padding:5px 14px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.chip.on{background:#0288D1;border-color:#01579B;color:white}
+.speak{background:#E8F5E9;border-radius:10px;padding:12px 16px;font-size:16px;margin:12px 0}
+
+/* Teacher mode */
+.t-only{display:none}
+body.teacher-mode .t-only{display:block}
+.teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
+.teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
+
+/* Bottom bar */
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:white;box-shadow:0 -3px 12px rgba(0,0,0,0.12);padding:10px 14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;z-index:60}
+.bb{font-family:inherit;font-size:14px;font-weight:700;padding:10px 18px;border-radius:10px;border:none;cursor:pointer;text-decoration:none;color:white;display:inline-block}
+.bb-save{background:#2E7D32}
+.bb-print{background:#546E7A}
+.bb-teach{background:#C62828}
+#toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:#2E7D32;color:white;font-weight:700;padding:10px 22px;border-radius:20px;opacity:0;transition:all 0.3s;z-index:70}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:640px){.rulebox{grid-template-columns:1fr}.vocab-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}}
+@media print{body{background:white;padding-bottom:0}.bottom-bar,.scorebar,#toast{display:none!important}.section{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid}.sec-head,.sec-body,.page-header{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+<style>
+/* ============ CERTIFICATE ADD-ON (Session 10 only) ============ */
+#cert-wrap{margin:18px 0}
+.certificate{background:#FFFDF5;border:6px double #5D4037;border-radius:8px;padding:38px 26px;text-align:center;box-shadow:0 4px 14px rgba(93,64,55,0.25);position:relative}
+.certificate .cert-corner{position:absolute;font-size:22px;opacity:0.85}
+.certificate .cc-tl{top:10px;left:14px}.certificate .cc-tr{top:10px;right:14px}
+.certificate .cc-bl{bottom:10px;left:14px}.certificate .cc-br{bottom:10px;right:14px}
+.certificate .cert-lib{font-size:13px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:#8D6E63}
+.certificate .cert-seal{font-size:52px;margin:8px 0}
+.certificate h2{font-size:28px;font-weight:800;color:#5D4037;letter-spacing:0.5px;margin:4px 0 2px}
+.certificate .cert-sub{font-size:14px;color:#795548;letter-spacing:1px;text-transform:uppercase}
+.certificate .cert-this{font-size:15px;color:#555;margin-top:20px}
+.certificate .cert-name{display:inline-block;font-size:34px;font-weight:800;color:#4E342E;border-bottom:3px solid #FFD54F;padding:2px 30px;margin:8px 0;min-width:260px}
+.certificate .cert-body{font-size:16px;color:#4E342E;max-width:56ch;margin:12px auto 0}
+.certificate .cert-stars{font-size:24px;letter-spacing:6px;margin:14px 0 4px}
+.certificate .cert-lines{display:flex;justify-content:space-around;gap:20px;margin-top:30px;flex-wrap:wrap}
+.certificate .cert-line{min-width:180px;font-size:13px;color:#6D4C41}
+.certificate .cert-line .rule-line{border-top:2px solid #8D6E63;margin-bottom:5px;padding-top:5px}
+.cert-print-btn{display:block;margin:14px auto 0;font-family:inherit;font-size:15px;font-weight:700;padding:12px 26px;border-radius:10px;border:none;cursor:pointer;color:white;background:linear-gradient(135deg,#5D4037,#8D6E63)}
+@media print{
+  .certificate{box-shadow:none;-webkit-print-color-adjust:exact;print-color-adjust:exact;page-break-inside:avoid}
+  .cert-print-btn{display:none!important}
+  body.cert-only .page-header,body.cert-only .scorebar,body.cert-only .bottom-bar{display:none!important}
+  body.cert-only .container>*:not(#cert-wrap){display:none!important}
+}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="lvl">LEVEL 6 · NEAR-NATIVE (C2)</div>
+  <h1>🎓 Session 10 — Graduation</h1>
+  <div class="subtitle">English Course Library · Kids &amp; Teens · THE FINAL SESSION</div>
+  <div class="badge">🎯 Today: the grand review of Level 6, your <b>capstone showcase</b> — and your Near-Native certificate 🎓 · ≈50 min core</div>
+</div>
+
+<div class="scorebar">
+  <span>⭐ Score:</span><span id="score-num">0 / 0</span>
+  <div class="bar"><div class="fill" id="score-fill"></div></div>
+  <span class="stars" id="score-stars"></span>
+</div>
+
+<div id="toast">✓ Saved</div>
+
+<div class="container">
+
+<div class="namebox">
+  <label for="student-name">👋 Your name:</label>
+  <input id="student-name" type="text" placeholder="Type your name…">
+  <span class="hello" id="hello-msg"></span>
+</div>
+
+<div class="agenda">
+  <h2>📋 Today's plan — tap each step when you finish it</h2>
+  <div class="agenda-pills" id="agenda">
+    <span class="ap" data-s="1">1️⃣ Goal</span><span class="ap" data-s="2">2️⃣ Warm-up</span>
+    <span class="ap" data-s="3">3️⃣ New words</span><span class="ap" data-s="4">4️⃣ Reading</span>
+    <span class="ap" data-s="5">5️⃣ Review</span><span class="ap" data-s="6">6️⃣ Capstone</span>
+    <span class="ap" data-s="7">7️⃣ Game</span><span class="ap" data-s="8">8️⃣ Graduate</span>
+  </div>
+</div>
+
+<!-- STEP 1 GOAL -->
+<div class="section goal">
+  <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on. This is graduation day — dress code: at least ONE fancy item (hat, scarf, sunglasses). Teacher too.</span>
+    <p><em>"Today is the last session of the entire English Course Library. You will sweep back through all nine Level 6 sessions, perform a capstone showcase of your own making — and graduate with a Near-Native certificate. Seventy sessions end here. Make it loud."</em> 🎓</p>
+    <div class="frame">🗺️ <b>The nine rooms you walked through:</b> 1 Style &amp; Voice · 2 Real Talk · 3 The Persuader · 4 Literature Corner · 5 Wit &amp; Banter · 6 The Editor · 7 Untranslatable · 8 Model UN · 9 Creator Studio.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Set the ceremony tone immediately — formality played with a wink is itself an S1 register lesson. Ask her to state today's goal back in TWO registers: once formally, once in slang (S2 callback). That's the diagnostic and the party trick in one.</div>
+  </div>
+</div>
+
+<!-- STEP 2 WARM-UP -->
+<div class="section warmup">
+  <div class="sec-head"><span class="icon">⚡</span> Warm-Up — Memory Lane, Rapid Fire <span class="timing">5 min</span><span class="step">Step 2</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: talking game, cameras on. Teacher holds up fingers 1–9 to show which session you're on — no screen needed.</span>
+    <p><b>How to play:</b></p>
+    <p>1. Your teacher calls out a Level 6 session title ("Wit &amp; Banter!").<br>
+    2. You have 10 seconds to say ONE thing you remember from it — a word, a rule, a moment, a joke. 🧠<br>
+    3. All nine sessions, no repeats. Then swap: YOU call titles and your teacher remembers — feel free to judge her answers.</p>
+    <p class="hint">No score — this is the trailer for today's grand review.</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 2</h4>Note which sessions produce instant memories and which produce silence — steer the Step 5 review and Step 7 game commentary toward the silent ones. When roles swap, deliberately "misremember" one fact and see if she corrects you (S6 Editor instinct check).</div>
+  </div>
+</div>
+
+<!-- STEP 3 VOCAB -->
+<div class="section vocab">
+  <div class="sec-head"><span class="icon">📝</span> New Words — The Graduate's Lexicon <span class="timing">10 min</span><span class="step">Step 3</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share your screen. Click 🔊 on each card; student names which session the word salutes BEFORE reading the small line.</span>
+    <p>Nine of these words salute the nine sessions behind you; the rest are pure graduation. Tap any card to <b>hear</b> it 🔊.</p>
+    <div class="vocab-grid" id="vocab-grid"></div>
+    <h3>🎧 Practice — tap the right word</h3>
+    <p class="hint">Read the clue and tap the graduate-level word that fits. Green = correct!</p>
+    <div id="vocab-quiz"></div>
+  </div>
+</div>
+
+<!-- STEP 4 READING -->
+<div class="section reading">
+  <div class="sec-head"><span class="icon">📖</span> Reading — The Commencement Address <span class="timing">10 min</span><span class="step">Step 4</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. This speech is meant to be PERFORMED: student delivers it aloud, section by section, like the graduation speaker. You are the cheering crowd.</span>
+    <p>The Library wrote you a graduation speech. Read it the way it deserves. Tap 🔊 to hear it — then outperform the robot.
+      <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
+    <div class="reading-text" id="read-text">
+      <h4>🎓 The Commencement Address — to be read with your chin up</h4>
+      <p>Graduates — yes, that means you — welcome to the very last reading of the English Course Library. Tradition demands a commencement speech, and tradition, as you now know perfectly well, is mostly rhetoric wearing a gown. So here is yours.</p>
+      <h4>🎚️ What you actually learned</h4>
+      <p>You arrived here able to speak English. You are leaving able to do things <b>with</b> English — and that difference is the whole diploma.</p>
+      <p>You learned that style is a wardrobe, not a cage: the same sentence can bow formally or slouch in slang, and both are correct when the room is right. You learned to read that room before opening your mouth.</p>
+      <h4>🏛️ The persuader's inheritance</h4>
+      <p>Somewhere in these sessions you stood on the shoulders of every great speech ever given. You built triads, asked questions that needed no answers, and repeated your openings until they rang like bells. If this address sounds suspiciously well-constructed — good. You can see the wires now.</p>
+      <h4>📚 Between the lines</h4>
+      <p>Literature taught you that meaning likes to hide: in subtext, in what a character refuses to say, in the silence between two short sentences. Wit handed you the gentler weapon — the comeback that leaves both people smiling.</p>
+      <p>And editing taught you the bravest lesson in the whole library: a sentence, like a speech, usually improves when you cut the part you were proudest of.</p>
+      <h4>🌍 Citizens of the language</h4>
+      <p>Lately you have traded idioms like passports. You have negotiated like a delegate who knows that "deep concern" is a declaration of war in a silk glove, and you have scripted your own voice for the ear of a total stranger. That is not schoolwork; that is citizenship in a language.</p>
+      <h4>🗝️ The truth about "near-native"</h4>
+      <p>Now, a confession about the words on your certificate. "Near-native" does not mean flawless — native speakers are not flawless; they are simply unafraid.</p>
+      <p>They know the language belongs to them, so they play with it, bend it, and break it on purpose. From today it belongs to you too: every idiom you deploy, every register you shift, every silence you time — that is ownership.</p>
+      <h4>🚀 What comes next (there is always a next)</h4>
+      <p>So what does one do with a finished library? One leaves it. Write the story only you can write, argue the case only you can argue, launch the podcast only you would dare to make.</p>
+      <p>Keep the library on your shelf, naturally — revisit an old session the way you would visit an old friend. But do not live there; the language is out here.</p>
+      <p>And somewhere out there, a younger student is staring at the word "hello" exactly the way you once did. When you meet them, you will know precisely how far a person can travel.</p>
+      <h4>🎉 Go on, then</h4>
+      <p>Graduates: you came for a language and you leave with a voice. Class of the English Course Library — dismissed.</p>
+      <p>Or, in a register you have also mastered: go be brilliant, you absolute legend.</p>
+    </div>
+
+    <h3>🔎 Did you understand? Tap your answer</h3>
+    <div id="reading-quiz"></div>
+
+    <h3>💬 Your turn — write your answer</h3>
+    <div class="qa-item"><div class="q">1. "You came for a language and you leave with a voice." What is the difference between having a language and having a voice?</div><div class="editable tall" id="r-open1" contenteditable="true" data-placeholder="A language is… but a voice is…"></div></div>
+    <div class="qa-item"><div class="q">2. Which of the nine sessions changed how you actually use English the most? Give one concrete before/after example from your own life.</div><div class="editable tall" id="r-open2" contenteditable="true" data-placeholder="Session … changed the most, because before it I used to… and now I…"></div></div>
+
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> the two written questions above can be homework instead.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 4 + answer key</h4>Quiz answers: rhetoric wearing a gown · doing things WITH English · the part you were proudest of · they are simply unafraid · a register shift (formal → slang). Open q1 model: a language is the shared tool everyone has; a voice is YOUR way of using it — style, wit, choices, identity. Open q2: any session with a concrete example is correct; push past "it was fun" to an actual before/after behaviour. Meta-moment worth pointing out: the speech secretly namechecks all nine sessions — challenge her to find all nine references (S1 wardrobe/registers, S2 slang, S3 triads/rhetorical questions, S4 subtext, S5 comeback, S6 cutting, S7 idioms/passports, S8 deep concern, S9 podcast/ear).</div>
+  </div>
+</div>
+
+<!-- STEP 5 GRAND REVIEW -->
+<div class="section grammar">
+  <div class="sec-head"><span class="icon">🔧</span> Language Focus — The Grand Review of Level 6 <span class="timing">10 min</span><span class="step">Step 5</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. One question per session, sessions 1→9. Student answers aloud first AND names which session each question comes from.</span>
+    <div class="rulebox">
+      <div class="rule a"><h4>🎚️ Sessions 1–5 gave you RANGE</h4>
+        <b>S1</b> shift tone on demand · <b>S2</b> decode slang &amp; internet English · <b>S3</b> rhetorical devices that move crowds · <b>S4</b> read subtext between the lines · <b>S5</b> wit that wounds nobody.</div>
+      <div class="rule b"><h4>🛠️ Sessions 6–9 gave you CONTROL</h4>
+        <b>S6</b> edit for precision &amp; concision · <b>S7</b> idioms &amp; cultural references · <b>S8</b> diplomatic negotiation language · <b>S9</b> scripts written for the ear.</div>
+    </div>
+    <p class="hint">💡 Tip: if a question feels hard, name its session first — remembering the ROOM usually unlocks the answer inside it.</p>
+    <h3>✏️ One question per session — the full sweep</h3>
+    <div id="grammar-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>The nine items map to sessions 1–9 in order (item 10 is a meta-bonus). Whichever items she misses = the sessions to revisit informally in future conversation practice. 8+/10 is genuine graduation strength; celebrate it explicitly.</div>
+  </div>
+</div>
+
+<!-- MOVE BREAK -->
+<div class="move">
+  <h2>🤸 MOVE! — 1 minute break</h2>
+  <p>The graduation walk! Stand up, stride across the room like you're collecting a diploma in front of 5,000 people, shake an imaginary hand, turn to the camera — and hit your best victory dance move. Teacher walks too. 😄🎓</p>
+</div>
+
+<!-- STEP 6 CAPSTONE -->
+<div class="section task">
+  <div class="sec-head"><span class="icon">🎨</span> Create — The Capstone Showcase <span class="timing">10 min</span><span class="step">Step 6</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student plans in her own browser, then performs ON camera, full screen, no notes if she dares.</span>
+    <p>Your final performance: a <b>2-minute masterpiece</b> that shows off what Level 6 built. Choose your stage — a mini-speech, a podcast cold open, a diplomatic address, or a stand-up bit. 🌟</p>
+    <h3>First, tap every skill you'll weave into it (aim for at least four):</h3>
+    <div class="chips" id="exp-chips"></div>
+    <div class="field-label">🎭 Format + title of your showcase</div>
+    <div class="editable" id="t-format" contenteditable="true" data-placeholder="A mini-speech called '…' / A cold open for a show called '…'"></div>
+    <div class="field-label">🪝 Your opening line (make them look up from their phones)</div>
+    <div class="editable" id="t-hook" contenteditable="true" data-placeholder="…"></div>
+    <div class="field-label">🏛️ One rhetorical device you'll plant + one idiom you'll deploy (name them!)</div>
+    <div class="editable" id="t-devices" contenteditable="true" data-placeholder="Device: rule of three, in the middle… Idiom: '…', near the end…"></div>
+    <div class="field-label">🎚️ Where will you SHIFT register — and from what to what?</div>
+    <div class="editable" id="t-shift" contenteditable="true" data-placeholder="I'll start formal, then drop into slang when…"></div>
+    <div class="field-label">🎬 Your closing line (the one they quote afterwards)</div>
+    <div class="editable" id="t-closer" contenteditable="true" data-placeholder="…"></div>
+    <div class="speak">🗣️ <b>SHOWTIME.</b> Two minutes, full commitment. Your teacher is the graduation audience — and will name every device and idiom she catches. If she catches all of them: standing ovation. 👏</div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> plan only hook + closer, perform ONE minute; the full two-minute version becomes the homework recording.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>This is the capstone assessment in disguise. Listen for: (1) a real hook, (2) at least one named device landed on purpose, (3) one intentional register shift, (4) composure. Give feedback as a critic reviewing a professional, not a teacher marking a student — she has earned that frame today.</div>
+  </div>
+</div>
+
+<!-- STEP 7 CHALLENGE GAME -->
+<div class="section challenge">
+  <div class="sec-head"><span class="icon">🎮</span> Challenge Game — The Graduation Gauntlet <span class="timing">8 min</span><span class="step">Step 7</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her final score of the whole Library! You watch on her shared screen — commentate like a sports final. 🎉</span>
+    <p class="hint">🏆 Three rounds through all nine sessions. Beat 80% for the graduate's ⭐⭐⭐!</p>
+    <h3>Round 1 — Sessions 1–3: Voice, Slang &amp; Rhetoric</h3>
+    <div id="ch-quiz1"></div>
+    <h3>Round 2 — Sessions 4–6: Lines, Laughs &amp; the Red Pen</h3>
+    <div id="ch-quiz2"></div>
+    <h3>Round 3 — Sessions 7–9 + the final BOSS 👑</h3>
+    <div id="ch-quiz3"></div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> play Round 3 only — it's the hardest and contains the final BOSS of the entire Library.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>This is the last game of 70 sessions — commentate accordingly. On any miss, she must name the session the question belongs to before you move on; that self-diagnosis IS the review. The BOSS answer is the one that combines idiom + register + diplomacy in a single line.</div>
+  </div>
+</div>
+
+<!-- STEP 8 GRADUATE -->
+<div class="section review">
+  <div class="sec-head"><span class="icon">🏁</span> Review, Homework &amp; Graduation <span class="timing">3 min</span><span class="step">Step 8</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, screens off for the recap — then share the certificate for the ceremony. Screenshot the moment!</span>
+    <div class="frame">⚡ <b>30-second recap:</b> teacher says a session number 1–9 — you answer with that session's superpower in ONE sentence. Then the final question: "What can you do in English today that you couldn't do at session one?"</div>
+    <h3>🏠 Homework (the graduate's commission)</h3>
+    <div class="frame">
+      <p>💌 <b>Write a letter to a beginner:</b> a short English letter to a student just starting Level 0, telling them what is waiting for them at the end of the road. Keep it — one day you might hand it to someone real.</p>
+      <p>🎙️ <b>Record your capstone showcase</b> properly (phone is fine) and save it — that recording is your true certificate.</p>
+      <p>🚀 <b>Start the next thing:</b> pick one — a journal in English, a podcast pilot, a story, a debate club. Report back… to yourself.</p>
+    </div>
+    <h3>🧭 What's next?</h3>
+    <div class="frame">🌍 <b>There is no Level 7 — and that's the point.</b> After Near-Native comes simply: <b>living in the language</b>. Read what natives read, write what only you can write, argue, joke, create. The Library is finished; your English never will be. Class dismissed. 🎓</div>
+    <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="t-only">
+      <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
+      <div class="qa-item"><div class="q">Capstone showcase — strongest element?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">Which Level 6 sessions still need informal revisiting?</div><div class="editable" id="tn-adjust" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">Graduation notes — what should this student do next?</div><div class="editable" id="tn-notes" contenteditable="true" data-placeholder="…"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 🎓 THE CERTIFICATE -->
+<div id="cert-wrap">
+  <div class="certificate">
+    <span class="cert-corner cc-tl">🎓</span><span class="cert-corner cc-tr">🎓</span>
+    <span class="cert-corner cc-bl">⭐</span><span class="cert-corner cc-br">⭐</span>
+    <div class="cert-lib">The English Course Library</div>
+    <div class="cert-seal">🎓</div>
+    <h2>Certificate of Near-Native Mastery</h2>
+    <div class="cert-sub">Level 6 · Near-Native · C2</div>
+    <div class="cert-this">This certifies that</div>
+    <div class="cert-name" id="cert-name">____________________</div>
+    <div class="cert-body">has completed the journey of the English Course Library — seventy sessions, from the first <b>"Hello!"</b> to this very page — and has demonstrated near-native command of English: its styles and registers, its rhetoric and wit, its idioms, its diplomacy, and above all, a voice of their own.</div>
+    <div class="cert-stars">⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐</div>
+    <div class="cert-body" style="font-size:14px;color:#795548">Go be brilliant, you absolute legend.</div>
+    <div class="cert-lines">
+      <div class="cert-line"><div class="rule-line"></div>Date: <span id="cert-date"></span></div>
+      <div class="cert-line"><div class="rule-line"></div>Teacher's signature</div>
+    </div>
+  </div>
+  <button class="cert-print-btn" onclick="printCert()">🖨️ Print my certificate</button>
+</div>
+
+</div><!-- /container -->
+
+<div class="bottom-bar">
+  <button class="bb bb-save" onclick="saveWork()">💾 Save my work</button>
+  <button class="bb bb-print" onclick="window.print()">🖨️ Print</button>
+  <button class="bb bb-teach" id="teach-btn" onclick="unlockTeacher()">🔐</button>
+</div>
+
+<script>
+/* ============ ENGINE (identical across all Library sessions) ============ */
+var LEVEL=6, SESSION=10, K='ecl_L'+LEVEL+'s'+SESSION+'_';
+
+/* ---- TTS audio ---- */
+function say(text){try{window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(text);u.lang='en-GB';u.rate=0.9;window.speechSynthesis.speak(u);}catch(e){}}
+
+/* ---- Quiz engine ---- */
+var score=0,total=0;
+function buildQuiz(containerId,items){
+  var c=document.getElementById(containerId);
+  items.forEach(function(it){
+    total++;
+    var qz=document.createElement('div');qz.className='qz';
+    var opts='<div class="opts">';
+    it.options.forEach(function(o){opts+='<button class="opt" data-ok="'+(o===it.answer?'1':'0')+'" onclick="pick(this)">'+o+'</button>';});
+    opts+='</div><div class="fb"></div>';
+    qz.innerHTML='<div class="q">'+it.q+'</div>'+opts;
+    c.appendChild(qz);
+  });
+  updateScore();
+}
+function pick(btn){
+  var qz=btn.closest('.qz');if(qz.dataset.done)return;qz.dataset.done='1';
+  var ok=btn.dataset.ok==='1';var fb=qz.querySelector('.fb');
+  if(ok){btn.classList.add('correct');score++;fb.className='fb ok';fb.textContent='✓ Correct! Great job!';}
+  else{btn.classList.add('wrong');var good=qz.querySelector('[data-ok="1"]');if(good)good.classList.add('correct');
+    fb.className='fb no';fb.textContent='Almost! The green one is right. Try to remember it! 💪';}
+  qz.querySelectorAll('.opt').forEach(function(b){b.disabled=true;});
+  updateScore();
+}
+function updateScore(){
+  var answered=document.querySelectorAll('.qz[data-done]').length;
+  document.getElementById('score-num').textContent=score+' / '+total;
+  document.getElementById('score-fill').style.width=(total?Math.round(answered/total*100):0)+'%';
+  var st='',pct=total?score/total:0;
+  if(answered===total&&total>0){st=pct>=0.8?'⭐⭐⭐':pct>=0.5?'⭐⭐':'⭐';}
+  document.getElementById('score-stars').textContent=st;
+}
+
+/* ---- Student name ---- */
+var nameInput=document.getElementById('student-name');
+function applyName(){
+  var n=nameInput.value.trim();
+  document.getElementById('hello-msg').textContent=n?('Hello, '+n+'! 🌟'):'';
+  document.querySelectorAll('.stud-name').forEach(function(el){el.textContent=n?('Amazing work today, '+n+'!'):'Amazing work today!';});
+  localStorage.setItem(K+'name',n);
+}
+nameInput.addEventListener('input',applyName);
+
+/* ---- Agenda pills ---- */
+document.querySelectorAll('.ap').forEach(function(p){
+  p.onclick=function(){p.classList.toggle('done');localStorage.setItem(K+'ap'+p.dataset.s,p.classList.contains('done'));};
+});
+
+/* ---- Teacher mode ---- */
+function unlockTeacher(){
+  if(document.body.classList.contains('teacher-mode')){document.body.classList.remove('teacher-mode');document.getElementById('teach-btn').textContent='🔐';return;}
+  var pin=prompt('Teacher PIN:');
+  if(pin==='teach'){document.body.classList.add('teacher-mode');document.getElementById('teach-btn').textContent='🔓 Teacher';}
+}
+
+/* ---- Save work (.txt export) ---- */
+function saveWork(){
+  var n=(localStorage.getItem(K+'name')||'Student').replace(/[^\wÀ-ſ-]/g,'');
+  var out=n+' — Level '+LEVEL+' Session '+SESSION+'\n'+new Date().toLocaleDateString()+'\n'+'='.repeat(34)+'\n\n';
+  var picks=[].slice.call(document.querySelectorAll('.chips .chip.on')).map(function(x){return x.textContent.trim();});
+  if(picks.length)out+='Picked: '+picks.join(', ')+'\n\n';
+  var count=0;
+  document.querySelectorAll('.editable[id]').forEach(function(el){var t=el.innerText.trim();if(t){out+='['+el.id+'] '+t+'\n';count++;}});
+  out+='\nScore: '+score+' / '+total;
+  if(count===0&&!picks.length){alert('Type something first! 🙂');return;}
+  var b=new Blob([out],{type:'text/plain;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u;a.download=n+'_L'+LEVEL+'S'+SESSION+'_'+new Date().toISOString().slice(0,10)+'.txt';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);
+  var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show');},1600);
+}
+
+/* ---- Autosave / autoload ---- */
+function autosave(){document.querySelectorAll('.editable[id]').forEach(function(el){localStorage.setItem(K+el.id,el.innerHTML);});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){localStorage.setItem(K+'chip'+i,el.classList.contains('on'));});}
+function autoload(){
+  document.querySelectorAll('.editable[id]').forEach(function(el){var v=localStorage.getItem(K+el.id);if(v!==null)el.innerHTML=v;});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){if(localStorage.getItem(K+'chip'+i)==='true')el.classList.add('on');});
+  document.querySelectorAll('.ap').forEach(function(p){if(localStorage.getItem(K+'ap'+p.dataset.s)==='true')p.classList.add('done');});
+  var n=localStorage.getItem(K+'name');if(n){nameInput.value=n;applyName();}
+}
+document.addEventListener('input',function(){clearTimeout(window._t);window._t=setTimeout(autosave,600);});
+window.addEventListener('load',autoload);
+
+/* ============ SESSION CONTENT (changes per session) ============ */
+
+/* ---- Certificate: name + date + dedicated print ---- */
+(function(){
+  var cn=document.getElementById('cert-name');
+  function upd(){var n=nameInput.value.trim();cn.textContent=n||'____________________';}
+  nameInput.addEventListener('input',upd);
+  window.addEventListener('load',upd);
+  document.getElementById('cert-date').textContent=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+})();
+function printCert(){
+  document.body.classList.add('cert-only');
+  window.print();
+  setTimeout(function(){document.body.classList.remove('cert-only');},500);
+}
+
+/* ---- Vocabulary: the Graduate's Lexicon ---- */
+var VOCAB=[
+  {w:'register',e:'🎚️',p:'S1 — the formality level of your language'},
+  {w:'colloquial',e:'💬',p:'S2 — casual, everyday, spoken-style'},
+  {w:'rhetoric',e:'🏛️',p:'S3 — the art of persuasive speaking'},
+  {w:'subtext',e:'🫥',p:'S4 — the meaning underneath the words'},
+  {w:'repartee',e:'⚡',p:'S5 — quick, witty back-and-forth'},
+  {w:'concision',e:'✂️',p:'S6 — saying more with fewer words'},
+  {w:'idiomatic',e:'🗝️',p:'S7 — natural, native-sounding phrasing'},
+  {w:'consensus',e:'🤝',p:'S8 — agreement everyone can live with'},
+  {w:'segue',e:'🌉',p:'S9 — a smooth bridge between topics'},
+  {w:'commencement',e:'🎓',p:'a graduation ceremony — a beginning, not an end'},
+  {w:'valedictorian',e:'🏅',p:'the top graduate who gives the speech'},
+  {w:'alumna / alumnus',e:'🧑‍🎓',p:'a graduate of a school — you, now!'},
+  {w:'magnum opus',e:'🖼️',p:'someone&#39;s greatest work (Latin)'},
+  {w:'eloquence',e:'🕊️',p:'fluent, powerful, graceful expression'}
+];
+(function buildVocab(){
+  var g=document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v){
+    var d=document.createElement('div');d.className='vc';
+    d.innerHTML='<div class="vc-play">🔊</div><div class="vc-emoji">'+v.e+'</div><div class="vc-word">'+v.w+'</div><div class="vc-pron">= '+v.p+'</div>';
+    d.onclick=function(){say(v.w+'. '+d.querySelector('.vc-pron').innerText);};
+    g.appendChild(d);
+  });
+})();
+
+/* ---- Skill chips for Step 6 (the nine sessions) ---- */
+(function(){
+  var SKILLS=[
+    {e:'🎚️',w:'S1 register shift'},{e:'💬',w:'S2 slang, used right'},{e:'🏛️',w:'S3 rhetorical device'},
+    {e:'🫥',w:'S4 planted subtext'},{e:'⚡',w:'S5 a witty comeback'},{e:'✂️',w:'S6 ruthless concision'},
+    {e:'🗝️',w:'S7 a deployed idiom'},{e:'🤝',w:'S8 diplomatic turn'},{e:'🎙️',w:'S9 written for the ear'}
+  ];
+  var c=document.getElementById('exp-chips');
+  SKILLS.forEach(function(v){
+    var s=document.createElement('span');s.className='chip';s.textContent=v.e+' '+v.w;
+    s.onclick=function(){s.classList.toggle('on');say(v.w);};
+    c.appendChild(s);
+  });
+})();
+
+/* ---- Quizzes ---- */
+buildQuiz('vocab-quiz',[
+  {q:'🎓 The ceremony where graduates throw their caps — which, oddly, is named after BEGINNING:',options:['commencement','consensus','concision'],answer:'commencement'},
+  {q:'🏅 The top graduate chosen to give the speech:',options:['valedictorian','alumna','delegate'],answer:'valedictorian'},
+  {q:'⚡ Two friends trading lightning-fast witty replies are engaged in…',options:['repartee','rhetoric','register'],answer:'repartee'},
+  {q:'🖼️ "This graphic novel is her ___ — ten years of work." (her greatest work)',options:['magnum opus','sound bite','subtext'],answer:'magnum opus'},
+  {q:'🫥 He said "I&#39;m fine" while shredding a napkin into confetti. The napkin is the…',options:['subtext','segue','consensus'],answer:'subtext'},
+  {q:'🕊️ A speaker whose words flow with power and grace has…',options:['eloquence','concision','colloquialism'],answer:'eloquence'}
+]);
+buildQuiz('reading-quiz',[
+  {q:'According to the address, tradition is mostly…',options:['rhetoric wearing a gown','a cage of rules','a very long speech'],answer:'rhetoric wearing a gown'},
+  {q:'The "whole diploma" is the difference between speaking English and…',options:['doing things WITH English','speaking it faster','memorising more words'],answer:'doing things WITH English'},
+  {q:'The bravest editing lesson: a sentence improves when you cut…',options:['the part you were proudest of','the shortest word','the first paragraph'],answer:'the part you were proudest of'},
+  {q:'Native speakers, says the speech, are not flawless — they are simply…',options:['unafraid','louder','older'],answer:'unafraid'},
+  {q:'The final line — "go be brilliant, you absolute legend" — demonstrates which skill one last time?',options:['a register shift from formal to slang','a passive construction','a point of order'],answer:'a register shift from formal to slang'}
+]);
+buildQuiz('grammar-quiz',[
+  {q:'(S1) Your headteacher asks for your opinion IN WRITING. Best register:',options:['I believe the schedule change deserves careful reconsideration.','ngl the new schedule is kinda mid.'],answer:'I believe the schedule change deserves careful reconsideration.'},
+  {q:'(S2) A friend texts: "That plot twist lives in my head rent-free." Meaning:',options:['she can&#39;t stop thinking about it','she refuses to pay for streaming','she hated it'],answer:'she can&#39;t stop thinking about it'},
+  {q:'(S3) "We came. We tried. We conquered the bake sale." — name the device:',options:['the rule of three','a mixed conditional','hedging'],answer:'the rule of three'},
+  {q:'(S4) A character says "Take the last slice, really" while pulling the pizza box closer. The subtext:',options:['she wants the slice','she is generous','she dislikes pizza'],answer:'she wants the slice'},
+  {q:'(S5) Someone teases: "Nice haircut — did you lose a bet?" The champion&#39;s comeback:',options:['"Yes — against your barber."','"You are mean and I am telling the teacher."','(silent glare for one full minute)'],answer:'"Yes — against your barber."'},
+  {q:'(S6) Edit for concision: "Due to the fact that it was raining, the match was cancelled."',options:['Because it rained, the match was cancelled.','Owing to precipitation-related circumstances, cancellation occurred.'],answer:'Because it rained, the match was cancelled.'},
+  {q:'(S7) Everyone at the meeting avoids mentioning the missing budget. The budget is…',options:['the elephant in the room','a storm in a teacup','the Midas touch'],answer:'the elephant in the room'},
+  {q:'(S8) Reject a proposal and keep the negotiation alive:',options:['My delegation is unable to support the proposal in its current form.','No. It&#39;s bad. Moving on.'],answer:'My delegation is unable to support the proposal in its current form.'},
+  {q:'(S9) Which line was written for the EAR?',options:['Here&#39;s the wild part — nobody checked the map.','Notwithstanding the aforementioned cartographical oversight,'],answer:'Here&#39;s the wild part — nobody checked the map.'},
+  {q:'(BONUS) What do all nine sessions have in common?',options:['choosing HOW to say it, not just what to say','memorising longer word lists','avoiding all mistakes forever'],answer:'choosing HOW to say it, not just what to say'}
+]);
+buildQuiz('ch-quiz1',[
+  {q:'🎚️ (S1) The SAME apology for a teacher vs your best friend should differ in…',options:['register','truthfulness','language entirely'],answer:'register'},
+  {q:'💬 (S2) "This café is such a hidden gem" — a hidden gem is…',options:['a great place few people know about','an actual jewel','an overpriced menu'],answer:'a great place few people know about'},
+  {q:'🏛️ (S3) "Ask not what your team can do for you…" grabs the ear using…',options:['reversal / antithesis','a passive verb','an abbreviation'],answer:'reversal / antithesis'},
+  {q:'🏛️ (S3) A rhetorical question is one that…',options:['expects no answer — it IS the point','must be answered in writing','only teachers may ask'],answer:'expects no answer — it IS the point'}
+]);
+buildQuiz('ch-quiz2',[
+  {q:'🫥 (S4) "The letter sat unopened on the table for three weeks." The unopened letter suggests…',options:['fear or avoidance of its contents','a slow postal service','tidiness'],answer:'fear or avoidance of its contents'},
+  {q:'⚡ (S5) The golden rule of banter:',options:['punch up or sideways, never down','always target the weakest','never smile'],answer:'punch up or sideways, never down'},
+  {q:'✂️ (S6) Which cut IMPROVES the sentence "She smiled happily in a happy way"?',options:['She smiled.','She smiled happily.','No cut — it&#39;s perfect.'],answer:'She smiled.'},
+  {q:'✂️ (S6) An editor&#39;s first loyalty is to…',options:['the reader','the writer&#39;s feelings','the word count'],answer:'the reader'}
+]);
+buildQuiz('ch-quiz3',[
+  {q:'🗝️ (S7) Your friend calls a tiny quiz "the exam of the century". You reply that it&#39;s…',options:['a storm in a teacup','the tip of the iceberg','a Trojan horse'],answer:'a storm in a teacup'},
+  {q:'🤝 (S8) "We note the proposal with deep concern" — decode:',options:['we are angry about it','we are deeply moved','we didn&#39;t read it'],answer:'we are angry about it'},
+  {q:'🎙️ (S9) The cold open&#39;s job is to…',options:['hook the listener before the intro','list the sponsors','test the microphone'],answer:'hook the listener before the intro'},
+  {q:'👑 FINAL BOSS of the Library: your podcast guest rambles off topic. The near-native move — idiom, diplomacy and ear in ONE line:',options:['"Speaking of surprises — let&#39;s circle back to your main story, because listeners are dying to hear it."','"Stop talking. That was irrelevant. Return to the topic."','"The aforementioned digression shall now be terminated."'],answer:'"Speaking of surprises — let&#39;s circle back to your main story, because listeners are dying to hear it."'}
+]);
+</script>
+</body>
+</html>

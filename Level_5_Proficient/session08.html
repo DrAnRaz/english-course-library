@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>L5 · Session 8 — Academic Edge</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--accent:#00838F;--accent2:#26A69A}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1a;font-size:17px;line-height:1.6;padding-bottom:90px}
+.page-header{background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;padding:26px 20px;text-align:center}
+.page-header h1{font-size:26px;font-weight:800;letter-spacing:-0.3px}
+.page-header .subtitle{font-size:14px;opacity:0.9;margin-top:4px}
+.badge{display:inline-block;background:rgba(255,255,255,0.2);padding:6px 16px;border-radius:20px;font-size:14px;margin-top:10px}
+.lvl{display:inline-block;background:#FFD54F;color:#5D4037;font-weight:800;font-size:12px;padding:3px 12px;border-radius:12px;letter-spacing:0.5px;margin-bottom:8px}
+.container{max-width:860px;margin:0 auto;padding:18px}
+
+/* Student name */
+.namebox{background:white;border:2px solid var(--accent);border-radius:14px;padding:14px 18px;margin:16px 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.namebox label{font-weight:700;font-size:15px}
+.namebox input{flex:1;min-width:160px;font-size:17px;padding:8px 12px;border:2px dashed #90A4AE;border-radius:8px;font-family:inherit}
+.namebox .hello{font-weight:700;color:var(--accent)}
+
+/* Agenda */
+.agenda{background:white;border-radius:14px;padding:16px 18px;margin:14px 0;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.agenda h2{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:#666;margin-bottom:10px}
+.agenda-pills{display:flex;flex-wrap:wrap;gap:8px}
+.ap{display:flex;align-items:center;gap:6px;background:#ECEFF1;border:2px solid transparent;border-radius:20px;padding:5px 13px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.ap.done{background:#C8E6C9;border-color:#2E7D32;text-decoration:line-through;opacity:0.8}
+
+/* Sections */
+.section{background:white;border-radius:16px;margin:18px 0;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,0.07)}
+.sec-head{padding:14px 20px;color:white;font-size:17px;font-weight:800;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sec-head .icon{font-size:22px}
+.sec-head .step{margin-left:auto;font-size:12px;font-weight:700;background:rgba(255,255,255,0.25);padding:3px 12px;border-radius:12px;white-space:nowrap}
+.sec-head .timing{font-size:12px;font-weight:400;background:rgba(255,255,255,0.18);padding:3px 10px;border-radius:12px;white-space:nowrap}
+.sec-body{padding:18px 20px}
+.zoom-cue{display:block;font-size:13px;font-weight:600;color:#37474F;background:#E1F5FE;border-left:4px solid #0288D1;border-radius:0 8px 8px 0;padding:7px 12px;margin:0 0 14px}
+.goal .sec-head{background:#2E7D32}
+.warmup .sec-head{background:#E65100}
+.vocab .sec-head{background:#1565C0}
+.reading .sec-head{background:#6A1B9A}
+.grammar .sec-head{background:#AD1457}
+.task .sec-head{background:#00695C}
+.challenge .sec-head{background:#F57F17}
+.review .sec-head{background:#BF360C}
+.skipif{background:#FFF8E1;border:1px dashed #F9A825;border-radius:10px;padding:10px 14px;margin-top:12px;font-size:14px}
+.skipif b{color:#F57F17}
+
+/* Movement break */
+.move{background:linear-gradient(135deg,#00BFA5,#00897B);color:white;border-radius:16px;margin:18px 0;padding:18px 22px;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,0.1)}
+.move h2{font-size:20px;font-weight:800}
+.move p{font-size:15px;opacity:0.95;margin-top:6px}
+
+/* Vocab cards */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:14px 0}
+.vc{background:#E3F2FD;border:2px solid #90CAF9;border-radius:12px;padding:12px 10px;text-align:center;cursor:pointer;transition:transform 0.12s}
+.vc:hover{transform:scale(1.04);border-color:var(--accent)}
+.vc .vc-emoji{font-size:30px}
+.vc .vc-word{font-weight:800;font-size:15px;margin-top:4px;color:#0D47A1}
+.vc .vc-pron{font-size:12px;color:#666}
+.vc .vc-play{font-size:13px;color:#1565C0}
+
+/* Quiz engine */
+.qz{background:#FAFAFA;border:1px solid #E0E0E0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.qz .q{font-weight:700;font-size:16px;margin-bottom:10px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{font-family:inherit;font-size:15px;font-weight:600;padding:8px 16px;border-radius:10px;border:2px solid #B0BEC5;background:white;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt.correct{background:#C8E6C9;border-color:#2E7D32}
+.opt.wrong{background:#FFCDD2;border-color:#C62828}
+.opt:disabled{cursor:default;opacity:0.85}
+.fb{font-size:14px;font-weight:600;margin-top:8px;display:none}
+.fb.ok{display:block;color:#2E7D32}
+.fb.no{display:block;color:#C62828}
+
+/* Score bar */
+.scorebar{position:sticky;top:0;z-index:50;background:white;box-shadow:0 2px 8px rgba(0,0,0,0.12);padding:8px 16px;display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px}
+.scorebar .bar{flex:1;height:10px;background:#ECEFF1;border-radius:6px;overflow:hidden}
+.scorebar .fill{height:100%;width:0;background:linear-gradient(90deg,#43A047,#66BB6A);transition:width 0.4s}
+.stars{font-size:16px}
+
+/* Reading */
+.reading-text{background:#F3E5F5;border-radius:12px;padding:18px 20px;font-size:17px;max-width:65ch}
+.reading-text h4{color:#6A1B9A;font-size:15px;margin:14px 0 6px;text-transform:uppercase;letter-spacing:0.4px}
+.reading-text h4:first-child{margin-top:0}
+.reading-text p{margin:8px 0}
+
+/* Editable fields */
+.field-label{font-weight:700;font-size:14px;margin:12px 0 4px;color:#37474F}
+.editable{min-height:34px;background:#FFFDE7;border:2px dashed #9E9D24;border-radius:8px;padding:8px 12px;font-size:16px;outline:none}
+.editable.tall{min-height:70px}
+.editable:focus{border-style:solid;border-color:var(--accent)}
+.editable:empty::before{content:attr(data-placeholder);color:#999}
+.qa-item{margin:12px 0}
+.qa-item .q{font-weight:700;font-size:15px;margin-bottom:5px}
+
+/* Frames / rule boxes */
+.frame{background:#FCE4EC;border-left:5px solid #AD1457;border-radius:0 10px 10px 0;padding:12px 16px;margin:12px 0;font-size:16px}
+.rulebox{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.rule{border-radius:12px;padding:14px 16px;font-size:15px}
+.rule h4{font-size:15px;margin-bottom:8px}
+.rule.a{background:#E8F5E9;border:2px solid #66BB6A}
+.rule.a h4{color:#2E7D32}
+.rule.b{background:#FFF3E0;border:2px solid #FFA726}
+.rule.b h4{color:#E65100}
+.hint{font-size:14px;color:#555;background:#F5F5F5;border-radius:8px;padding:8px 12px;margin:10px 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.chip{background:#E1F5FE;border:2px solid #81D4FA;border-radius:16px;padding:5px 14px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.chip.on{background:#0288D1;border-color:#01579B;color:white}
+.speak{background:#E8F5E9;border-radius:10px;padding:12px 16px;font-size:16px;margin:12px 0}
+
+/* Teacher mode */
+.t-only{display:none}
+body.teacher-mode .t-only{display:block}
+.teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
+.teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
+
+/* Bottom bar */
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:white;box-shadow:0 -3px 12px rgba(0,0,0,0.12);padding:10px 14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;z-index:60}
+.bb{font-family:inherit;font-size:14px;font-weight:700;padding:10px 18px;border-radius:10px;border:none;cursor:pointer;text-decoration:none;color:white;display:inline-block}
+.bb-save{background:#2E7D32}
+.bb-print{background:#546E7A}
+.bb-teach{background:#C62828}
+#toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:#2E7D32;color:white;font-weight:700;padding:10px 22px;border-radius:20px;opacity:0;transition:all 0.3s;z-index:70}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:640px){.rulebox{grid-template-columns:1fr}.vocab-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}}
+@media print{body{background:white;padding-bottom:0}.bottom-bar,.scorebar,#toast{display:none!important}.section{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid}.sec-head,.sec-body,.page-header{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="lvl">LEVEL 5 · PROFICIENT (C1)</div>
+  <h1>🎓 Session 8 — Academic Edge</h1>
+  <div class="subtitle">English Course Library · Kids &amp; Teens</div>
+  <div class="badge">🎯 Today: shrink any text into a sharp <b>summary</b> and switch into confident <b>formal register</b> · ≈50 min core</div>
+</div>
+
+<div class="scorebar">
+  <span>⭐ Score:</span><span id="score-num">0 / 0</span>
+  <div class="bar"><div class="fill" id="score-fill"></div></div>
+  <span class="stars" id="score-stars"></span>
+</div>
+
+<div id="toast">✓ Saved</div>
+
+<div class="container">
+
+<div class="namebox">
+  <label for="student-name">👋 Your name:</label>
+  <input id="student-name" type="text" placeholder="Type your name…">
+  <span class="hello" id="hello-msg"></span>
+</div>
+
+<div class="agenda">
+  <h2>📋 Today's plan — tap each step when you finish it</h2>
+  <div class="agenda-pills" id="agenda">
+    <span class="ap" data-s="1">1️⃣ Goal</span><span class="ap" data-s="2">2️⃣ Warm-up</span>
+    <span class="ap" data-s="3">3️⃣ New words</span><span class="ap" data-s="4">4️⃣ Reading</span>
+    <span class="ap" data-s="5">5️⃣ Grammar</span><span class="ap" data-s="6">6️⃣ Create</span>
+    <span class="ap" data-s="7">7️⃣ Game</span><span class="ap" data-s="8">8️⃣ Review</span>
+  </div>
+</div>
+
+<!-- STEP 1 GOAL -->
+<div class="section goal">
+  <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student states it back in her most SERIOUS professor voice.</span>
+    <p><em>"Today you will master two skills that win marks in every exam and every school on Earth: shrinking a text into a perfect <b>summary</b>, and dressing your ideas in <b>formal register</b> — without sounding like a robot butler."</em> 🤖🎩</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Quick diagnostic: ask her to describe her morning in ONE sentence (summary instinct), then to say "the bus was late" as formally as possible. Note whether "formal" comes out as long/fancy — the anti-robot-butler message will land better if it corrects a real attempt.</div>
+  </div>
+</div>
+
+<!-- STEP 2 WARM-UP -->
+<div class="section warmup">
+  <div class="sec-head"><span class="icon">⚡</span> Warm-Up — The Posh Translator <span class="timing">5 min</span><span class="step">Step 2</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: pure talking, cameras on. Use the 👏 reaction whenever a translation lands perfectly.</span>
+    <p><b>How to play:</b></p>
+    <p>1. Your teacher says a very casual sentence (<em>"The movie was kinda meh."</em>).<br>
+    2. You instantly "translate" it into formal English (<em>"The film was somewhat disappointing."</em>) — 5 seconds! 🎩<br>
+    3. Then reverse: teacher goes formal, YOU translate into teen-speak. Three rounds each way.</p>
+    <p class="hint">No score here — just switch registers fast, like changing clothes. 👔👕</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 2</h4>Casual starters: "This homework is a total pain." · "The ending was awesome." · "He messed up big time." Formal starters (for her to casualise): "The refreshments were inadequate." · "Attendance is obligatory." · "The garment is aesthetically displeasing." Laughing at the mismatch is the point — register is a costume.</div>
+  </div>
+</div>
+
+<!-- STEP 3 VOCAB -->
+<div class="section vocab">
+  <div class="sec-head"><span class="icon">📝</span> New Words — The Scholar's Vocabulary <span class="timing">10 min</span><span class="step">Step 3</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share your screen. You click 🔊 on each card; the student repeats it, then names ONE school subject where she'd use that word this week.</span>
+    <p>Tap any card to <b>hear</b> it 🔊. These words run every essay, report and exam answer.</p>
+    <div class="vocab-grid" id="vocab-grid"></div>
+    <h3>🎧 Practice — tap the right word</h3>
+    <p class="hint">Read the clue and tap the term that matches. Green = correct!</p>
+    <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Stress patterns to drill: THEsis, plaGIArism, subSTANtiate. Check she can distinguish paraphrase (same length, new words) from summarize (much shorter). The three connector cards (furthermore/nevertheless/consequently) map to add / contrast / result — have her label each with one word.</div>
+  </div>
+</div>
+
+<!-- STEP 4 READING -->
+<div class="section reading">
+  <div class="sec-head"><span class="icon">📖</span> Reading — The Scholar's Toolkit <span class="timing">10 min</span><span class="step">Step 4</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. Student reads one chunk aloud, you read the next — take turns. Then she annotates every FORMAL connector she can spot (Zoom → Annotate).</span>
+    <p>A study-skills column from a student newspaper. Tap 🔊 to hear any part read aloud.
+      <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
+    <div class="reading-text" id="read-text">
+      <h4>✍️ The scholar's toolkit — by Nadia Osei, study-skills columnist</h4>
+      <p>Every year, thousands of brilliant students lose marks for a strange reason. Their ideas are excellent; their writing simply wears the wrong clothes. Today we fix that with two learnable skills: summary and register.</p>
+      <h4>✂️ Summary: the art of shrinking</h4>
+      <p>A summary is not a shorter copy of a text. It is the text's skeleton: the main claim, the key reasons, and absolutely nothing else. If your summary still contains the jokes, the examples and the statistics, it is not a summary — it is a hostage situation.</p>
+      <p>Try the look-away method. Read a paragraph, close your eyes, and write one sentence in your own words. Looking away matters enormously, because it forces genuine paraphrase and blocks accidental plagiarism — copying that you did not even notice yourself doing.</p>
+      <p>Length is the other trap. Professionals aim for roughly one tenth of the original: cut too little and you waste the reader's time; cut too much and the argument quietly collapses.</p>
+      <p>One warning about voice. A summary reports the author's opinion, never your own; the moment you add "which I find unfair", you have stopped summarising and started reviewing — an entirely different job.</p>
+      <h4>🎩 Register: clothes for your words</h4>
+      <p>Register is the level of formality you choose for a situation. Nobody wears pyjamas to a job interview, and consequently nobody should write "the results were kinda weird" in a science report. The ideas may be identical; the outfit decides how seriously they are received.</p>
+      <p>Formal English follows a few visible habits. It avoids contractions (do not, it is), swaps phrasal verbs for single verbs (investigate, not look into), and prefers precise nouns to vague ones (children, not kids).</p>
+      <p>Furthermore, it connects ideas openly. Words such as nevertheless and consequently are signposts; they tell your reader exactly which turn your argument is about to take.</p>
+      <h4>📚 Cite it or lose it</h4>
+      <p>One further habit separates scholars from students: citation. When you borrow an idea, name its owner — this is not politeness, it is armour. A cited claim says "check me"; an uncited claim whispers "trust me", and examiners never, ever do.</p>
+      <h4>🚨 The trap on both sides</h4>
+      <p>Beware, nevertheless, of over-dressing. Writing "I shall endeavour to elucidate" when you mean "I will explain" does not sound intelligent; it sounds like a robot butler. The target is formal and clear — never formal and foggy.</p>
+      <h4>🧭 Your edge</h4>
+      <p>Here is the genuinely good news: both skills are mechanical, and anything mechanical can be drilled. Summarise one short article every week and rewrite one casual message formally. Within a term, your writing will walk into the exam hall wearing a perfectly tailored suit.</p>
+    </div>
+
+    <h3>🔎 Did you understand? Tap your answer</h3>
+    <div id="reading-quiz"></div>
+
+    <h3>💬 Your turn — write your answer</h3>
+    <div class="qa-item"><div class="q">1. The writer says an uncited claim "whispers trust me". Explain the idea in your own words.</div><div class="editable" id="r-open1" contenteditable="true" data-placeholder="Without a source, the reader has to…"></div></div>
+    <div class="qa-item"><div class="q">2. Summarize the WHOLE article in exactly ONE sentence. (Yes — this is the skill itself!)</div><div class="editable tall" id="r-open2" contenteditable="true" data-placeholder="The article argues that…"></div></div>
+
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> the two written questions above can be homework instead.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 4 + answer key</h4>Quiz answers: the main claim + key reasons · it forces paraphrase · single verbs like "investigate" · it becomes unclear and robotic. Open Q1 key idea: a citation lets the reader verify; without it they must blindly believe you, and examiners won't. Open Q2 model: "The article argues that summary and formal register are learnable, mechanical skills that decide how seriously your ideas are received." Accept any one-sentence version with BOTH skills + the learnability point.</div>
+  </div>
+</div>
+
+<!-- STEP 5 GRAMMAR -->
+<div class="section grammar">
+  <div class="sec-head"><span class="icon">🔧</span> Focus — Formal Register Moves <span class="timing">10 min</span><span class="step">Step 5</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. For each quiz item, the student says the formal version out loud in her professor voice BEFORE you click it.</span>
+    <div class="rulebox">
+      <div class="rule a"><h4>🎩 FORMAL — the five moves</h4>
+        1. No contractions → <em>do not, it is</em><br>
+        2. Single verbs → <em>look into → <b>investigate</b></em><br>
+        3. Precise nouns → <em>kids → <b>children</b></em><br>
+        4. Open signposts → <em><b>furthermore, nevertheless, consequently</b></em><br>
+        5. Fewer "I feel" — more <em><b>the evidence suggests</b></em></div>
+      <div class="rule b"><h4>🚨 OVER-FORMAL — the robot butler</h4>
+        ❌ <em>"I shall endeavour to elucidate."</em><br>
+        ✅ <em>"I will explain."</em><br><br>
+        ❌ <em>"Utilise the aforementioned methodology."</em><br>
+        ✅ <em>"Use this method."</em><br><br>
+        🔑 Formal ≠ long. Formal = precise + neutral.</div>
+    </div>
+    <div class="frame">💡 <b>The signpost map:</b> adding → <em>furthermore, in addition</em> · contrasting → <em>however, nevertheless</em> · result → <em>consequently, therefore</em>. One signpost per turn — never three in one sentence.</div>
+    <p class="hint">💡 Hungarian tip: Hungarian formality lives mostly in WHO you're talking to (önözés). English formality lives in WORD CHOICE — you can say "you" to a professor, but you can't say "kinda". Shift the words, not the pronoun.</p>
+    <h3>✏️ Practice — tap the more formal option</h3>
+    <div id="grammar-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>After the quiz, flip one: give her "The findings were significant" and ask for the CASUAL version ("The results were a big deal") — proving register runs both ways. If she scores 7+/8, preview nominalization ("we changed the plan" → "the modification of the plan") as a taste of the boss round.</div>
+  </div>
+</div>
+
+<!-- MOVE BREAK -->
+<div class="move">
+  <h2>🤸 MOVE! — 1 minute break</h2>
+  <p>Stand up! Do 10 slow shoulder rolls like a professor removing a heavy gown, then touch something blue, something made of paper, and something older than you. Cameras stay on — teacher hunts too! 😄</p>
+</div>
+
+<!-- STEP 6 CREATIVE TASK -->
+<div class="section task">
+  <div class="sec-head"><span class="icon">🎨</span> Create — Operation: Formal Rescue <span class="timing">10 min</span><span class="step">Step 6</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in her own browser, types here, and shares her screen so you can coach the rewrite live.</span>
+    <p>A student sent this DISASTER to a teacher: 😱</p>
+    <div class="frame"><em>"hey miss, soz but my essay's gonna be late cos my laptop died 😭 can i mayyybe send it friday? ur the best"</em></div>
+    <p>Your mission: rescue it. Rewrite it as a proper formal email — same facts, tailored suit. 🎩</p>
+    <h3>First, tap the formal tools you plan to use:</h3>
+    <div class="chips" id="tool-chips"></div>
+    <div class="field-label">📧 Subject line (specific, no "hey"!)</div>
+    <div class="editable" id="t-subject" contenteditable="true" data-placeholder="Request for an extension — [essay title]"></div>
+    <div class="field-label">✍️ The formal email (greeting → reason → request → sign-off)</div>
+    <div class="editable tall" id="t-email" contenteditable="true" data-placeholder="Dear Ms …, I am writing to…"></div>
+    <div class="field-label">✂️ Bonus: your ONE-sentence summary of today's reading (from Step 4 — polish it here)</div>
+    <div class="editable" id="t-summary" contenteditable="true" data-placeholder="The article argues that…"></div>
+    <div class="speak">🗣️ <b>Now read your email aloud</b> in a calm, professional voice. Does any word still sound like pyjamas? Fix it live.</div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> do only the email body; subject line + summary become homework.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6 + model answer</h4>Model email: "Dear Ms Carter, I am writing to apologise for the late submission of my essay. Unfortunately, my laptop stopped working yesterday and my draft is temporarily inaccessible. Would it be possible to submit the essay on Friday instead? Thank you for your understanding. Kind regards, [name]". Checklist to coach: no contractions · no "cos/soz" · a clear request as a question · sign-off. Watch for over-correction into robot-butler ("I must most humbly beseech…") — trim it together with a laugh.</div>
+  </div>
+</div>
+
+<!-- STEP 7 CHALLENGE GAME -->
+<div class="section challenge">
+  <div class="sec-head"><span class="icon">🎮</span> Challenge Game — The Register Gauntlet <span class="timing">8 min</span><span class="step">Step 7</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen and award an imaginary diploma per round. 🎉</span>
+    <p class="hint">🎓 Three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
+    <h3>Round 1 — Formal or informal?</h3>
+    <div id="ch-quiz1"></div>
+    <h3>Round 2 — Pick the better summary</h3>
+    <div id="ch-quiz2"></div>
+    <h3>Round 3 — Boss level: the full upgrade 👑</h3>
+    <div id="ch-quiz3"></div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can open the next lesson's warm-up.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>Round 2 trains the core summary test: main claim kept, details dropped, no copied wording. On each miss ask: "what did the wrong option smuggle in — a detail, an opinion, or copied words?" The 👑 item requires rejecting BOTH the casual and the robot-butler version.</div>
+  </div>
+</div>
+
+<!-- STEP 8 REVIEW -->
+<div class="section review">
+  <div class="sec-head"><span class="icon">🏁</span> Review &amp; Homework <span class="timing">3 min</span><span class="step">Step 8</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, screens off. Finish with faces, not slides.</span>
+    <div class="frame">⚡ <b>30-second recap:</b> teacher throws a casual word ("get", "a lot of", "kids", "look into") — you fire back the formal twin. Four words, rapid fire!</div>
+    <h3>🏠 Homework</h3>
+    <div class="frame">
+      <p>✂️ <b>Summarise one article or video</b> you actually enjoy (sport, gaming, music — anything) in exactly 3 sentences.</p>
+      <p>🎩 <b>Then add one formal paragraph</b> (4–5 sentences) giving your opinion of it — with at least two signpost words.</p>
+      <p>📌 Bring both next time: we'll check the suit fits. 🤵</p>
+    </div>
+    <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="t-only">
+      <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
+      <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">What to adjust next time?</div><div class="editable" id="tn-adjust" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">Student's strongest / weakest moment today?</div><div class="editable" id="tn-notes" contenteditable="true" data-placeholder="…"></div></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="bottom-bar">
+  <button class="bb bb-save" onclick="saveWork()">💾 Save my work</button>
+  <button class="bb bb-print" onclick="window.print()">🖨️ Print</button>
+  <button class="bb bb-teach" id="teach-btn" onclick="unlockTeacher()">🔐</button>
+</div>
+
+<script>
+/* ============ ENGINE (identical across all Library sessions) ============ */
+var LEVEL=5, SESSION=8, K='ecl_L'+LEVEL+'s'+SESSION+'_';
+
+/* ---- TTS audio ---- */
+function say(text){try{window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(text);u.lang='en-GB';u.rate=0.9;window.speechSynthesis.speak(u);}catch(e){}}
+
+/* ---- Quiz engine ---- */
+var score=0,total=0;
+function buildQuiz(containerId,items){
+  var c=document.getElementById(containerId);
+  items.forEach(function(it){
+    total++;
+    var qz=document.createElement('div');qz.className='qz';
+    var opts='<div class="opts">';
+    it.options.forEach(function(o){opts+='<button class="opt" data-ok="'+(o===it.answer?'1':'0')+'" onclick="pick(this)">'+o+'</button>';});
+    opts+='</div><div class="fb"></div>';
+    qz.innerHTML='<div class="q">'+it.q+'</div>'+opts;
+    c.appendChild(qz);
+  });
+  updateScore();
+}
+function pick(btn){
+  var qz=btn.closest('.qz');if(qz.dataset.done)return;qz.dataset.done='1';
+  var ok=btn.dataset.ok==='1';var fb=qz.querySelector('.fb');
+  if(ok){btn.classList.add('correct');score++;fb.className='fb ok';fb.textContent='✓ Correct! Great job!';}
+  else{btn.classList.add('wrong');var good=qz.querySelector('[data-ok="1"]');if(good)good.classList.add('correct');
+    fb.className='fb no';fb.textContent='Almost! The green one is right. Try to remember it! 💪';}
+  qz.querySelectorAll('.opt').forEach(function(b){b.disabled=true;});
+  updateScore();
+}
+function updateScore(){
+  var answered=document.querySelectorAll('.qz[data-done]').length;
+  document.getElementById('score-num').textContent=score+' / '+total;
+  document.getElementById('score-fill').style.width=(total?Math.round(answered/total*100):0)+'%';
+  var st='',pct=total?score/total:0;
+  if(answered===total&&total>0){st=pct>=0.8?'⭐⭐⭐':pct>=0.5?'⭐⭐':'⭐';}
+  document.getElementById('score-stars').textContent=st;
+}
+
+/* ---- Student name ---- */
+var nameInput=document.getElementById('student-name');
+function applyName(){
+  var n=nameInput.value.trim();
+  document.getElementById('hello-msg').textContent=n?('Hello, '+n+'! 🌟'):'';
+  document.querySelectorAll('.stud-name').forEach(function(el){el.textContent=n?('Amazing work today, '+n+'!'):'Amazing work today!';});
+  localStorage.setItem(K+'name',n);
+}
+nameInput.addEventListener('input',applyName);
+
+/* ---- Agenda pills ---- */
+document.querySelectorAll('.ap').forEach(function(p){
+  p.onclick=function(){p.classList.toggle('done');localStorage.setItem(K+'ap'+p.dataset.s,p.classList.contains('done'));};
+});
+
+/* ---- Teacher mode ---- */
+function unlockTeacher(){
+  if(document.body.classList.contains('teacher-mode')){document.body.classList.remove('teacher-mode');document.getElementById('teach-btn').textContent='🔐';return;}
+  var pin=prompt('Teacher PIN:');
+  if(pin==='teach'){document.body.classList.add('teacher-mode');document.getElementById('teach-btn').textContent='🔓 Teacher';}
+}
+
+/* ---- Save work (.txt export) ---- */
+function saveWork(){
+  var n=(localStorage.getItem(K+'name')||'Student').replace(/[^\wÀ-ſ-]/g,'');
+  var out=n+' — Level '+LEVEL+' Session '+SESSION+'\n'+new Date().toLocaleDateString()+'\n'+'='.repeat(34)+'\n\n';
+  var picks=[].slice.call(document.querySelectorAll('.chips .chip.on')).map(function(x){return x.textContent.trim();});
+  if(picks.length)out+='Picked: '+picks.join(', ')+'\n\n';
+  var count=0;
+  document.querySelectorAll('.editable[id]').forEach(function(el){var t=el.innerText.trim();if(t){out+='['+el.id+'] '+t+'\n';count++;}});
+  out+='\nScore: '+score+' / '+total;
+  if(count===0&&!picks.length){alert('Type something first! 🙂');return;}
+  var b=new Blob([out],{type:'text/plain;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u;a.download=n+'_L'+LEVEL+'S'+SESSION+'_'+new Date().toISOString().slice(0,10)+'.txt';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);
+  var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show');},1600);
+}
+
+/* ---- Autosave / autoload ---- */
+function autosave(){document.querySelectorAll('.editable[id]').forEach(function(el){localStorage.setItem(K+el.id,el.innerHTML);});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){localStorage.setItem(K+'chip'+i,el.classList.contains('on'));});}
+function autoload(){
+  document.querySelectorAll('.editable[id]').forEach(function(el){var v=localStorage.getItem(K+el.id);if(v!==null)el.innerHTML=v;});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){if(localStorage.getItem(K+'chip'+i)==='true')el.classList.add('on');});
+  document.querySelectorAll('.ap').forEach(function(p){if(localStorage.getItem(K+'ap'+p.dataset.s)==='true')p.classList.add('done');});
+  var n=localStorage.getItem(K+'name');if(n){nameInput.value=n;applyName();}
+}
+document.addEventListener('input',function(){clearTimeout(window._t);window._t=setTimeout(autosave,600);});
+window.addEventListener('load',autoload);
+
+/* ============ SESSION CONTENT (changes per session) ============ */
+
+/* ---- Vocabulary: the scholar's vocabulary ---- */
+var VOCAB=[
+  {w:'thesis statement',e:'🧭',p:'your essay\'s one-line argument',s:'A strong thesis statement controls the whole essay.'},
+  {w:'summarize',e:'✂️',p:'shrink to the essentials',s:'Summarize the chapter in three sentences.'},
+  {w:'paraphrase',e:'🔁',p:'same idea, your own words',s:'Paraphrase the quote instead of copying it.'},
+  {w:'cite',e:'📚',p:'name your source',s:'Always cite the study you are quoting.'},
+  {w:'plagiarism',e:'🚨',p:'/ˈpleɪdʒərɪzəm/ — stolen words',s:'Plagiarism can get an essay a zero instantly.'},
+  {w:'coherent',e:'🧩',p:'ideas that connect logically',s:'Her argument was clear and coherent.'},
+  {w:'concise',e:'💎',p:'short but complete',s:'A concise answer beats a long, foggy one.'},
+  {w:'formal register',e:'🎩',p:'the serious clothing of words',s:'Lab reports require formal register.'},
+  {w:'furthermore',e:'➕',p:'formal "also"',s:'Furthermore, the data supports this conclusion.'},
+  {w:'nevertheless',e:'⚖️',p:'formal "but even so"',s:'The sample was small; nevertheless, the pattern is clear.'},
+  {w:'consequently',e:'➡️',p:'formal "so / as a result"',s:'The funding was cut; consequently, the project stopped.'},
+  {w:'substantiate',e:'🧱',p:'support with evidence',s:'Can you substantiate that claim with data?'}
+];
+(function buildVocab(){
+  var g=document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v){
+    var d=document.createElement('div');d.className='vc';
+    d.innerHTML='<div class="vc-play">🔊</div><div class="vc-emoji">'+v.e+'</div><div class="vc-word">'+v.w+'</div><div class="vc-pron">'+v.p+'</div>';
+    d.onclick=function(){say(v.w+'. '+v.s);};
+    g.appendChild(d);
+  });
+})();
+
+/* ---- Formal tool chips for Step 6 ---- */
+(function(){
+  var TOOLS=['🎩 Dear Ms/Mr …','✍️ I am writing to…','🙏 I apologise for…','❓ Would it be possible to…','➕ Furthermore','⚖️ Nevertheless','➡️ Consequently','📎 Regarding…','🤝 Thank you for your understanding','✒️ Kind regards'];
+  var c=document.getElementById('tool-chips');
+  TOOLS.forEach(function(t){
+    var s=document.createElement('span');s.className='chip';s.textContent=t;
+    s.onclick=function(){s.classList.toggle('on');say(t.replace(/^\S+\s/,''));};
+    c.appendChild(s);
+  });
+})();
+
+/* ---- Quizzes ---- */
+buildQuiz('vocab-quiz',[
+  {q:'🧭 The single sentence that states your essay\'s main argument:',options:['thesis statement','paraphrase','citation'],answer:'thesis statement'},
+  {q:'🚨 Using someone\'s words or ideas without credit:',options:['paraphrasing','plagiarism','summarizing'],answer:'plagiarism'},
+  {q:'🔁 Expressing the same idea in your own words, about the same length:',options:['paraphrase','summarize','cite'],answer:'paraphrase'},
+  {q:'💎 Short, complete, and with no wasted words:',options:['coherent','concise','candid'],answer:'concise'},
+  {q:'⚖️ The formal way to say "but even so":',options:['nevertheless','furthermore','consequently'],answer:'nevertheless'}
+]);
+buildQuiz('reading-quiz',[
+  {q:'According to the article, a good summary keeps…',options:['the main claim and key reasons','the jokes and statistics','all the examples'],answer:'the main claim and key reasons'},
+  {q:'Why does the "look-away method" work?',options:['it forces genuine paraphrase','it makes reading faster','it improves eyesight'],answer:'it forces genuine paraphrase'},
+  {q:'Formal English prefers…',options:['single verbs like "investigate"','phrasal verbs like "look into"','longer words everywhere'],answer:'single verbs like "investigate"'},
+  {q:'What is the danger of "over-dressing" your writing?',options:['it becomes unclear and robotic','it gets too short','it needs more statistics'],answer:'it becomes unclear and robotic'}
+]);
+buildQuiz('grammar-quiz',[
+  {q:'More formal: "The ___ were tested first."',options:['children','kids'],answer:'children'},
+  {q:'More formal: "The essay contains ___ errors."',options:['numerous','a whole lot of'],answer:'numerous'},
+  {q:'More formal: "We ___ know the cause yet."',options:['do not','don\'t'],answer:'do not'},
+  {q:'More formal: "Scientists ___ the phenomenon for years."',options:['investigated','looked into'],answer:'investigated'},
+  {q:'More formal: "___, the data confirms the theory."',options:['Furthermore','Also, like'],answer:'Furthermore'},
+  {q:'More formal: "Participants will ___ a copy of the results."',options:['obtain','get'],answer:'obtain'},
+  {q:'More formal version of "The test was messed up":',options:['The test contained several errors.','The test was super wrong.'],answer:'The test contained several errors.'},
+  {q:'More formal: "___ , the procedure was halted."',options:['Consequently','So, yeah'],answer:'Consequently'}
+]);
+buildQuiz('ch-quiz1',[
+  {q:'"The findings were kinda cool tbh."',options:['Informal','Formal'],answer:'Informal'},
+  {q:'"The results merit further investigation."',options:['Formal','Informal'],answer:'Formal'},
+  {q:'"We\'re gonna look into it at some point."',options:['Informal','Formal'],answer:'Informal'}
+]);
+buildQuiz('ch-quiz2',[
+  {q:'TEXT: "Bees pollinate a third of our food crops. Their numbers have fallen for a decade, mainly due to pesticides. Scientists urge new farming rules." Best summary?',options:['Bee numbers are falling because of pesticides, so scientists want new farming rules.','Bees are insects that visit exactly one third of all flowers every decade.'],answer:'Bee numbers are falling because of pesticides, so scientists want new farming rules.'},
+  {q:'A summary should be roughly ___ of the original length.',options:['one tenth','one half','double'],answer:'one tenth'},
+  {q:'TEXT: "The school lengthened lunch by 20 minutes. Teachers report calmer classes and fewer arguments." Best summary?',options:['A longer lunch break improved pupils\' behaviour.','Lunch is 20 minutes, which teachers argue about calmly.'],answer:'A longer lunch break improved pupils\' behaviour.'}
+]);
+buildQuiz('ch-quiz3',[
+  {q:'Upgrade: "We found out some stuff about sleep."',options:['We discovered several findings about sleep.','We ascertained multitudinous somnolent phenomena.'],answer:'We discovered several findings about sleep.'},
+  {q:'Upgrade: "But the second test didn\'t work."',options:['However, the second test was unsuccessful.','But then again the second test kinda flopped.'],answer:'However, the second test was unsuccessful.'},
+  {q:'Which sentence cites correctly?',options:['According to Chen (2024), screen time affects sleep.','Some person somewhere said screens are bad, trust me.'],answer:'According to Chen (2024), screen time affects sleep.'},
+  {q:'👑 BOSS: full upgrade of "Cos we changed the plan fast, things got way better."',options:['The rapid modification of the plan produced a considerable improvement.','I shall endeavour to elucidate the ameliorated eventualities of the plan.','Because we changed it fast, stuff improved a lot.'],answer:'The rapid modification of the plan produced a considerable improvement.'}
+]);
+</script>
+</body>
+</html>

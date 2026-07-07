@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>L6 · Session 7 — Untranslatable</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--accent:#5D4037;--accent2:#8D6E63}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1a;font-size:17px;line-height:1.6;padding-bottom:90px}
+.page-header{background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;padding:26px 20px;text-align:center}
+.page-header h1{font-size:26px;font-weight:800;letter-spacing:-0.3px}
+.page-header .subtitle{font-size:14px;opacity:0.9;margin-top:4px}
+.badge{display:inline-block;background:rgba(255,255,255,0.2);padding:6px 16px;border-radius:20px;font-size:14px;margin-top:10px}
+.lvl{display:inline-block;background:#FFD54F;color:#5D4037;font-weight:800;font-size:12px;padding:3px 12px;border-radius:12px;letter-spacing:0.5px;margin-bottom:8px}
+.container{max-width:860px;margin:0 auto;padding:18px}
+
+/* Student name */
+.namebox{background:white;border:2px solid var(--accent);border-radius:14px;padding:14px 18px;margin:16px 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.namebox label{font-weight:700;font-size:15px}
+.namebox input{flex:1;min-width:160px;font-size:17px;padding:8px 12px;border:2px dashed #90A4AE;border-radius:8px;font-family:inherit}
+.namebox .hello{font-weight:700;color:var(--accent)}
+
+/* Agenda */
+.agenda{background:white;border-radius:14px;padding:16px 18px;margin:14px 0;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.agenda h2{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:#666;margin-bottom:10px}
+.agenda-pills{display:flex;flex-wrap:wrap;gap:8px}
+.ap{display:flex;align-items:center;gap:6px;background:#ECEFF1;border:2px solid transparent;border-radius:20px;padding:5px 13px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.ap.done{background:#C8E6C9;border-color:#2E7D32;text-decoration:line-through;opacity:0.8}
+
+/* Sections */
+.section{background:white;border-radius:16px;margin:18px 0;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,0.07)}
+.sec-head{padding:14px 20px;color:white;font-size:17px;font-weight:800;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sec-head .icon{font-size:22px}
+.sec-head .step{margin-left:auto;font-size:12px;font-weight:700;background:rgba(255,255,255,0.25);padding:3px 12px;border-radius:12px;white-space:nowrap}
+.sec-head .timing{font-size:12px;font-weight:400;background:rgba(255,255,255,0.18);padding:3px 10px;border-radius:12px;white-space:nowrap}
+.sec-body{padding:18px 20px}
+.zoom-cue{display:block;font-size:13px;font-weight:600;color:#37474F;background:#E1F5FE;border-left:4px solid #0288D1;border-radius:0 8px 8px 0;padding:7px 12px;margin:0 0 14px}
+.goal .sec-head{background:#2E7D32}
+.warmup .sec-head{background:#E65100}
+.vocab .sec-head{background:#1565C0}
+.reading .sec-head{background:#6A1B9A}
+.grammar .sec-head{background:#AD1457}
+.task .sec-head{background:#00695C}
+.challenge .sec-head{background:#F57F17}
+.review .sec-head{background:#BF360C}
+.skipif{background:#FFF8E1;border:1px dashed #F9A825;border-radius:10px;padding:10px 14px;margin-top:12px;font-size:14px}
+.skipif b{color:#F57F17}
+
+/* Movement break */
+.move{background:linear-gradient(135deg,#00BFA5,#00897B);color:white;border-radius:16px;margin:18px 0;padding:18px 22px;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,0.1)}
+.move h2{font-size:20px;font-weight:800}
+.move p{font-size:15px;opacity:0.95;margin-top:6px}
+
+/* Vocab cards */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:14px 0}
+.vc{background:#E3F2FD;border:2px solid #90CAF9;border-radius:12px;padding:12px 10px;text-align:center;cursor:pointer;transition:transform 0.12s}
+.vc:hover{transform:scale(1.04);border-color:var(--accent)}
+.vc .vc-emoji{font-size:30px}
+.vc .vc-word{font-weight:800;font-size:15px;margin-top:4px;color:#0D47A1}
+.vc .vc-pron{font-size:12px;color:#666}
+.vc .vc-play{font-size:13px;color:#1565C0}
+
+/* Quiz engine */
+.qz{background:#FAFAFA;border:1px solid #E0E0E0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.qz .q{font-weight:700;font-size:16px;margin-bottom:10px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{font-family:inherit;font-size:15px;font-weight:600;padding:8px 16px;border-radius:10px;border:2px solid #B0BEC5;background:white;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt.correct{background:#C8E6C9;border-color:#2E7D32}
+.opt.wrong{background:#FFCDD2;border-color:#C62828}
+.opt:disabled{cursor:default;opacity:0.85}
+.fb{font-size:14px;font-weight:600;margin-top:8px;display:none}
+.fb.ok{display:block;color:#2E7D32}
+.fb.no{display:block;color:#C62828}
+
+/* Score bar */
+.scorebar{position:sticky;top:0;z-index:50;background:white;box-shadow:0 2px 8px rgba(0,0,0,0.12);padding:8px 16px;display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px}
+.scorebar .bar{flex:1;height:10px;background:#ECEFF1;border-radius:6px;overflow:hidden}
+.scorebar .fill{height:100%;width:0;background:linear-gradient(90deg,#43A047,#66BB6A);transition:width 0.4s}
+.stars{font-size:16px}
+
+/* Reading */
+.reading-text{background:#F3E5F5;border-radius:12px;padding:18px 20px;font-size:17px;max-width:65ch}
+.reading-text h4{color:#6A1B9A;font-size:15px;margin:14px 0 6px;text-transform:uppercase;letter-spacing:0.4px}
+.reading-text h4:first-child{margin-top:0}
+.reading-text p{margin:8px 0}
+
+/* Editable fields */
+.field-label{font-weight:700;font-size:14px;margin:12px 0 4px;color:#37474F}
+.editable{min-height:34px;background:#FFFDE7;border:2px dashed #9E9D24;border-radius:8px;padding:8px 12px;font-size:16px;outline:none}
+.editable.tall{min-height:70px}
+.editable:focus{border-style:solid;border-color:var(--accent)}
+.editable:empty::before{content:attr(data-placeholder);color:#999}
+.qa-item{margin:12px 0}
+.qa-item .q{font-weight:700;font-size:15px;margin-bottom:5px}
+
+/* Frames / rule boxes */
+.frame{background:#FCE4EC;border-left:5px solid #AD1457;border-radius:0 10px 10px 0;padding:12px 16px;margin:12px 0;font-size:16px}
+.rulebox{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.rule{border-radius:12px;padding:14px 16px;font-size:15px}
+.rule h4{font-size:15px;margin-bottom:8px}
+.rule.a{background:#E8F5E9;border:2px solid #66BB6A}
+.rule.a h4{color:#2E7D32}
+.rule.b{background:#FFF3E0;border:2px solid #FFA726}
+.rule.b h4{color:#E65100}
+.hint{font-size:14px;color:#555;background:#F5F5F5;border-radius:8px;padding:8px 12px;margin:10px 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.chip{background:#E1F5FE;border:2px solid #81D4FA;border-radius:16px;padding:5px 14px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.chip.on{background:#0288D1;border-color:#01579B;color:white}
+.speak{background:#E8F5E9;border-radius:10px;padding:12px 16px;font-size:16px;margin:12px 0}
+
+/* Teacher mode */
+.t-only{display:none}
+body.teacher-mode .t-only{display:block}
+.teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
+.teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
+
+/* Bottom bar */
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:white;box-shadow:0 -3px 12px rgba(0,0,0,0.12);padding:10px 14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;z-index:60}
+.bb{font-family:inherit;font-size:14px;font-weight:700;padding:10px 18px;border-radius:10px;border:none;cursor:pointer;text-decoration:none;color:white;display:inline-block}
+.bb-save{background:#2E7D32}
+.bb-print{background:#546E7A}
+.bb-teach{background:#C62828}
+#toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:#2E7D32;color:white;font-weight:700;padding:10px 22px;border-radius:20px;opacity:0;transition:all 0.3s;z-index:70}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:640px){.rulebox{grid-template-columns:1fr}.vocab-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}}
+@media print{body{background:white;padding-bottom:0}.bottom-bar,.scorebar,#toast{display:none!important}.section{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid}.sec-head,.sec-body,.page-header{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="lvl">LEVEL 6 · NEAR-NATIVE (C2)</div>
+  <h1>🗝️ Session 7 — Untranslatable</h1>
+  <div class="subtitle">English Course Library · Kids &amp; Teens</div>
+  <div class="badge">🎯 Today: master <b>idioms, untranslatable words and cultural references</b> — the secret handshakes of English · ≈50 min core</div>
+</div>
+
+<div class="scorebar">
+  <span>⭐ Score:</span><span id="score-num">0 / 0</span>
+  <div class="bar"><div class="fill" id="score-fill"></div></div>
+  <span class="stars" id="score-stars"></span>
+</div>
+
+<div id="toast">✓ Saved</div>
+
+<div class="container">
+
+<div class="namebox">
+  <label for="student-name">👋 Your name:</label>
+  <input id="student-name" type="text" placeholder="Type your name…">
+  <span class="hello" id="hello-msg"></span>
+</div>
+
+<div class="agenda">
+  <h2>📋 Today's plan — tap each step when you finish it</h2>
+  <div class="agenda-pills" id="agenda">
+    <span class="ap" data-s="1">1️⃣ Goal</span><span class="ap" data-s="2">2️⃣ Warm-up</span>
+    <span class="ap" data-s="3">3️⃣ New words</span><span class="ap" data-s="4">4️⃣ Reading</span>
+    <span class="ap" data-s="5">5️⃣ Focus</span><span class="ap" data-s="6">6️⃣ Create</span>
+    <span class="ap" data-s="7">7️⃣ Game</span><span class="ap" data-s="8">8️⃣ Review</span>
+  </div>
+</div>
+
+<!-- STEP 1 GOAL -->
+<div class="section goal">
+  <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student rephrases it in her own words, ideally with an idiom.</span>
+    <p><em>"Today you will crack the code of phrases that make dictionaries useless: idioms, untranslatable words and cultural references. By the end, you'll know which 'button' each phrase presses — and when NOT to press it."</em> 🗝️</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Diagnostic opener: ask "What does 'break a leg' mean, and who would you say it to?" A C2-track student should give both the meaning (good luck) AND the context (performers, informal). If context is missing, today's register work matters extra.</div>
+  </div>
+</div>
+
+<!-- STEP 2 WARM-UP -->
+<div class="section warmup">
+  <div class="sec-head"><span class="icon">⚡</span> Warm-Up — Literal Nonsense <span class="timing">5 min</span><span class="step">Step 2</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: pure talking game, cameras on. Use the 😂 reaction when a literal translation sounds gloriously absurd.</span>
+    <p><b>How to play:</b></p>
+    <p>1. Your teacher translates a Hungarian idiom into English <b>word for word</b> — pure nonsense (example: <em>"The fence is not made of sausage."</em>) 🌭<br>
+    2. You explain what it REALLY means, in natural English.<br>
+    3. Swap roles: you translate a Hungarian idiom literally, your teacher guesses.</p>
+    <p class="hint">No score here — just enjoy how weird languages get when you take them literally! 🧠</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 2</h4>Good ones to translate literally: "Nem kolbászból van a kerítés" (life isn't a free lunch), "Kenyérre lehet kenni" (he's soft-hearted / a pushover), "Itt van a kutya elásva" (that's the heart of the matter). The point to land: BOTH languages compress meaning — translation transfers the meaning, never the words.</div>
+  </div>
+</div>
+
+<!-- STEP 3 VOCAB -->
+<div class="section vocab">
+  <div class="sec-head"><span class="icon">📝</span> New Words — The Untranslatables &amp; Friends <span class="timing">10 min</span><span class="step">Step 3</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share your screen. Click 🔊 on each card; student repeats, then invents a 5-second situation where the phrase fits.</span>
+    <p>Tap any card to <b>hear</b> it 🔊. The small line is the "button" it presses — the compressed meaning.</p>
+    <div class="vocab-grid" id="vocab-grid"></div>
+    <h3>🎧 Practice — tap the phrase that fits</h3>
+    <p class="hint">Read the situation and tap the phrase a native speaker would reach for. Green = correct!</p>
+    <div id="vocab-quiz"></div>
+  </div>
+</div>
+
+<!-- STEP 4 READING -->
+<div class="section reading">
+  <div class="sec-head"><span class="icon">📖</span> Reading — The Words That Refuse to Travel <span class="timing">10 min</span><span class="step">Step 4</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. Take turns reading chunks aloud; student annotates every idiom she spots (Zoom → Annotate) before the quiz.</span>
+    <p>Read Priya's column for her school magazine. Tap 🔊 to hear it read aloud.
+      <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
+    <div class="reading-text" id="read-text">
+      <h4>🧳 Some words refuse to pack their bags — by Priya, 15</h4>
+      <p>Last month my aunt flew in from Lisbon and gave me a present that fits in no suitcase: the word <b>saudade</b>. She described it as the sweet ache of missing something — a person, a summer, an older version of yourself — while somehow enjoying the ache. English owns half a million words, yet not one of them sits in that exact shape.</p>
+      <h4>🗺️ A quick tour of the untranslatables</h4>
+      <p>Every language hides treasures like this. Danish has <b>hygge</b>, the candlelit cosiness of doing very little with people you like very much. Japanese offers <b>tsundoku</b>, the guilty habit of buying books and letting them tower, unread, beside your bed.</p>
+      <p>Spanish gives us <b>sobremesa</b>: that golden stretch after lunch when nobody moves and the conversation outshines the food. German, never subtle, contributes <b>Schadenfreude</b> — the small, shameful spark of joy when your rival trips over his own shoelaces. Hungarian speakers will recognise its twin, káröröm, instantly.</p>
+      <h4>🤔 So is translation impossible?</h4>
+      <p>Here comes the twist: none of these words is truly untranslatable, because I have just translated every single one. It simply took me a sentence instead of a syllable. What refuses to travel is not the meaning — it is the compression, the way a whole culture folds a shared experience into two neat syllables.</p>
+      <p>When a Dane says hygge, she is not defining anything. She is pressing a button that releases a thousand remembered evenings.</p>
+      <h4>🐘 Meanwhile, English hides its own</h4>
+      <p>Before we get smug, notice that English performs exactly the same trick — with idioms. When I mention <b>the elephant in the room</b>, no zoo is involved; I mean that everyone can see the problem and nobody will name it. When my brother calls our family drama <b>a storm in a teacup</b>, he compresses a whole verdict into five words: too much fuss, too small a cause.</p>
+      <p>Try translating <b>throw someone under the bus</b> literally into another language and watch faces fill with horror. The bus is not the point. The betrayal is.</p>
+      <h4>🏛️ References — idioms with a backstory</h4>
+      <p>English also squeezes entire stories into a phrase. Call a free app with hidden malware <b>a Trojan horse</b>, and you have quoted a three-thousand-year-old war in three words. Say the goalkeeper is our team's <b>Achilles heel</b>, and you have borrowed a Greek hero's fatal weakness without a single history lesson.</p>
+      <p>These references work like a secret handshake. Miss them, and a paragraph feels locked; catch them, and the writer winks at you across the page.</p>
+      <h4>🗝️ The real skill</h4>
+      <p>Near-native English is not about swallowing a dictionary. It is about knowing which button each phrase presses — that <b>tongue-in-cheek</b> signals a joke wearing a serious costume, that <b>reading the room</b> can rescue you before you even open your mouth.</p>
+      <p>So collect untranslatables the way other people collect stickers. Every one you learn is a small country you can suddenly visit without a passport. And when you find a feeling English has no word for — congratulations: you have reached the edge of the language, and edges are where the interesting things live.</p>
+    </div>
+
+    <h3>🔎 Did you understand? Tap your answer</h3>
+    <div id="reading-quiz"></div>
+
+    <h3>💬 Your turn — write your answer</h3>
+    <div class="qa-item"><div class="q">1. Priya writes that untranslatable words are "a small country you can suddenly visit without a passport." Unpack the metaphor: what does learning such a word actually give you?</div><div class="editable tall" id="r-open1" contenteditable="true" data-placeholder="The metaphor suggests that…"></div></div>
+    <div class="qa-item"><div class="q">2. Nominate ONE Hungarian word or idiom as "untranslatable" and translate its meaning (not its words) into elegant English — the way Priya translated saudade.</div><div class="editable tall" id="r-open2" contenteditable="true" data-placeholder="My nominee is… In English, it means something like…"></div></div>
+
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> the two written questions above can be homework instead.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 4 + answer key</h4>Quiz answers: Lisbon · buying books you never read · the compression, not the meaning · betrayal · a secret handshake. Open q1 model answer: it gives you instant access to an experience/mindset of another culture — you can "enter" it without living there; the word is the visa. Open q2: accept any genuine attempt; push for meaning-translation, not word-translation ("Kenyérre lehet kenni" → "He's so gentle you could take advantage of him"). Discussion spark: "Is Schadenfreude untranslatable if Hungarian has káröröm?" (No — untranslatability is always relative to a language pair.)</div>
+  </div>
+</div>
+
+<!-- STEP 5 FOCUS -->
+<div class="section grammar">
+  <div class="sec-head"><span class="icon">🔧</span> Language Focus — How Idioms Behave <span class="timing">10 min</span><span class="step">Step 5</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. For each quiz item, student answers aloud BEFORE you click — and names WHY in one phrase.</span>
+    <div class="rulebox">
+      <div class="rule a"><h4>🧊 RULE 1 — Idioms are FROZEN</h4>
+        An idiom is one unit, like a single long word.<br><br>
+        ✅ <b>It's raining cats and dogs.</b><br>
+        ❌ It's raining dogs and cats.<br>
+        ❌ It's raining many cats and a dog.<br><br>
+        🔑 Don't reorder it, don't "improve" it, don't translate it piece by piece.</div>
+      <div class="rule b"><h4>🎚️ RULE 2 — Idioms carry REGISTER</h4>
+        Most idioms are conversational. In a formal essay they can sound like trainers at a wedding.<br><br>
+        💬 Chat: <b>"The plan was a hot mess."</b><br>
+        📄 Essay: <b>"The plan was poorly organised."</b><br><br>
+        🔑 One idiom per paragraph is seasoning; five is soup made of salt.</div>
+    </div>
+    <div class="frame">🏛️ <b>Cultural references — the backstory club:</b> <b>Achilles heel</b> (one fatal weakness) · <b>Trojan horse</b> (hidden danger inside a gift) · <b>Pandora's box</b> (one action releasing endless problems) · <b>catch-22</b> (a trap where each way out needs the other) · <b>Midas touch</b> (everything they touch succeeds) · <b>Big Brother</b> (constant surveillance, from Orwell's <b>1984</b>).</div>
+    <p class="hint">💡 Hungarian tip: Hungarian idioms are frozen too — nobody says "kolbászból van a sövény". Your instinct for "you just don't say it that way" already exists; today you're installing the English version of that instinct.</p>
+    <h3>✏️ Practice — tap the correct answer</h3>
+    <div id="grammar-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>If 8+/10, add a speed round aloud: you say a reference (Pandora's box, Midas touch…), student invents a school-life example in one sentence. If under 6, re-do the register items — that's the C2 differentiator, not the meanings.</div>
+  </div>
+</div>
+
+<!-- MOVE BREAK -->
+<div class="move">
+  <h2>🤸 MOVE! — 1 minute break</h2>
+  <p>Stand up! Air-write the longest idiom you learned today with your whole arm — then with your other hand — then with your elbow. Cameras stay on, teacher writes too! 😄</p>
+</div>
+
+<!-- STEP 6 CREATIVE TASK -->
+<div class="section task">
+  <div class="sec-head"><span class="icon">🎨</span> Create — My Phrasebook of Untranslatables <span class="timing">10 min</span><span class="step">Step 6</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in her own browser, shares her screen and types here while you watch.</span>
+    <p>Build the first page of your personal phrasebook — and then do what real linguists dream of: <b>coin a brand-new word</b>. 🧪</p>
+    <h3>First, tap the phrases you're adopting into your active English:</h3>
+    <div class="chips" id="exp-chips"></div>
+    <div class="field-label">🌍 Entry 1 — one untranslatable word from today, explained in ONE elegant English sentence</div>
+    <div class="editable" id="t-entry1" contenteditable="true" data-placeholder="Sobremesa is the…"></div>
+    <div class="field-label">🐘 Entry 2 — one English idiom, explained for a foreigner WITHOUT using any of its own words</div>
+    <div class="editable" id="t-entry2" contenteditable="true" data-placeholder="It describes the moment when…"></div>
+    <div class="field-label">🧪 Entry 3 — YOUR invented word for a feeling English has no word for (word + dictionary-style definition)</div>
+    <div class="editable tall" id="t-coin" contenteditable="true" data-placeholder="floomp (n.) — the exact moment when…"></div>
+    <div class="speak">🗣️ <b>Now pitch it!</b> Present your invented word like a 30-second TED talk: the feeling, the word, why humanity needs it. Your teacher will try to use it in a sentence immediately.</div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> do only Entry 3 + the spoken pitch; Entries 1–2 become homework.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>The coinage task is the C2 heart: it forces meta-awareness of how words compress experience. Push on the definition's precision ("Is it the moment BEFORE or AFTER…?"). If the student is stuck, offer feelings needing names: the sadness when a great series ends; joy of cancelled plans; the panic-blank when someone says "say something in English".</div>
+  </div>
+</div>
+
+<!-- STEP 7 CHALLENGE GAME -->
+<div class="section challenge">
+  <div class="sec-head"><span class="icon">🎮</span> Challenge Game — The Code-Breaker <span class="timing">8 min</span><span class="step">Step 7</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen and cheer. 🎉</span>
+    <p class="hint">🗝️ Three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
+    <h3>Round 1 — Idiom decoder</h3>
+    <div id="ch-quiz1"></div>
+    <h3>Round 2 — The culture vault</h3>
+    <div id="ch-quiz2"></div>
+    <h3>Round 3 — Boss level: press the right button 👑</h3>
+    <div id="ch-quiz3"></div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can open the next lesson as a warm-up.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>All answers show live in her score. On each miss ask "which button did the wrong option press?" — naming the wrong meaning cements the right one. The BOSS item tests register + meaning together; that's deliberate.</div>
+  </div>
+</div>
+
+<!-- STEP 8 REVIEW -->
+<div class="section review">
+  <div class="sec-head"><span class="icon">🏁</span> Review &amp; Homework <span class="timing">3 min</span><span class="step">Step 8</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, screens off. Finish with faces, not slides.</span>
+    <div class="frame">⚡ <b>30-second recap:</b> teacher names a situation ("your friend joins a trend she mocked last week") — you fire back the idiom ("jumping on the bandwagon!"). Five situations, rapid fire!</div>
+    <h3>🏠 Homework</h3>
+    <div class="frame">
+      <p>🕵️ <b>Idiom safari:</b> find 3 idioms "in the wild" this week — a song, a series, a YouTube video, a game chat.</p>
+      <p>✏️ For each one write: the exact sentence you caught it in, the "button" it presses, and whether it's formal or informal.</p>
+      <p>🧪 Bonus: use your invented word from Step 6 in a real conversation and report what happened.</p>
+    </div>
+    <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="t-only">
+      <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
+      <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">What to adjust next time?</div><div class="editable" id="tn-adjust" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">Student's strongest / weakest moment today?</div><div class="editable" id="tn-notes" contenteditable="true" data-placeholder="…"></div></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="bottom-bar">
+  <button class="bb bb-save" onclick="saveWork()">💾 Save my work</button>
+  <button class="bb bb-print" onclick="window.print()">🖨️ Print</button>
+  <button class="bb bb-teach" id="teach-btn" onclick="unlockTeacher()">🔐</button>
+</div>
+
+<script>
+/* ============ ENGINE (identical across all Library sessions) ============ */
+var LEVEL=6, SESSION=7, K='ecl_L'+LEVEL+'s'+SESSION+'_';
+
+/* ---- TTS audio ---- */
+function say(text){try{window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(text);u.lang='en-GB';u.rate=0.9;window.speechSynthesis.speak(u);}catch(e){}}
+
+/* ---- Quiz engine ---- */
+var score=0,total=0;
+function buildQuiz(containerId,items){
+  var c=document.getElementById(containerId);
+  items.forEach(function(it){
+    total++;
+    var qz=document.createElement('div');qz.className='qz';
+    var opts='<div class="opts">';
+    it.options.forEach(function(o){opts+='<button class="opt" data-ok="'+(o===it.answer?'1':'0')+'" onclick="pick(this)">'+o+'</button>';});
+    opts+='</div><div class="fb"></div>';
+    qz.innerHTML='<div class="q">'+it.q+'</div>'+opts;
+    c.appendChild(qz);
+  });
+  updateScore();
+}
+function pick(btn){
+  var qz=btn.closest('.qz');if(qz.dataset.done)return;qz.dataset.done='1';
+  var ok=btn.dataset.ok==='1';var fb=qz.querySelector('.fb');
+  if(ok){btn.classList.add('correct');score++;fb.className='fb ok';fb.textContent='✓ Correct! Great job!';}
+  else{btn.classList.add('wrong');var good=qz.querySelector('[data-ok="1"]');if(good)good.classList.add('correct');
+    fb.className='fb no';fb.textContent='Almost! The green one is right. Try to remember it! 💪';}
+  qz.querySelectorAll('.opt').forEach(function(b){b.disabled=true;});
+  updateScore();
+}
+function updateScore(){
+  var answered=document.querySelectorAll('.qz[data-done]').length;
+  document.getElementById('score-num').textContent=score+' / '+total;
+  document.getElementById('score-fill').style.width=(total?Math.round(answered/total*100):0)+'%';
+  var st='',pct=total?score/total:0;
+  if(answered===total&&total>0){st=pct>=0.8?'⭐⭐⭐':pct>=0.5?'⭐⭐':'⭐';}
+  document.getElementById('score-stars').textContent=st;
+}
+
+/* ---- Student name ---- */
+var nameInput=document.getElementById('student-name');
+function applyName(){
+  var n=nameInput.value.trim();
+  document.getElementById('hello-msg').textContent=n?('Hello, '+n+'! 🌟'):'';
+  document.querySelectorAll('.stud-name').forEach(function(el){el.textContent=n?('Amazing work today, '+n+'!'):'Amazing work today!';});
+  localStorage.setItem(K+'name',n);
+}
+nameInput.addEventListener('input',applyName);
+
+/* ---- Agenda pills ---- */
+document.querySelectorAll('.ap').forEach(function(p){
+  p.onclick=function(){p.classList.toggle('done');localStorage.setItem(K+'ap'+p.dataset.s,p.classList.contains('done'));};
+});
+
+/* ---- Teacher mode ---- */
+function unlockTeacher(){
+  if(document.body.classList.contains('teacher-mode')){document.body.classList.remove('teacher-mode');document.getElementById('teach-btn').textContent='🔐';return;}
+  var pin=prompt('Teacher PIN:');
+  if(pin==='teach'){document.body.classList.add('teacher-mode');document.getElementById('teach-btn').textContent='🔓 Teacher';}
+}
+
+/* ---- Save work (.txt export) ---- */
+function saveWork(){
+  var n=(localStorage.getItem(K+'name')||'Student').replace(/[^\wÀ-ſ-]/g,'');
+  var out=n+' — Level '+LEVEL+' Session '+SESSION+'\n'+new Date().toLocaleDateString()+'\n'+'='.repeat(34)+'\n\n';
+  var picks=[].slice.call(document.querySelectorAll('.chips .chip.on')).map(function(x){return x.textContent.trim();});
+  if(picks.length)out+='Picked: '+picks.join(', ')+'\n\n';
+  var count=0;
+  document.querySelectorAll('.editable[id]').forEach(function(el){var t=el.innerText.trim();if(t){out+='['+el.id+'] '+t+'\n';count++;}});
+  out+='\nScore: '+score+' / '+total;
+  if(count===0&&!picks.length){alert('Type something first! 🙂');return;}
+  var b=new Blob([out],{type:'text/plain;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u;a.download=n+'_L'+LEVEL+'S'+SESSION+'_'+new Date().toISOString().slice(0,10)+'.txt';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);
+  var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show');},1600);
+}
+
+/* ---- Autosave / autoload ---- */
+function autosave(){document.querySelectorAll('.editable[id]').forEach(function(el){localStorage.setItem(K+el.id,el.innerHTML);});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){localStorage.setItem(K+'chip'+i,el.classList.contains('on'));});}
+function autoload(){
+  document.querySelectorAll('.editable[id]').forEach(function(el){var v=localStorage.getItem(K+el.id);if(v!==null)el.innerHTML=v;});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){if(localStorage.getItem(K+'chip'+i)==='true')el.classList.add('on');});
+  document.querySelectorAll('.ap').forEach(function(p){if(localStorage.getItem(K+'ap'+p.dataset.s)==='true')p.classList.add('done');});
+  var n=localStorage.getItem(K+'name');if(n){nameInput.value=n;applyName();}
+}
+document.addEventListener('input',function(){clearTimeout(window._t);window._t=setTimeout(autosave,600);});
+window.addEventListener('load',autoload);
+
+/* ============ SESSION CONTENT (changes per session) ============ */
+
+/* ---- Vocabulary: idioms, untranslatables, references ---- */
+var VOCAB=[
+  {w:'the elephant in the room',e:'🐘',p:'the obvious problem nobody mentions'},
+  {w:'a storm in a teacup',e:'🫖',p:'huge fuss, tiny cause'},
+  {w:'throw someone under the bus',e:'🚌',p:'betray someone to save yourself'},
+  {w:'read the room',e:'👀',p:'sense the mood before you speak'},
+  {w:'tongue-in-cheek',e:'😏',p:'joking while sounding serious'},
+  {w:'off the cuff',e:'🎤',p:'without any preparation'},
+  {w:'jump on the bandwagon',e:'🚂',p:'follow a trend because it&#39;s popular'},
+  {w:'the tip of the iceberg',e:'🧊',p:'the small visible part of a big problem'},
+  {w:'Schadenfreude',e:'😬',p:'German: joy at a rival&#39;s misfortune'},
+  {w:'hygge',e:'🕯️',p:'Danish: candlelit cosy contentment'},
+  {w:'tsundoku',e:'📚',p:'Japanese: buying books you never read'},
+  {w:'sobremesa',e:'🍽️',p:'Spanish: long table-talk after a meal'},
+  {w:'saudade',e:'🌊',p:'Portuguese: sweet ache of missing something'},
+  {w:'a Trojan horse',e:'🐴',p:'hidden danger inside a gift'}
+];
+(function buildVocab(){
+  var g=document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v){
+    var d=document.createElement('div');d.className='vc';
+    d.innerHTML='<div class="vc-play">🔊</div><div class="vc-emoji">'+v.e+'</div><div class="vc-word">'+v.w+'</div><div class="vc-pron">= '+v.p+'</div>';
+    d.onclick=function(){say(v.w+'. '+d.querySelector('.vc-pron').innerText);};
+    g.appendChild(d);
+  });
+})();
+
+/* ---- Adoption chips for Step 6 ---- */
+(function(){
+  var c=document.getElementById('exp-chips');
+  VOCAB.forEach(function(v){
+    var s=document.createElement('span');s.className='chip';s.textContent=v.e+' '+v.w;
+    s.onclick=function(){s.classList.toggle('on');say(v.w);};
+    c.appendChild(s);
+  });
+})();
+
+/* ---- Quizzes ---- */
+buildQuiz('vocab-quiz',[
+  {q:'🐘 Everyone at dinner knows Grandpa lost his job. Nobody says a word about it. That job is…',options:['the elephant in the room','a Trojan horse','the tip of the iceberg'],answer:'the elephant in the room'},
+  {q:'🫖 Two classmates fall out for a DAY over a borrowed pencil. The whole drama is…',options:['saudade','a storm in a teacup','off the cuff'],answer:'a storm in a teacup'},
+  {q:'🎤 The speaker&#39;s notes vanish, so she gives the whole speech with zero preparation —',options:['tongue-in-cheek','under the bus','off the cuff'],answer:'off the cuff'},
+  {q:'📚 Bought five novels this month. Read: zero. The Japanese word for your tower of shame:',options:['tsundoku','hygge','sobremesa'],answer:'tsundoku'},
+  {q:'🚌 To escape blame, Marco tells the coach the missed goal was ALL his teammate&#39;s fault. Marco just…',options:['read the room','threw his teammate under the bus','jumped on the bandwagon'],answer:'threw his teammate under the bus'},
+  {q:'👀 You arrive ready to joke around, notice everyone is upset, and go quiet. You just…',options:['read the room','opened Pandora&#39;s box','felt Schadenfreude'],answer:'read the room'}
+]);
+buildQuiz('reading-quiz',[
+  {q:'Where did Priya&#39;s aunt fly in from?',options:['Lisbon','Copenhagen','Tokyo'],answer:'Lisbon'},
+  {q:'What habit does "tsundoku" describe?',options:['buying books you never read','reading at the dinner table','lending books and losing them'],answer:'buying books you never read'},
+  {q:'According to Priya, what is it that "refuses to travel" between languages?',options:['the meaning','the compression','the grammar'],answer:'the compression'},
+  {q:'In "throw someone under the bus", what is "the point"?',options:['the traffic','the betrayal','the injury'],answer:'the betrayal'},
+  {q:'Priya compares cultural references to…',options:['a secret handshake','a locked suitcase','a history lesson'],answer:'a secret handshake'}
+]);
+buildQuiz('grammar-quiz',[
+  {q:'Idioms are frozen. Which one is correct?',options:['It&#39;s raining cats and dogs.','It&#39;s raining dogs and cats.','It&#39;s raining many cats and a dog.'],answer:'It&#39;s raining cats and dogs.'},
+  {q:'"Let&#39;s not open Pandora&#39;s box" means: let&#39;s not…',options:['start something that unleashes endless problems','buy an expensive gift','tell an old Greek story'],answer:'start something that unleashes endless problems'},
+  {q:'Which situation is a catch-22?',options:['You need experience to get a job, but a job to get experience','You catch the ball 22 times in a row','You have 22 problems and solve them all'],answer:'You need experience to get a job, but a job to get experience'},
+  {q:'"My cousin has the Midas touch" — so my cousin…',options:['succeeds at everything she starts','loves gold jewellery','touches things without asking'],answer:'succeeds at everything she starts'},
+  {q:'"Big Brother is watching" refers to…',options:['constant surveillance (from Orwell&#39;s 1984)','a caring older sibling','a reality TV show only'],answer:'constant surveillance (from Orwell&#39;s 1984)'},
+  {q:'Register check! Which fits a FORMAL essay?',options:['This argument is unconvincing.','This argument is a hot mess.','This argument threw logic under the bus.'],answer:'This argument is unconvincing.'},
+  {q:'A "tongue-in-cheek" comment should be understood as…',options:['a joke wearing a serious costume','a cruel insult','a legal warning'],answer:'a joke wearing a serious costume'},
+  {q:'"These three complaints are just the tip of the iceberg" implies…',options:['many more problems are hidden below','the problems are frozen','the complaints are cold-hearted'],answer:'many more problems are hidden below'},
+  {q:'Which sentence uses idioms with good taste (seasoning, not salt-soup)?',options:['The test was tough, but I kept my cool.','At the end of the day, when push came to shove, I bit the bullet, kept my cool and went the extra mile.'],answer:'The test was tough, but I kept my cool.'},
+  {q:'Your class suddenly loves a game they all mocked last month. They have…',options:['jumped on the bandwagon','found their Achilles heel','had sobremesa'],answer:'jumped on the bandwagon'}
+]);
+buildQuiz('ch-quiz1',[
+  {q:'🕵️ "She gave a brilliant answer completely off the cuff" — so the answer was…',options:['unprepared','memorised','written on her sleeve'],answer:'unprepared'},
+  {q:'🕵️ "Don&#39;t make a storm in a teacup" = don&#39;t…',options:['overreact to something small','spill your tea','argue at breakfast'],answer:'overreact to something small'},
+  {q:'🕵️ A comedian who "reads the room" will…',options:['adjust jokes to the audience&#39;s mood','read a book on stage','check the exits'],answer:'adjust jokes to the audience&#39;s mood'},
+  {q:'🕵️ Your rival&#39;s project fails and a tiny, guilty smile escapes you. The Germans call it…',options:['Schadenfreude','hygge','saudade'],answer:'Schadenfreude'}
+]);
+buildQuiz('ch-quiz2',[
+  {q:'🏛️ A "free" browser extension that secretly steals passwords is a classic…',options:['Trojan horse','Midas touch','sobremesa'],answer:'Trojan horse'},
+  {q:'🏛️ "Spelling is the champion&#39;s Achilles heel" — spelling is his…',options:['one fatal weakness','favourite subject','secret weapon'],answer:'one fatal weakness'},
+  {q:'🏛️ You can&#39;t log in without your phone; the phone&#39;s backup code is… in the account you can&#39;t log into. That&#39;s a…',options:['catch-22','Pandora&#39;s box','bandwagon'],answer:'catch-22'}
+]);
+buildQuiz('ch-quiz3',[
+  {q:'🎯 Rainy evening, blankets, cocoa, board games with your favourite people. One word:',options:['hygge','tsundoku','Schadenfreude'],answer:'hygge'},
+  {q:'🎯 Which button does "sobremesa" press?',options:['lingering table-talk after a meal','a quick snack before bed','clearing the table fast'],answer:'lingering table-talk after a meal'},
+  {q:'🎯 In a job application letter, the best way to say "I don&#39;t give up easily":',options:['I am persistent when projects become difficult.','I&#39;m no quitter, when the going gets tough I hang in there.'],answer:'I am persistent when projects become difficult.'},
+  {q:'👑 BOSS: "Everyone praised the new schedule, though we all knew the missing budget was ___, so I made a ___ joke to test the mood." Fill both gaps:',options:['the elephant in the room / tongue-in-cheek','a Trojan horse / off-the-cuff','the tip of the iceberg / Midas'],answer:'the elephant in the room / tongue-in-cheek'}
+]);
+</script>
+</body>
+</html>

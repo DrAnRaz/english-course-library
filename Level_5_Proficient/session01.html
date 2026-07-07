@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>L5 · Session 1 — Shades of Meaning</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--accent:#00838F;--accent2:#26A69A}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1a;font-size:17px;line-height:1.6;padding-bottom:90px}
+.page-header{background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;padding:26px 20px;text-align:center}
+.page-header h1{font-size:26px;font-weight:800;letter-spacing:-0.3px}
+.page-header .subtitle{font-size:14px;opacity:0.9;margin-top:4px}
+.badge{display:inline-block;background:rgba(255,255,255,0.2);padding:6px 16px;border-radius:20px;font-size:14px;margin-top:10px}
+.lvl{display:inline-block;background:#FFD54F;color:#5D4037;font-weight:800;font-size:12px;padding:3px 12px;border-radius:12px;letter-spacing:0.5px;margin-bottom:8px}
+.container{max-width:860px;margin:0 auto;padding:18px}
+
+/* Student name */
+.namebox{background:white;border:2px solid var(--accent);border-radius:14px;padding:14px 18px;margin:16px 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.namebox label{font-weight:700;font-size:15px}
+.namebox input{flex:1;min-width:160px;font-size:17px;padding:8px 12px;border:2px dashed #90A4AE;border-radius:8px;font-family:inherit}
+.namebox .hello{font-weight:700;color:var(--accent)}
+
+/* Agenda */
+.agenda{background:white;border-radius:14px;padding:16px 18px;margin:14px 0;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.agenda h2{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:#666;margin-bottom:10px}
+.agenda-pills{display:flex;flex-wrap:wrap;gap:8px}
+.ap{display:flex;align-items:center;gap:6px;background:#ECEFF1;border:2px solid transparent;border-radius:20px;padding:5px 13px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.ap.done{background:#C8E6C9;border-color:#2E7D32;text-decoration:line-through;opacity:0.8}
+
+/* Sections */
+.section{background:white;border-radius:16px;margin:18px 0;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,0.07)}
+.sec-head{padding:14px 20px;color:white;font-size:17px;font-weight:800;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sec-head .icon{font-size:22px}
+.sec-head .step{margin-left:auto;font-size:12px;font-weight:700;background:rgba(255,255,255,0.25);padding:3px 12px;border-radius:12px;white-space:nowrap}
+.sec-head .timing{font-size:12px;font-weight:400;background:rgba(255,255,255,0.18);padding:3px 10px;border-radius:12px;white-space:nowrap}
+.sec-body{padding:18px 20px}
+.zoom-cue{display:block;font-size:13px;font-weight:600;color:#37474F;background:#E1F5FE;border-left:4px solid #0288D1;border-radius:0 8px 8px 0;padding:7px 12px;margin:0 0 14px}
+.goal .sec-head{background:#2E7D32}
+.warmup .sec-head{background:#E65100}
+.vocab .sec-head{background:#1565C0}
+.reading .sec-head{background:#6A1B9A}
+.grammar .sec-head{background:#AD1457}
+.task .sec-head{background:#00695C}
+.challenge .sec-head{background:#F57F17}
+.review .sec-head{background:#BF360C}
+.skipif{background:#FFF8E1;border:1px dashed #F9A825;border-radius:10px;padding:10px 14px;margin-top:12px;font-size:14px}
+.skipif b{color:#F57F17}
+
+/* Movement break */
+.move{background:linear-gradient(135deg,#00BFA5,#00897B);color:white;border-radius:16px;margin:18px 0;padding:18px 22px;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,0.1)}
+.move h2{font-size:20px;font-weight:800}
+.move p{font-size:15px;opacity:0.95;margin-top:6px}
+
+/* Vocab cards */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:14px 0}
+.vc{background:#E3F2FD;border:2px solid #90CAF9;border-radius:12px;padding:12px 10px;text-align:center;cursor:pointer;transition:transform 0.12s}
+.vc:hover{transform:scale(1.04);border-color:var(--accent)}
+.vc .vc-emoji{font-size:30px}
+.vc .vc-word{font-weight:800;font-size:15px;margin-top:4px;color:#0D47A1}
+.vc .vc-pron{font-size:12px;color:#666}
+.vc .vc-play{font-size:13px;color:#1565C0}
+
+/* Quiz engine */
+.qz{background:#FAFAFA;border:1px solid #E0E0E0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.qz .q{font-weight:700;font-size:16px;margin-bottom:10px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{font-family:inherit;font-size:15px;font-weight:600;padding:8px 16px;border-radius:10px;border:2px solid #B0BEC5;background:white;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt.correct{background:#C8E6C9;border-color:#2E7D32}
+.opt.wrong{background:#FFCDD2;border-color:#C62828}
+.opt:disabled{cursor:default;opacity:0.85}
+.fb{font-size:14px;font-weight:600;margin-top:8px;display:none}
+.fb.ok{display:block;color:#2E7D32}
+.fb.no{display:block;color:#C62828}
+
+/* Score bar */
+.scorebar{position:sticky;top:0;z-index:50;background:white;box-shadow:0 2px 8px rgba(0,0,0,0.12);padding:8px 16px;display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px}
+.scorebar .bar{flex:1;height:10px;background:#ECEFF1;border-radius:6px;overflow:hidden}
+.scorebar .fill{height:100%;width:0;background:linear-gradient(90deg,#43A047,#66BB6A);transition:width 0.4s}
+.stars{font-size:16px}
+
+/* Reading */
+.reading-text{background:#F3E5F5;border-radius:12px;padding:18px 20px;font-size:17px;max-width:65ch}
+.reading-text h4{color:#6A1B9A;font-size:15px;margin:14px 0 6px;text-transform:uppercase;letter-spacing:0.4px}
+.reading-text h4:first-child{margin-top:0}
+.reading-text p{margin:8px 0}
+
+/* Editable fields */
+.field-label{font-weight:700;font-size:14px;margin:12px 0 4px;color:#37474F}
+.editable{min-height:34px;background:#FFFDE7;border:2px dashed #9E9D24;border-radius:8px;padding:8px 12px;font-size:16px;outline:none}
+.editable.tall{min-height:70px}
+.editable:focus{border-style:solid;border-color:var(--accent)}
+.editable:empty::before{content:attr(data-placeholder);color:#999}
+.qa-item{margin:12px 0}
+.qa-item .q{font-weight:700;font-size:15px;margin-bottom:5px}
+
+/* Frames / rule boxes */
+.frame{background:#FCE4EC;border-left:5px solid #AD1457;border-radius:0 10px 10px 0;padding:12px 16px;margin:12px 0;font-size:16px}
+.rulebox{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.rule{border-radius:12px;padding:14px 16px;font-size:15px}
+.rule h4{font-size:15px;margin-bottom:8px}
+.rule.a{background:#E8F5E9;border:2px solid #66BB6A}
+.rule.a h4{color:#2E7D32}
+.rule.b{background:#FFF3E0;border:2px solid #FFA726}
+.rule.b h4{color:#E65100}
+.hint{font-size:14px;color:#555;background:#F5F5F5;border-radius:8px;padding:8px 12px;margin:10px 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.chip{background:#E1F5FE;border:2px solid #81D4FA;border-radius:16px;padding:5px 14px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.chip.on{background:#0288D1;border-color:#01579B;color:white}
+.speak{background:#E8F5E9;border-radius:10px;padding:12px 16px;font-size:16px;margin:12px 0}
+
+/* Teacher mode */
+.t-only{display:none}
+body.teacher-mode .t-only{display:block}
+.teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
+.teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
+
+/* Bottom bar */
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:white;box-shadow:0 -3px 12px rgba(0,0,0,0.12);padding:10px 14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;z-index:60}
+.bb{font-family:inherit;font-size:14px;font-weight:700;padding:10px 18px;border-radius:10px;border:none;cursor:pointer;text-decoration:none;color:white;display:inline-block}
+.bb-save{background:#2E7D32}
+.bb-print{background:#546E7A}
+.bb-teach{background:#C62828}
+#toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:#2E7D32;color:white;font-weight:700;padding:10px 22px;border-radius:20px;opacity:0;transition:all 0.3s;z-index:70}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:640px){.rulebox{grid-template-columns:1fr}.vocab-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}}
+@media print{body{background:white;padding-bottom:0}.bottom-bar,.scorebar,#toast{display:none!important}.section{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid}.sec-head,.sec-body,.page-header{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="lvl">LEVEL 5 · PROFICIENT (C1)</div>
+  <h1>⭐ Session 1 — Shades of Meaning</h1>
+  <div class="subtitle">English Course Library · Kids &amp; Teens</div>
+  <div class="badge">🎯 Today: master <b>connotation</b> and <b>register</b> — say exactly what you mean, with exactly the attitude you choose · ≈50 min core</div>
+</div>
+
+<div class="scorebar">
+  <span>⭐ Score:</span><span id="score-num">0 / 0</span>
+  <div class="bar"><div class="fill" id="score-fill"></div></div>
+  <span class="stars" id="score-stars"></span>
+</div>
+
+<div id="toast">✓ Saved</div>
+
+<div class="container">
+
+<div class="namebox">
+  <label for="student-name">👋 Your name:</label>
+  <input id="student-name" type="text" placeholder="Type your name…">
+  <span class="hello" id="hello-msg"></span>
+</div>
+
+<div class="agenda">
+  <h2>📋 Today's plan — tap each step when you finish it</h2>
+  <div class="agenda-pills" id="agenda">
+    <span class="ap" data-s="1">1️⃣ Goal</span><span class="ap" data-s="2">2️⃣ Warm-up</span>
+    <span class="ap" data-s="3">3️⃣ New words</span><span class="ap" data-s="4">4️⃣ Reading</span>
+    <span class="ap" data-s="5">5️⃣ Focus</span><span class="ap" data-s="6">6️⃣ Create</span>
+    <span class="ap" data-s="7">7️⃣ Game</span><span class="ap" data-s="8">8️⃣ Review</span>
+  </div>
+</div>
+
+<!-- STEP 1 GOAL -->
+<div class="section goal">
+  <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student rephrases it in one sentence of their own.</span>
+    <p><em>"Today you will learn how words smuggle opinions into sentences. By the end, you can choose between near-synonyms on purpose — <b>slim</b> or <b>skinny</b>, <b>confident</b> or <b>arrogant</b> — and match your language to the situation like a writer, not a dictionary."</em> 🎛️</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Diagnostic: ask "Describe someone you admire in three adjectives — now describe someone who annoys you in three adjectives." Note whether their word choices already carry attitude. Don't teach yet; you'll refer back to their own words in Step 5.</div>
+  </div>
+</div>
+
+<!-- STEP 2 WARM-UP -->
+<div class="section warmup">
+  <div class="sec-head"><span class="icon">⚡</span> Warm-Up — Compliment or Insult? <span class="timing">5 min</span><span class="step">Step 2</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: pure talking game — student answers with 👍 / 👎 reactions before explaining. No screen share yet.</span>
+    <p><b>How to play:</b></p>
+    <p>1. Your teacher says a word about a person — for example <em>"curious"</em>, <em>"nosy"</em>, <em>"chatty"</em>, <em>"bossy"</em>.<br>
+    2. React fast: 👍 if you'd be happy to hear it about yourself, 👎 if not.<br>
+    3. Then defend your vote in one sentence: <em>"I'd be happy / offended, because…"</em></p>
+    <p class="hint">No score here — you're calibrating your connotation radar. 🧭 Disagreement with your teacher is allowed and interesting!</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 2</h4>Good word sequence: curious → nosy → determined → stubborn → confident → arrogant → thrifty → stingy. Mix the order so pairs don't sit together. If the student hesitates, ask "Would you put it in your own profile description?" — instant gut check. End by revealing they just sorted PAIRS with the same meaning.</div>
+  </div>
+</div>
+
+<!-- STEP 3 VOCAB -->
+<div class="section vocab">
+  <div class="sec-head"><span class="icon">📝</span> New Words — Loaded Word Pairs <span class="timing">10 min</span><span class="step">Step 3</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share your screen. Click 🔊 on each card; student repeats BOTH words, then invents a person each word could describe.</span>
+    <p>Each card is a <b>pair of near-synonyms</b>: same fact, opposite attitude. Tap to <b>hear</b> both 🔊. 😊 = flattering, 😬 = critical.</p>
+    <div class="vocab-grid" id="vocab-grid"></div>
+    <h3>🎧 Practice — choose the word with the right attitude</h3>
+    <p class="hint">Read the situation and pick the word that fits the speaker's intention. Green = correct!</p>
+    <div id="vocab-quiz"></div>
+  </div>
+</div>
+
+<!-- STEP 4 READING -->
+<div class="section reading">
+  <div class="sec-head"><span class="icon">📖</span> Reading — The Persuasion Files <span class="timing">10 min</span><span class="step">Step 4</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. Take turns reading a chunk each. Then student uses Zoom → Annotate to circle every loaded word she can find in one paragraph.</span>
+    <p>Read this school-magazine feature article. Tap 🔊 to hear any part read aloud.
+      <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
+    <div class="reading-text" id="read-text">
+      <h4>🗞️ The Persuasion Files — one student, two portraits</h4>
+      <p>Last month, our school magazine ran a quiet experiment. Two reporters interviewed the same new student, Dario, and each wrote a short profile of him. Both writers were completely honest — neither invented a single fact.</p>
+      <h4>✍️ Two honest portraits</h4>
+      <p>The first profile called Dario "confident, determined and refreshingly direct." It said he "asks challenging questions" and "sticks to his opinions." Readers loved him; three people suggested him for student council.</p>
+      <p>The second profile described identical behaviour in different words. Here Dario was "arrogant, stubborn and blunt" — a boy who "interrogates his teachers" and "refuses to change his mind." Readers found him exhausting. Same student, same facts, same readers.</p>
+      <h4>🧲 Why the words won</h4>
+      <p>So what happened? Every word carries two layers of meaning: its <b>denotation</b> — the plain dictionary definition — and its <b>connotation</b>, the emotional shadow it drags behind it. "Determined" and "stubborn" both denote <em>unwilling to change</em>, but one shadow is golden and the other is grey.</p>
+      <p>Linguists call these <b>loaded words</b>, and they steer readers like invisible hands. Advertisers exploit them constantly: a menu says "hand-crafted", never "home-made by somebody's uncle". Estate agents describe a tiny flat as "cosy" and a crumbling one as "full of character".</p>
+      <h4>🎚️ Register: the other secret dial</h4>
+      <p>Connotation is only half the machine. The other half is <b>register</b> — how formal or informal your language is. "Commence", "start" and "kick off" share one meaning, but you would never tell your best friend that the film "commences" at eight.</p>
+      <p>Getting register wrong is like wearing a tuxedo to PE, or pyjamas to a wedding. The clothes are fine; the setting isn't. Skilled speakers slide along the register scale a dozen times a day without even noticing.</p>
+      <h4>🕊️ The politeness machine</h4>
+      <p>Register also explains <b>euphemism</b> — the art of softening. Companies don't fire people; they "let them go". Characters in old novels never die; they "pass away".</p>
+      <p>Euphemisms can be kind, but they can also hide the truth. When a politician calls a serious mistake "an unfortunate outcome", listen very carefully.</p>
+      <h4>🎯 The takeaway</h4>
+      <p>Here is the uncomfortable part: you cannot opt out. Choosing "slim" over "skinny", or "youthful" over "childish", quietly signals your attitude whether you intend it or not. Genuinely neutral language is much rarer than most people think.</p>
+      <p>The good news? Once you see the machinery, you control it. Before you describe anyone — in an essay, a message, or a complaint — ask one question: is this word reporting the facts, or smuggling in my opinion?</p>
+      <p>Our two reporters shook hands afterwards, by the way. Each insisted, with a perfectly straight face, that their own article was "candid" — and that the other one was "biased".</p>
+    </div>
+
+    <h3>🔎 Did you understand? Tap your answer</h3>
+    <div id="reading-quiz"></div>
+
+    <h3>💬 Your turn — write your answer</h3>
+    <div class="qa-item"><div class="q">1. The article says you "cannot opt out" of connotation. Explain in your own words what that means.</div><div class="editable" id="r-open1" contenteditable="true" data-placeholder="It means that every word you choose…"></div></div>
+    <div class="qa-item"><div class="q">2. Be the two reporters: describe ONE real person you know twice — one flattering sentence, one critical sentence — using the same facts.</div><div class="editable tall" id="r-open2" contenteditable="true" data-placeholder="Version A: My cousin is… · Version B: My cousin is…"></div></div>
+
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> the two written questions above can be homework instead.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 4 + answer key</h4>Quiz answers: 1) they chose different words for the same facts · 2) denotation · 3) small · 4) register · 5) rarer than people think. Open Q1 key idea: every word choice signals an attitude even when you don't intend one — there is no attitude-free option. Open Q2: check that BOTH sentences use the same underlying facts; if the critical version invents new facts, that's slander, not connotation — great teachable moment. The final "candid/biased" joke: ask why it's funny (the reporters are doing the very thing the article describes).</div>
+  </div>
+</div>
+
+<!-- STEP 5 FOCUS -->
+<div class="section grammar">
+  <div class="sec-head"><span class="icon">🔧</span> Language Focus — Connotation &amp; Register <span class="timing">10 min</span><span class="step">Step 5</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. For each quiz item, student says the answer aloud AND names the situation (formal? friendly? critical?) BEFORE you click.</span>
+    <div class="rulebox">
+      <div class="rule a"><h4>💛 CONNOTATION — the attitude inside the word</h4>
+        Same denotation, different feeling.<br><br>
+        <em>😊 slim · thrifty · determined · assertive</em><br>
+        <em>😬 skinny · stingy · stubborn · bossy</em><br><br>
+        🔑 Test question: <b>"Would I be happy to hear this about myself?"</b></div>
+      <div class="rule b"><h4>🎚️ REGISTER — the formality dial</h4>
+        Same meaning, different situation.<br><br>
+        <em>🎩 commence · due to · I regret to inform you</em><br>
+        <em>👟 kick off · because of · bad news, I'm afraid</em><br><br>
+        🔑 Test question: <b>"Who am I talking to, and where?"</b></div>
+    </div>
+    <div class="frame">💡 <b>The writer's two-step:</b> first pick the FACT, then pick the ATTITUDE and the SETTING.<br><em>Fact: he saves money. → To praise: "He's admirably <b>thrifty</b>." → To criticise: "He's painfully <b>stingy</b>." → In a formal report: "He is <b>economical</b> with resources."</em></div>
+    <p class="hint">💡 Hungarian tip: Hungarian plays exactly the same game — <em>takarékos</em> vs <em>fukar</em>, <em>magabiztos</em> vs <em>beképzelt</em>. The skill transfers; you just need the English pairs. Danger zone: bilingual dictionaries list near-synonyms WITHOUT their attitude labels.</p>
+    <h3>✏️ Practice — pick the word that fits the situation</h3>
+    <div id="grammar-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>Loop back to the student's own Step-1 adjectives: were they loaded? If the student scores 7+/9, add a live twist: you name a neutral fact ("she talks a lot"), student fires back a + version and a − version in under 10 seconds. If under 5, slow down and run the "happy to hear it about myself?" test on every wrong item.</div>
+  </div>
+</div>
+
+<!-- MOVE BREAK -->
+<div class="move">
+  <h2>🤸 MOVE! — 1 minute break</h2>
+  <p>Stand up! Touch something <b>blue</b>, something <b>soft</b>, and something <b>made of paper</b> — say each object's English name as you touch it. Finish with 5 slow shoulder rolls. Cameras on — teacher plays too! 😄</p>
+</div>
+
+<!-- STEP 6 CREATIVE TASK -->
+<div class="section task">
+  <div class="sec-head"><span class="icon">🎨</span> Create — Spin Doctor Studio <span class="timing">10 min</span><span class="step">Step 6</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in her own browser, shares her screen, and types live while you watch.</span>
+    <p>You are a "spin doctor" — a professional word-chooser. 🎩 Invent a character (or use a book/film character), fix three TRUE facts about them, then write two honest portraits: one that makes readers love them, one that makes readers wary. <b>No new facts allowed — only new words!</b></p>
+    <h3>First, tap every word pair you plan to use:</h3>
+    <div class="chips" id="exp-chips"></div>
+    <div class="field-label">📌 Three neutral FACTS about my character</div>
+    <div class="editable" id="t-facts" contenteditable="true" data-placeholder="1. She saves money. 2. She asks many questions. 3. She…"></div>
+    <div class="field-label">😊 Portrait A — make us love them (flattering words only)</div>
+    <div class="editable tall" id="t-positive" contenteditable="true" data-placeholder="Meet Nara: a thrifty, endlessly curious…"></div>
+    <div class="field-label">😬 Portrait B — make us wary (critical words, same facts!)</div>
+    <div class="editable tall" id="t-negative" contenteditable="true" data-placeholder="Beware of Nara: a stingy, relentlessly nosy…"></div>
+    <div class="speak">🗣️ <b>Now perform both portraits out loud!</b> Read A like an award speech 🏆, read B like a warning documentary 🎬. Your teacher will guess which single fact each loaded word hides.</div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> write only Portrait A in the lesson; Portrait B becomes homework.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>Police the "no new facts" rule strictly — that's where the learning lives. If Portrait B adds "she is mean", ask: "Which FACT does that come from? Which loaded word could carry that opinion instead?" Strong students: add Portrait C in formal register (a school report about the character) to combine both dials.</div>
+  </div>
+</div>
+
+<!-- STEP 7 CHALLENGE GAME -->
+<div class="section challenge">
+  <div class="sec-head"><span class="icon">🎮</span> Challenge Game — The Word Spy <span class="timing">8 min</span><span class="step">Step 7</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen and cheer. 🎉</span>
+    <p class="hint">🕵️ Three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
+    <h3>Round 1 — Connotation radar: positive or negative?</h3>
+    <div id="ch-quiz1"></div>
+    <h3>Round 2 — Register match: where do you hear it?</h3>
+    <div id="ch-quiz2"></div>
+    <h3>Round 3 — Boss level: word-choice surgery 👑</h3>
+    <div id="ch-quiz3"></div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can be the start of the next lesson's warm-up.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>All answers show live in her score; wrong picks auto-reveal the green one. On every miss ask: "Which test question did we skip — 'happy to hear it about myself?' or 'who am I talking to?'" — forcing the two Step-5 tools.</div>
+  </div>
+</div>
+
+<!-- STEP 8 REVIEW -->
+<div class="section review">
+  <div class="sec-head"><span class="icon">🏁</span> Review &amp; Homework <span class="timing">3 min</span><span class="step">Step 8</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, screens off. Finish with faces, not slides.</span>
+    <div class="frame">⚡ <b>30-second recap:</b> teacher says a neutral fact ("he talks a lot") — you fire back the 😊 word ("chatty") AND the 😬 word ("loud-mouthed"). Three facts, fast!</div>
+    <h3>🏠 Homework</h3>
+    <div class="frame">
+      <p>🕵️ <b>Loaded-word hunt:</b> find 3 loaded words in any advert, thumbnail or video title you see this week. Write each one down + a neutral replacement.</p>
+      <p>✍️ <b>Register flip:</b> take one real text message you sent a friend, and rewrite it as a formal email to a head teacher. Keep the meaning identical.</p>
+      <p>📌 Example: <em>"yo can we move practice, sth came up 😅" → "Dear Ms Adeyemi, I am writing to ask whether practice could be rescheduled, as something unexpected has come up."</em></p>
+    </div>
+    <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="t-only">
+      <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
+      <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">What to adjust next time?</div><div class="editable" id="tn-adjust" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">Student's strongest / weakest moment today?</div><div class="editable" id="tn-notes" contenteditable="true" data-placeholder="…"></div></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="bottom-bar">
+  <button class="bb bb-save" onclick="saveWork()">💾 Save my work</button>
+  <button class="bb bb-print" onclick="window.print()">🖨️ Print</button>
+  <button class="bb bb-teach" id="teach-btn" onclick="unlockTeacher()">🔐</button>
+</div>
+
+<script>
+/* ============ ENGINE (identical across all Library sessions) ============ */
+var LEVEL=5, SESSION=1, K='ecl_L'+LEVEL+'s'+SESSION+'_';
+
+/* ---- TTS audio ---- */
+function say(text){try{window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(text);u.lang='en-GB';u.rate=0.9;window.speechSynthesis.speak(u);}catch(e){}}
+
+/* ---- Quiz engine ---- */
+var score=0,total=0;
+function buildQuiz(containerId,items){
+  var c=document.getElementById(containerId);
+  items.forEach(function(it){
+    total++;
+    var qz=document.createElement('div');qz.className='qz';
+    var opts='<div class="opts">';
+    it.options.forEach(function(o){opts+='<button class="opt" data-ok="'+(o===it.answer?'1':'0')+'" onclick="pick(this)">'+o+'</button>';});
+    opts+='</div><div class="fb"></div>';
+    qz.innerHTML='<div class="q">'+it.q+'</div>'+opts;
+    c.appendChild(qz);
+  });
+  updateScore();
+}
+function pick(btn){
+  var qz=btn.closest('.qz');if(qz.dataset.done)return;qz.dataset.done='1';
+  var ok=btn.dataset.ok==='1';var fb=qz.querySelector('.fb');
+  if(ok){btn.classList.add('correct');score++;fb.className='fb ok';fb.textContent='✓ Correct! Great job!';}
+  else{btn.classList.add('wrong');var good=qz.querySelector('[data-ok="1"]');if(good)good.classList.add('correct');
+    fb.className='fb no';fb.textContent='Almost! The green one is right. Try to remember it! 💪';}
+  qz.querySelectorAll('.opt').forEach(function(b){b.disabled=true;});
+  updateScore();
+}
+function updateScore(){
+  var answered=document.querySelectorAll('.qz[data-done]').length;
+  document.getElementById('score-num').textContent=score+' / '+total;
+  document.getElementById('score-fill').style.width=(total?Math.round(answered/total*100):0)+'%';
+  var st='',pct=total?score/total:0;
+  if(answered===total&&total>0){st=pct>=0.8?'⭐⭐⭐':pct>=0.5?'⭐⭐':'⭐';}
+  document.getElementById('score-stars').textContent=st;
+}
+
+/* ---- Student name ---- */
+var nameInput=document.getElementById('student-name');
+function applyName(){
+  var n=nameInput.value.trim();
+  document.getElementById('hello-msg').textContent=n?('Hello, '+n+'! 🌟'):'';
+  document.querySelectorAll('.stud-name').forEach(function(el){el.textContent=n?('Amazing work today, '+n+'!'):'Amazing work today!';});
+  localStorage.setItem(K+'name',n);
+}
+nameInput.addEventListener('input',applyName);
+
+/* ---- Agenda pills ---- */
+document.querySelectorAll('.ap').forEach(function(p){
+  p.onclick=function(){p.classList.toggle('done');localStorage.setItem(K+'ap'+p.dataset.s,p.classList.contains('done'));};
+});
+
+/* ---- Teacher mode ---- */
+function unlockTeacher(){
+  if(document.body.classList.contains('teacher-mode')){document.body.classList.remove('teacher-mode');document.getElementById('teach-btn').textContent='🔐';return;}
+  var pin=prompt('Teacher PIN:');
+  if(pin==='teach'){document.body.classList.add('teacher-mode');document.getElementById('teach-btn').textContent='🔓 Teacher';}
+}
+
+/* ---- Save work (.txt export) ---- */
+function saveWork(){
+  var n=(localStorage.getItem(K+'name')||'Student').replace(/[^\wÀ-ſ-]/g,'');
+  var out=n+' — Level '+LEVEL+' Session '+SESSION+'\n'+new Date().toLocaleDateString()+'\n'+'='.repeat(34)+'\n\n';
+  var picks=[].slice.call(document.querySelectorAll('.chips .chip.on')).map(function(x){return x.textContent.trim();});
+  if(picks.length)out+='Picked: '+picks.join(', ')+'\n\n';
+  var count=0;
+  document.querySelectorAll('.editable[id]').forEach(function(el){var t=el.innerText.trim();if(t){out+='['+el.id+'] '+t+'\n';count++;}});
+  out+='\nScore: '+score+' / '+total;
+  if(count===0&&!picks.length){alert('Type something first! 🙂');return;}
+  var b=new Blob([out],{type:'text/plain;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u;a.download=n+'_L'+LEVEL+'S'+SESSION+'_'+new Date().toISOString().slice(0,10)+'.txt';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);
+  var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show');},1600);
+}
+
+/* ---- Autosave / autoload ---- */
+function autosave(){document.querySelectorAll('.editable[id]').forEach(function(el){localStorage.setItem(K+el.id,el.innerHTML);});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){localStorage.setItem(K+'chip'+i,el.classList.contains('on'));});}
+function autoload(){
+  document.querySelectorAll('.editable[id]').forEach(function(el){var v=localStorage.getItem(K+el.id);if(v!==null)el.innerHTML=v;});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){if(localStorage.getItem(K+'chip'+i)==='true')el.classList.add('on');});
+  document.querySelectorAll('.ap').forEach(function(p){if(localStorage.getItem(K+'ap'+p.dataset.s)==='true')p.classList.add('done');});
+  var n=localStorage.getItem(K+'name');if(n){nameInput.value=n;applyName();}
+}
+document.addEventListener('input',function(){clearTimeout(window._t);window._t=setTimeout(autosave,600);});
+window.addEventListener('load',autoload);
+
+/* ============ SESSION CONTENT (changes per session) ============ */
+
+/* ---- Vocabulary: loaded word pairs (😊 flattering / 😬 critical) ---- */
+var VOCAB=[
+  {w:'slim / skinny',e:'🥗',p:'thin: 😊 slim · 😬 skinny',s:'Slim is flattering. Skinny sounds critical. Both mean thin.'},
+  {w:'curious / nosy',e:'🔍',p:'asks a lot: 😊 curious · 😬 nosy',s:'Curious is a compliment. Nosy is an insult. Both mean interested in things.'},
+  {w:'confident / arrogant',e:'😎',p:'self-belief: 😊 confident · 😬 arrogant',s:'Confident is positive. Arrogant is negative. Both mean sure of yourself.'},
+  {w:'thrifty / stingy',e:'💰',p:'saves money: 😊 thrifty · 😬 stingy',s:'Thrifty praises careful spending. Stingy criticises it.'},
+  {w:'determined / stubborn',e:'🧱',p:"won't give up: 😊 determined · 😬 stubborn",s:'Determined is admiring. Stubborn is annoyed. Both mean unwilling to change.'},
+  {w:'youthful / childish',e:'🧒',p:'young-like: 😊 youthful · 😬 childish',s:'Youthful is a compliment. Childish is a criticism.'},
+  {w:'relaxed / lazy',e:'🛋️',p:'takes it easy: 😊 relaxed · 😬 lazy',s:'Relaxed sounds calm and healthy. Lazy sounds like a fault.'},
+  {w:'assertive / bossy',e:'📢',p:'takes charge: 😊 assertive · 😬 bossy',s:'Assertive is respectful. Bossy is critical. Both mean giving directions.'},
+  {w:'cosy / cramped',e:'🏠',p:'small space: 😊 cosy · 😬 cramped',s:'Cosy makes small sound warm. Cramped makes small sound uncomfortable.'},
+  {w:'aroma / odour',e:'👃',p:'a smell: 😊 aroma · 😬 odour',s:'An aroma is pleasant. An odour is usually unpleasant. Both are smells.'},
+  {w:'vintage / shabby',e:'🕰️',p:'old thing: 😊 vintage · 😬 shabby',s:'Vintage means charmingly old. Shabby means worn-out and tired.'},
+  {w:'candid / blunt',e:'🗣️',p:'very honest: 😊 candid · 😬 blunt',s:'Candid praises honesty. Blunt suggests the honesty hurt someone.'},
+  {w:'chatty / loud-mouthed',e:'💬',p:'talks a lot: 😊 chatty · 😬 loud-mouthed',s:'Chatty is friendly. Loud-mouthed is rude. Both mean talkative.'}
+];
+(function buildVocab(){
+  var g=document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v){
+    var d=document.createElement('div');d.className='vc';
+    d.innerHTML='<div class="vc-play">🔊</div><div class="vc-emoji">'+v.e+'</div><div class="vc-word">'+v.w+'</div><div class="vc-pron">'+v.p+'</div>';
+    d.onclick=function(){say(v.s);};
+    g.appendChild(d);
+  });
+})();
+
+/* ---- Word-pair chips for Step 6 ---- */
+(function(){
+  var c=document.getElementById('exp-chips');
+  VOCAB.forEach(function(v){
+    var s=document.createElement('span');s.className='chip';s.textContent=v.e+' '+v.w;
+    s.onclick=function(){s.classList.toggle('on');say(v.w);};
+    c.appendChild(s);
+  });
+})();
+
+/* ---- Quizzes ---- */
+buildQuiz('vocab-quiz',[
+  {q:'💰 Your aunt never wastes a penny. You ADMIRE this. She is…',options:['thrifty','stingy','cheap'],answer:'thrifty'},
+  {q:'🔍 Your neighbour reads other people\'s mail. You are ANNOYED. He is…',options:['curious','observant','nosy'],answer:'nosy'},
+  {q:'🏠 An estate agent is selling a very small flat. The advert says it is…',options:['cramped','cosy','tiny'],answer:'cosy'},
+  {q:'📢 Your friend organises the group project fairly and clearly. Compliment her:',options:['bossy','assertive','pushy'],answer:'assertive'},
+  {q:'🕰️ A shop wants to sell an old leather jacket for MORE money. The label says…',options:['shabby','used','vintage'],answer:'vintage'},
+  {q:'🗣️ Grandpa told you your haircut looks terrible, and it hurt. He was being…',options:['blunt','candid','honest in a nice way'],answer:'blunt'}
+]);
+buildQuiz('reading-quiz',[
+  {q:'What did the two reporters do differently?',options:['invented different facts','chose different words for the same facts','interviewed different students'],answer:'chose different words for the same facts'},
+  {q:'"Determined" and "stubborn" share the same…',options:['connotation','register','denotation'],answer:'denotation'},
+  {q:'When an estate agent says "cosy", the flat is really…',options:['warm','small','expensive'],answer:'small'},
+  {q:'"Wearing a tuxedo to PE" illustrates a mistake of…',options:['connotation','register','denotation'],answer:'register'},
+  {q:'According to the article, truly neutral language is…',options:['everywhere','impossible for teenagers','rarer than people think'],answer:'rarer than people think'}
+]);
+buildQuiz('grammar-quiz',[
+  {q:'🎩 Formal email to your head teacher: "I would like to ___ a meeting."',options:['sort out','arrange','fix up'],answer:'arrange'},
+  {q:'👟 Text to your best friend: "The party ___ at eight!"',options:['commences','kicks off','shall begin'],answer:'kicks off'},
+  {q:'😊 Kind version: "My brother never changes his mind. He\'s so ___."',options:['stubborn','determined','pig-headed'],answer:'determined'},
+  {q:'😬 You\'re writing a COMPLAINT about a hotel room: "The room was ___."',options:['cosy','cramped','compact'],answer:'cramped'},
+  {q:'📝 Neutral school essay: "Teenagers ___ several hours a day online."',options:['waste','spend','blow'],answer:'spend'},
+  {q:'👃 Which word is the most NEUTRAL?',options:['aroma','smell','stench'],answer:'smell'},
+  {q:'🎩 Formal notice: "The concert was cancelled ___ the storm."',options:['cos of','because of','due to'],answer:'due to'},
+  {q:'👟 To a friend: "Wanna ___ later?"',options:['hang out','socialise','convene'],answer:'hang out'},
+  {q:'🕊️ "We had to let him go" is a euphemism for…',options:['he was fired','he was allowed to leave early','he got lost'],answer:'he was fired'}
+]);
+buildQuiz('ch-quiz1',[
+  {q:'"She\'s so nosy about my messages."',options:['😊 Positive','😬 Negative'],answer:'😬 Negative'},
+  {q:'"I found this amazing vintage jacket!"',options:['😊 Positive','😬 Negative'],answer:'😊 Positive'},
+  {q:'"He\'s very assertive in team meetings."',options:['😊 Positive','😬 Negative'],answer:'😊 Positive'},
+  {q:'"What is that odour in the changing room?"',options:['😊 Positive','😬 Negative'],answer:'😬 Negative'}
+]);
+buildQuiz('ch-quiz2',[
+  {q:'"The ceremony will commence at noon." — where?',options:['text to a friend','formal announcement','sports commentary'],answer:'formal announcement'},
+  {q:'"Ngl, that film absolutely slapped." — where?',options:['school essay','chat with friends','letter to a newspaper'],answer:'chat with friends'},
+  {q:'"I regret to inform you that…" — where?',options:['birthday card','formal letter','game chat'],answer:'formal letter'}
+]);
+buildQuiz('ch-quiz3',[
+  {q:'Criticise the plan WITHOUT insulting anyone:',options:['"Your plan is stupid."','"I\'m not convinced this plan will work."'],answer:'"I\'m not convinced this plan will work."'},
+  {q:'A journalist wants to stay NEUTRAL:',options:['"The politician dodged the question."','"The politician did not answer the question."'],answer:'"The politician did not answer the question."'},
+  {q:'Euphemism alert! "Your essay has room for improvement" really means…',options:['the essay needs a lot of work','the essay is nearly perfect','the essay is too long'],answer:'the essay needs a lot of work'},
+  {q:'👑 BOSS: same fact — "he saves money". Which pair is 😊 then 😬, in that order?',options:['thrifty / stingy','stingy / thrifty','cheap / economical'],answer:'thrifty / stingy'}
+]);
+</script>
+</body>
+</html>

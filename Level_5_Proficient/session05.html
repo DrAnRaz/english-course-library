@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>L5 · Session 5 — Humor &amp; Wordplay</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--accent:#00838F;--accent2:#26A69A}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1a;font-size:17px;line-height:1.6;padding-bottom:90px}
+.page-header{background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;padding:26px 20px;text-align:center}
+.page-header h1{font-size:26px;font-weight:800;letter-spacing:-0.3px}
+.page-header .subtitle{font-size:14px;opacity:0.9;margin-top:4px}
+.badge{display:inline-block;background:rgba(255,255,255,0.2);padding:6px 16px;border-radius:20px;font-size:14px;margin-top:10px}
+.lvl{display:inline-block;background:#FFD54F;color:#5D4037;font-weight:800;font-size:12px;padding:3px 12px;border-radius:12px;letter-spacing:0.5px;margin-bottom:8px}
+.container{max-width:860px;margin:0 auto;padding:18px}
+
+/* Student name */
+.namebox{background:white;border:2px solid var(--accent);border-radius:14px;padding:14px 18px;margin:16px 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.namebox label{font-weight:700;font-size:15px}
+.namebox input{flex:1;min-width:160px;font-size:17px;padding:8px 12px;border:2px dashed #90A4AE;border-radius:8px;font-family:inherit}
+.namebox .hello{font-weight:700;color:var(--accent)}
+
+/* Agenda */
+.agenda{background:white;border-radius:14px;padding:16px 18px;margin:14px 0;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.agenda h2{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:#666;margin-bottom:10px}
+.agenda-pills{display:flex;flex-wrap:wrap;gap:8px}
+.ap{display:flex;align-items:center;gap:6px;background:#ECEFF1;border:2px solid transparent;border-radius:20px;padding:5px 13px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.ap.done{background:#C8E6C9;border-color:#2E7D32;text-decoration:line-through;opacity:0.8}
+
+/* Sections */
+.section{background:white;border-radius:16px;margin:18px 0;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,0.07)}
+.sec-head{padding:14px 20px;color:white;font-size:17px;font-weight:800;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sec-head .icon{font-size:22px}
+.sec-head .step{margin-left:auto;font-size:12px;font-weight:700;background:rgba(255,255,255,0.25);padding:3px 12px;border-radius:12px;white-space:nowrap}
+.sec-head .timing{font-size:12px;font-weight:400;background:rgba(255,255,255,0.18);padding:3px 10px;border-radius:12px;white-space:nowrap}
+.sec-body{padding:18px 20px}
+.zoom-cue{display:block;font-size:13px;font-weight:600;color:#37474F;background:#E1F5FE;border-left:4px solid #0288D1;border-radius:0 8px 8px 0;padding:7px 12px;margin:0 0 14px}
+.goal .sec-head{background:#2E7D32}
+.warmup .sec-head{background:#E65100}
+.vocab .sec-head{background:#1565C0}
+.reading .sec-head{background:#6A1B9A}
+.grammar .sec-head{background:#AD1457}
+.task .sec-head{background:#00695C}
+.challenge .sec-head{background:#F57F17}
+.review .sec-head{background:#BF360C}
+.skipif{background:#FFF8E1;border:1px dashed #F9A825;border-radius:10px;padding:10px 14px;margin-top:12px;font-size:14px}
+.skipif b{color:#F57F17}
+
+/* Movement break */
+.move{background:linear-gradient(135deg,#00BFA5,#00897B);color:white;border-radius:16px;margin:18px 0;padding:18px 22px;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,0.1)}
+.move h2{font-size:20px;font-weight:800}
+.move p{font-size:15px;opacity:0.95;margin-top:6px}
+
+/* Vocab cards */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:14px 0}
+.vc{background:#E3F2FD;border:2px solid #90CAF9;border-radius:12px;padding:12px 10px;text-align:center;cursor:pointer;transition:transform 0.12s}
+.vc:hover{transform:scale(1.04);border-color:var(--accent)}
+.vc .vc-emoji{font-size:30px}
+.vc .vc-word{font-weight:800;font-size:15px;margin-top:4px;color:#0D47A1}
+.vc .vc-pron{font-size:12px;color:#666}
+.vc .vc-play{font-size:13px;color:#1565C0}
+
+/* Quiz engine */
+.qz{background:#FAFAFA;border:1px solid #E0E0E0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.qz .q{font-weight:700;font-size:16px;margin-bottom:10px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{font-family:inherit;font-size:15px;font-weight:600;padding:8px 16px;border-radius:10px;border:2px solid #B0BEC5;background:white;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt.correct{background:#C8E6C9;border-color:#2E7D32}
+.opt.wrong{background:#FFCDD2;border-color:#C62828}
+.opt:disabled{cursor:default;opacity:0.85}
+.fb{font-size:14px;font-weight:600;margin-top:8px;display:none}
+.fb.ok{display:block;color:#2E7D32}
+.fb.no{display:block;color:#C62828}
+
+/* Score bar */
+.scorebar{position:sticky;top:0;z-index:50;background:white;box-shadow:0 2px 8px rgba(0,0,0,0.12);padding:8px 16px;display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px}
+.scorebar .bar{flex:1;height:10px;background:#ECEFF1;border-radius:6px;overflow:hidden}
+.scorebar .fill{height:100%;width:0;background:linear-gradient(90deg,#43A047,#66BB6A);transition:width 0.4s}
+.stars{font-size:16px}
+
+/* Reading */
+.reading-text{background:#F3E5F5;border-radius:12px;padding:18px 20px;font-size:17px;max-width:65ch}
+.reading-text h4{color:#6A1B9A;font-size:15px;margin:14px 0 6px;text-transform:uppercase;letter-spacing:0.4px}
+.reading-text h4:first-child{margin-top:0}
+.reading-text p{margin:8px 0}
+
+/* Editable fields */
+.field-label{font-weight:700;font-size:14px;margin:12px 0 4px;color:#37474F}
+.editable{min-height:34px;background:#FFFDE7;border:2px dashed #9E9D24;border-radius:8px;padding:8px 12px;font-size:16px;outline:none}
+.editable.tall{min-height:70px}
+.editable:focus{border-style:solid;border-color:var(--accent)}
+.editable:empty::before{content:attr(data-placeholder);color:#999}
+.qa-item{margin:12px 0}
+.qa-item .q{font-weight:700;font-size:15px;margin-bottom:5px}
+
+/* Frames / rule boxes */
+.frame{background:#FCE4EC;border-left:5px solid #AD1457;border-radius:0 10px 10px 0;padding:12px 16px;margin:12px 0;font-size:16px}
+.rulebox{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.rule{border-radius:12px;padding:14px 16px;font-size:15px}
+.rule h4{font-size:15px;margin-bottom:8px}
+.rule.a{background:#E8F5E9;border:2px solid #66BB6A}
+.rule.a h4{color:#2E7D32}
+.rule.b{background:#FFF3E0;border:2px solid #FFA726}
+.rule.b h4{color:#E65100}
+.hint{font-size:14px;color:#555;background:#F5F5F5;border-radius:8px;padding:8px 12px;margin:10px 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.chip{background:#E1F5FE;border:2px solid #81D4FA;border-radius:16px;padding:5px 14px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.chip.on{background:#0288D1;border-color:#01579B;color:white}
+.speak{background:#E8F5E9;border-radius:10px;padding:12px 16px;font-size:16px;margin:12px 0}
+
+/* Teacher mode */
+.t-only{display:none}
+body.teacher-mode .t-only{display:block}
+.teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
+.teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
+
+/* Bottom bar */
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:white;box-shadow:0 -3px 12px rgba(0,0,0,0.12);padding:10px 14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;z-index:60}
+.bb{font-family:inherit;font-size:14px;font-weight:700;padding:10px 18px;border-radius:10px;border:none;cursor:pointer;text-decoration:none;color:white;display:inline-block}
+.bb-save{background:#2E7D32}
+.bb-print{background:#546E7A}
+.bb-teach{background:#C62828}
+#toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:#2E7D32;color:white;font-weight:700;padding:10px 22px;border-radius:20px;opacity:0;transition:all 0.3s;z-index:70}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:640px){.rulebox{grid-template-columns:1fr}.vocab-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}}
+@media print{body{background:white;padding-bottom:0}.bottom-bar,.scorebar,#toast{display:none!important}.section{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid}.sec-head,.sec-body,.page-header{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="lvl">LEVEL 5 · PROFICIENT (C1)</div>
+  <h1>😄 Session 5 — Humor &amp; Wordplay</h1>
+  <div class="subtitle">English Course Library · Kids &amp; Teens</div>
+  <div class="badge">🎯 Today: decode <b>puns</b>, <b>irony</b> and <b>sarcasm</b> — and make your own jokes land · ≈50 min core</div>
+</div>
+
+<div class="scorebar">
+  <span>⭐ Score:</span><span id="score-num">0 / 0</span>
+  <div class="bar"><div class="fill" id="score-fill"></div></div>
+  <span class="stars" id="score-stars"></span>
+</div>
+
+<div id="toast">✓ Saved</div>
+
+<div class="container">
+
+<div class="namebox">
+  <label for="student-name">👋 Your name:</label>
+  <input id="student-name" type="text" placeholder="Type your name…">
+  <span class="hello" id="hello-msg"></span>
+</div>
+
+<div class="agenda">
+  <h2>📋 Today's plan — tap each step when you finish it</h2>
+  <div class="agenda-pills" id="agenda">
+    <span class="ap" data-s="1">1️⃣ Goal</span><span class="ap" data-s="2">2️⃣ Warm-up</span>
+    <span class="ap" data-s="3">3️⃣ New words</span><span class="ap" data-s="4">4️⃣ Reading</span>
+    <span class="ap" data-s="5">5️⃣ Focus</span><span class="ap" data-s="6">6️⃣ Create</span>
+    <span class="ap" data-s="7">7️⃣ Game</span><span class="ap" data-s="8">8️⃣ Review</span>
+  </div>
+</div>
+
+<!-- STEP 1 GOAL -->
+<div class="section goal">
+  <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
+    <p><em>"Today you crack the hardest code in English: <b>humor</b>. By the end, you can explain why a pun works, tell irony from bad luck, hear sarcasm before it bites — and even build a joke of your own."</em> 🎭</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Open with a groaner: "I ordered a chicken and an egg online. I'll let you know which comes first." If they laugh OR groan, ask why. Getting a joke in a foreign language is a milestone — say that out loud; it reframes today as a level-up, not a grammar drill.</div>
+  </div>
+</div>
+
+<!-- STEP 2 WARM-UP -->
+<div class="section warmup">
+  <div class="sec-head"><span class="icon">⚡</span> Warm-Up — Sincere or Sarcastic? <span class="timing">5 min</span><span class="step">Step 2</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: audio-only game — student closes their eyes to focus on TONE. They use 👍 for sincere, 👎 for sarcastic.</span>
+    <p><b>How to play:</b></p>
+    <p>1. Your teacher says the SAME sentence twice — once sincerely, once sarcastically.<br>
+    2. You call which is which, ears only! 🎧<br>
+    3. Then you try: say <b>"Nice weather we're having"</b> both ways. Can your teacher tell?</p>
+    <p class="hint">Listen for the sarcasm signals: slower, flatter, one streeeetched word. No score — just tune your ears! 👂</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 2</h4>Good test lines: "Great presentation." · "I love Mondays." · "Your room is SO tidy." Exaggerate at first, then make the difference subtler each round. When the student performs, coach the flat delivery — most learners make sarcasm too loud, when real sarcasm is usually quieter.</div>
+  </div>
+</div>
+
+<!-- STEP 3 VOCAB -->
+<div class="section vocab">
+  <div class="sec-head"><span class="icon">📝</span> New Words — The Comedy Dictionary <span class="timing">10 min</span><span class="step">Step 3</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share your screen. You click 🔊, student repeats — then names a film, show or person that matches each word (e.g. "deadpan → …?").</span>
+    <p>Tap any card to <b>hear</b> it 🔊. Say it out loud after the sound!</p>
+    <div class="vocab-grid" id="vocab-grid"></div>
+    <h3>🎧 Practice — tap the right word</h3>
+    <p class="hint">Read the clue and tap the term that matches. Green = correct!</p>
+    <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>The pairs that matter today: <b>irony vs sarcasm</b> (sarcasm = spoken irony WITH a target) and <b>hyperbole vs understatement</b> (inflate vs shrink). "Cheesy" and "banter" are gifts for teen conversation — let them try both in a sentence about their own life.</div>
+  </div>
+</div>
+
+<!-- STEP 4 READING -->
+<div class="section reading">
+  <div class="sec-head"><span class="icon">📖</span> Reading — The Anatomy of a Joke <span class="timing">10 min</span><span class="step">Step 4</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen, take turns reading chunks aloud. Student uses Zoom → Annotate to mark every joke with P (pun), I (irony) or S (sarcasm).</span>
+    <p>Read this magazine feature. Tap 🔊 to hear any part read aloud.
+      <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
+    <div class="reading-text" id="read-text">
+      <h4>⚠️ Warning: jokes explained</h4>
+      <p>Explaining a joke, the writer E. B. White supposedly said, is like dissecting a frog: you understand it better, but the frog dies. We are going to dissect a few anyway — in the name of science.</p>
+      <h4>🥁 The pun: one word, two jobs</h4>
+      <p>A pun forces one word — or two similar-sounding words — to do two jobs at once. "I used to be a banker, but I lost interest." The joke lands because "interest" means both curiosity and the money a bank pays.</p>
+      <p>English is unusually rich in puns because it is stuffed with homophones: words that sound alike but mean different things. "I'm reading a book about anti-gravity — it's impossible to put down." Groan if you like; groans count as applause here.</p>
+      <p>Puns show up everywhere: shop names ("Curl Up and Dye", a hairdresser), headlines, and roughly half of all dad jokes. Their reputation is terrible, and their popularity is eternal.</p>
+      <h4>🎭 Irony: reality's plot twist</h4>
+      <p>Irony is a gap between what you expect and what actually happens. A fire station burns down. A traffic warden's car gets towed. The world tells the joke; nobody had to write it.</p>
+      <p>Careful, though: bad luck alone is not irony. Rain on your birthday is just rain. Rain on the day you present your invention — an umbrella that predicts the weather — now that is irony.</p>
+      <p>Writers love a third kind, dramatic irony, where the audience knows something a character does not. The hero hides behind the one door the villain is about to open — and your stomach drops. That feeling is the device working.</p>
+      <h4>😏 Sarcasm: irony with a target</h4>
+      <p>Sarcasm is spoken irony aimed at someone or something, and the words say the opposite of the meaning. You drop your phone in a puddle and your sister says, "Smooth." She is not praising your elegance.</p>
+      <p>Tone carries the whole message: slower delivery, a flat voice, one stretched word — "Oh, greeeat." In writing, sarcasm often fails because tone disappears. That is why misunderstandings explode in group chats.</p>
+      <p>One rule keeps sarcasm friendly: aim it upwards or sideways, never down. Teasing a friend who knows your tone is banter; the same words to a nervous stranger just sting.</p>
+      <h4>😐 Deadpan, hyperbole and the art of less</h4>
+      <p>Comedians also play with size. Hyperbole inflates — "I've told you a million times" — while understatement shrinks: a Brit calling a hurricane "a bit breezy". Both work because the listener compares the words with reality.</p>
+      <p>Deadpan means delivering absurd lines with a completely serious face. The contrast between calm delivery and ridiculous content becomes the punchline itself.</p>
+      <h4>🎓 Why this is advanced English</h4>
+      <p>Humor is one of the final levels of language learning, because a joke tests everything at once: vocabulary, culture, tone and timing. Get it, and you are no longer translating — you are living in the language.</p>
+      <p>So laugh at the cheesy puns and study the sarcasm. Every groan is progress.</p>
+    </div>
+
+    <h3>🔎 Did you understand? Tap your answer</h3>
+    <div id="reading-quiz"></div>
+
+    <h3>💬 Your turn — write your answer</h3>
+    <div class="qa-item"><div class="q">1. Why does the writer compare explaining a joke to dissecting a frog? What "dies", exactly?</div><div class="editable" id="r-open1" contenteditable="true" data-placeholder="The comparison works because…"></div></div>
+    <div class="qa-item"><div class="q">2. Think of a joke or pun in YOUR language that would NOT survive translation into English. Explain why it breaks.</div><div class="editable tall" id="r-open2" contenteditable="true" data-placeholder="In my language there is a joke where… It breaks in English because…"></div></div>
+
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> the two written questions can be homework — but do the P/I/S annotation hunt live, it's the comprehension check.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 4 + answer key</h4>Quiz answers: "interest" has two meanings · the umbrella inventor · tone of voice · understatement · the audience knows more than the character. Open Q1 key: the surprise/spontaneity dies — a joke depends on the sudden double-meaning click, and slow analysis removes the suddenness. Open Q2: any untranslatable pun is correct; push them to name the MECHANISM (homophone? idiom? cultural reference?) — that's the C1 move.</div>
+  </div>
+</div>
+
+<!-- STEP 5 FOCUS -->
+<div class="section grammar">
+  <div class="sec-head"><span class="icon">🔧</span> Focus — How Jokes Work (the Mechanics) <span class="timing">10 min</span><span class="step">Step 5</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. Student answers aloud BEFORE you click — and for every pun item, must name BOTH meanings.</span>
+    <div class="rulebox">
+      <div class="rule a"><h4>🥁 PUN — the double agent</h4>
+        One sound, two meanings. Built on <b>homophones</b> (knight/night) or <b>double meanings</b> (interest).<br><br>
+        <b>"The bicycle couldn't stand up by itself — it was two-tired."</b><br>
+        two-tired = has two tires + too tired 😴<br><br>
+        🔑 Test: can you point at the word doing two jobs?</div>
+      <div class="rule b"><h4>😏 IRONY &amp; SARCASM — the flip</h4>
+        <b>Irony</b> = expectation flipped by reality (a fire station burns down).<br>
+        <b>Sarcasm</b> = YOU flip the words at a target: "Smooth." = clumsy.<br><br>
+        🔑 Test: is there a speaker and a target? → sarcasm.<br>
+        Just an unlucky twist of fate? → irony.</div>
+    </div>
+    <div class="frame">💡 <b>The size dial:</b> hyperbole turns reality UP ("I've told you a million times"), understatement turns it DOWN ("a bit breezy" = hurricane). Deadpan keeps the face at zero while the words go crazy. Comedy is often just honesty with the volume knob moved.</div>
+    <p class="hint">💡 Hungarian tip: Hungarian sarcasm works the same way — the meaning lives in the intonation, not the words. But Hungarian puns almost never survive translation, because the double meaning sticks to the Hungarian word. Don't translate the joke; rebuild it around an ENGLISH word with two jobs.</p>
+    <h3>✏️ Practice — tap the correct answer</h3>
+    <div id="grammar-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>The irony-vs-coincidence items are the hardest — most adults fail them too (thanks to that famous song). Rule of thumb to teach: coincidence = unlikely; irony = the outcome mocks the expectation. If they get 7+/9, celebrate and move on; humor sticks best with momentum.</div>
+  </div>
+</div>
+
+<!-- MOVE BREAK -->
+<div class="move">
+  <h2>🤸 MOVE! — 1 minute break</h2>
+  <p>Stand up! Air-write the word <b>IRONY</b> with your elbow, then do 5 star jumps while keeping a PERFECT deadpan face. If you smile, start the jumps again. Teacher plays too — first to laugh loses! 😐</p>
+</div>
+
+<!-- STEP 6 CREATIVE TASK -->
+<div class="section task">
+  <div class="sec-head"><span class="icon">🎨</span> Create — The Joke Lab <span class="timing">10 min</span><span class="step">Step 6</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in their own browser, shares their screen, and builds jokes while you heckle supportively.</span>
+    <p>Time to build your own comedy. Three mini-missions! 🧪</p>
+    <h3>Mission 1 — pick a homophone pair (tap to hear both jobs):</h3>
+    <div class="chips" id="exp-chips"></div>
+    <div class="field-label">🥁 Write a pun (or a silly two-line joke) using your pair</div>
+    <div class="editable" id="t-pun" contenteditable="true" data-placeholder="Why did the… / I wanted to… but…"></div>
+    <div class="field-label">😏 Mission 2 — sarcastic caption: your friend's phone dies at 9 a.m. AGAIN. Write what you'd say — then the honest translation.</div>
+    <div class="editable" id="t-sarcasm" contenteditable="true" data-placeholder="Caption: "…" — Honest translation: …"></div>
+    <div class="field-label">🙃 Mission 3 — one self-deprecating one-liner about yourself (keep it kind — you're the target AND the friend)</div>
+    <div class="editable tall" id="t-selfdep" contenteditable="true" data-placeholder="I'm so good at… that…"></div>
+    <div class="speak">🗣️ <b>Stand-up minute!</b> Perform all three aloud: the pun with a drumroll, the sarcasm totally flat, the one-liner deadpan. Timing is half the joke — pause before the punchline!</div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> do Mission 1 + the performance live; Missions 2–3 become homework.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>Groan loudly at the pun — a groan is a five-star review for puns, tell them that. Check Mission 2's honest translation actually reverses the caption (that's the comprehension proof). Mission 3: watch that self-deprecating stays playful, not genuinely self-critical — if it turns dark, redirect gently to a skill-based joke ("my cooking", "my aim").</div>
+  </div>
+</div>
+
+<!-- STEP 7 CHALLENGE GAME -->
+<div class="section challenge">
+  <div class="sec-head"><span class="icon">🎮</span> Challenge Game — Comedy Detective <span class="timing">8 min</span><span class="step">Step 7</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: student's browser, their clicks, their score! You watch on their shared screen — after each answer they must say WHY in one line. 🎉</span>
+    <p class="hint">🎭 Three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
+    <h3>Round 1 — Name that device</h3>
+    <div id="ch-quiz1"></div>
+    <h3>Round 2 — Explain the pun</h3>
+    <div id="ch-quiz2"></div>
+    <h3>Round 3 — Boss level: tone &amp; meaning 👑</h3>
+    <div id="ch-quiz3"></div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can open the next lesson's warm-up.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>Round 2 is the real test: naming the double-meaning word proves they decoded the pun rather than guessed. On the 👑 BOSS item, ask them to PERFORM the sarcastic line after answering — production locks in recognition.</div>
+  </div>
+</div>
+
+<!-- STEP 8 REVIEW -->
+<div class="section review">
+  <div class="sec-head"><span class="icon">🏁</span> Review &amp; Homework <span class="timing">3 min</span><span class="step">Step 8</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, screens off. Finish with faces, not slides.</span>
+    <div class="frame">⚡ <b>30-second recap:</b> teacher names a device — "pun!", "deadpan!", "hyperbole!" — you define it in under ten words OR give an instant example. Sudden-death round: what's the difference between irony and sarcasm?</div>
+    <h3>🏠 Homework</h3>
+    <div class="frame">
+      <p>🎤 <b>Joke collector:</b> find TWO English jokes or puns (school-friendly!) — from a show, a video, or a joke site.</p>
+      <p>✏️ <b>For each one, write the mechanism:</b> which word does two jobs, or what expectation gets flipped?</p>
+      <p>📌 Bonus: catch one sarcastic line in an English show this week and write down the honest translation.</p>
+    </div>
+    <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="t-only">
+      <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
+      <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">What to adjust next time?</div><div class="editable" id="tn-adjust" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">Student's strongest / weakest moment today?</div><div class="editable" id="tn-notes" contenteditable="true" data-placeholder="…"></div></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="bottom-bar">
+  <button class="bb bb-save" onclick="saveWork()">💾 Save my work</button>
+  <button class="bb bb-print" onclick="window.print()">🖨️ Print</button>
+  <button class="bb bb-teach" id="teach-btn" onclick="unlockTeacher()">🔐</button>
+</div>
+
+<script>
+/* ============ ENGINE (identical across all Library sessions) ============ */
+var LEVEL=5, SESSION=5, K='ecl_L'+LEVEL+'s'+SESSION+'_';
+
+/* ---- TTS audio ---- */
+function say(text){try{window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(text);u.lang='en-GB';u.rate=0.9;window.speechSynthesis.speak(u);}catch(e){}}
+
+/* ---- Quiz engine ---- */
+var score=0,total=0;
+function buildQuiz(containerId,items){
+  var c=document.getElementById(containerId);
+  items.forEach(function(it){
+    total++;
+    var qz=document.createElement('div');qz.className='qz';
+    var opts='<div class="opts">';
+    it.options.forEach(function(o){opts+='<button class="opt" data-ok="'+(o===it.answer?'1':'0')+'" onclick="pick(this)">'+o+'</button>';});
+    opts+='</div><div class="fb"></div>';
+    qz.innerHTML='<div class="q">'+it.q+'</div>'+opts;
+    c.appendChild(qz);
+  });
+  updateScore();
+}
+function pick(btn){
+  var qz=btn.closest('.qz');if(qz.dataset.done)return;qz.dataset.done='1';
+  var ok=btn.dataset.ok==='1';var fb=qz.querySelector('.fb');
+  if(ok){btn.classList.add('correct');score++;fb.className='fb ok';fb.textContent='✓ Correct! Great job!';}
+  else{btn.classList.add('wrong');var good=qz.querySelector('[data-ok="1"]');if(good)good.classList.add('correct');
+    fb.className='fb no';fb.textContent='Almost! The green one is right. Try to remember it! 💪';}
+  qz.querySelectorAll('.opt').forEach(function(b){b.disabled=true;});
+  updateScore();
+}
+function updateScore(){
+  var answered=document.querySelectorAll('.qz[data-done]').length;
+  document.getElementById('score-num').textContent=score+' / '+total;
+  document.getElementById('score-fill').style.width=(total?Math.round(answered/total*100):0)+'%';
+  var st='',pct=total?score/total:0;
+  if(answered===total&&total>0){st=pct>=0.8?'⭐⭐⭐':pct>=0.5?'⭐⭐':'⭐';}
+  document.getElementById('score-stars').textContent=st;
+}
+
+/* ---- Student name ---- */
+var nameInput=document.getElementById('student-name');
+function applyName(){
+  var n=nameInput.value.trim();
+  document.getElementById('hello-msg').textContent=n?('Hello, '+n+'! 🌟'):'';
+  document.querySelectorAll('.stud-name').forEach(function(el){el.textContent=n?('Amazing work today, '+n+'!'):'Amazing work today!';});
+  localStorage.setItem(K+'name',n);
+}
+nameInput.addEventListener('input',applyName);
+
+/* ---- Agenda pills ---- */
+document.querySelectorAll('.ap').forEach(function(p){
+  p.onclick=function(){p.classList.toggle('done');localStorage.setItem(K+'ap'+p.dataset.s,p.classList.contains('done'));};
+});
+
+/* ---- Teacher mode ---- */
+function unlockTeacher(){
+  if(document.body.classList.contains('teacher-mode')){document.body.classList.remove('teacher-mode');document.getElementById('teach-btn').textContent='🔐';return;}
+  var pin=prompt('Teacher PIN:');
+  if(pin==='teach'){document.body.classList.add('teacher-mode');document.getElementById('teach-btn').textContent='🔓 Teacher';}
+}
+
+/* ---- Save work (.txt export) ---- */
+function saveWork(){
+  var n=(localStorage.getItem(K+'name')||'Student').replace(/[^\wÀ-ſ-]/g,'');
+  var out=n+' — Level '+LEVEL+' Session '+SESSION+'\n'+new Date().toLocaleDateString()+'\n'+'='.repeat(34)+'\n\n';
+  var picks=[].slice.call(document.querySelectorAll('.chips .chip.on')).map(function(x){return x.textContent.trim();});
+  if(picks.length)out+='Picked: '+picks.join(', ')+'\n\n';
+  var count=0;
+  document.querySelectorAll('.editable[id]').forEach(function(el){var t=el.innerText.trim();if(t){out+='['+el.id+'] '+t+'\n';count++;}});
+  out+='\nScore: '+score+' / '+total;
+  if(count===0&&!picks.length){alert('Type something first! 🙂');return;}
+  var b=new Blob([out],{type:'text/plain;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u;a.download=n+'_L'+LEVEL+'S'+SESSION+'_'+new Date().toISOString().slice(0,10)+'.txt';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);
+  var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show');},1600);
+}
+
+/* ---- Autosave / autoload ---- */
+function autosave(){document.querySelectorAll('.editable[id]').forEach(function(el){localStorage.setItem(K+el.id,el.innerHTML);});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){localStorage.setItem(K+'chip'+i,el.classList.contains('on'));});}
+function autoload(){
+  document.querySelectorAll('.editable[id]').forEach(function(el){var v=localStorage.getItem(K+el.id);if(v!==null)el.innerHTML=v;});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){if(localStorage.getItem(K+'chip'+i)==='true')el.classList.add('on');});
+  document.querySelectorAll('.ap').forEach(function(p){if(localStorage.getItem(K+'ap'+p.dataset.s)==='true')p.classList.add('done');});
+  var n=localStorage.getItem(K+'name');if(n){nameInput.value=n;applyName();}
+}
+document.addEventListener('input',function(){clearTimeout(window._t);window._t=setTimeout(autosave,600);});
+window.addEventListener('load',autoload);
+
+/* ============ SESSION CONTENT (changes per session) ============ */
+
+/* ---- Vocabulary: the comedy dictionary ---- */
+var VOCAB=[
+  {w:'pun',e:'🥁',p:'one word, two meanings'},
+  {w:'wordplay',e:'🎪',p:'juggling with words for fun'},
+  {w:'irony',e:'🎭',p:'reality flips your expectation'},
+  {w:'sarcasm',e:'😏',p:'saying the opposite, with a target'},
+  {w:'punchline',e:'🎯',p:'the line that lands the laugh'},
+  {w:'hyperbole',e:'🌋',p:'hy-PER-bo-lee — wild exaggeration'},
+  {w:'understatement',e:'🤏',p:'"a bit breezy" = a hurricane'},
+  {w:'deadpan',e:'😐',p:'absurd words, serious face'},
+  {w:'witty',e:'✨',p:'fast, clever, sharp humor'},
+  {w:'tongue-in-cheek',e:'😜',p:'said jokingly, not seriously'},
+  {w:'double meaning',e:'👯',p:'one phrase, two readings'},
+  {w:'self-deprecating',e:'🙃',p:'joking about yourself'},
+  {w:'banter',e:'🏓',p:'playful teasing between friends'},
+  {w:'cheesy',e:'🧀',p:'so corny it makes you groan'}
+];
+(function buildVocab(){
+  var g=document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v){
+    var d=document.createElement('div');d.className='vc';
+    d.innerHTML='<div class="vc-play">🔊</div><div class="vc-emoji">'+v.e+'</div><div class="vc-word">'+v.w+'</div><div class="vc-pron">'+v.p+'</div>';
+    d.onclick=function(){say(v.w+'. '+v.p);};
+    g.appendChild(d);
+  });
+})();
+
+/* ---- Homophone-pair chips for Step 6 ---- */
+(function(){
+  var PAIRS=['🌸 flour / flower','🌙 knight / night','🌊 sea / see','🍐 pair / pear','🕳️ hole / whole','🍽️ ate / eight','🧵 sew / so','🐻 bear / bare','📬 mail / male','⏳ weight / wait'];
+  var c=document.getElementById('exp-chips');
+  PAIRS.forEach(function(t){
+    var s=document.createElement('span');s.className='chip';s.textContent=t;
+    s.onclick=function(){s.classList.toggle('on');say(t.replace(/^\S+\s/,'').replace('/','and'));};
+    c.appendChild(s);
+  });
+})();
+
+/* ---- Quizzes ---- */
+buildQuiz('vocab-quiz',[
+  {q:'🎯 The final line that makes everyone laugh:',options:['punchline','banter','hyperbole'],answer:'punchline'},
+  {q:'🏓 Playful teasing between friends who both enjoy it:',options:['banter','sarcasm','irony'],answer:'banter'},
+  {q:'😐 Telling an absurd joke with a completely serious face:',options:['deadpan','cheesy','witty'],answer:'deadpan'},
+  {q:'🙃 "I\'m such a good cook, the smoke alarm cheers me on." This joke is…',options:['self-deprecating','tongue-in-cheek about a friend','a pun'],answer:'self-deprecating'},
+  {q:'🧀 A joke so corny that people groan instead of laughing:',options:['cheesy','witty','deadpan'],answer:'cheesy'},
+  {q:'🌋 "I\'ve been waiting for you for a CENTURY!" is…',options:['hyperbole','understatement','irony'],answer:'hyperbole'}
+]);
+buildQuiz('reading-quiz',[
+  {q:'Why does "I lost interest" work as a pun?',options:['"interest" has two meanings','"lost" is a homophone','bankers are funny'],answer:'"interest" has two meanings'},
+  {q:'Which situation does the article call TRUE irony?',options:['rain on your birthday','rain on the weather-predicting-umbrella presentation','rain during a football match'],answer:'rain on the weather-predicting-umbrella presentation'},
+  {q:'What does sarcasm need that group chats often lose?',options:['tone of voice','long words','a punchline'],answer:'tone of voice'},
+  {q:'A Brit calling a hurricane "a bit breezy" is…',options:['understatement','hyperbole','a pun'],answer:'understatement'},
+  {q:'Dramatic irony means…',options:['the audience knows something a character doesn\'t','the actor forgets a line','the ending is very sad'],answer:'the audience knows something a character doesn\'t'}
+]);
+buildQuiz('grammar-quiz',[
+  {q:'Homophones are words that…',options:['sound the same but mean different things','mean the same but sound different','are spelled backwards'],answer:'sound the same but mean different things'},
+  {q:'"A book about anti-gravity — impossible to put down." Which TWO jobs does "put down" do?',options:['stop reading + physically lower it','buy it + sell it','open it + close it'],answer:'stop reading + physically lower it'},
+  {q:'You step in a puddle. Your friend: "Oh, FANTASTIC." This is…',options:['sarcastic','sincere'],answer:'sarcastic'},
+  {q:'You bump into your teacher twice in one day at the shop. Irony or coincidence?',options:['coincidence','irony'],answer:'coincidence'},
+  {q:'The spelling champion misspells the word "spelling" on their certificate. Irony or coincidence?',options:['irony','coincidence'],answer:'irony'},
+  {q:'"I\'ve told you a million times!" is…',options:['hyperbole','understatement','deadpan'],answer:'hyperbole'},
+  {q:'Which delivery usually signals sarcasm in speech?',options:['flat, slow, one stretched word','fast and loud','whispering every word'],answer:'flat, slow, one stretched word'},
+  {q:'In a film, WE see the trap but the hero doesn\'t. That\'s…',options:['dramatic irony','sarcasm','a pun'],answer:'dramatic irony'},
+  {q:'The friendly-sarcasm rule from the reading: aim it…',options:['upwards or sideways, never down','at strangers first','only at teachers'],answer:'upwards or sideways, never down'}
+]);
+buildQuiz('ch-quiz1',[
+  {q:'A hairdresser\'s shop called "Curl Up and Dye":',options:['pun','irony','hyperbole'],answer:'pun'},
+  {q:'Describing a 3-hour traffic jam as "a small delay":',options:['understatement','sarcasm','deadpan'],answer:'understatement'},
+  {q:'You trip over nothing. Your sister, flatly: "Smooth."',options:['sarcasm','sincere praise','a pun'],answer:'sarcasm'},
+  {q:'"My backpack weighs more than a baby elephant."',options:['hyperbole','irony','understatement'],answer:'hyperbole'}
+]);
+buildQuiz('ch-quiz2',[
+  {q:'"The bicycle couldn\'t stand up by itself — it was two-tired." The double meaning:',options:['two tires + too tired','two wheels + two seats','tired + retired'],answer:'two tires + too tired'},
+  {q:'"I\'m friends with 25 letters of the alphabet. I don\'t know why." Which letter is missing?',options:['Y (sounds like "why")','Z (it\'s asleep)','A (it left first)'],answer:'Y (sounds like "why")'},
+  {q:'"Becoming a vegetarian was a big missed steak." The pun word:',options:['missed steak = mistake','vegetarian = very tearful','big = pig'],answer:'missed steak = mistake'}
+]);
+buildQuiz('ch-quiz3',[
+  {q:'Your team loses 7–0. Coach, calmly: "Room for improvement." This is…',options:['understatement','hyperbole','a pun'],answer:'understatement'},
+  {q:'The fire safety officer\'s house is the only one on the street that burns down. This is…',options:['irony','sarcasm','coincidence'],answer:'irony'},
+  {q:'Friend, after your 45-minute story about a sandwich: "No no, keep going, this is RIVETING." Really means…',options:['this story is too long','I love sandwiches too','please speak louder'],answer:'this story is too long'},
+  {q:'👑 BOSS: "Great weather for a picnic," said Ana, watching the storm flood the park. Device AND meaning?',options:['sarcasm — the weather is terrible','sincere — she loves rain','pun — "picnic" has two meanings'],answer:'sarcasm — the weather is terrible'}
+]);
+</script>
+</body>
+</html>

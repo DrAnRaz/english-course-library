@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>L5 · Session 9 — Englishes of the World</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--accent:#00838F;--accent2:#26A69A}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1a;font-size:17px;line-height:1.6;padding-bottom:90px}
+.page-header{background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;padding:26px 20px;text-align:center}
+.page-header h1{font-size:26px;font-weight:800;letter-spacing:-0.3px}
+.page-header .subtitle{font-size:14px;opacity:0.9;margin-top:4px}
+.badge{display:inline-block;background:rgba(255,255,255,0.2);padding:6px 16px;border-radius:20px;font-size:14px;margin-top:10px}
+.lvl{display:inline-block;background:#FFD54F;color:#5D4037;font-weight:800;font-size:12px;padding:3px 12px;border-radius:12px;letter-spacing:0.5px;margin-bottom:8px}
+.container{max-width:860px;margin:0 auto;padding:18px}
+
+/* Student name */
+.namebox{background:white;border:2px solid var(--accent);border-radius:14px;padding:14px 18px;margin:16px 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.namebox label{font-weight:700;font-size:15px}
+.namebox input{flex:1;min-width:160px;font-size:17px;padding:8px 12px;border:2px dashed #90A4AE;border-radius:8px;font-family:inherit}
+.namebox .hello{font-weight:700;color:var(--accent)}
+
+/* Agenda */
+.agenda{background:white;border-radius:14px;padding:16px 18px;margin:14px 0;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.agenda h2{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:#666;margin-bottom:10px}
+.agenda-pills{display:flex;flex-wrap:wrap;gap:8px}
+.ap{display:flex;align-items:center;gap:6px;background:#ECEFF1;border:2px solid transparent;border-radius:20px;padding:5px 13px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.ap.done{background:#C8E6C9;border-color:#2E7D32;text-decoration:line-through;opacity:0.8}
+
+/* Sections */
+.section{background:white;border-radius:16px;margin:18px 0;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,0.07)}
+.sec-head{padding:14px 20px;color:white;font-size:17px;font-weight:800;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sec-head .icon{font-size:22px}
+.sec-head .step{margin-left:auto;font-size:12px;font-weight:700;background:rgba(255,255,255,0.25);padding:3px 12px;border-radius:12px;white-space:nowrap}
+.sec-head .timing{font-size:12px;font-weight:400;background:rgba(255,255,255,0.18);padding:3px 10px;border-radius:12px;white-space:nowrap}
+.sec-body{padding:18px 20px}
+.zoom-cue{display:block;font-size:13px;font-weight:600;color:#37474F;background:#E1F5FE;border-left:4px solid #0288D1;border-radius:0 8px 8px 0;padding:7px 12px;margin:0 0 14px}
+.goal .sec-head{background:#2E7D32}
+.warmup .sec-head{background:#E65100}
+.vocab .sec-head{background:#1565C0}
+.reading .sec-head{background:#6A1B9A}
+.grammar .sec-head{background:#AD1457}
+.task .sec-head{background:#00695C}
+.challenge .sec-head{background:#F57F17}
+.review .sec-head{background:#BF360C}
+.skipif{background:#FFF8E1;border:1px dashed #F9A825;border-radius:10px;padding:10px 14px;margin-top:12px;font-size:14px}
+.skipif b{color:#F57F17}
+
+/* Movement break */
+.move{background:linear-gradient(135deg,#00BFA5,#00897B);color:white;border-radius:16px;margin:18px 0;padding:18px 22px;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,0.1)}
+.move h2{font-size:20px;font-weight:800}
+.move p{font-size:15px;opacity:0.95;margin-top:6px}
+
+/* Vocab cards */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:14px 0}
+.vc{background:#E3F2FD;border:2px solid #90CAF9;border-radius:12px;padding:12px 10px;text-align:center;cursor:pointer;transition:transform 0.12s}
+.vc:hover{transform:scale(1.04);border-color:var(--accent)}
+.vc .vc-emoji{font-size:30px}
+.vc .vc-word{font-weight:800;font-size:15px;margin-top:4px;color:#0D47A1}
+.vc .vc-pron{font-size:12px;color:#666}
+.vc .vc-play{font-size:13px;color:#1565C0}
+
+/* Quiz engine */
+.qz{background:#FAFAFA;border:1px solid #E0E0E0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.qz .q{font-weight:700;font-size:16px;margin-bottom:10px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{font-family:inherit;font-size:15px;font-weight:600;padding:8px 16px;border-radius:10px;border:2px solid #B0BEC5;background:white;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt.correct{background:#C8E6C9;border-color:#2E7D32}
+.opt.wrong{background:#FFCDD2;border-color:#C62828}
+.opt:disabled{cursor:default;opacity:0.85}
+.fb{font-size:14px;font-weight:600;margin-top:8px;display:none}
+.fb.ok{display:block;color:#2E7D32}
+.fb.no{display:block;color:#C62828}
+
+/* Score bar */
+.scorebar{position:sticky;top:0;z-index:50;background:white;box-shadow:0 2px 8px rgba(0,0,0,0.12);padding:8px 16px;display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px}
+.scorebar .bar{flex:1;height:10px;background:#ECEFF1;border-radius:6px;overflow:hidden}
+.scorebar .fill{height:100%;width:0;background:linear-gradient(90deg,#43A047,#66BB6A);transition:width 0.4s}
+.stars{font-size:16px}
+
+/* Reading */
+.reading-text{background:#F3E5F5;border-radius:12px;padding:18px 20px;font-size:17px;max-width:65ch}
+.reading-text h4{color:#6A1B9A;font-size:15px;margin:14px 0 6px;text-transform:uppercase;letter-spacing:0.4px}
+.reading-text h4:first-child{margin-top:0}
+.reading-text p{margin:8px 0}
+
+/* Editable fields */
+.field-label{font-weight:700;font-size:14px;margin:12px 0 4px;color:#37474F}
+.editable{min-height:34px;background:#FFFDE7;border:2px dashed #9E9D24;border-radius:8px;padding:8px 12px;font-size:16px;outline:none}
+.editable.tall{min-height:70px}
+.editable:focus{border-style:solid;border-color:var(--accent)}
+.editable:empty::before{content:attr(data-placeholder);color:#999}
+.qa-item{margin:12px 0}
+.qa-item .q{font-weight:700;font-size:15px;margin-bottom:5px}
+
+/* Frames / rule boxes */
+.frame{background:#FCE4EC;border-left:5px solid #AD1457;border-radius:0 10px 10px 0;padding:12px 16px;margin:12px 0;font-size:16px}
+.rulebox{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.rule{border-radius:12px;padding:14px 16px;font-size:15px}
+.rule h4{font-size:15px;margin-bottom:8px}
+.rule.a{background:#E8F5E9;border:2px solid #66BB6A}
+.rule.a h4{color:#2E7D32}
+.rule.b{background:#FFF3E0;border:2px solid #FFA726}
+.rule.b h4{color:#E65100}
+.hint{font-size:14px;color:#555;background:#F5F5F5;border-radius:8px;padding:8px 12px;margin:10px 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.chip{background:#E1F5FE;border:2px solid #81D4FA;border-radius:16px;padding:5px 14px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.chip.on{background:#0288D1;border-color:#01579B;color:white}
+.speak{background:#E8F5E9;border-radius:10px;padding:12px 16px;font-size:16px;margin:12px 0}
+
+/* Teacher mode */
+.t-only{display:none}
+body.teacher-mode .t-only{display:block}
+.teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
+.teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
+
+/* Bottom bar */
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:white;box-shadow:0 -3px 12px rgba(0,0,0,0.12);padding:10px 14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;z-index:60}
+.bb{font-family:inherit;font-size:14px;font-weight:700;padding:10px 18px;border-radius:10px;border:none;cursor:pointer;text-decoration:none;color:white;display:inline-block}
+.bb-save{background:#2E7D32}
+.bb-print{background:#546E7A}
+.bb-teach{background:#C62828}
+#toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:#2E7D32;color:white;font-weight:700;padding:10px 22px;border-radius:20px;opacity:0;transition:all 0.3s;z-index:70}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:640px){.rulebox{grid-template-columns:1fr}.vocab-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}}
+@media print{body{background:white;padding-bottom:0}.bottom-bar,.scorebar,#toast{display:none!important}.section{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid}.sec-head,.sec-body,.page-header{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="lvl">LEVEL 5 · PROFICIENT (C1)</div>
+  <h1>🌍 Session 9 — Englishes of the World</h1>
+  <div class="subtitle">English Course Library · Kids &amp; Teens</div>
+  <div class="badge">🎯 Today: navigate <b>UK, US and global Englishes</b> — words, spelling, grammar and accents — like a world traveller · ≈50 min core</div>
+</div>
+
+<div class="scorebar">
+  <span>⭐ Score:</span><span id="score-num">0 / 0</span>
+  <div class="bar"><div class="fill" id="score-fill"></div></div>
+  <span class="stars" id="score-stars"></span>
+</div>
+
+<div id="toast">✓ Saved</div>
+
+<div class="container">
+
+<div class="namebox">
+  <label for="student-name">👋 Your name:</label>
+  <input id="student-name" type="text" placeholder="Type your name…">
+  <span class="hello" id="hello-msg"></span>
+</div>
+
+<div class="agenda">
+  <h2>📋 Today's plan — tap each step when you finish it</h2>
+  <div class="agenda-pills" id="agenda">
+    <span class="ap" data-s="1">1️⃣ Goal</span><span class="ap" data-s="2">2️⃣ Warm-up</span>
+    <span class="ap" data-s="3">3️⃣ New words</span><span class="ap" data-s="4">4️⃣ Reading</span>
+    <span class="ap" data-s="5">5️⃣ Grammar</span><span class="ap" data-s="6">6️⃣ Create</span>
+    <span class="ap" data-s="7">7️⃣ Game</span><span class="ap" data-s="8">8️⃣ Review</span>
+  </div>
+</div>
+
+<!-- STEP 1 GOAL -->
+<div class="section goal">
+  <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student repeats it back in her best attempt at ANY accent she likes.</span>
+    <p><em>"Today you will discover that there is no single 'correct' English — there are many <b>Englishes</b>. You will learn to switch between UK and US words, spot the grammar differences, and understand why an accent is an address, not an error."</em> 🗺️</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Hook: ask "If a Londoner, a Texan and someone from Mumbai all speak English, who speaks it RIGHT?" Let her argue for 30 seconds — today's reading will answer it. Note which varieties she already knows from YouTube/Netflix.</div>
+  </div>
+</div>
+
+<!-- STEP 2 WARM-UP -->
+<div class="section warmup">
+  <div class="sec-head"><span class="icon">⚡</span> Warm-Up — Twin Words <span class="timing">5 min</span><span class="step">Step 2</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: pure talking, cameras on. Teacher holds up fingers for a 3-2-1 countdown before each word — game-show energy!</span>
+    <p><b>How to play:</b></p>
+    <p>1. Your teacher says an American word (<em>"elevator!"</em>).<br>
+    2. You have <b>3 seconds</b> to fire back its British twin (<em>"lift!"</em>). 🇺🇸→🇬🇧<br>
+    3. After 5 words, swap directions: teacher goes British, you answer American. How many can you get?</p>
+    <p class="hint">No score on the scorebar — but count your streak out loud! 🔥</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 2</h4>US→UK set: elevator→lift · cookie→biscuit · vacation→holiday · sneakers→trainers · garbage→rubbish. UK→US set: flat→apartment · autumn→fall · queue→line · crisps→chips · jumper→sweater. Unknown twins are fine — they preview Step 3, so reveal with drama, not correction.</div>
+  </div>
+</div>
+
+<!-- STEP 3 VOCAB -->
+<div class="section vocab">
+  <div class="sec-head"><span class="icon">📝</span> New Words — One Planet, Two Dictionaries <span class="timing">10 min</span><span class="step">Step 3</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share your screen. You click 🔊 on each card; the student repeats BOTH versions, then says which one SHE would naturally use and why.</span>
+    <p>Tap any card to <b>hear</b> it 🔊. Eight word-pairs and four expert terms every world-English speaker needs.</p>
+    <div class="vocab-grid" id="vocab-grid"></div>
+    <h3>🎧 Practice — tap the right answer</h3>
+    <p class="hint">Read the clue and tap the term that matches. Green = correct!</p>
+    <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Fun fact per pair keeps energy up: UK "chips" = US "fries", while US "chips" = UK "crisps" (a two-level trap!). For "lingua franca" ask: what do a Hungarian and a Japanese gamer speak together online? That's the concept in one question.</div>
+  </div>
+</div>
+
+<!-- STEP 4 READING -->
+<div class="section reading">
+  <div class="sec-head"><span class="icon">📖</span> Reading — One Language, Many Voices <span class="timing">10 min</span><span class="step">Step 4</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. Take turns reading a chunk each — and each of you ATTEMPTS the accent of the section you're reading (badly is fine, that's the fun). Then student annotates all the "variety words" (Zoom → Annotate).</span>
+    <p>A travel-diary feature from a teen magazine. Tap 🔊 to hear any part read aloud.
+      <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
+    <div class="reading-text" id="read-text">
+      <h4>🌍 One language, many voices — notes from a very confusing summer, by Mateo Fernandes, 15</h4>
+      <p>Last summer, my family scattered me across the English-speaking world. I stayed with cousins in London and in Texas, video-called my cousin Wei Ling in Singapore, and gamed nightly with my friend Chidi in Lagos. I left believing I spoke English.</p>
+      <p>I came back knowing I speak <b>an</b> English — one of many.</p>
+      <h4>🇬🇧 London: the pants incident</h4>
+      <p>Disaster struck on day two. I told my cousin's whole football team that I'd forgotten to pack enough pants, meaning trousers. In Britain, "pants" means underwear, and eleven boys will never let me forget it.</p>
+      <p>Britain also queues. You do not stand near a bus stop; you join the queue, you respect the queue, you become the queue. Push in, and the politest nation on Earth will destroy you with one single raised eyebrow.</p>
+      <h4>🇺🇸 Texas: bigger, louder, faster</h4>
+      <p>Three weeks later, Texas. My aunt asked if I wanted chips, and handed me what Londoners call crisps; the "chips" I expected are "fries" over there. Same words, different planet.</p>
+      <p>Texans said "y'all" to everyone, took the elevator, threw out the garbage, and went on vacation in the fall. My London cousin, on our group call, pretended to faint.</p>
+      <h4>🌏 Singapore, Lagos and beyond</h4>
+      <p>Wei Ling speaks flawless formal English at school — and glorious Singlish with friends: "Can lah, no problem!" That little "lah" adds friendly emphasis, and no dictionary can fully translate it.</p>
+      <p>Chidi greets me with "How far?" — Nigerian English for "how are you doing?" — and calls a traffic jam a "go-slow", which honestly beats the original. Meanwhile, my cousin in Mumbai says meetings get "preponed": moved earlier, the elegant opposite of postponed.</p>
+      <p>Wei Ling's roommate joined one call from Sydney and broke my brain completely. Australians shorten everything: afternoon becomes "arvo", breakfast becomes "brekkie", and a mosquito is a "mozzie". She cheerfully promised to ring me "this arvo, after brekkie", and I understood roughly half.</p>
+      <h4>🧭 So who speaks it right?</h4>
+      <p>Here is the fact that rearranged my brain: most English conversations today happen between non-native speakers. English has no single owner anymore; it is the world's shared lingua franca, and every region signs it differently.</p>
+      <p>At first, honestly, that discovery worried me. If everyone owns English, whose rules was I supposed to learn? Then I noticed the trick: speakers everywhere still understand each other almost perfectly, because the deep grammar barely changes — only the decoration does.</p>
+      <p>My teacher put it best when I got home. An accent is an address, not an error — it tells people where your English lives. Mine, apparently, lives everywhere now — and eleven London boys still text me about my pants.</p>
+    </div>
+
+    <h3>🔎 Did you understand? Tap your answer</h3>
+    <div id="reading-quiz"></div>
+
+    <h3>💬 Your turn — write your answer</h3>
+    <div class="qa-item"><div class="q">1. The teacher says "an accent is an address, not an error." Explain what that means.</div><div class="editable" id="r-open1" contenteditable="true" data-placeholder="It means that an accent shows… rather than…"></div></div>
+    <div class="qa-item"><div class="q">2. Which English variety would you most like to master, and why? Where does YOUR English "live"?</div><div class="editable tall" id="r-open2" contenteditable="true" data-placeholder="The variety I'd choose is… because… My English lives in…"></div></div>
+
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> the two written questions above can be homework instead.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 4 + answer key</h4>Quiz answers: "pants" means underwear in the UK · moved earlier · friendly emphasis · between non-native speakers. Open Q1 key idea: an accent carries identity/origin information, it is not a mistake to fix. Open Q2: any variety is fine — push for a REASON (media she consumes, family, sound). The "chips/crisps/fries" triangle is worth drawing on the whiteboard for 30 seconds.</div>
+  </div>
+</div>
+
+<!-- STEP 5 GRAMMAR -->
+<div class="section grammar">
+  <div class="sec-head"><span class="icon">🔧</span> Focus — UK vs US Grammar &amp; Spelling <span class="timing">10 min</span><span class="step">Step 5</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. Before each quiz item, the student calls out "London!" or "New York!" for where the sentence belongs — THEN answers.</span>
+    <div class="rulebox">
+      <div class="rule a"><h4>🇬🇧 BRITISH ENGLISH</h4>
+        ✏️ Spelling: <b>colour, centre, realise, travelling</b><br>
+        ⏰ <em>I'<b>ve just eaten</b>.</em> (present perfect for recent events)<br>
+        📅 <em><b>at</b> the weekend</em><br>
+        🤝 <em><b>Have you got</b> a pen?</em><br>
+        👥 <em>The team <b>are</b> winning.</em> (group = people)</div>
+      <div class="rule b"><h4>🇺🇸 AMERICAN ENGLISH</h4>
+        ✏️ Spelling: <b>color, center, realize, traveling</b><br>
+        ⏰ <em>I <b>just ate</b>.</em> (past simple is fine)<br>
+        📅 <em><b>on</b> the weekend</em><br>
+        🤝 <em><b>Do you have</b> a pen?</em><br>
+        👥 <em>The team <b>is</b> winning.</em> (group = unit)<br>
+        ➕ bonus participle: <em>has <b>gotten</b></em></div>
+    </div>
+    <div class="frame">💡 <b>The golden rule:</b> both systems are 100% correct — but be <b>consistent</b>. One essay, one flag. Mixing "colour" and "center" in the same text is the only real mistake.</div>
+    <p class="hint">💡 Tip: your spellchecker has a flag too! Check whether your document is set to English (UK) or English (US) before you trust its red lines.</p>
+    <h3>✏️ Practice — tap the correct answer</h3>
+    <div id="grammar-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>Item 8 (team are/is) surprises everyone — both are grammatical, the question asks which is typically BRITISH. If she scores 7+/8, bonus oral round: "burnt/burned, learnt/learned, dreamt/dreamed" — UK keeps the -t forms alive.</div>
+  </div>
+</div>
+
+<!-- MOVE BREAK -->
+<div class="move">
+  <h2>🤸 MOVE! — 1 minute break</h2>
+  <p>Stand up! Walk across the room like you're joining a very polite London queue… now switch to a Texas rodeo swagger… now strike a K-drama pose. Finish with 5 star jumps (Americans call them jumping jacks!). Teacher does it all too! 😄</p>
+</div>
+
+<!-- STEP 6 CREATIVE TASK -->
+<div class="section task">
+  <div class="sec-head"><span class="icon">🎨</span> Create — My English Passport <span class="timing">10 min</span><span class="step">Step 6</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in her own browser, types here, and shares her screen. She performs the dialogue doing BOTH voices.</span>
+    <p>Every English speaker builds their own mix. Time to design yours — and to write the misunderstanding scene every traveller lives through. 🛂</p>
+    <h3>First, tap the words YOU would personally use (build your mix!):</h3>
+    <div class="chips" id="word-chips"></div>
+    <div class="field-label">😵 A 4–6 line mini-dialogue: a Brit and an American get confused by ONE word (chips? pants? football?)</div>
+    <div class="editable tall" id="t-dialogue" contenteditable="true" data-placeholder="Jo (London): Fancy some chips?&#10;Kai (Chicago): Sure! …wait, why are these fries?"></div>
+    <div class="field-label">🛂 My English Passport: which Englishes live in YOUR English? (shows, music, games, family…) — 3 sentences</div>
+    <div class="editable tall" id="t-identity" contenteditable="true" data-placeholder="My English is mostly … because… But I say … like a … because…"></div>
+    <div class="speak">🗣️ <b>Perform your dialogue!</b> Two voices, two (attempted) accents. Then read your passport aloud — proudly. This mix is YOURS.</div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> do only the dialogue + performance; the passport paragraph becomes homework.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>If she's stuck on the dialogue, offer the trap words: chips, pants, football/soccer, first floor (UK = one floor UP!), biscuit. Model one exchange yourself with shameless accents — permission to be silly unlocks this task. The passport paragraph is an identity celebration, not a grammar check; correct only meaning-blockers.</div>
+  </div>
+</div>
+
+<!-- STEP 7 CHALLENGE GAME -->
+<div class="section challenge">
+  <div class="sec-head"><span class="icon">🎮</span> Challenge Game — Passport Control <span class="timing">8 min</span><span class="step">Step 7</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen and stamp an imaginary passport for each correct answer. 🛂</span>
+    <p class="hint">🌍 Three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
+    <h3>Round 1 — Which flag? 🇬🇧 or 🇺🇸</h3>
+    <div id="ch-quiz1"></div>
+    <h3>Round 2 — Spelling &amp; grammar border check</h3>
+    <div id="ch-quiz2"></div>
+    <h3>Round 3 — Boss level: around the world 👑</h3>
+    <div id="ch-quiz3"></div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can open the next lesson's warm-up.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>Round 3 pulls from the reading's global section — if she misses "prepone" or "lah", flip back to the text together after the round. The 👑 item tests the lingua-franca takeaway, the single most important idea of the session.</div>
+  </div>
+</div>
+
+<!-- STEP 8 REVIEW -->
+<div class="section review">
+  <div class="sec-head"><span class="icon">🏁</span> Review &amp; Homework <span class="timing">3 min</span><span class="step">Step 8</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, screens off. Finish with faces, not slides.</span>
+    <div class="frame">⚡ <b>30-second recap:</b> teacher says a word ("holiday", "gotten", "queue", "y'all", "lah") — you shout its home: UK, US, Singapore… Five words, lightning round!</div>
+    <h3>🏠 Homework</h3>
+    <div class="frame">
+      <p>📺 <b>Watch 5 minutes</b> of a show or YouTuber in an English variety that is NOT your usual one.</p>
+      <p>✏️ <b>Collect 3 words or phrases</b> that marked the variety — write where each "lives".</p>
+      <p>🎤 <b>Imitate one full sentence</b> in that accent and perform it next lesson. Style points count! 🌟</p>
+    </div>
+    <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="t-only">
+      <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
+      <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">What to adjust next time?</div><div class="editable" id="tn-adjust" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">Student's strongest / weakest moment today?</div><div class="editable" id="tn-notes" contenteditable="true" data-placeholder="…"></div></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="bottom-bar">
+  <button class="bb bb-save" onclick="saveWork()">💾 Save my work</button>
+  <button class="bb bb-print" onclick="window.print()">🖨️ Print</button>
+  <button class="bb bb-teach" id="teach-btn" onclick="unlockTeacher()">🔐</button>
+</div>
+
+<script>
+/* ============ ENGINE (identical across all Library sessions) ============ */
+var LEVEL=5, SESSION=9, K='ecl_L'+LEVEL+'s'+SESSION+'_';
+
+/* ---- TTS audio ---- */
+function say(text){try{window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(text);u.lang='en-GB';u.rate=0.9;window.speechSynthesis.speak(u);}catch(e){}}
+
+/* ---- Quiz engine ---- */
+var score=0,total=0;
+function buildQuiz(containerId,items){
+  var c=document.getElementById(containerId);
+  items.forEach(function(it){
+    total++;
+    var qz=document.createElement('div');qz.className='qz';
+    var opts='<div class="opts">';
+    it.options.forEach(function(o){opts+='<button class="opt" data-ok="'+(o===it.answer?'1':'0')+'" onclick="pick(this)">'+o+'</button>';});
+    opts+='</div><div class="fb"></div>';
+    qz.innerHTML='<div class="q">'+it.q+'</div>'+opts;
+    c.appendChild(qz);
+  });
+  updateScore();
+}
+function pick(btn){
+  var qz=btn.closest('.qz');if(qz.dataset.done)return;qz.dataset.done='1';
+  var ok=btn.dataset.ok==='1';var fb=qz.querySelector('.fb');
+  if(ok){btn.classList.add('correct');score++;fb.className='fb ok';fb.textContent='✓ Correct! Great job!';}
+  else{btn.classList.add('wrong');var good=qz.querySelector('[data-ok="1"]');if(good)good.classList.add('correct');
+    fb.className='fb no';fb.textContent='Almost! The green one is right. Try to remember it! 💪';}
+  qz.querySelectorAll('.opt').forEach(function(b){b.disabled=true;});
+  updateScore();
+}
+function updateScore(){
+  var answered=document.querySelectorAll('.qz[data-done]').length;
+  document.getElementById('score-num').textContent=score+' / '+total;
+  document.getElementById('score-fill').style.width=(total?Math.round(answered/total*100):0)+'%';
+  var st='',pct=total?score/total:0;
+  if(answered===total&&total>0){st=pct>=0.8?'⭐⭐⭐':pct>=0.5?'⭐⭐':'⭐';}
+  document.getElementById('score-stars').textContent=st;
+}
+
+/* ---- Student name ---- */
+var nameInput=document.getElementById('student-name');
+function applyName(){
+  var n=nameInput.value.trim();
+  document.getElementById('hello-msg').textContent=n?('Hello, '+n+'! 🌟'):'';
+  document.querySelectorAll('.stud-name').forEach(function(el){el.textContent=n?('Amazing work today, '+n+'!'):'Amazing work today!';});
+  localStorage.setItem(K+'name',n);
+}
+nameInput.addEventListener('input',applyName);
+
+/* ---- Agenda pills ---- */
+document.querySelectorAll('.ap').forEach(function(p){
+  p.onclick=function(){p.classList.toggle('done');localStorage.setItem(K+'ap'+p.dataset.s,p.classList.contains('done'));};
+});
+
+/* ---- Teacher mode ---- */
+function unlockTeacher(){
+  if(document.body.classList.contains('teacher-mode')){document.body.classList.remove('teacher-mode');document.getElementById('teach-btn').textContent='🔐';return;}
+  var pin=prompt('Teacher PIN:');
+  if(pin==='teach'){document.body.classList.add('teacher-mode');document.getElementById('teach-btn').textContent='🔓 Teacher';}
+}
+
+/* ---- Save work (.txt export) ---- */
+function saveWork(){
+  var n=(localStorage.getItem(K+'name')||'Student').replace(/[^\wÀ-ſ-]/g,'');
+  var out=n+' — Level '+LEVEL+' Session '+SESSION+'\n'+new Date().toLocaleDateString()+'\n'+'='.repeat(34)+'\n\n';
+  var picks=[].slice.call(document.querySelectorAll('.chips .chip.on')).map(function(x){return x.textContent.trim();});
+  if(picks.length)out+='Picked: '+picks.join(', ')+'\n\n';
+  var count=0;
+  document.querySelectorAll('.editable[id]').forEach(function(el){var t=el.innerText.trim();if(t){out+='['+el.id+'] '+t+'\n';count++;}});
+  out+='\nScore: '+score+' / '+total;
+  if(count===0&&!picks.length){alert('Type something first! 🙂');return;}
+  var b=new Blob([out],{type:'text/plain;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u;a.download=n+'_L'+LEVEL+'S'+SESSION+'_'+new Date().toISOString().slice(0,10)+'.txt';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);
+  var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show');},1600);
+}
+
+/* ---- Autosave / autoload ---- */
+function autosave(){document.querySelectorAll('.editable[id]').forEach(function(el){localStorage.setItem(K+el.id,el.innerHTML);});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){localStorage.setItem(K+'chip'+i,el.classList.contains('on'));});}
+function autoload(){
+  document.querySelectorAll('.editable[id]').forEach(function(el){var v=localStorage.getItem(K+el.id);if(v!==null)el.innerHTML=v;});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){if(localStorage.getItem(K+'chip'+i)==='true')el.classList.add('on');});
+  document.querySelectorAll('.ap').forEach(function(p){if(localStorage.getItem(K+'ap'+p.dataset.s)==='true')p.classList.add('done');});
+  var n=localStorage.getItem(K+'name');if(n){nameInput.value=n;applyName();}
+}
+document.addEventListener('input',function(){clearTimeout(window._t);window._t=setTimeout(autosave,600);});
+window.addEventListener('load',autoload);
+
+/* ============ SESSION CONTENT (changes per session) ============ */
+
+/* ---- Vocabulary: word pairs + expert terms ---- */
+var VOCAB=[
+  {w:'lift / elevator',e:'🛗',p:'🇬🇧 lift · 🇺🇸 elevator',s:'Take the lift — or the elevator — to the fifth floor.'},
+  {w:'biscuit / cookie',e:'🍪',p:'🇬🇧 biscuit · 🇺🇸 cookie',s:'A British biscuit is an American cookie.'},
+  {w:'trainers / sneakers',e:'👟',p:'🇬🇧 trainers · 🇺🇸 sneakers',s:'She bought new trainers — sneakers, if you\'re American.'},
+  {w:'holiday / vacation',e:'🏖️',p:'🇬🇧 holiday · 🇺🇸 vacation',s:'We\'re going on holiday — Americans go on vacation.'},
+  {w:'queue / line',e:'🚶',p:'🇬🇧 queue · 🇺🇸 line',s:'In London you join the queue; in New York you wait in line.'},
+  {w:'rubbish / garbage',e:'🗑️',p:'🇬🇧 rubbish · 🇺🇸 garbage',s:'Take out the rubbish — or the garbage.'},
+  {w:'autumn / fall',e:'🍂',p:'🇬🇧 autumn · 🇺🇸 fall',s:'School starts in autumn — in the fall, stateside.'},
+  {w:'flat / apartment',e:'🏢',p:'🇬🇧 flat · 🇺🇸 apartment',s:'They rent a small flat — an apartment in American English.'},
+  {w:'accent',e:'🗣️',p:'how your English sounds',s:'An accent is an address, not an error.'},
+  {w:'dialect',e:'🗺️',p:'a region\'s words + grammar',s:'Every dialect has its own words and rules.'},
+  {w:'lingua franca',e:'🌐',p:'a shared bridge language',s:'English is the world\'s lingua franca.'},
+  {w:'code-switching',e:'🔀',p:'switching varieties mid-talk',s:'She code-switches between Singlish and formal English.'}
+];
+(function buildVocab(){
+  var g=document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v){
+    var d=document.createElement('div');d.className='vc';
+    d.innerHTML='<div class="vc-play">🔊</div><div class="vc-emoji">'+v.e+'</div><div class="vc-word">'+v.w+'</div><div class="vc-pron">'+v.p+'</div>';
+    d.onclick=function(){say(v.w.replace(/ \/ /g,', or ')+'. '+v.s);};
+    g.appendChild(d);
+  });
+})();
+
+/* ---- Word-preference chips for Step 6 ---- */
+(function(){
+  var WORDS=['🇬🇧 lift','🇺🇸 elevator','🇬🇧 biscuit','🇺🇸 cookie','🇬🇧 holiday','🇺🇸 vacation','🇬🇧 trainers','🇺🇸 sneakers','🇬🇧 autumn','🇺🇸 fall','🇬🇧 flat','🇺🇸 apartment'];
+  var c=document.getElementById('word-chips');
+  WORDS.forEach(function(t){
+    var s=document.createElement('span');s.className='chip';s.textContent=t;
+    s.onclick=function(){s.classList.toggle('on');say(t.replace(/^\S+\s/,''));};
+    c.appendChild(s);
+  });
+})();
+
+/* ---- Quizzes ---- */
+buildQuiz('vocab-quiz',[
+  {q:'🛗 You\'re in New York and need to reach floor 20. You take the…',options:['elevator','lift','escalator queue'],answer:'elevator'},
+  {q:'🍪 A British "biscuit" is an American…',options:['cookie','muffin','cracker'],answer:'cookie'},
+  {q:'🌐 A language used between people with different mother tongues:',options:['lingua franca','dialect','slang'],answer:'lingua franca'},
+  {q:'🔀 Switching between two varieties or languages mid-conversation:',options:['code-switching','paraphrasing','queueing'],answer:'code-switching'},
+  {q:'🍂 The season Americans call "fall", the British call…',options:['autumn','harvest','spring'],answer:'autumn'}
+]);
+buildQuiz('reading-quiz',[
+  {q:'Why did the London football team laugh at Mateo?',options:['"pants" means underwear in the UK','he pushed into a queue','he mispronounced "biscuit"'],answer:'"pants" means underwear in the UK'},
+  {q:'What does "preponed" (Indian English) mean?',options:['moved earlier','cancelled','moved online'],answer:'moved earlier'},
+  {q:'What does Wei Ling\'s "lah" add to a sentence?',options:['friendly emphasis','a question','past tense'],answer:'friendly emphasis'},
+  {q:'What fact "rearranged" Mateo\'s brain?',options:['most English conversations are between non-native speakers','Texans eat more chips than Londoners','Singapore has two official accents'],answer:'most English conversations are between non-native speakers'}
+]);
+buildQuiz('grammar-quiz',[
+  {q:'British spelling of the American "color":',options:['colour','coulor'],answer:'colour'},
+  {q:'A New Yorker says: "Let\'s meet ___ the weekend."',options:['on','at'],answer:'on'},
+  {q:'"I\'ve just eaten" (instead of "I just ate") is more typically…',options:['British','American'],answer:'British'},
+  {q:'The extra US past participle of "get":',options:['gotten','getted'],answer:'gotten'},
+  {q:'The typically BRITISH question:',options:['Have you got a pen?','Do you have a pen?'],answer:'Have you got a pen?'},
+  {q:'British spelling of the American "center":',options:['centre','senter'],answer:'centre'},
+  {q:'The typically AMERICAN spelling:',options:['realize','realise'],answer:'realize'},
+  {q:'Which is common in BRITISH usage?',options:['The team are winning.','The team is winning.'],answer:'The team are winning.'}
+]);
+buildQuiz('ch-quiz1',[
+  {q:'"trainers" 👟 — which flag?',options:['🇬🇧 UK','🇺🇸 US'],answer:'🇬🇧 UK'},
+  {q:'"garbage" 🗑️ — which flag?',options:['🇺🇸 US','🇬🇧 UK'],answer:'🇺🇸 US'},
+  {q:'"flat" 🏢 — which flag?',options:['🇬🇧 UK','🇺🇸 US'],answer:'🇬🇧 UK'},
+  {q:'"vacation" 🏖️ — which flag?',options:['🇺🇸 US','🇬🇧 UK'],answer:'🇺🇸 US'}
+]);
+buildQuiz('ch-quiz2',[
+  {q:'A Londoner writes about going to the ___.',options:['theatre','theater'],answer:'theatre'},
+  {q:'"My grades have gotten better." — whose grammar?',options:['🇺🇸 US','🇬🇧 UK'],answer:'🇺🇸 US'},
+  {q:'"See you at the weekend!" — whose preposition?',options:['🇬🇧 UK','🇺🇸 US'],answer:'🇬🇧 UK'}
+]);
+buildQuiz('ch-quiz3',[
+  {q:'"See you this arvo!" (afternoon) — where does this live?',options:['Australia','Canada','Scotland'],answer:'Australia'},
+  {q:'"The meeting was preponed to Monday." — where does this live?',options:['India','Texas','Ireland'],answer:'India'},
+  {q:'"Can lah, no problem!" — where does this live?',options:['Singapore','New Zealand','South Africa'],answer:'Singapore'},
+  {q:'👑 BOSS: English is called a "lingua franca" because…',options:['it bridges speakers of different mother tongues','it was invented in France','only native speakers use it correctly'],answer:'it bridges speakers of different mother tongues'}
+]);
+</script>
+</body>
+</html>

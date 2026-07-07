@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>L6 · Session 2 — Real Talk</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--accent:#5D4037;--accent2:#8D6E63}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1a;font-size:17px;line-height:1.6;padding-bottom:90px}
+.page-header{background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;padding:26px 20px;text-align:center}
+.page-header h1{font-size:26px;font-weight:800;letter-spacing:-0.3px}
+.page-header .subtitle{font-size:14px;opacity:0.9;margin-top:4px}
+.badge{display:inline-block;background:rgba(255,255,255,0.2);padding:6px 16px;border-radius:20px;font-size:14px;margin-top:10px}
+.lvl{display:inline-block;background:#FFD54F;color:#5D4037;font-weight:800;font-size:12px;padding:3px 12px;border-radius:12px;letter-spacing:0.5px;margin-bottom:8px}
+.container{max-width:860px;margin:0 auto;padding:18px}
+
+/* Student name */
+.namebox{background:white;border:2px solid var(--accent);border-radius:14px;padding:14px 18px;margin:16px 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.namebox label{font-weight:700;font-size:15px}
+.namebox input{flex:1;min-width:160px;font-size:17px;padding:8px 12px;border:2px dashed #90A4AE;border-radius:8px;font-family:inherit}
+.namebox .hello{font-weight:700;color:var(--accent)}
+
+/* Agenda */
+.agenda{background:white;border-radius:14px;padding:16px 18px;margin:14px 0;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.agenda h2{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:#666;margin-bottom:10px}
+.agenda-pills{display:flex;flex-wrap:wrap;gap:8px}
+.ap{display:flex;align-items:center;gap:6px;background:#ECEFF1;border:2px solid transparent;border-radius:20px;padding:5px 13px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.ap.done{background:#C8E6C9;border-color:#2E7D32;text-decoration:line-through;opacity:0.8}
+
+/* Sections */
+.section{background:white;border-radius:16px;margin:18px 0;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,0.07)}
+.sec-head{padding:14px 20px;color:white;font-size:17px;font-weight:800;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sec-head .icon{font-size:22px}
+.sec-head .step{margin-left:auto;font-size:12px;font-weight:700;background:rgba(255,255,255,0.25);padding:3px 12px;border-radius:12px;white-space:nowrap}
+.sec-head .timing{font-size:12px;font-weight:400;background:rgba(255,255,255,0.18);padding:3px 10px;border-radius:12px;white-space:nowrap}
+.sec-body{padding:18px 20px}
+.zoom-cue{display:block;font-size:13px;font-weight:600;color:#37474F;background:#E1F5FE;border-left:4px solid #0288D1;border-radius:0 8px 8px 0;padding:7px 12px;margin:0 0 14px}
+.goal .sec-head{background:#2E7D32}
+.warmup .sec-head{background:#E65100}
+.vocab .sec-head{background:#1565C0}
+.reading .sec-head{background:#6A1B9A}
+.grammar .sec-head{background:#AD1457}
+.task .sec-head{background:#00695C}
+.challenge .sec-head{background:#F57F17}
+.review .sec-head{background:#BF360C}
+.skipif{background:#FFF8E1;border:1px dashed #F9A825;border-radius:10px;padding:10px 14px;margin-top:12px;font-size:14px}
+.skipif b{color:#F57F17}
+
+/* Movement break */
+.move{background:linear-gradient(135deg,#00BFA5,#00897B);color:white;border-radius:16px;margin:18px 0;padding:18px 22px;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,0.1)}
+.move h2{font-size:20px;font-weight:800}
+.move p{font-size:15px;opacity:0.95;margin-top:6px}
+
+/* Vocab cards */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:14px 0}
+.vc{background:#E3F2FD;border:2px solid #90CAF9;border-radius:12px;padding:12px 10px;text-align:center;cursor:pointer;transition:transform 0.12s}
+.vc:hover{transform:scale(1.04);border-color:var(--accent)}
+.vc .vc-emoji{font-size:30px}
+.vc .vc-word{font-weight:800;font-size:15px;margin-top:4px;color:#0D47A1}
+.vc .vc-pron{font-size:12px;color:#666}
+.vc .vc-play{font-size:13px;color:#1565C0}
+
+/* Quiz engine */
+.qz{background:#FAFAFA;border:1px solid #E0E0E0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.qz .q{font-weight:700;font-size:16px;margin-bottom:10px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{font-family:inherit;font-size:15px;font-weight:600;padding:8px 16px;border-radius:10px;border:2px solid #B0BEC5;background:white;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt.correct{background:#C8E6C9;border-color:#2E7D32}
+.opt.wrong{background:#FFCDD2;border-color:#C62828}
+.opt:disabled{cursor:default;opacity:0.85}
+.fb{font-size:14px;font-weight:600;margin-top:8px;display:none}
+.fb.ok{display:block;color:#2E7D32}
+.fb.no{display:block;color:#C62828}
+
+/* Score bar */
+.scorebar{position:sticky;top:0;z-index:50;background:white;box-shadow:0 2px 8px rgba(0,0,0,0.12);padding:8px 16px;display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px}
+.scorebar .bar{flex:1;height:10px;background:#ECEFF1;border-radius:6px;overflow:hidden}
+.scorebar .fill{height:100%;width:0;background:linear-gradient(90deg,#43A047,#66BB6A);transition:width 0.4s}
+.stars{font-size:16px}
+
+/* Reading */
+.reading-text{background:#F3E5F5;border-radius:12px;padding:18px 20px;font-size:17px;max-width:65ch}
+.reading-text h4{color:#6A1B9A;font-size:15px;margin:14px 0 6px;text-transform:uppercase;letter-spacing:0.4px}
+.reading-text h4:first-child{margin-top:0}
+.reading-text p{margin:8px 0}
+
+/* Editable fields */
+.field-label{font-weight:700;font-size:14px;margin:12px 0 4px;color:#37474F}
+.editable{min-height:34px;background:#FFFDE7;border:2px dashed #9E9D24;border-radius:8px;padding:8px 12px;font-size:16px;outline:none}
+.editable.tall{min-height:70px}
+.editable:focus{border-style:solid;border-color:var(--accent)}
+.editable:empty::before{content:attr(data-placeholder);color:#999}
+.qa-item{margin:12px 0}
+.qa-item .q{font-weight:700;font-size:15px;margin-bottom:5px}
+
+/* Frames / rule boxes */
+.frame{background:#FCE4EC;border-left:5px solid #AD1457;border-radius:0 10px 10px 0;padding:12px 16px;margin:12px 0;font-size:16px}
+.rulebox{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.rule{border-radius:12px;padding:14px 16px;font-size:15px}
+.rule h4{font-size:15px;margin-bottom:8px}
+.rule.a{background:#E8F5E9;border:2px solid #66BB6A}
+.rule.a h4{color:#2E7D32}
+.rule.b{background:#FFF3E0;border:2px solid #FFA726}
+.rule.b h4{color:#E65100}
+.hint{font-size:14px;color:#555;background:#F5F5F5;border-radius:8px;padding:8px 12px;margin:10px 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.chip{background:#E1F5FE;border:2px solid #81D4FA;border-radius:16px;padding:5px 14px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.chip.on{background:#0288D1;border-color:#01579B;color:white}
+.speak{background:#E8F5E9;border-radius:10px;padding:12px 16px;font-size:16px;margin:12px 0}
+
+/* Teacher mode */
+.t-only{display:none}
+body.teacher-mode .t-only{display:block}
+.teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
+.teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
+
+/* Bottom bar */
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:white;box-shadow:0 -3px 12px rgba(0,0,0,0.12);padding:10px 14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;z-index:60}
+.bb{font-family:inherit;font-size:14px;font-weight:700;padding:10px 18px;border-radius:10px;border:none;cursor:pointer;text-decoration:none;color:white;display:inline-block}
+.bb-save{background:#2E7D32}
+.bb-print{background:#546E7A}
+.bb-teach{background:#C62828}
+#toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:#2E7D32;color:white;font-weight:700;padding:10px 22px;border-radius:20px;opacity:0;transition:all 0.3s;z-index:70}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:640px){.rulebox{grid-template-columns:1fr}.vocab-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}}
+@media print{body{background:white;padding-bottom:0}.bottom-bar,.scorebar,#toast{display:none!important}.section{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid}.sec-head,.sec-body,.page-header{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="lvl">LEVEL 6 · NEAR-NATIVE (C2)</div>
+  <h1>💬 Session 2 — Real Talk</h1>
+  <div class="subtitle">English Course Library · Kids &amp; Teens</div>
+  <div class="badge">🎯 Today: master <b>informal English, slang &amp; internet language</b> — and know exactly when to switch it off · ≈50 min core</div>
+</div>
+
+<div class="scorebar">
+  <span>⭐ Score:</span><span id="score-num">0 / 0</span>
+  <div class="bar"><div class="fill" id="score-fill"></div></div>
+  <span class="stars" id="score-stars"></span>
+</div>
+
+<div id="toast">✓ Saved</div>
+
+<div class="container">
+
+<div class="namebox">
+  <label for="student-name">👋 Your name:</label>
+  <input id="student-name" type="text" placeholder="Type your name…">
+  <span class="hello" id="hello-msg"></span>
+</div>
+
+<div class="agenda">
+  <h2>📋 Today's plan — tap each step when you finish it</h2>
+  <div class="agenda-pills" id="agenda">
+    <span class="ap" data-s="1">1️⃣ Goal</span><span class="ap" data-s="2">2️⃣ Warm-up</span>
+    <span class="ap" data-s="3">3️⃣ New words</span><span class="ap" data-s="4">4️⃣ Reading</span>
+    <span class="ap" data-s="5">5️⃣ Register radar</span><span class="ap" data-s="6">6️⃣ Create</span>
+    <span class="ap" data-s="7">7️⃣ Game</span><span class="ap" data-s="8">8️⃣ Review</span>
+  </div>
+</div>
+
+<!-- STEP 1 GOAL -->
+<div class="section goal">
+  <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
+    <p><em>"Today you will treat slang and internet English as a REAL dialect with real rules — learn how it works, where it comes from, and how to <b>code-switch</b> between 'group chat you' and 'formal you' without breaking a sweat."</em> 📱</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Frame this carefully: you are NOT the adult trying to be cool. Position the student as the expert informant and yourself as the linguist. C2 students respond brilliantly to being asked to ANALYSE their own dialect rather than defend it.</div>
+  </div>
+</div>
+
+<!-- STEP 2 WARM-UP -->
+<div class="section warmup">
+  <div class="sec-head"><span class="icon">⚡</span> Warm-Up — Slang Time Machine <span class="timing">5 min</span><span class="step">Step 2</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, no screen yet. Use 👍 = "still alive" and 👎 = "dead slang" reactions to vote.</span>
+    <p><b>How to play:</b></p>
+    <p>1. Your teacher says slang from the past: <em>groovy · rad · cool beans · epic fail · YOLO · on fleek</em>.<br>
+    2. You guess the decade 🕰️ and vote: still alive 👍 or dead 👎?<br>
+    3. Then flip it: YOU teach your teacher one CURRENT expression — meaning, example sentence, and who can(not) pull it off.</p>
+    <p class="hint">No score here — just proof that slang has a birthday AND an expiry date. 🧠</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 2</h4>Rough keys: groovy = 60s–70s, rad = 80s, cool beans = 90s, epic fail = late 2000s, YOLO = 2011–12, on fleek = 2014–15. Play up your own "dead" slang for laughs — it models the expiry-date concept better than any explanation. Write down the word the student teaches you; recycle it in Step 6.</div>
+  </div>
+</div>
+
+<!-- STEP 3 VOCAB -->
+<div class="section vocab">
+  <div class="sec-head"><span class="icon">📝</span> New Words — Current Slang Decoded <span class="timing">10 min</span><span class="step">Step 3</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share your screen. Click 🔊 on each card; student rates each term: "I use it / I know it / never heard it" — a live slang census.</span>
+    <p>Tap any card to <b>hear</b> it 🔊. For each one: would YOU actually say it, and to whom?</p>
+    <div class="vocab-grid" id="vocab-grid"></div>
+    <h3>🎧 Practice — tap the right expression</h3>
+    <p class="hint">Read the situation and tap the expression that fits. Green = correct!</p>
+    <div id="vocab-quiz"></div>
+  </div>
+</div>
+
+<!-- STEP 4 READING -->
+<div class="section reading">
+  <div class="sec-head"><span class="icon">📖</span> Reading — Do You Speak Internet? <span class="timing">10 min</span><span class="step">Step 4</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. Student reads a section, you read the next — take turns. Then student annotates on your screen (Zoom → Annotate) every claim they agree or disagree with.</span>
+    <p>Read Mateo's magazine feature. Tap 🔊 to hear any part read aloud.
+      <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
+    <div class="reading-text" id="read-text">
+      <h4>🌐 Do you speak internet? — by Mateo, 15</h4>
+      <p>My grandmother texted me "lol" after telling me her cat was ill. She thought it meant "lots of love". She is not alone — and honestly, she's not even wrong, just twenty years late.</p>
+      <p>Meanwhile my little cousin uses words I have to look up, and my teachers still say things nobody has said since 2015. Internet English is the fastest-moving dialect on Earth. A word can be born on a Tuesday, peak on a Friday, and be embarrassing by the following month.</p>
+      <h4>📈 Where slang actually comes from</h4>
+      <p>Most of today's slang isn't invented by apps; it's borrowed. Linguists trace a huge amount of it to African American English, drag culture and gaming communities, where it lived for years before going viral.</p>
+      <p>By the time a word reaches a cereal advert, its cool is basically gone. That's the life cycle: invention, adoption, explosion, cringe.</p>
+      <h4>🗣️ Grammar with a wink</h4>
+      <p>Internet English also bends grammar on purpose. "You coming?" drops words; "I can't even" stops mid-sentence; typing in all lowercase signals calm irony, while a full stop at the end of a text can read as quiet fury.</p>
+      <p>These aren't mistakes. They're tone of voice, rebuilt in text — punctuation doing the job your face usually does.</p>
+      <h4>🔀 The real skill: code-switching</h4>
+      <p>Here's what surprises adults: heavy slang users are often excellent code-switchers. The same student who types "no cap, that essay was a struggle" will write "I found the essay genuinely challenging" to a teacher — without blinking.</p>
+      <p>Switching between registers isn't fake. It's the linguistic equivalent of owning both trainers and formal shoes, and knowing which event you're dressed for.</p>
+      <h4>⚠️ When slang backfires</h4>
+      <p>Slang is a membership card. Use it with the right people and it says "I'm one of you"; use it in a scholarship application and it says something quite different.</p>
+      <p>There's also the expiry problem: nothing ages a sentence faster than last year's catchphrase. A good test — would you say it to a friendly adult you respect? If the answer is "absolutely not", you've found the boundary.</p>
+      <h4>🧪 A tiny experiment</h4>
+      <p>This week I collected every abbreviation my family used in our group chat. My dad still writes "BRB", which nobody has typed unironically since about 2014, and my cousin ends serious sentences with the skull emoji, which alarmed my mum considerably.</p>
+      <p>Three generations, three internets. Each of us is fluent in our own layer and mildly confused by the others.</p>
+      <h4>💬 So, should you use it?</h4>
+      <p>Yes — deliberately. Slang isn't broken English; it's English doing what English has always done: mutating, borrowing, showing who you are. Shakespeare coined new words constantly; teenagers in group chats do the same job, just faster and with more emojis.</p>
+      <p>The trick is control: know your audience, know the expiry date, and always be able to say the same thing formally. That's not selling out — that's being bilingual in your own language.</p>
+      <p>Fluency at the highest level doesn't mean sounding like a dictionary. It means choosing, every single time, exactly how you want to sound.</p>
+    </div>
+
+    <h3>🔎 Did you understand? Tap your answer</h3>
+    <div id="reading-quiz"></div>
+
+    <h3>💬 Your turn — write your answer</h3>
+    <div class="qa-item"><div class="q">1. Mateo calls slang "a membership card". Explain what he means — and give one example from your own life.</div><div class="editable" id="r-open1" contenteditable="true" data-placeholder="He means that… For example, in my…"></div></div>
+    <div class="qa-item"><div class="q">2. Do you agree that code-switching "isn't fake"? Argue your position in 3–4 sentences.</div><div class="editable tall" id="r-open2" contenteditable="true" data-placeholder="I agree / disagree because… On the other hand…"></div></div>
+
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> the two written questions above can be homework instead.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 4 + answer key</h4>Quiz answers: "lots of love" · African American English, drag culture and gaming communities · quiet fury · trainers and formal shoes · invention, adoption, explosion, cringe. Open Q1 model: slang signals belonging to a group — using it correctly proves you're an insider (any group-chat/team/fandom example works). Open Q2: either position is fine; grade the ARGUMENT (claim + reason + concession). Mateo's own view — switching is a skill, not dishonesty — is a good anchor if they stall.</div>
+  </div>
+</div>
+
+<!-- STEP 5 REGISTER RADAR -->
+<div class="section grammar">
+  <div class="sec-head"><span class="icon">🔧</span> Language Focus — The Register Radar <span class="timing">10 min</span><span class="step">Step 5</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. For each quiz item, student answers BEFORE you click AND names the audience it fits.</span>
+    <p>Informal English isn't grammar-free — it has its OWN grammar. Learn the features, then choose them on purpose:</p>
+    <div class="rulebox">
+      <div class="rule a"><h4>💬 INFORMAL toolkit — real features</h4>
+        <b>Ellipsis:</b> <em>"(Are) you coming?" · "(I) can't complain."</em><br>
+        <b>Reductions:</b> <em>gonna, wanna, dunno, lemme</em><br>
+        <b>Discourse markers:</b> <em>like, literally, lowkey, tbh</em><br>
+        <b>Punctuation as tone:</b> all lowercase = relaxed irony; "Fine." with a full stop = ice-cold ❄️</div>
+      <div class="rule b"><h4>🔀 FORMAL switch — same meaning, new outfit</h4>
+        <em>"can't make it" → "unable to attend"</em><br>
+        <em>"no cap" → "honestly / frankly"</em><br>
+        <em>"it slaps" → "it's outstanding"</em><br>
+        <em>"kinda mid" → "rather mediocre"</em><br><br>
+        🔑 The C2 test: can you say EVERYTHING you mean in BOTH registers?</div>
+    </div>
+    <div class="frame">💡 <b>The audience rule:</b> register is chosen by the READER, not the writer. Group chat → slang builds belonging. Teacher email → standard English shows respect for their time. Unknown adult → formal until invited otherwise.</div>
+    <p class="hint">💡 Hungarian tip: Hungarian borrows English internet slang directly (cringe, flex, "lájkol"), but meanings drift between languages. Before using a term in ENGLISH, check what it means to native speakers now — not what it means in the Hungarian internet bubble.</p>
+    <h3>✏️ Practice — read the room</h3>
+    <div id="grammar-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>Watch for the classic C2 trap: students over-formalise ("I am unable to attend the cinema with you tonight" to a friend is as wrong as "no cap" to a head teacher). Both directions are register errors — say this explicitly. If 7+/8, run a lightning round: you name an audience, they convert "That test was really hard" appropriately.</div>
+  </div>
+</div>
+
+<!-- MOVE BREAK -->
+<div class="move">
+  <h2>🤸 MOVE! — 1 minute break</h2>
+  <p>Stand up! Touch something blue 🔵, then something made of paper 📄, then do 10 jumping jacks while spelling T-O-U-C-H G-R-A-S-S out loud. Cameras stay on — teacher does it too! 😄</p>
+</div>
+
+<!-- STEP 6 CREATIVE TASK -->
+<div class="section task">
+  <div class="sec-head"><span class="icon">🎨</span> Create — The Three-Way Translator <span class="timing">10 min</span><span class="step">Step 6</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in their own browser, shares their screen, and types while you coach live.</span>
+    <p>One piece of news, three completely different audiences. Prove you can code-switch on demand. 🔀</p>
+    <h3>First, tap the news you're announcing:</h3>
+    <div class="chips" id="exp-chips"></div>
+    <div class="field-label">📱 Version 1 — group chat (slang, emojis, ellipsis welcome)</div>
+    <div class="editable" id="t-chat" contenteditable="true" data-placeholder="guys. GUYS. you will not believe…"></div>
+    <div class="field-label">👵 Version 2 — voice message to your grandmother (warm, clear, zero slang)</div>
+    <div class="editable" id="t-gran" contenteditable="true" data-placeholder="Hi Gran! Guess what happened today…"></div>
+    <div class="field-label">🏫 Version 3 — email to your head teacher (formal, complete sentences)</div>
+    <div class="editable tall" id="t-teacher" contenteditable="true" data-placeholder="Dear Ms …, I am writing to let you know that…"></div>
+    <div class="speak">🗣️ <b>Now read all three aloud</b> — with matching delivery. Then answer your teacher's question: which version was hardest, and what does that tell you about your default register?</div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> write Versions 1 and 3 only; do the grandmother version as a spoken improvisation.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>Assessment: Version 1 should show at least two informal FEATURES (ellipsis, reduction, marker), not just random slang. Version 3 must be genuinely formal — no stranded "lol" energy. Recycle the slang word the student taught you in Step 2: ask them to work it naturally into Version 1. The reflection question at the end is the real C2 content; give it a full minute.</div>
+  </div>
+</div>
+
+<!-- STEP 7 CHALLENGE GAME -->
+<div class="section challenge">
+  <div class="sec-head"><span class="icon">🎮</span> Challenge Game — Register Master <span class="timing">8 min</span><span class="step">Step 7</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: student's browser, their clicks, their score! You watch on their shared screen and commentate like an e-sports caster. 🎉</span>
+    <p class="hint">🕵️ Three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
+    <h3>Round 1 — Decode the slang</h3>
+    <div id="ch-quiz1"></div>
+    <h3>Round 2 — Read the room</h3>
+    <div id="ch-quiz2"></div>
+    <h3>Round 3 — Boss level: the formal translator 👑</h3>
+    <div id="ch-quiz3"></div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can open the next lesson as a warm-up.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>All answers show live in the student's score. On each miss, ask "who's the audience?" before revealing the logic. The BOSS item requires translating TWO slang terms in one sentence while keeping the meaning intact — exactly the exam-day skill.</div>
+  </div>
+</div>
+
+<!-- STEP 8 REVIEW -->
+<div class="section review">
+  <div class="sec-head"><span class="icon">🏁</span> Review &amp; Homework <span class="timing">3 min</span><span class="step">Step 8</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, screens off. Finish with faces, not slides.</span>
+    <div class="frame">⚡ <b>30-second recap:</b> teacher says a slang expression from today — you give the formal twin. Then reverse: formal phrase → natural informal version. Rapid fire!</div>
+    <h3>🏠 Homework</h3>
+    <div class="frame">
+      <p>🔍 <b>Field linguistics:</b> collect FIVE abbreviations or slang expressions from your own chats this week. For each: meaning + formal translation + verdict (alive / dying / dead).</p>
+      <p>🎤 <b>Interview an adult</b> about the slang of THEIR teenage years. Which words survived? Which would embarrass them now?</p>
+      <p>📌 Example entry: <em>"ngl — 'not gonna lie' — formal: 'frankly' — verdict: alive, but ageing."</em></p>
+    </div>
+    <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="t-only">
+      <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
+      <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">What to adjust next time?</div><div class="editable" id="tn-adjust" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">Student's strongest / weakest moment today?</div><div class="editable" id="tn-notes" contenteditable="true" data-placeholder="…"></div></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="bottom-bar">
+  <button class="bb bb-save" onclick="saveWork()">💾 Save my work</button>
+  <button class="bb bb-print" onclick="window.print()">🖨️ Print</button>
+  <button class="bb bb-teach" id="teach-btn" onclick="unlockTeacher()">🔐</button>
+</div>
+
+<script>
+/* ============ ENGINE (identical across all Library sessions) ============ */
+var LEVEL=6, SESSION=2, K='ecl_L'+LEVEL+'s'+SESSION+'_';
+
+/* ---- TTS audio ---- */
+function say(text){try{window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(text);u.lang='en-GB';u.rate=0.9;window.speechSynthesis.speak(u);}catch(e){}}
+
+/* ---- Quiz engine ---- */
+var score=0,total=0;
+function buildQuiz(containerId,items){
+  var c=document.getElementById(containerId);
+  items.forEach(function(it){
+    total++;
+    var qz=document.createElement('div');qz.className='qz';
+    var opts='<div class="opts">';
+    it.options.forEach(function(o){opts+='<button class="opt" data-ok="'+(o===it.answer?'1':'0')+'" onclick="pick(this)">'+o+'</button>';});
+    opts+='</div><div class="fb"></div>';
+    qz.innerHTML='<div class="q">'+it.q+'</div>'+opts;
+    c.appendChild(qz);
+  });
+  updateScore();
+}
+function pick(btn){
+  var qz=btn.closest('.qz');if(qz.dataset.done)return;qz.dataset.done='1';
+  var ok=btn.dataset.ok==='1';var fb=qz.querySelector('.fb');
+  if(ok){btn.classList.add('correct');score++;fb.className='fb ok';fb.textContent='✓ Correct! Great job!';}
+  else{btn.classList.add('wrong');var good=qz.querySelector('[data-ok="1"]');if(good)good.classList.add('correct');
+    fb.className='fb no';fb.textContent='Almost! The green one is right. Try to remember it! 💪';}
+  qz.querySelectorAll('.opt').forEach(function(b){b.disabled=true;});
+  updateScore();
+}
+function updateScore(){
+  var answered=document.querySelectorAll('.qz[data-done]').length;
+  document.getElementById('score-num').textContent=score+' / '+total;
+  document.getElementById('score-fill').style.width=(total?Math.round(answered/total*100):0)+'%';
+  var st='',pct=total?score/total:0;
+  if(answered===total&&total>0){st=pct>=0.8?'⭐⭐⭐':pct>=0.5?'⭐⭐':'⭐';}
+  document.getElementById('score-stars').textContent=st;
+}
+
+/* ---- Student name ---- */
+var nameInput=document.getElementById('student-name');
+function applyName(){
+  var n=nameInput.value.trim();
+  document.getElementById('hello-msg').textContent=n?('Hello, '+n+'! 🌟'):'';
+  document.querySelectorAll('.stud-name').forEach(function(el){el.textContent=n?('Amazing work today, '+n+'!'):'Amazing work today!';});
+  localStorage.setItem(K+'name',n);
+}
+nameInput.addEventListener('input',applyName);
+
+/* ---- Agenda pills ---- */
+document.querySelectorAll('.ap').forEach(function(p){
+  p.onclick=function(){p.classList.toggle('done');localStorage.setItem(K+'ap'+p.dataset.s,p.classList.contains('done'));};
+});
+
+/* ---- Teacher mode ---- */
+function unlockTeacher(){
+  if(document.body.classList.contains('teacher-mode')){document.body.classList.remove('teacher-mode');document.getElementById('teach-btn').textContent='🔐';return;}
+  var pin=prompt('Teacher PIN:');
+  if(pin==='teach'){document.body.classList.add('teacher-mode');document.getElementById('teach-btn').textContent='🔓 Teacher';}
+}
+
+/* ---- Save work (.txt export) ---- */
+function saveWork(){
+  var n=(localStorage.getItem(K+'name')||'Student').replace(/[^\wÀ-ſ-]/g,'');
+  var out=n+' — Level '+LEVEL+' Session '+SESSION+'\n'+new Date().toLocaleDateString()+'\n'+'='.repeat(34)+'\n\n';
+  var picks=[].slice.call(document.querySelectorAll('.chips .chip.on')).map(function(x){return x.textContent.trim();});
+  if(picks.length)out+='Picked: '+picks.join(', ')+'\n\n';
+  var count=0;
+  document.querySelectorAll('.editable[id]').forEach(function(el){var t=el.innerText.trim();if(t){out+='['+el.id+'] '+t+'\n';count++;}});
+  out+='\nScore: '+score+' / '+total;
+  if(count===0&&!picks.length){alert('Type something first! 🙂');return;}
+  var b=new Blob([out],{type:'text/plain;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u;a.download=n+'_L'+LEVEL+'S'+SESSION+'_'+new Date().toISOString().slice(0,10)+'.txt';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);
+  var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show');},1600);
+}
+
+/* ---- Autosave / autoload ---- */
+function autosave(){document.querySelectorAll('.editable[id]').forEach(function(el){localStorage.setItem(K+el.id,el.innerHTML);});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){localStorage.setItem(K+'chip'+i,el.classList.contains('on'));});}
+function autoload(){
+  document.querySelectorAll('.editable[id]').forEach(function(el){var v=localStorage.getItem(K+el.id);if(v!==null)el.innerHTML=v;});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){if(localStorage.getItem(K+'chip'+i)==='true')el.classList.add('on');});
+  document.querySelectorAll('.ap').forEach(function(p){if(localStorage.getItem(K+'ap'+p.dataset.s)==='true')p.classList.add('done');});
+  var n=localStorage.getItem(K+'name');if(n){nameInput.value=n;applyName();}
+}
+document.addEventListener('input',function(){clearTimeout(window._t);window._t=setTimeout(autosave,600);});
+window.addEventListener('load',autoload);
+
+/* ============ SESSION CONTENT (changes per session) ============ */
+
+/* ---- Vocabulary: current slang, decoded ---- */
+var VOCAB=[
+  {w:'lowkey',e:'🤫',p:'slightly / secretly',s:'Lowkey. I lowkey enjoyed the maths test — do not tell anyone.'},
+  {w:'salty',e:'😤',p:'bitter, annoyed about losing',s:'Salty. He is still salty about losing that game last week.'},
+  {w:'flex',e:'💪',p:'to show off',s:'Flex. Posting your grades online is a weird flex, honestly.'},
+  {w:'ghost (someone)',e:'👻',p:'stop replying, vanish',s:'Ghost. She asked a question in the group chat and everyone ghosted her.'},
+  {w:'cringe',e:'😬',p:'embarrassing to watch',s:'Cringe. Watching adults use last year’s slang is pure cringe.'},
+  {w:'sus',e:'🤨',p:'suspicious',s:'Sus. He said he did the homework in five minutes? That is sus.'},
+  {w:'vibe',e:'✨',p:'mood, atmosphere',s:'Vibe. The library at sunset has a really calm vibe.'},
+  {w:'spill the tea',e:'☕',p:'share the gossip',s:'Spill the tea. Okay, you saw what happened at lunch — spill the tea.'},
+  {w:'no cap',e:'🧢',p:'no lie, honestly',s:'No cap. That was the best pizza of my life, no cap.'},
+  {w:'it slaps',e:'🎵',p:'it’s really good (music/food)',s:'It slaps. Have you heard the new album? It slaps.'},
+  {w:'touch grass',e:'🌱',p:'go outside, log off',s:'Touch grass. You have been online for six hours — touch grass.'},
+  {w:'main character energy',e:'🎬',p:'acting like the star of the film',s:'Main character energy. She walked in with sunglasses and pure main character energy.'}
+];
+(function buildVocab(){
+  var g=document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v){
+    var d=document.createElement('div');d.className='vc';
+    d.innerHTML='<div class="vc-play">🔊</div><div class="vc-emoji">'+v.e+'</div><div class="vc-word">'+v.w+'</div><div class="vc-pron">'+v.p+'</div>';
+    d.onclick=function(){say(v.s);};
+    g.appendChild(d);
+  });
+})();
+
+/* ---- News chips for Step 6 ---- */
+(function(){
+  var NEWS=['🏆 I won a competition','🎸 I’m starting a band','🐹 we got a new pet','🎭 I got the lead role','✈️ we’re moving abroad','🍰 I baked something amazing','⚽ I made the team','🎓 I aced the exam','📚 I’m writing a book','🎪 the school trip is cancelled'];
+  var c=document.getElementById('exp-chips');
+  NEWS.forEach(function(v){
+    var s=document.createElement('span');s.className='chip';s.textContent=v;
+    s.onclick=function(){s.classList.toggle('on');say(v.replace(/^\S+\s/,''));};
+    c.appendChild(s);
+  });
+})();
+
+/* ---- Quizzes ---- */
+buildQuiz('vocab-quiz',[
+  {q:'🤨 Your friend claims they "forgot" your birthday three years in a row. That story is…',options:['sus','a vibe','a flex'],answer:'sus'},
+  {q:'☕ Something dramatic happened in drama club and you want ALL the details. You say…',options:['spill the tea','touch grass','no cap'],answer:'spill the tea'},
+  {q:'👻 You message someone daily; suddenly, silence for two weeks. They…',options:['ghosted you','flexed on you','got salty'],answer:'ghosted you'},
+  {q:'💪 Someone mentions their new phone in every single conversation. That’s a…',options:['flex','cringe','vibe'],answer:'flex'},
+  {q:'😤 Your cousin lost at cards an hour ago and is STILL complaining. They’re…',options:['salty','lowkey','sus'],answer:'salty'},
+  {q:'🌱 Your friend has argued online about a cartoon for five hours. Best advice…',options:['touch grass','spill the tea','main character energy'],answer:'touch grass'}
+]);
+buildQuiz('reading-quiz',[
+  {q:'What did Mateo’s grandmother think "lol" meant?',options:['lots of love','laugh out loud','lots of luck'],answer:'lots of love'},
+  {q:'Where does Mateo say much of today’s slang originally comes from?',options:['African American English, drag culture and gaming communities','advertising agencies','school textbooks'],answer:'African American English, drag culture and gaming communities'},
+  {q:'According to the article, a full stop at the end of a text can read as…',options:['quiet fury','warm affection','good grammar'],answer:'quiet fury'},
+  {q:'Mateo compares code-switching to owning…',options:['both trainers and formal shoes','two phones','a dictionary and a thesaurus'],answer:'both trainers and formal shoes'},
+  {q:'What is the slang "life cycle" in the article?',options:['invention, adoption, explosion, cringe','birth, school, work, death','trend, meme, advert, ban'],answer:'invention, adoption, explosion, cringe'}
+]);
+buildQuiz('grammar-quiz',[
+  {q:'Text to a close friend — which fits?',options:['You coming?','Will you be attending?'],answer:'You coming?'},
+  {q:'Email to a teacher about missing practice — which fits?',options:['I’m sorry, but I can’t attend practice today.','can’t make practice lol'],answer:'I’m sorry, but I can’t attend practice today.'},
+  {q:'"gonna" is a spoken reduction of…',options:['going to','gone to'],answer:'going to'},
+  {q:'"Fine." — with the full stop — in a text message often signals…',options:['the person is NOT fine','perfect punctuation habits'],answer:'the person is NOT fine'},
+  {q:'"I literally died laughing." Here "literally" works as…',options:['an intensifier — nobody actually died','a factual medical report'],answer:'an intensifier — nobody actually died'},
+  {q:'Which sentence uses ellipsis (deliberately dropped words)?',options:['Coming?','Are you coming with us today?'],answer:'Coming?'},
+  {q:'Typing a whole message in lowercase often signals…',options:['relaxed, ironic tone','the shift key is broken'],answer:'relaxed, ironic tone'},
+  {q:'Which slang term belongs in a scholarship application?',options:['none — wrong audience, wrong register','no cap','lowkey'],answer:'none — wrong audience, wrong register'}
+]);
+buildQuiz('ch-quiz1',[
+  {q:'"I lowkey want to skip the party." Meaning?',options:['I slightly/secretly want to skip it','I loudly refuse to go','I already skipped it'],answer:'I slightly/secretly want to skip it'},
+  {q:'"This playlist slaps." Meaning?',options:['it’s excellent','it’s too loud','it keeps stopping'],answer:'it’s excellent'},
+  {q:'"Stop flexing your holiday photos." Meaning?',options:['stop showing off','stop editing them','stop deleting them'],answer:'stop showing off'},
+  {q:'"That plot twist was so sus." Meaning?',options:['suspicious','superb','sad'],answer:'suspicious'}
+]);
+buildQuiz('ch-quiz2',[
+  {q:'Announcing exam results to your grandmother — best opener?',options:['Hi Gran! I’ve got some lovely news…','GUESS WHO ATE THAT EXAM, NO CAP','To whom it may concern:'],answer:'Hi Gran! I’ve got some lovely news…'},
+  {q:'Asking your head teacher for a deadline extension:',options:['Would it be possible to extend the deadline by two days?','any chance u could push the deadline? 🙏','extend the deadline.'],answer:'Would it be possible to extend the deadline by two days?'},
+  {q:'Group chat, telling friends practice is cancelled:',options:['practice cancelled!! free at last 🎉','I regret to inform you that practice has been cancelled.','Dear all, please be advised…'],answer:'practice cancelled!! free at last 🎉'}
+]);
+buildQuiz('ch-quiz3',[
+  {q:'Formal twin of: "No cap, that film was mid."',options:['Frankly, the film was mediocre.','No lie, the movie hit different.','The film contained no headwear.'],answer:'Frankly, the film was mediocre.'},
+  {q:'Formal twin of: "She was lowkey salty about the result."',options:['She was quietly rather resentful about the result.','She required additional salt.','She loudly celebrated the result.'],answer:'She was quietly rather resentful about the result.'},
+  {q:'Informal twin of: "I would be delighted to attend."',options:['count me in!!','I hereby confirm attendance.','attendance: delightful'],answer:'count me in!!'},
+  {q:'👑 BOSS: formal twin of "He ghosted the group project, then had the nerve to flex his grade."',options:['He abandoned the project without explanation, then boasted about his grade.','He dressed as a ghost and exercised his muscles.','He deleted the project and hid his grade.'],answer:'He abandoned the project without explanation, then boasted about his grade.'}
+]);
+</script>
+</body>
+</html>

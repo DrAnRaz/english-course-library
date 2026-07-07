@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>L6 · Session 6 — The Editor</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--accent:#5D4037;--accent2:#8D6E63}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1a;font-size:17px;line-height:1.6;padding-bottom:90px}
+.page-header{background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;padding:26px 20px;text-align:center}
+.page-header h1{font-size:26px;font-weight:800;letter-spacing:-0.3px}
+.page-header .subtitle{font-size:14px;opacity:0.9;margin-top:4px}
+.badge{display:inline-block;background:rgba(255,255,255,0.2);padding:6px 16px;border-radius:20px;font-size:14px;margin-top:10px}
+.lvl{display:inline-block;background:#FFD54F;color:#5D4037;font-weight:800;font-size:12px;padding:3px 12px;border-radius:12px;letter-spacing:0.5px;margin-bottom:8px}
+.container{max-width:860px;margin:0 auto;padding:18px}
+
+/* Student name */
+.namebox{background:white;border:2px solid var(--accent);border-radius:14px;padding:14px 18px;margin:16px 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.namebox label{font-weight:700;font-size:15px}
+.namebox input{flex:1;min-width:160px;font-size:17px;padding:8px 12px;border:2px dashed #90A4AE;border-radius:8px;font-family:inherit}
+.namebox .hello{font-weight:700;color:var(--accent)}
+
+/* Agenda */
+.agenda{background:white;border-radius:14px;padding:16px 18px;margin:14px 0;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.agenda h2{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:#666;margin-bottom:10px}
+.agenda-pills{display:flex;flex-wrap:wrap;gap:8px}
+.ap{display:flex;align-items:center;gap:6px;background:#ECEFF1;border:2px solid transparent;border-radius:20px;padding:5px 13px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.ap.done{background:#C8E6C9;border-color:#2E7D32;text-decoration:line-through;opacity:0.8}
+
+/* Sections */
+.section{background:white;border-radius:16px;margin:18px 0;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,0.07)}
+.sec-head{padding:14px 20px;color:white;font-size:17px;font-weight:800;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sec-head .icon{font-size:22px}
+.sec-head .step{margin-left:auto;font-size:12px;font-weight:700;background:rgba(255,255,255,0.25);padding:3px 12px;border-radius:12px;white-space:nowrap}
+.sec-head .timing{font-size:12px;font-weight:400;background:rgba(255,255,255,0.18);padding:3px 10px;border-radius:12px;white-space:nowrap}
+.sec-body{padding:18px 20px}
+.zoom-cue{display:block;font-size:13px;font-weight:600;color:#37474F;background:#E1F5FE;border-left:4px solid #0288D1;border-radius:0 8px 8px 0;padding:7px 12px;margin:0 0 14px}
+.goal .sec-head{background:#2E7D32}
+.warmup .sec-head{background:#E65100}
+.vocab .sec-head{background:#1565C0}
+.reading .sec-head{background:#6A1B9A}
+.grammar .sec-head{background:#AD1457}
+.task .sec-head{background:#00695C}
+.challenge .sec-head{background:#F57F17}
+.review .sec-head{background:#BF360C}
+.skipif{background:#FFF8E1;border:1px dashed #F9A825;border-radius:10px;padding:10px 14px;margin-top:12px;font-size:14px}
+.skipif b{color:#F57F17}
+
+/* Movement break */
+.move{background:linear-gradient(135deg,#00BFA5,#00897B);color:white;border-radius:16px;margin:18px 0;padding:18px 22px;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,0.1)}
+.move h2{font-size:20px;font-weight:800}
+.move p{font-size:15px;opacity:0.95;margin-top:6px}
+
+/* Vocab cards */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:14px 0}
+.vc{background:#E3F2FD;border:2px solid #90CAF9;border-radius:12px;padding:12px 10px;text-align:center;cursor:pointer;transition:transform 0.12s}
+.vc:hover{transform:scale(1.04);border-color:var(--accent)}
+.vc .vc-emoji{font-size:30px}
+.vc .vc-word{font-weight:800;font-size:15px;margin-top:4px;color:#0D47A1}
+.vc .vc-pron{font-size:12px;color:#666}
+.vc .vc-play{font-size:13px;color:#1565C0}
+
+/* Quiz engine */
+.qz{background:#FAFAFA;border:1px solid #E0E0E0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.qz .q{font-weight:700;font-size:16px;margin-bottom:10px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{font-family:inherit;font-size:15px;font-weight:600;padding:8px 16px;border-radius:10px;border:2px solid #B0BEC5;background:white;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt.correct{background:#C8E6C9;border-color:#2E7D32}
+.opt.wrong{background:#FFCDD2;border-color:#C62828}
+.opt:disabled{cursor:default;opacity:0.85}
+.fb{font-size:14px;font-weight:600;margin-top:8px;display:none}
+.fb.ok{display:block;color:#2E7D32}
+.fb.no{display:block;color:#C62828}
+
+/* Score bar */
+.scorebar{position:sticky;top:0;z-index:50;background:white;box-shadow:0 2px 8px rgba(0,0,0,0.12);padding:8px 16px;display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px}
+.scorebar .bar{flex:1;height:10px;background:#ECEFF1;border-radius:6px;overflow:hidden}
+.scorebar .fill{height:100%;width:0;background:linear-gradient(90deg,#43A047,#66BB6A);transition:width 0.4s}
+.stars{font-size:16px}
+
+/* Reading */
+.reading-text{background:#F3E5F5;border-radius:12px;padding:18px 20px;font-size:17px;max-width:65ch}
+.reading-text h4{color:#6A1B9A;font-size:15px;margin:14px 0 6px;text-transform:uppercase;letter-spacing:0.4px}
+.reading-text h4:first-child{margin-top:0}
+.reading-text p{margin:8px 0}
+
+/* Editable fields */
+.field-label{font-weight:700;font-size:14px;margin:12px 0 4px;color:#37474F}
+.editable{min-height:34px;background:#FFFDE7;border:2px dashed #9E9D24;border-radius:8px;padding:8px 12px;font-size:16px;outline:none}
+.editable.tall{min-height:70px}
+.editable:focus{border-style:solid;border-color:var(--accent)}
+.editable:empty::before{content:attr(data-placeholder);color:#999}
+.qa-item{margin:12px 0}
+.qa-item .q{font-weight:700;font-size:15px;margin-bottom:5px}
+
+/* Frames / rule boxes */
+.frame{background:#FCE4EC;border-left:5px solid #AD1457;border-radius:0 10px 10px 0;padding:12px 16px;margin:12px 0;font-size:16px}
+.rulebox{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.rule{border-radius:12px;padding:14px 16px;font-size:15px}
+.rule h4{font-size:15px;margin-bottom:8px}
+.rule.a{background:#E8F5E9;border:2px solid #66BB6A}
+.rule.a h4{color:#2E7D32}
+.rule.b{background:#FFF3E0;border:2px solid #FFA726}
+.rule.b h4{color:#E65100}
+.hint{font-size:14px;color:#555;background:#F5F5F5;border-radius:8px;padding:8px 12px;margin:10px 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.chip{background:#E1F5FE;border:2px solid #81D4FA;border-radius:16px;padding:5px 14px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.chip.on{background:#0288D1;border-color:#01579B;color:white}
+.speak{background:#E8F5E9;border-radius:10px;padding:12px 16px;font-size:16px;margin:12px 0}
+
+/* Teacher mode */
+.t-only{display:none}
+body.teacher-mode .t-only{display:block}
+.teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
+.teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
+
+/* Bottom bar */
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:white;box-shadow:0 -3px 12px rgba(0,0,0,0.12);padding:10px 14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;z-index:60}
+.bb{font-family:inherit;font-size:14px;font-weight:700;padding:10px 18px;border-radius:10px;border:none;cursor:pointer;text-decoration:none;color:white;display:inline-block}
+.bb-save{background:#2E7D32}
+.bb-print{background:#546E7A}
+.bb-teach{background:#C62828}
+#toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:#2E7D32;color:white;font-weight:700;padding:10px 22px;border-radius:20px;opacity:0;transition:all 0.3s;z-index:70}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:640px){.rulebox{grid-template-columns:1fr}.vocab-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}}
+@media print{body{background:white;padding-bottom:0}.bottom-bar,.scorebar,#toast{display:none!important}.section{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid}.sec-head,.sec-body,.page-header{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="lvl">LEVEL 6 · NEAR-NATIVE (C2)</div>
+  <h1>⭐ Session 6 — The Editor</h1>
+  <div class="subtitle">English Course Library · Kids &amp; Teens</div>
+  <div class="badge">🎯 Today: think like an editor — <b>spot errors, cut the fat, sharpen every sentence</b> until it says exactly what you mean · ≈50 min core</div>
+</div>
+
+<div class="scorebar">
+  <span>⭐ Score:</span><span id="score-num">0 / 0</span>
+  <div class="bar"><div class="fill" id="score-fill"></div></div>
+  <span class="stars" id="score-stars"></span>
+</div>
+
+<div id="toast">✓ Saved</div>
+
+<div class="container">
+
+<div class="namebox">
+  <label for="student-name">👋 Your name:</label>
+  <input id="student-name" type="text" placeholder="Type your name…">
+  <span class="hello" id="hello-msg"></span>
+</div>
+
+<div class="agenda">
+  <h2>📋 Today's plan — tap each step when you finish it</h2>
+  <div class="agenda-pills" id="agenda">
+    <span class="ap" data-s="1">1️⃣ Goal</span><span class="ap" data-s="2">2️⃣ Warm-up</span>
+    <span class="ap" data-s="3">3️⃣ New words</span><span class="ap" data-s="4">4️⃣ Reading</span>
+    <span class="ap" data-s="5">5️⃣ Focus</span><span class="ap" data-s="6">6️⃣ Create</span>
+    <span class="ap" data-s="7">7️⃣ Game</span><span class="ap" data-s="8">8️⃣ Review</span>
+  </div>
+</div>
+
+<!-- STEP 1 GOAL -->
+<div class="section goal">
+  <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student repeats it back in FEWER words than the original. Editing starts now.</span>
+    <p><em>"Today you get the red pen. You will diagnose the classic diseases of bad writing — run-ons, danglers, redundancy, ambiguity — and operate on a genuinely terrible paragraph until it is short, sharp, and honest."</em> ✂️🖊️</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Ask: "When you reread your own writing, what do you fix first — and what do you never notice?" C2 students usually self-report spelling but are blind to wordiness and modifier placement. Note their answer; check at the end of Step 6 whether today changed it.</div>
+  </div>
+</div>
+
+<!-- STEP 2 WARM-UP -->
+<div class="section warmup">
+  <div class="sec-head"><span class="icon">⚡</span> Warm-Up — Commas Save Lives <span class="timing">5 min</span><span class="step">Step 2</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: voice-only game, no screen yet. Use the 😂 reaction when a sentence goes horribly wrong.</span>
+    <p><b>How to play:</b></p>
+    <p>1. Your teacher reads sentence pairs where ONE tiny mark changes everything: <b>"Let's eat, Grandma!"</b> vs <b>"Let's eat Grandma!"</b> 😱<br>
+    2. You explain the difference in meaning — fast!<br>
+    3. Then flip roles: read <b>"I like cooking, my dogs, and my family"</b> — then remove the commas and describe the crime scene.</p>
+    <p class="hint">More ammunition: "The panda eats, shoots and leaves." · "Stop clubbing, baby seals!" Punctuation is not decoration — it's steering. 🚗</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 2</h4>Keep it fast and silly — the goal is emotional proof that precision MATTERS before the technical work starts. Finish with: "Today you're the person who saves Grandma." Also good: "twenty five-euro notes" vs "twenty-five euro notes".</div>
+  </div>
+</div>
+
+<!-- STEP 3 VOCAB -->
+<div class="section vocab">
+  <div class="sec-head"><span class="icon">📝</span> New Words — The Editor's Diagnosis Chart <span class="timing">10 min</span><span class="step">Step 3</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share your screen. Click 🔊 on each card — student repeats the term, then tries to INVENT a tiny example of that disease before you move on.</span>
+    <p>Every editor knows these diseases by name. Tap any card to <b>hear</b> the term and its meaning 🔊.</p>
+    <div class="vocab-grid" id="vocab-grid"></div>
+    <h3>🎧 Practice — diagnose the patient</h3>
+    <p class="hint">Read the sick sentence and tap its disease. Green = correct diagnosis!</p>
+    <div id="vocab-quiz"></div>
+  </div>
+</div>
+
+<!-- STEP 4 READING -->
+<div class="section reading">
+  <div class="sec-head"><span class="icon">📖</span> Reading — Confessions of a Semicolon Addict <span class="timing">10 min</span><span class="step">Step 4</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen, take turns reading chunks aloud. Then student uses Zoom → Annotate to mark every "disease" the writer names in the text.</span>
+    <p>Read this confession from a school-paper editor. Tap 🔊 to hear any part read aloud.
+      <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
+    <div class="reading-text" id="read-text">
+      <h4>🖊️ The red pen finds me</h4>
+      <p>Nobody plans to become an editor. It happens the way most fates do: quietly, and then all at once. One Tuesday I fixed a friend's history essay; by Friday, half my class had discovered that I cannot walk past a broken sentence any more than a dog can walk past a dropped sausage.</p>
+      <p>Now I edit our school paper, The Weekly Racket. Every Thursday, articles arrive in my inbox like patients arriving at a small, understaffed hospital. Some need a plaster; some need surgery.</p>
+      <h4>🔬 The usual suspects</h4>
+      <p>After two years, I can diagnose the classic diseases on sight. There is the run-on sentence, which starts in the cafeteria and refuses to stop until it has visited every corridor in the school. There is its opposite, the fragment. Alone and shivering. Like this.</p>
+      <p>There is redundancy, my personal favourite, in which writers "descend down the stairs", make "future plans", and receive "free gifts". And there is the dangling modifier, a circus acrobat with no safety net: "Walking to class, the fire alarm went off." As far as I know, our fire alarm has never walked anywhere.</p>
+      <p>Worst of all is ambiguity, the shape-shifter. "She told her sister that her article was chosen" — whose article, exactly? The sentence knows, but it refuses to say, and the reader is left interrogating pronouns like a detective with no witnesses.</p>
+      <h4>🎯 Why precision matters</h4>
+      <p>People assume editing is about rules. It is not, really — it is about mercy for the reader, who has one short life and should not spend it decoding "due to the fact that" when "because" was standing right there.</p>
+      <p>Precision is also about honesty. A vague sentence lets a writer hide: "mistakes were made" spreads the blame so thin that nobody has to taste it. A precise sentence — "I broke the microscope" — costs more courage and buys more trust.</p>
+      <p>My history teacher once handed back an essay with a single comment: "This paragraph is hiding something." She was right. I had written four foggy sentences because I had not done the reading, and the fog itself was the confession.</p>
+      <h4>✂️ The hardest cut</h4>
+      <p>The cruellest part of the job is deleting a sentence its writer clearly loved. Editors call these darlings. Last month I cut a description of our goalkeeper as "a majestic, mildly damp eagle" — beautiful, useless, gone.</p>
+      <p>But here is the secret every editor eventually learns: cutting is a compliment. You only sharpen a blade you intend to use.</p>
+      <h4>😳 A confession</h4>
+      <p>And yes — the rumours about the semicolons are true. I love them; I overuse them; I have made my peace with it. Every editor has one weakness, and at least mine is punctuation, not cowardice.</p>
+      <p>So send me your tangled paragraphs and your wandering modifiers. I will return them shorter, straighter, and slightly less damp than a majestic eagle — because good writing is not decoration. It is the shortest honest road between your mind and someone else's.</p>
+    </div>
+
+    <h3>🔎 Did you understand? Tap your answer</h3>
+    <div id="reading-quiz"></div>
+
+    <h3>💬 Your turn — write your answer</h3>
+    <div class="qa-item"><div class="q">1. "Cutting is a compliment. You only sharpen a blade you intend to use." Unpack this metaphor — why is deleting someone's sentence a form of respect?</div><div class="editable tall" id="r-open1" contenteditable="true" data-placeholder="The metaphor suggests that… Cutting shows respect because…"></div></div>
+    <div class="qa-item"><div class="q">2. "A precise sentence costs more courage and buys more trust." Do you agree? Give one real example — from school, news, or your own life — where vague language was used to hide something.</div><div class="editable tall" id="r-open2" contenteditable="true" data-placeholder="I agree/disagree because… A real example is…"></div></div>
+
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> the two written questions can be homework — but say your answer to question 1 aloud in two sentences before moving on.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 4 + answer key</h4>Quiz key: patients at an understaffed hospital · the sentence claims the fire alarm was walking (dangling modifier) · trust · beloved sentences that must be cut · semicolons. Open Q1 model: you only invest effort in work you believe in — cutting means the editor thinks the piece deserves to be sharper; careless work gets ignored, not edited. Q2 model: any honest example works — "mistakes were made"-style corporate/political phrasing, a vague excuse to a teacher, "the homework got lost". Push for WHO the vagueness protects.</div>
+  </div>
+</div>
+
+<!-- STEP 5 FOCUS -->
+<div class="section grammar">
+  <div class="sec-head"><span class="icon">🔧</span> Language Focus — The Precision Clinic <span class="timing">10 min</span><span class="step">Step 5</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. Student diagnoses each sick sentence aloud BEFORE you click — first the disease name, then the cure.</span>
+    <div class="rulebox">
+      <div class="rule a"><h4>✅ THE EDITOR'S CURES</h4>
+        <b>One idea per sentence.</b> Full stop is free — use it.<br>
+        <b>Cut the echo:</b> "revert back" → revert · "free gift" → gift<br>
+        <b>Rescue the dangler:</b> the -ing phrase must describe the SUBJECT that follows.<br>
+        <b>Comma splice → semicolon</b> (or full stop, or "and/so/but").<br>
+        <b>Say who did it:</b> "I broke it" beats "it got broken".</div>
+      <div class="rule b"><h4>⚠️ THE PRECISION TRAPS</h4>
+        <b>its</b> = belonging · <b>it's</b> = it is<br>
+        <b>fewer</b> + countable (fewer mistakes) · <b>less</b> + uncountable (less noise)<br>
+        <b>affect</b> = verb · <b>effect</b> = noun (usually)<br>
+        <b>who</b> = subject · <b>whom</b> = object (after "to admire, to trust…")<br>
+        <b>only</b> moves meaning: "I <b>only</b> lent it" ≠ "I lent it <b>only</b> to Kai".</div>
+    </div>
+    <div class="frame">💡 <b>The editor's chant:</b> READ it aloud → CUT what repeats → CHECK who is doing each action → ONE idea per sentence. If a sentence makes you breathe twice, it wants to be two sentences.</div>
+    <p class="hint">💡 Hungarian tip: Hungarian word order is famously flexible — the meaning survives the shuffle. English is stricter: position IS meaning, which is why dangling modifiers and a wandering "only" feel harmless in Hungarian but change the sentence completely in English.</p>
+    <h3>✏️ Practice — diagnose and cure</h3>
+    <div id="grammar-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>8+/10: sprint, bank time for the Red Pen Challenge. Under 6: rerun misses with the chant. The "only" item is the boss of this set — if she nails it, say so; placement sensitivity is a genuine C2 marker. Watch for overcorrection: some students start semicolon-ing everything (the reading legitimises it!). One semicolon per paragraph is plenty.</div>
+  </div>
+</div>
+
+<!-- MOVE BREAK -->
+<div class="move">
+  <h2>🤸 MOVE! — 1 minute break</h2>
+  <p>Editor's desk break! Stand up and do 8 chair squats — down when you "delete a word", up when you "save the file". Count aloud in English. Cameras on — teacher squats too! 😄</p>
+</div>
+
+<!-- STEP 6 CREATIVE TASK -->
+<div class="section task">
+  <div class="sec-head"><span class="icon">🎨</span> Create — The Red Pen Challenge <span class="timing">10 min</span><span class="step">Step 6</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in her own browser, shares her screen, and edits live while you watch the word count drop.</span>
+    <p>A "reporter" has submitted this masterpiece to your paper. It contains at least <b>eight problems</b>. You are the editor — rewrite it below: shorter, clearer, and with Grandma saved. ✂️</p>
+    <div class="frame">📄 <b>The submission:</b> "Due to the fact that the new cafeteria menu, which is new, was revealed and shown to students on Monday, everyone was talking about it, it was the main topic everywhere. Walking into the cafeteria, the smell of pizza was amazing. In my personal opinion, I think that their are less options for vegetarians, which is not exactly ideal. The head cook said the menu would be adjusted in the future going forward. Lets eat students!"</p>
+    <h3>Your editor's checklist — tap each cure as you apply it:</h3>
+    <div class="chips" id="exp-chips"></div>
+    <div class="field-label">✂️ Your edited version (aim for HALF the length — every fact kept, every disease cured)</div>
+    <div class="editable tall" id="t-edited" contenteditable="true" data-placeholder="The new cafeteria menu…"></div>
+    <div class="field-label">🩺 Editor's report: list 3 diseases you found, by name (e.g. "dangling modifier in sentence 2")</div>
+    <div class="editable tall" id="t-report" contenteditable="true" data-placeholder="1. … 2. … 3. …"></div>
+    <div class="speak">🗣️ <b>Editorial meeting!</b> Read both versions aloud to your teacher. Defend your three biggest cuts like a professional: "I cut X because…" — precise verdicts, no mercy, full kindness.</div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> fix only the first two sentences live and diagnose the rest aloud; the full rewrite becomes homework.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6 + answer key</h4>The 8+ planted problems: 1) "Due to the fact that" → Because; 2) "which is new" redundant; 3) "revealed and shown" redundant pair; 4) comma splice "…about it, it was…"; 5) dangling modifier "Walking into the cafeteria, the smell…"; 6) "In my personal opinion, I think that" double redundancy; 7) "their" → "there"; 8) "in the future going forward" tautology; 9) "Lets" → "Let's" AND the missing comma: "Let's eat, students!" (callback to warm-up — celebrate loudly if she catches it). Model rewrite: "Because the new cafeteria menu appeared on Monday, it became the talk of the school. Walking into the cafeteria, I was hit by the smell of pizza. There are fewer options for vegetarians, though, which is not ideal. The head cook says the menu will be adjusted. Let's eat, students!" Grade her edit on diseases CURED, not on matching your wording.</div>
+  </div>
+</div>
+
+<!-- STEP 7 CHALLENGE GAME -->
+<div class="section challenge">
+  <div class="sec-head"><span class="icon">🎮</span> Challenge Game — Editor-in-Chief Trials <span class="timing">8 min</span><span class="step">Step 7</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen — every correct diagnosis earns a dramatic "STOP THE PRESSES!" 🎉</span>
+    <p class="hint">🗞️ Three rounds, getting harder. Beat 80% to earn the Editor-in-Chief badge (⭐⭐⭐)!</p>
+    <h3>Round 1 — Name that disease</h3>
+    <div id="ch-quiz1"></div>
+    <h3>Round 2 — Choose the cure</h3>
+    <div id="ch-quiz2"></div>
+    <h3>Round 3 — Boss level: the precision gauntlet 👑</h3>
+    <div id="ch-quiz3"></div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 keeps perfectly as next lesson's warm-up.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>Wrong answers auto-reveal in green — on each miss, ask for the disease NAME before moving on; the vocabulary is half the lesson. The BOSS item hides three separate problems in one sentence; after she answers, have her list all three aloud (their/there, fewer/less, comma splice).</div>
+  </div>
+</div>
+
+<!-- STEP 8 REVIEW -->
+<div class="section review">
+  <div class="sec-head"><span class="icon">🏁</span> Review &amp; Homework <span class="timing">3 min</span><span class="step">Step 8</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, screens off. Finish with faces, not slides.</span>
+    <div class="frame">⚡ <b>30-second recap:</b> teacher says a sick sentence ("Returning home, the rain started") — you shout the disease name and fire back the cured version. Three patients, rapid fire!</div>
+    <h3>🏠 Homework</h3>
+    <div class="frame">
+      <p>🔍 <b>Edit the wild:</b> find one real paragraph that needs editing — a school text, a website, a game description, or something YOU wrote last month.</p>
+      <p>✂️ <b>Operate:</b> rewrite it at half the length with every fact kept. Bring both versions.</p>
+      <p>🩺 <b>Diagnose:</b> name at least three diseases you cured, using today's terms. Bonus: find one "darling" you loved but cut anyway — and admit it hurt.</p>
+    </div>
+    <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="t-only">
+      <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
+      <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">What to adjust next time?</div><div class="editable" id="tn-adjust" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">Student's strongest / weakest moment today?</div><div class="editable" id="tn-notes" contenteditable="true" data-placeholder="…"></div></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="bottom-bar">
+  <button class="bb bb-save" onclick="saveWork()">💾 Save my work</button>
+  <button class="bb bb-print" onclick="window.print()">🖨️ Print</button>
+  <button class="bb bb-teach" id="teach-btn" onclick="unlockTeacher()">🔐</button>
+</div>
+
+<script>
+/* ============ ENGINE (identical across all Library sessions) ============ */
+var LEVEL=6, SESSION=6, K='ecl_L'+LEVEL+'s'+SESSION+'_';
+
+/* ---- TTS audio ---- */
+function say(text){try{window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(text);u.lang='en-GB';u.rate=0.9;window.speechSynthesis.speak(u);}catch(e){}}
+
+/* ---- Quiz engine ---- */
+var score=0,total=0;
+function buildQuiz(containerId,items){
+  var c=document.getElementById(containerId);
+  items.forEach(function(it){
+    total++;
+    var qz=document.createElement('div');qz.className='qz';
+    var opts='<div class="opts">';
+    it.options.forEach(function(o){opts+='<button class="opt" data-ok="'+(o===it.answer?'1':'0')+'" onclick="pick(this)">'+o+'</button>';});
+    opts+='</div><div class="fb"></div>';
+    qz.innerHTML='<div class="q">'+it.q+'</div>'+opts;
+    c.appendChild(qz);
+  });
+  updateScore();
+}
+function pick(btn){
+  var qz=btn.closest('.qz');if(qz.dataset.done)return;qz.dataset.done='1';
+  var ok=btn.dataset.ok==='1';var fb=qz.querySelector('.fb');
+  if(ok){btn.classList.add('correct');score++;fb.className='fb ok';fb.textContent='✓ Correct! Great job!';}
+  else{btn.classList.add('wrong');var good=qz.querySelector('[data-ok="1"]');if(good)good.classList.add('correct');
+    fb.className='fb no';fb.textContent='Almost! The green one is right. Try to remember it! 💪';}
+  qz.querySelectorAll('.opt').forEach(function(b){b.disabled=true;});
+  updateScore();
+}
+function updateScore(){
+  var answered=document.querySelectorAll('.qz[data-done]').length;
+  document.getElementById('score-num').textContent=score+' / '+total;
+  document.getElementById('score-fill').style.width=(total?Math.round(answered/total*100):0)+'%';
+  var st='',pct=total?score/total:0;
+  if(answered===total&&total>0){st=pct>=0.8?'⭐⭐⭐':pct>=0.5?'⭐⭐':'⭐';}
+  document.getElementById('score-stars').textContent=st;
+}
+
+/* ---- Student name ---- */
+var nameInput=document.getElementById('student-name');
+function applyName(){
+  var n=nameInput.value.trim();
+  document.getElementById('hello-msg').textContent=n?('Hello, '+n+'! 🌟'):'';
+  document.querySelectorAll('.stud-name').forEach(function(el){el.textContent=n?('Amazing work today, '+n+'!'):'Amazing work today!';});
+  localStorage.setItem(K+'name',n);
+}
+nameInput.addEventListener('input',applyName);
+
+/* ---- Agenda pills ---- */
+document.querySelectorAll('.ap').forEach(function(p){
+  p.onclick=function(){p.classList.toggle('done');localStorage.setItem(K+'ap'+p.dataset.s,p.classList.contains('done'));};
+});
+
+/* ---- Teacher mode ---- */
+function unlockTeacher(){
+  if(document.body.classList.contains('teacher-mode')){document.body.classList.remove('teacher-mode');document.getElementById('teach-btn').textContent='🔐';return;}
+  var pin=prompt('Teacher PIN:');
+  if(pin==='teach'){document.body.classList.add('teacher-mode');document.getElementById('teach-btn').textContent='🔓 Teacher';}
+}
+
+/* ---- Save work (.txt export) ---- */
+function saveWork(){
+  var n=(localStorage.getItem(K+'name')||'Student').replace(/[^\wÀ-ſ-]/g,'');
+  var out=n+' — Level '+LEVEL+' Session '+SESSION+'\n'+new Date().toLocaleDateString()+'\n'+'='.repeat(34)+'\n\n';
+  var picks=[].slice.call(document.querySelectorAll('.chips .chip.on')).map(function(x){return x.textContent.trim();});
+  if(picks.length)out+='Picked: '+picks.join(', ')+'\n\n';
+  var count=0;
+  document.querySelectorAll('.editable[id]').forEach(function(el){var t=el.innerText.trim();if(t){out+='['+el.id+'] '+t+'\n';count++;}});
+  out+='\nScore: '+score+' / '+total;
+  if(count===0&&!picks.length){alert('Type something first! 🙂');return;}
+  var b=new Blob([out],{type:'text/plain;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u;a.download=n+'_L'+LEVEL+'S'+SESSION+'_'+new Date().toISOString().slice(0,10)+'.txt';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);
+  var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show');},1600);
+}
+
+/* ---- Autosave / autoload ---- */
+function autosave(){document.querySelectorAll('.editable[id]').forEach(function(el){localStorage.setItem(K+el.id,el.innerHTML);});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){localStorage.setItem(K+'chip'+i,el.classList.contains('on'));});}
+function autoload(){
+  document.querySelectorAll('.editable[id]').forEach(function(el){var v=localStorage.getItem(K+el.id);if(v!==null)el.innerHTML=v;});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){if(localStorage.getItem(K+'chip'+i)==='true')el.classList.add('on');});
+  document.querySelectorAll('.ap').forEach(function(p){if(localStorage.getItem(K+'ap'+p.dataset.s)==='true')p.classList.add('done');});
+  var n=localStorage.getItem(K+'name');if(n){nameInput.value=n;applyName();}
+}
+document.addEventListener('input',function(){clearTimeout(window._t);window._t=setTimeout(autosave,600);});
+window.addEventListener('load',autoload);
+
+/* ============ SESSION CONTENT (changes per session) ============ */
+
+/* ---- Vocabulary: the editor's diagnosis chart ---- */
+var VOCAB=[
+  {w:'run-on sentence',e:'🚂',p:'RUN-on',d:'two or more sentences glued together with no proper stop'},
+  {w:'sentence fragment',e:'🧩',p:'/ˈfræɡ-mənt/',d:'a piece of a sentence pretending to be whole. Like this.'},
+  {w:'comma splice',e:'✂️',p:'/ˈkɒ-mə splaɪs/',d:'two full sentences joined by only a comma'},
+  {w:'dangling modifier',e:'🎪',p:'DANG-ling MO-di-fier',d:'a describing phrase attached to the wrong subject'},
+  {w:'redundancy',e:'♻️',p:'/rɪ-ˈdʌn-dən-si/',d:'saying the same thing twice: free gift, revert back'},
+  {w:'tautology',e:'🔁',p:'/tɔː-ˈtɒ-lə-dʒi/',d:'circular repetition: in the future going forward'},
+  {w:'wordiness',e:'🗯️',p:'/ˈwɜː-di-nəs/',d:'ten words doing the job of three: due to the fact that'},
+  {w:'ambiguity',e:'🌫️',p:'/ˌæm-bɪ-ˈɡjuː-ə-ti/',d:'a sentence with two possible meanings'},
+  {w:'cliché',e:'🧀',p:'/ˈkliː-ʃeɪ/',d:'a phrase so overused it has stopped meaning anything'},
+  {w:'typo',e:'⌨️',p:'/ˈtaɪ-pəʊ/',d:'a small keyboard slip: teh, recieve, it\'s for its'},
+  {w:'proofread',e:'🔍',p:'/ˈpruːf-riːd/',d:'to read a finished text slowly, hunting for errors'},
+  {w:'concise',e:'🎯',p:'/kən-ˈsaɪs/',d:'saying exactly enough — the editor\'s highest praise'},
+  {w:'register',e:'🎚️',p:'/ˈre-dʒɪ-stə/',d:'the formality level of your language — texting vs essay'}
+];
+(function buildVocab(){
+  var g=document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v){
+    var d=document.createElement('div');d.className='vc';
+    d.innerHTML='<div class="vc-play">🔊</div><div class="vc-emoji">'+v.e+'</div><div class="vc-word">'+v.w+'</div><div class="vc-pron">'+v.p+'</div>';
+    d.onclick=function(){say(v.w+'. '+v.d);};
+    g.appendChild(d);
+  });
+})();
+
+/* ---- Editor's checklist chips for Step 6 ---- */
+(function(){
+  var c=document.getElementById('exp-chips');
+  var CURES=[
+    {e:'✂️',w:'cut the wordiness'},
+    {e:'♻️',w:'delete redundancy'},
+    {e:'🚂',w:'split the run-on'},
+    {e:'🎪',w:'rescue the dangler'},
+    {e:'⌨️',w:'fix the typos'},
+    {e:'🔢',w:'fewer vs less'},
+    {e:'💬',w:'cut "I think that"'},
+    {e:'🍽️',w:'save Grandma (comma!)'},
+    {e:'🔍',w:'proofread aloud'}
+  ];
+  CURES.forEach(function(v){
+    var s=document.createElement('span');s.className='chip';s.textContent=v.e+' '+v.w;
+    s.onclick=function(){s.classList.toggle('on');say(v.w);};
+    c.appendChild(s);
+  });
+})();
+
+/* ---- Quizzes ---- */
+buildQuiz('vocab-quiz',[
+  {q:'🚂 "We went to town we bought shoes then we ate then it rained then we went home and then…"',options:['run-on sentence','sentence fragment','cliché'],answer:'run-on sentence'},
+  {q:'🧩 "Because of the rain on Tuesday." — that\'s the WHOLE sentence.',options:['sentence fragment','tautology','typo'],answer:'sentence fragment'},
+  {q:'♻️ "Please RSVP with your reply and revert back to me."',options:['redundancy','ambiguity','register'],answer:'redundancy'},
+  {q:'🎪 "Running for the bus, my backpack exploded." Who was running, exactly?',options:['dangling modifier','comma splice','concise'],answer:'dangling modifier'},
+  {q:'🌫️ "I saw the man with the telescope." Who has the telescope?',options:['ambiguity','wordiness','proofread'],answer:'ambiguity'},
+  {q:'🎚️ Writing "hey wassup" in a job application is a problem of…',options:['register','tautology','typo'],answer:'register'}
+]);
+buildQuiz('reading-quiz',[
+  {q:'The writer compares arriving articles to…',options:['patients at an understaffed hospital','letters from strangers','homework nobody wants'],answer:'patients at an understaffed hospital'},
+  {q:'"Walking to class, the fire alarm went off" is funny because grammatically…',options:['the sentence claims the fire alarm was walking','fire alarms cannot ring in class','the comma is in the wrong place'],answer:'the sentence claims the fire alarm was walking'},
+  {q:'According to the writer, a precise sentence costs courage and buys…',options:['trust','time','better grades'],answer:'trust'},
+  {q:'In editing, "darlings" are…',options:['sentences their writer loves that must be cut anyway','the editor\'s favourite writers','kind comments in the margins'],answer:'sentences their writer loves that must be cut anyway'},
+  {q:'The editor\'s confessed weakness is…',options:['semicolons','deadlines','majestic eagles'],answer:'semicolons'}
+]);
+buildQuiz('grammar-quiz',[
+  {q:'"The team lost ___ focus after halftime."',options:['its','it\'s','their\'s'],answer:'its'},
+  {q:'"Editors make ___ mistakes than they used to."',options:['fewer','less','lesser'],answer:'fewer'},
+  {q:'Cure the comma splice: "I edited the essay, it was endless."',options:['I edited the essay; it was endless.','I edited the essay it was endless.','I edited, the essay, it was endless.'],answer:'I edited the essay; it was endless.'},
+  {q:'Rescue the dangler: "Running for the bus, my backpack broke."',options:['Running for the bus, I broke my backpack.','My backpack, running for the bus, broke.','Running for the bus, it broke my backpack.'],answer:'Running for the bus, I broke my backpack.'},
+  {q:'Which word must die in "revert back"?',options:['back','revert','neither — both stay'],answer:'back'},
+  {q:'"The typo didn\'t ___ the article\'s meaning."',options:['affect','effect','infect'],answer:'affect'},
+  {q:'"The writer ___ I admire most is our sports reporter."',options:['whom','who\'s','which'],answer:'whom'},
+  {q:'Replace "due to the fact that" with…',options:['because','in regards to the reason why','due to because'],answer:'because'},
+  {q:'Which sentence is AMBIGUOUS?',options:['I saw the man with the telescope.','I used my telescope to watch the man.','The man was carrying a telescope.'],answer:'I saw the man with the telescope.'},
+  {q:'"I only lent Kai my notes" vs "I lent Kai only my notes" — moving "only" changes…',options:['the meaning of the sentence','nothing — style only','the tense'],answer:'the meaning of the sentence'}
+]);
+buildQuiz('ch-quiz1',[
+  {q:'"My weekend was great we watched films we made pancakes my cousin came over it was fun."',options:['run-on sentence','sentence fragment','ambiguity'],answer:'run-on sentence'},
+  {q:'"The end result was a final conclusion that was completely unanimous with everyone agreeing."',options:['tautology overload','dangling modifier','typo'],answer:'tautology overload'},
+  {q:'"After the storm. Which was loud." — the second "sentence" is a…',options:['sentence fragment','comma splice','cliché'],answer:'sentence fragment'}
+]);
+buildQuiz('ch-quiz2',[
+  {q:'Best cure for "In my personal opinion, I think that the film is good."',options:['The film is good.','In my opinion, I personally think the film is good.','I think that in my opinion the film is good.'],answer:'The film is good.'},
+  {q:'Fix: "Covered in melted cheese, the students devoured the pizza."',options:['The students devoured the pizza, which was covered in melted cheese.','Covered in melted cheese, the pizza devoured the students.','The students, covered in melted cheese, devoured the pizza.'],answer:'The students devoured the pizza, which was covered in melted cheese.'},
+  {q:'Which version is honest AND precise?',options:['I broke the beaker during the experiment.','Mistakes were made in the lab area.','The beaker situation developed unexpectedly.'],answer:'I broke the beaker during the experiment.'},
+  {q:'Tighten: "At this point in time, we are currently in the process of deciding."',options:['We are deciding.','Currently at this time we decide.','We are in the process at this point.'],answer:'We are deciding.'}
+]);
+buildQuiz('ch-quiz3',[
+  {q:'"Whose going to tell him that his essay needs work?"',options:['Whose → Who\'s','his → he\'s','needs → need'],answer:'Whose → Who\'s'},
+  {q:'The MOST concise honest version of a late-homework excuse:',options:['I didn\'t finish the essay; I underestimated it.','Due to unforeseen circumstances beyond my control, the essay remains in an unfinished state.','The essay kind of didn\'t get totally done, time-wise.'],answer:'I didn\'t finish the essay; I underestimated it.'},
+  {q:'"She told her sister that her article was chosen." The problem:',options:['ambiguous — whose article?','comma splice','redundancy'],answer:'ambiguous — whose article?'},
+  {q:'👑 BOSS: "Their were less errors in this weeks issue, the editor was thrilled." How many separate problems?',options:['three — their/there, less/fewer + missing apostrophe, comma splice','one — just the comma','two — spelling only'],answer:'three — their/there, less/fewer + missing apostrophe, comma splice'}
+]);
+</script>
+</body>
+</html>

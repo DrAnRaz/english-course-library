@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>L5 · Session 2 — Collocation Power</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--accent:#00838F;--accent2:#26A69A}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1a;font-size:17px;line-height:1.6;padding-bottom:90px}
+.page-header{background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;padding:26px 20px;text-align:center}
+.page-header h1{font-size:26px;font-weight:800;letter-spacing:-0.3px}
+.page-header .subtitle{font-size:14px;opacity:0.9;margin-top:4px}
+.badge{display:inline-block;background:rgba(255,255,255,0.2);padding:6px 16px;border-radius:20px;font-size:14px;margin-top:10px}
+.lvl{display:inline-block;background:#FFD54F;color:#5D4037;font-weight:800;font-size:12px;padding:3px 12px;border-radius:12px;letter-spacing:0.5px;margin-bottom:8px}
+.container{max-width:860px;margin:0 auto;padding:18px}
+
+/* Student name */
+.namebox{background:white;border:2px solid var(--accent);border-radius:14px;padding:14px 18px;margin:16px 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.namebox label{font-weight:700;font-size:15px}
+.namebox input{flex:1;min-width:160px;font-size:17px;padding:8px 12px;border:2px dashed #90A4AE;border-radius:8px;font-family:inherit}
+.namebox .hello{font-weight:700;color:var(--accent)}
+
+/* Agenda */
+.agenda{background:white;border-radius:14px;padding:16px 18px;margin:14px 0;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.agenda h2{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:#666;margin-bottom:10px}
+.agenda-pills{display:flex;flex-wrap:wrap;gap:8px}
+.ap{display:flex;align-items:center;gap:6px;background:#ECEFF1;border:2px solid transparent;border-radius:20px;padding:5px 13px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.ap.done{background:#C8E6C9;border-color:#2E7D32;text-decoration:line-through;opacity:0.8}
+
+/* Sections */
+.section{background:white;border-radius:16px;margin:18px 0;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,0.07)}
+.sec-head{padding:14px 20px;color:white;font-size:17px;font-weight:800;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sec-head .icon{font-size:22px}
+.sec-head .step{margin-left:auto;font-size:12px;font-weight:700;background:rgba(255,255,255,0.25);padding:3px 12px;border-radius:12px;white-space:nowrap}
+.sec-head .timing{font-size:12px;font-weight:400;background:rgba(255,255,255,0.18);padding:3px 10px;border-radius:12px;white-space:nowrap}
+.sec-body{padding:18px 20px}
+.zoom-cue{display:block;font-size:13px;font-weight:600;color:#37474F;background:#E1F5FE;border-left:4px solid #0288D1;border-radius:0 8px 8px 0;padding:7px 12px;margin:0 0 14px}
+.goal .sec-head{background:#2E7D32}
+.warmup .sec-head{background:#E65100}
+.vocab .sec-head{background:#1565C0}
+.reading .sec-head{background:#6A1B9A}
+.grammar .sec-head{background:#AD1457}
+.task .sec-head{background:#00695C}
+.challenge .sec-head{background:#F57F17}
+.review .sec-head{background:#BF360C}
+.skipif{background:#FFF8E1;border:1px dashed #F9A825;border-radius:10px;padding:10px 14px;margin-top:12px;font-size:14px}
+.skipif b{color:#F57F17}
+
+/* Movement break */
+.move{background:linear-gradient(135deg,#00BFA5,#00897B);color:white;border-radius:16px;margin:18px 0;padding:18px 22px;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,0.1)}
+.move h2{font-size:20px;font-weight:800}
+.move p{font-size:15px;opacity:0.95;margin-top:6px}
+
+/* Vocab cards */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:14px 0}
+.vc{background:#E3F2FD;border:2px solid #90CAF9;border-radius:12px;padding:12px 10px;text-align:center;cursor:pointer;transition:transform 0.12s}
+.vc:hover{transform:scale(1.04);border-color:var(--accent)}
+.vc .vc-emoji{font-size:30px}
+.vc .vc-word{font-weight:800;font-size:15px;margin-top:4px;color:#0D47A1}
+.vc .vc-pron{font-size:12px;color:#666}
+.vc .vc-play{font-size:13px;color:#1565C0}
+
+/* Quiz engine */
+.qz{background:#FAFAFA;border:1px solid #E0E0E0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.qz .q{font-weight:700;font-size:16px;margin-bottom:10px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{font-family:inherit;font-size:15px;font-weight:600;padding:8px 16px;border-radius:10px;border:2px solid #B0BEC5;background:white;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt.correct{background:#C8E6C9;border-color:#2E7D32}
+.opt.wrong{background:#FFCDD2;border-color:#C62828}
+.opt:disabled{cursor:default;opacity:0.85}
+.fb{font-size:14px;font-weight:600;margin-top:8px;display:none}
+.fb.ok{display:block;color:#2E7D32}
+.fb.no{display:block;color:#C62828}
+
+/* Score bar */
+.scorebar{position:sticky;top:0;z-index:50;background:white;box-shadow:0 2px 8px rgba(0,0,0,0.12);padding:8px 16px;display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px}
+.scorebar .bar{flex:1;height:10px;background:#ECEFF1;border-radius:6px;overflow:hidden}
+.scorebar .fill{height:100%;width:0;background:linear-gradient(90deg,#43A047,#66BB6A);transition:width 0.4s}
+.stars{font-size:16px}
+
+/* Reading */
+.reading-text{background:#F3E5F5;border-radius:12px;padding:18px 20px;font-size:17px;max-width:65ch}
+.reading-text h4{color:#6A1B9A;font-size:15px;margin:14px 0 6px;text-transform:uppercase;letter-spacing:0.4px}
+.reading-text h4:first-child{margin-top:0}
+.reading-text p{margin:8px 0}
+
+/* Editable fields */
+.field-label{font-weight:700;font-size:14px;margin:12px 0 4px;color:#37474F}
+.editable{min-height:34px;background:#FFFDE7;border:2px dashed #9E9D24;border-radius:8px;padding:8px 12px;font-size:16px;outline:none}
+.editable.tall{min-height:70px}
+.editable:focus{border-style:solid;border-color:var(--accent)}
+.editable:empty::before{content:attr(data-placeholder);color:#999}
+.qa-item{margin:12px 0}
+.qa-item .q{font-weight:700;font-size:15px;margin-bottom:5px}
+
+/* Frames / rule boxes */
+.frame{background:#FCE4EC;border-left:5px solid #AD1457;border-radius:0 10px 10px 0;padding:12px 16px;margin:12px 0;font-size:16px}
+.rulebox{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.rule{border-radius:12px;padding:14px 16px;font-size:15px}
+.rule h4{font-size:15px;margin-bottom:8px}
+.rule.a{background:#E8F5E9;border:2px solid #66BB6A}
+.rule.a h4{color:#2E7D32}
+.rule.b{background:#FFF3E0;border:2px solid #FFA726}
+.rule.b h4{color:#E65100}
+.hint{font-size:14px;color:#555;background:#F5F5F5;border-radius:8px;padding:8px 12px;margin:10px 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.chip{background:#E1F5FE;border:2px solid #81D4FA;border-radius:16px;padding:5px 14px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.chip.on{background:#0288D1;border-color:#01579B;color:white}
+.speak{background:#E8F5E9;border-radius:10px;padding:12px 16px;font-size:16px;margin:12px 0}
+
+/* Teacher mode */
+.t-only{display:none}
+body.teacher-mode .t-only{display:block}
+.teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
+.teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
+
+/* Bottom bar */
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:white;box-shadow:0 -3px 12px rgba(0,0,0,0.12);padding:10px 14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;z-index:60}
+.bb{font-family:inherit;font-size:14px;font-weight:700;padding:10px 18px;border-radius:10px;border:none;cursor:pointer;text-decoration:none;color:white;display:inline-block}
+.bb-save{background:#2E7D32}
+.bb-print{background:#546E7A}
+.bb-teach{background:#C62828}
+#toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:#2E7D32;color:white;font-weight:700;padding:10px 22px;border-radius:20px;opacity:0;transition:all 0.3s;z-index:70}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:640px){.rulebox{grid-template-columns:1fr}.vocab-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}}
+@media print{body{background:white;padding-bottom:0}.bottom-bar,.scorebar,#toast{display:none!important}.section{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid}.sec-head,.sec-body,.page-header{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="lvl">LEVEL 5 · PROFICIENT (C1)</div>
+  <h1>⭐ Session 2 — Collocation Power</h1>
+  <div class="subtitle">English Course Library · Kids &amp; Teens</div>
+  <div class="badge">🎯 Today: build natural <b>word partnerships</b> so your English stops sounding translated · ≈50 min core</div>
+</div>
+
+<div class="scorebar">
+  <span>⭐ Score:</span><span id="score-num">0 / 0</span>
+  <div class="bar"><div class="fill" id="score-fill"></div></div>
+  <span class="stars" id="score-stars"></span>
+</div>
+
+<div id="toast">✓ Saved</div>
+
+<div class="container">
+
+<div class="namebox">
+  <label for="student-name">👋 Your name:</label>
+  <input id="student-name" type="text" placeholder="Type your name…">
+  <span class="hello" id="hello-msg"></span>
+</div>
+
+<div class="agenda">
+  <h2>📋 Today's plan — tap each step when you finish it</h2>
+  <div class="agenda-pills" id="agenda">
+    <span class="ap" data-s="1">1️⃣ Goal</span><span class="ap" data-s="2">2️⃣ Warm-up</span>
+    <span class="ap" data-s="3">3️⃣ New words</span><span class="ap" data-s="4">4️⃣ Reading</span>
+    <span class="ap" data-s="5">5️⃣ Focus</span><span class="ap" data-s="6">6️⃣ Create</span>
+    <span class="ap" data-s="7">7️⃣ Game</span><span class="ap" data-s="8">8️⃣ Review</span>
+  </div>
+</div>
+
+<!-- STEP 1 GOAL -->
+<div class="section goal">
+  <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in her own words.</span>
+    <p><em>"Today you will learn why grammatically perfect English can still sound foreign — and how <b>collocations</b> (natural word partnerships like <b>heavy rain</b> and <b>make a decision</b>) turn 'correct' English into REAL English."</em> 🧲</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Diagnostic: ask "What did you do last weekend?" and listen for translated partnerships ("big rain", "make my homework", "very disappointed" where "bitterly" would shine). Note 2–3 examples silently — you'll recycle them in Step 5 without naming who said them.</div>
+  </div>
+</div>
+
+<!-- STEP 2 WARM-UP -->
+<div class="section warmup">
+  <div class="sec-head"><span class="icon">⚡</span> Warm-Up — Word Magnet <span class="timing">5 min</span><span class="step">Step 2</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: teacher types one noun at a time into the chat — student answers out loud, fast. No screen share yet.</span>
+    <p><b>How to play:</b></p>
+    <p>1. Your teacher drops a noun in the chat: <em>rain… decision… promise… risk… attention…</em><br>
+    2. You fire back the FIRST word that "sticks" to it — a verb or adjective partner. ⚡<br>
+    3. Compare: is your magnet-word the one a native speaker would grab?</p>
+    <p class="hint">No score here — wrong guesses are the best part. Every mismatch is a partnership you'll own by the end of today. 🧲</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 2</h4>Good noun sequence: rain (heavy) → coffee (strong) → decision (make) → homework (do) → risk (take) → cold (catch) → promise (keep/break) → attention (pay). Celebrate near-misses: "strong rain" shows the student understands INTENSITY — English just filed that meaning under "heavy". That reframe kills shame instantly.</div>
+  </div>
+</div>
+
+<!-- STEP 3 VOCAB -->
+<div class="section vocab">
+  <div class="sec-head"><span class="icon">📝</span> New Words — Power Partnerships <span class="timing">10 min</span><span class="step">Step 3</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share your screen. Click 🔊 on each card; student repeats the WHOLE chunk twice — never the single word alone.</span>
+    <p>Learn these as <b>one chunk</b>, never as separate words. Tap any card to <b>hear</b> it 🔊, then say it with your eyes closed.</p>
+    <div class="vocab-grid" id="vocab-grid"></div>
+    <h3>🎧 Practice — tap the natural partner</h3>
+    <p class="hint">Read the sentence and pick the partner a native speaker would choose. Green = correct!</p>
+    <div id="vocab-quiz"></div>
+  </div>
+</div>
+
+<!-- STEP 4 READING -->
+<div class="section reading">
+  <div class="sec-head"><span class="icon">📖</span> Reading — Why Your English Sounds Translated <span class="timing">10 min</span><span class="step">Step 4</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. Take turns reading a chunk each. Then student uses Zoom → Annotate to underline every collocation she can spot in two paragraphs.</span>
+    <p>Read this article from a language-learning blog. Tap 🔊 to hear any part read aloud.
+      <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
+    <div class="reading-text" id="read-text">
+      <h4>🧩 The mystery of the perfect mistake</h4>
+      <p>When Réka arrived at her exchange school in Manchester, her grammar was flawless. She had studied English for eight years and could explain the third conditional in her sleep. Her teachers back home would have been proud.</p>
+      <p>Yet within a week, her host brother Callum was grinning at her sentences. "You don't <em>make</em> a party," he said kindly. "You <b>throw</b> one. And rain isn't <em>big</em> — it's <b>heavy</b>."</p>
+      <p>Réka's sentences broke no grammar rules at all. They simply weren't what native speakers say.</p>
+      <h4>🧲 Welcome to collocation</h4>
+      <p>A collocation is a word partnership — two or more words that habitually travel together. English speakers <b>make decisions</b>, <b>do damage</b>, <b>take risks</b> and <b>catch colds</b>. Swap the partners around and every sentence turns strange, like cheese on cornflakes.</p>
+      <p>The trap is invisible because your first language has its own partnerships, and your brain translates them loyally. A German teenager "makes" homework; a Spanish speaker "has" heat; a Hungarian "does" a party. Each translation is faithful — and each one is wrong in English.</p>
+      <h4>🎲 Why partnerships beat rules</h4>
+      <p>Here is the uncomfortable truth: there is no rule. Nothing in logic explains why rain is <b>heavy</b> but coffee is <b>strong</b>, when both simply mean "a lot". Why do you <b>keep</b> a promise but <b>break</b> a record? Nobody decided; native speakers simply inherited the pairs.</p>
+      <p>Some partnerships are strict. You can be <b>utterly exhausted</b> but not "utterly tired" — <em>utterly</em> only likes extreme words. You can be <b>bitterly disappointed</b> or <b>bitterly cold</b>, but never "bitterly happy".</p>
+      <p>Linguists estimate that fluent speech is stitched together largely from these ready-made chunks. Your brain doesn't build "to be honest" word by word; it grabs the whole chunk off the shelf. That is why natives sound fast and effortless.</p>
+      <h4>⚔️ The make/do minefield</h4>
+      <p>The most famous battlefield is <b>make</b> versus <b>do</b>. Roughly: <em>make</em> is for creating and deciding — make a plan, make a promise, make progress. <em>Do</em> is for work and duties — do homework, do the dishes, do your best.</p>
+      <p>There are exceptions, of course. English wouldn't be English without exceptions.</p>
+      <h4>📡 Training your collocation radar</h4>
+      <p>The fix is not memorising lists — it's noticing. When you read or watch anything in English, hunt in pairs. Don't record "decision"; record "make a decision". Don't record "disappointed"; record "bitterly disappointed".</p>
+      <p>Réka started a "partnership notebook" on her phone. Three weeks later, Callum had stopped grinning — and had started borrowing her notes for his Spanish class.</p>
+      <h4>🏆 The pay-off</h4>
+      <p>Collocations are the difference between English that is correct and English that is real. Examiners reward them, listeners relax around them, and best of all, they make speaking easier — because half your sentence is already assembled.</p>
+      <p>So the next time it pours in Manchester, you'll know exactly what to say. The rain is heavy. The wind is bitter. And your English? Getting stronger by the day.</p>
+    </div>
+
+    <h3>🔎 Did you understand? Tap your answer</h3>
+    <div id="reading-quiz"></div>
+
+    <h3>💬 Your turn — write your answer</h3>
+    <div class="qa-item"><div class="q">1. The article says half your sentence is "already assembled". Explain how ready-made chunks make speaking easier and faster.</div><div class="editable" id="r-open1" contenteditable="true" data-placeholder="If your brain stores whole chunks, then…"></div></div>
+    <div class="qa-item"><div class="q">2. Which partnerships does YOUR first language translate differently? Give one example ("In Hungarian we say…") + the natural English version.</div><div class="editable tall" id="r-open2" contenteditable="true" data-placeholder="In my language we say… but in English it's…"></div></div>
+
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> the two written questions above can be homework instead.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 4 + answer key</h4>Quiz answers: 1) unnatural word partnerships · 2) words that habitually travel together · 3) your first language translates its own partnerships loyally · 4) extreme words · 5) noticing + a partnership notebook. Open Q1 key idea: retrieving one stored chunk is faster than building 3–4 words with grammar rules → more brain-power left for ideas. Open Q2: for Hungarian speakers expect gems like "bulit csinál" → throw a party, "nagy eső" → heavy rain, "leteszi a vizsgát" → pass an exam. Collect the student's example for the Step 6 rewrite.</div>
+  </div>
+</div>
+
+<!-- STEP 5 FOCUS -->
+<div class="section grammar">
+  <div class="sec-head"><span class="icon">🔧</span> Language Focus — Partnership Patterns <span class="timing">10 min</span><span class="step">Step 5</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. For each quiz item, student says the FULL chunk aloud before you click — never just the missing word.</span>
+    <div class="rulebox">
+      <div class="rule a"><h4>🔗 VERB + NOUN — the big four</h4>
+        <b>make</b> = create/decide → make a decision, make progress, make a mistake<br>
+        <b>do</b> = work/duty → do homework, do the dishes, do your best<br>
+        <b>take</b> → take a risk, take a photo, take a quick shower<br>
+        <b>catch / keep / pay</b> → catch a cold, keep a promise, pay attention</div>
+      <div class="rule b"><h4>🎨 ADJ + NOUN &amp; ADV + ADJ</h4>
+        <b>heavy</b> rain / traffic — <b>strong</b> coffee / accent<br>
+        <b>fast</b> food — but a <b>quick</b> shower<br><br>
+        <b>bitterly</b> disappointed / cold<br>
+        <b>highly</b> unlikely / recommended<br>
+        <b>utterly</b> exhausted (utterly + extremes only!)</div>
+    </div>
+    <div class="frame">💡 <b>The chunk shelf:</b> never store a word alone — store it with its partner, like a matched pair of shoes. 👟👟<br><em>Not "decision" → but "<b>make</b> a decision". Not "disappointed" → but "<b>bitterly</b> disappointed".</em></div>
+    <p class="hint">💡 Hungarian tip: the classic traps are loyal translations — <em>bulit csinál</em> → <b>throw</b> a party (not "make"), <em>nagy eső</em> → <b>heavy</b> rain (not "big"), <em>lekéstem a buszt</em> → I <b>missed</b> the bus (not "lost"). Your Hungarian isn't the enemy — unexamined translation is.</p>
+    <h3>✏️ Practice — complete the partnership</h3>
+    <div id="grammar-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>Recycle the Step-1 diagnostic examples here, anonymously: "Someone once told me about 'big rain'…" If the student scores 7+/9, play speed-round: you say a noun, student produces the full natural chunk in under 5 seconds. If under 5, re-sort the wrong items into the make/do/take boxes aloud.</div>
+  </div>
+</div>
+
+<!-- MOVE BREAK -->
+<div class="move">
+  <h2>🤸 MOVE! — 1 minute break</h2>
+  <p>Stand up! Air-write your favourite collocation with your WHOLE arm — huge letters — while your teacher guesses it. Then swap roles. Finish with 5 star jumps. ✍️💫</p>
+</div>
+
+<!-- STEP 6 CREATIVE TASK -->
+<div class="section task">
+  <div class="sec-head"><span class="icon">🎨</span> Create — The Upgrade Studio <span class="timing">10 min</span><span class="step">Step 6</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in her own browser, shares her screen, and edits live while you watch.</span>
+    <p>A student wrote this diary entry with <b>seven broken partnerships</b>. 🔧 Rewrite it below so every chunk sounds native. Then write three sentences about YOUR week using today's collocations.</p>
+    <div class="frame">📓 <em>"Last weekend there was <b>big rain</b>, so I <b>did a decision</b> to stay at home. I <b>made my homework</b>, then <b>took a fast shower</b>. Later I <b>got a cold</b>, and I was <b>very much disappointed</b> because I missed Zed's birthday — he had <b>made a huge party</b>."</em></p>
+    <h3>Tap every partnership you fix or use:</h3>
+    <div class="chips" id="exp-chips"></div>
+    <div class="field-label">🔧 The upgraded diary entry (fix all 7!)</div>
+    <div class="editable tall" id="t-upgrade" contenteditable="true" data-placeholder="Last weekend there was heavy rain, so I…"></div>
+    <div class="field-label">✨ Three sentences about MY week — each with a collocation from today</div>
+    <div class="editable tall" id="t-own" contenteditable="true" data-placeholder="On Monday I had to make a difficult decision about…"></div>
+    <div class="speak">🗣️ <b>Now read your upgraded entry out loud</b> — smoothly, like it was always yours. Teacher listens for chunks, not single words. Bonus: which fix felt the most "un-Hungarian"?</div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> fix only the diary entry in the lesson; the three personal sentences become homework.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6 + answer key</h4>The 7 fixes: big rain → <b>heavy rain</b> · did a decision → <b>made a decision</b> · made my homework → <b>did my homework</b> · fast shower → <b>quick shower</b> · got a cold → <b>caught a cold</b> · very much disappointed → <b>bitterly disappointed</b> · made a huge party → <b>thrown a huge party</b>. Accept "deeply disappointed" and "had thrown" variants. If the student finds only 5–6, read the original aloud slowly — the ear catches what the eye misses.</div>
+  </div>
+</div>
+
+<!-- STEP 7 CHALLENGE GAME -->
+<div class="section challenge">
+  <div class="sec-head"><span class="icon">🎮</span> Challenge Game — Partner Hunt <span class="timing">8 min</span><span class="step">Step 7</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen and cheer. 🎉</span>
+    <p class="hint">🧲 Three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
+    <h3>Round 1 — Find the partner</h3>
+    <div id="ch-quiz1"></div>
+    <h3>Round 2 — Translated or natural?</h3>
+    <div id="ch-quiz2"></div>
+    <h3>Round 3 — Boss level: chunk surgery 👑</h3>
+    <div id="ch-quiz3"></div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can be the start of the next lesson's warm-up.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>All answers show live in her score; wrong picks auto-reveal the green one. On every miss, have the student say the CORRECT full chunk aloud twice — the mouth remembers what the eye forgets.</div>
+  </div>
+</div>
+
+<!-- STEP 8 REVIEW -->
+<div class="section review">
+  <div class="sec-head"><span class="icon">🏁</span> Review &amp; Homework <span class="timing">3 min</span><span class="step">Step 8</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, screens off. Finish with faces, not slides.</span>
+    <div class="frame">⚡ <b>30-second recap:</b> teacher fires a noun ("promise… risk… attention…") — you answer with the full natural chunk in a sentence. Five nouns, fast!</div>
+    <h3>🏠 Homework</h3>
+    <div class="frame">
+      <p>📓 <b>Start your partnership notebook</b> (phone notes are fine): collect 8 collocations this week from songs, videos or games — always the WHOLE chunk.</p>
+      <p>✏️ <b>Write a 5-sentence weekend plan</b> using at least 5 of today's partnerships.</p>
+      <p>📌 Example: <em>"If the rain is heavy on Saturday, I'll stay in, do my homework early and make some real progress on my project."</em></p>
+    </div>
+    <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="t-only">
+      <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
+      <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">What to adjust next time?</div><div class="editable" id="tn-adjust" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">Student's strongest / weakest moment today?</div><div class="editable" id="tn-notes" contenteditable="true" data-placeholder="…"></div></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="bottom-bar">
+  <button class="bb bb-save" onclick="saveWork()">💾 Save my work</button>
+  <button class="bb bb-print" onclick="window.print()">🖨️ Print</button>
+  <button class="bb bb-teach" id="teach-btn" onclick="unlockTeacher()">🔐</button>
+</div>
+
+<script>
+/* ============ ENGINE (identical across all Library sessions) ============ */
+var LEVEL=5, SESSION=2, K='ecl_L'+LEVEL+'s'+SESSION+'_';
+
+/* ---- TTS audio ---- */
+function say(text){try{window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(text);u.lang='en-GB';u.rate=0.9;window.speechSynthesis.speak(u);}catch(e){}}
+
+/* ---- Quiz engine ---- */
+var score=0,total=0;
+function buildQuiz(containerId,items){
+  var c=document.getElementById(containerId);
+  items.forEach(function(it){
+    total++;
+    var qz=document.createElement('div');qz.className='qz';
+    var opts='<div class="opts">';
+    it.options.forEach(function(o){opts+='<button class="opt" data-ok="'+(o===it.answer?'1':'0')+'" onclick="pick(this)">'+o+'</button>';});
+    opts+='</div><div class="fb"></div>';
+    qz.innerHTML='<div class="q">'+it.q+'</div>'+opts;
+    c.appendChild(qz);
+  });
+  updateScore();
+}
+function pick(btn){
+  var qz=btn.closest('.qz');if(qz.dataset.done)return;qz.dataset.done='1';
+  var ok=btn.dataset.ok==='1';var fb=qz.querySelector('.fb');
+  if(ok){btn.classList.add('correct');score++;fb.className='fb ok';fb.textContent='✓ Correct! Great job!';}
+  else{btn.classList.add('wrong');var good=qz.querySelector('[data-ok="1"]');if(good)good.classList.add('correct');
+    fb.className='fb no';fb.textContent='Almost! The green one is right. Try to remember it! 💪';}
+  qz.querySelectorAll('.opt').forEach(function(b){b.disabled=true;});
+  updateScore();
+}
+function updateScore(){
+  var answered=document.querySelectorAll('.qz[data-done]').length;
+  document.getElementById('score-num').textContent=score+' / '+total;
+  document.getElementById('score-fill').style.width=(total?Math.round(answered/total*100):0)+'%';
+  var st='',pct=total?score/total:0;
+  if(answered===total&&total>0){st=pct>=0.8?'⭐⭐⭐':pct>=0.5?'⭐⭐':'⭐';}
+  document.getElementById('score-stars').textContent=st;
+}
+
+/* ---- Student name ---- */
+var nameInput=document.getElementById('student-name');
+function applyName(){
+  var n=nameInput.value.trim();
+  document.getElementById('hello-msg').textContent=n?('Hello, '+n+'! 🌟'):'';
+  document.querySelectorAll('.stud-name').forEach(function(el){el.textContent=n?('Amazing work today, '+n+'!'):'Amazing work today!';});
+  localStorage.setItem(K+'name',n);
+}
+nameInput.addEventListener('input',applyName);
+
+/* ---- Agenda pills ---- */
+document.querySelectorAll('.ap').forEach(function(p){
+  p.onclick=function(){p.classList.toggle('done');localStorage.setItem(K+'ap'+p.dataset.s,p.classList.contains('done'));};
+});
+
+/* ---- Teacher mode ---- */
+function unlockTeacher(){
+  if(document.body.classList.contains('teacher-mode')){document.body.classList.remove('teacher-mode');document.getElementById('teach-btn').textContent='🔐';return;}
+  var pin=prompt('Teacher PIN:');
+  if(pin==='teach'){document.body.classList.add('teacher-mode');document.getElementById('teach-btn').textContent='🔓 Teacher';}
+}
+
+/* ---- Save work (.txt export) ---- */
+function saveWork(){
+  var n=(localStorage.getItem(K+'name')||'Student').replace(/[^\wÀ-ſ-]/g,'');
+  var out=n+' — Level '+LEVEL+' Session '+SESSION+'\n'+new Date().toLocaleDateString()+'\n'+'='.repeat(34)+'\n\n';
+  var picks=[].slice.call(document.querySelectorAll('.chips .chip.on')).map(function(x){return x.textContent.trim();});
+  if(picks.length)out+='Picked: '+picks.join(', ')+'\n\n';
+  var count=0;
+  document.querySelectorAll('.editable[id]').forEach(function(el){var t=el.innerText.trim();if(t){out+='['+el.id+'] '+t+'\n';count++;}});
+  out+='\nScore: '+score+' / '+total;
+  if(count===0&&!picks.length){alert('Type something first! 🙂');return;}
+  var b=new Blob([out],{type:'text/plain;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u;a.download=n+'_L'+LEVEL+'S'+SESSION+'_'+new Date().toISOString().slice(0,10)+'.txt';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);
+  var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show');},1600);
+}
+
+/* ---- Autosave / autoload ---- */
+function autosave(){document.querySelectorAll('.editable[id]').forEach(function(el){localStorage.setItem(K+el.id,el.innerHTML);});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){localStorage.setItem(K+'chip'+i,el.classList.contains('on'));});}
+function autoload(){
+  document.querySelectorAll('.editable[id]').forEach(function(el){var v=localStorage.getItem(K+el.id);if(v!==null)el.innerHTML=v;});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){if(localStorage.getItem(K+'chip'+i)==='true')el.classList.add('on');});
+  document.querySelectorAll('.ap').forEach(function(p){if(localStorage.getItem(K+'ap'+p.dataset.s)==='true')p.classList.add('done');});
+  var n=localStorage.getItem(K+'name');if(n){nameInput.value=n;applyName();}
+}
+document.addEventListener('input',function(){clearTimeout(window._t);window._t=setTimeout(autosave,600);});
+window.addEventListener('load',autoload);
+
+/* ============ SESSION CONTENT (changes per session) ============ */
+
+/* ---- Vocabulary: power collocations (learn the WHOLE chunk) ---- */
+var VOCAB=[
+  {w:'make a decision',e:'🤔',p:'make — not "do"!'},
+  {w:'do your best',e:'💪',p:'do — not "make"!'},
+  {w:'heavy rain',e:'🌧️',p:'heavy — not "big"!'},
+  {w:'strong coffee',e:'☕',p:'strong — not "powerful"!'},
+  {w:'fast food',e:'🍔',p:'fast food… but a QUICK shower'},
+  {w:'a quick shower',e:'🚿',p:'quick — not "fast"!'},
+  {w:'take a risk',e:'🎲',p:'take — not "make"!'},
+  {w:'catch a cold',e:'🤧',p:'catch — not "get… caught"!'},
+  {w:'keep a promise',e:'🤝',p:'keep ↔ BREAK a promise'},
+  {w:'pay attention',e:'👀',p:'pay — not "give"!'},
+  {w:'bitterly disappointed',e:'😞',p:'bitterly + disappointed/cold'},
+  {w:'highly unlikely',e:'📉',p:'highly + unlikely/recommended'},
+  {w:'utterly exhausted',e:'😴',p:'utterly + EXTREME words only'}
+];
+(function buildVocab(){
+  var g=document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v){
+    var d=document.createElement('div');d.className='vc';
+    d.innerHTML='<div class="vc-play">🔊</div><div class="vc-emoji">'+v.e+'</div><div class="vc-word">'+v.w+'</div><div class="vc-pron">'+v.p+'</div>';
+    d.onclick=function(){say(v.w);};
+    g.appendChild(d);
+  });
+})();
+
+/* ---- Collocation chips for Step 6 ---- */
+(function(){
+  var c=document.getElementById('exp-chips');
+  VOCAB.forEach(function(v){
+    var s=document.createElement('span');s.className='chip';s.textContent=v.e+' '+v.w;
+    s.onclick=function(){s.classList.toggle('on');say(v.w);};
+    c.appendChild(s);
+  });
+})();
+
+/* ---- Quizzes ---- */
+buildQuiz('vocab-quiz',[
+  {q:'🌧️ The match was cancelled because of ___ rain.',options:['big','heavy','strong'],answer:'heavy'},
+  {q:'🤔 I can\'t ___ a decision without more information.',options:['do','take','make'],answer:'make'},
+  {q:'🤧 Wear a coat, or you\'ll ___ a cold!',options:['catch','get taken by','receive'],answer:'catch'},
+  {q:'🚿 We\'re late — just take a ___ shower!',options:['fast','quick','rapid'],answer:'quick'},
+  {q:'👀 The teacher asked us to ___ attention.',options:['give','make','pay'],answer:'pay'},
+  {q:'😴 After the marathon she was utterly ___.',options:['tired','exhausted','sleepy'],answer:'exhausted'}
+]);
+buildQuiz('reading-quiz',[
+  {q:'What was actually wrong with Réka\'s English?',options:['bad grammar','unnatural word partnerships','poor pronunciation'],answer:'unnatural word partnerships'},
+  {q:'A collocation is best described as…',options:['a grammar rule','words that habitually travel together','a type of slang'],answer:'words that habitually travel together'},
+  {q:'Why is the collocation trap "invisible"?',options:['your first language translates its own partnerships loyally','collocations are written in small letters','teachers hide it on purpose'],answer:'your first language translates its own partnerships loyally'},
+  {q:'"Utterly" only likes to partner with…',options:['extreme words','colours','verbs of motion'],answer:'extreme words'},
+  {q:'What fixed Réka\'s English?',options:['memorising a dictionary','moving to Spain','noticing + a partnership notebook'],answer:'noticing + a partnership notebook'}
+]);
+buildQuiz('grammar-quiz',[
+  {q:'I need to ___ a decision by Friday.',options:['make','do','take'],answer:'make'},
+  {q:'Did you ___ your homework yet?',options:['make','do','create'],answer:'do'},
+  {q:'___ rain flooded the whole street.',options:['Strong','Big','Heavy'],answer:'Heavy'},
+  {q:'Careful — that coffee is really ___.',options:['strong','heavy','powerful'],answer:'strong'},
+  {q:'She never ___ a promise. Never.',options:['breaks','destroys','cracks'],answer:'breaks'},
+  {q:'You have to ___ a risk sometimes.',options:['make','do','take'],answer:'take'},
+  {q:'I was ___ disappointed by the ending.',options:['heavily','bitterly','strongly'],answer:'bitterly'},
+  {q:'It\'s ___ unlikely to snow in July here.',options:['heavily','strongly','highly'],answer:'highly'},
+  {q:'Don\'t worry about winning — just ___ your best.',options:['make','do','try'],answer:'do'}
+]);
+buildQuiz('ch-quiz1',[
+  {q:'___ a risk',options:['take','make','do'],answer:'take'},
+  {q:'catch ___',options:['a cold','a headache','a fever-dream'],answer:'a cold'},
+  {q:'___ a secret',options:['keep','hold','save'],answer:'keep'},
+  {q:'___ food (the restaurant kind)',options:['quick','fast','rapid'],answer:'fast'}
+]);
+buildQuiz('ch-quiz2',[
+  {q:'Which sounds natural?',options:['We made a party for Leo.','We threw a party for Leo.'],answer:'We threw a party for Leo.'},
+  {q:'Which sounds natural?',options:['My uncle is a heavy smoker.','My uncle is a strong smoker.'],answer:'My uncle is a heavy smoker.'},
+  {q:'Which sounds natural?',options:['I lost the bus this morning.','I missed the bus this morning.'],answer:'I missed the bus this morning.'},
+  {q:'Which sounds natural?',options:['Everyone does mistakes.','Everyone makes mistakes.'],answer:'Everyone makes mistakes.'}
+]);
+buildQuiz('ch-quiz3',[
+  {q:'The storm ___ serious damage to the roof.',options:['did','made','created'],answer:'did'},
+  {q:'She ___ a world record last night!',options:['broke','made','did'],answer:'broke'},
+  {q:'👑 BOSS: "After the ___ rain, I ___ a quick shower, ___ my homework and ___ an important decision."',options:['heavy / took / did / made','big / made / did / took','heavy / made / took / did'],answer:'heavy / took / did / made'}
+]);
+</script>
+</body>
+</html>

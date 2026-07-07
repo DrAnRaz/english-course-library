@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>L4 · Session 7 — Future Worlds</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--accent:#8E24AA;--accent2:#AB47BC}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1a;font-size:17px;line-height:1.6;padding-bottom:90px}
+.page-header{background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;padding:26px 20px;text-align:center}
+.page-header h1{font-size:26px;font-weight:800;letter-spacing:-0.3px}
+.page-header .subtitle{font-size:14px;opacity:0.9;margin-top:4px}
+.badge{display:inline-block;background:rgba(255,255,255,0.2);padding:6px 16px;border-radius:20px;font-size:14px;margin-top:10px}
+.lvl{display:inline-block;background:#FFD54F;color:#5D4037;font-weight:800;font-size:12px;padding:3px 12px;border-radius:12px;letter-spacing:0.5px;margin-bottom:8px}
+.container{max-width:860px;margin:0 auto;padding:18px}
+
+/* Student name */
+.namebox{background:white;border:2px solid var(--accent);border-radius:14px;padding:14px 18px;margin:16px 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.namebox label{font-weight:700;font-size:15px}
+.namebox input{flex:1;min-width:160px;font-size:17px;padding:8px 12px;border:2px dashed #90A4AE;border-radius:8px;font-family:inherit}
+.namebox .hello{font-weight:700;color:var(--accent)}
+
+/* Agenda */
+.agenda{background:white;border-radius:14px;padding:16px 18px;margin:14px 0;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.agenda h2{font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:#666;margin-bottom:10px}
+.agenda-pills{display:flex;flex-wrap:wrap;gap:8px}
+.ap{display:flex;align-items:center;gap:6px;background:#ECEFF1;border:2px solid transparent;border-radius:20px;padding:5px 13px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.ap.done{background:#C8E6C9;border-color:#2E7D32;text-decoration:line-through;opacity:0.8}
+
+/* Sections */
+.section{background:white;border-radius:16px;margin:18px 0;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,0.07)}
+.sec-head{padding:14px 20px;color:white;font-size:17px;font-weight:800;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sec-head .icon{font-size:22px}
+.sec-head .step{margin-left:auto;font-size:12px;font-weight:700;background:rgba(255,255,255,0.25);padding:3px 12px;border-radius:12px;white-space:nowrap}
+.sec-head .timing{font-size:12px;font-weight:400;background:rgba(255,255,255,0.18);padding:3px 10px;border-radius:12px;white-space:nowrap}
+.sec-body{padding:18px 20px}
+.zoom-cue{display:block;font-size:13px;font-weight:600;color:#37474F;background:#E1F5FE;border-left:4px solid #0288D1;border-radius:0 8px 8px 0;padding:7px 12px;margin:0 0 14px}
+.goal .sec-head{background:#2E7D32}
+.warmup .sec-head{background:#E65100}
+.vocab .sec-head{background:#1565C0}
+.reading .sec-head{background:#6A1B9A}
+.grammar .sec-head{background:#AD1457}
+.task .sec-head{background:#00695C}
+.challenge .sec-head{background:#F57F17}
+.review .sec-head{background:#BF360C}
+.skipif{background:#FFF8E1;border:1px dashed #F9A825;border-radius:10px;padding:10px 14px;margin-top:12px;font-size:14px}
+.skipif b{color:#F57F17}
+
+/* Movement break */
+.move{background:linear-gradient(135deg,#00BFA5,#00897B);color:white;border-radius:16px;margin:18px 0;padding:18px 22px;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,0.1)}
+.move h2{font-size:20px;font-weight:800}
+.move p{font-size:15px;opacity:0.95;margin-top:6px}
+
+/* Vocab cards */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:14px 0}
+.vc{background:#E3F2FD;border:2px solid #90CAF9;border-radius:12px;padding:12px 10px;text-align:center;cursor:pointer;transition:transform 0.12s}
+.vc:hover{transform:scale(1.04);border-color:var(--accent)}
+.vc .vc-emoji{font-size:30px}
+.vc .vc-word{font-weight:800;font-size:15px;margin-top:4px;color:#0D47A1}
+.vc .vc-pron{font-size:12px;color:#666}
+.vc .vc-play{font-size:13px;color:#1565C0}
+
+/* Quiz engine */
+.qz{background:#FAFAFA;border:1px solid #E0E0E0;border-radius:12px;padding:14px 16px;margin:10px 0}
+.qz .q{font-weight:700;font-size:16px;margin-bottom:10px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{font-family:inherit;font-size:15px;font-weight:600;padding:8px 16px;border-radius:10px;border:2px solid #B0BEC5;background:white;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt.correct{background:#C8E6C9;border-color:#2E7D32}
+.opt.wrong{background:#FFCDD2;border-color:#C62828}
+.opt:disabled{cursor:default;opacity:0.85}
+.fb{font-size:14px;font-weight:600;margin-top:8px;display:none}
+.fb.ok{display:block;color:#2E7D32}
+.fb.no{display:block;color:#C62828}
+
+/* Score bar */
+.scorebar{position:sticky;top:0;z-index:50;background:white;box-shadow:0 2px 8px rgba(0,0,0,0.12);padding:8px 16px;display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px}
+.scorebar .bar{flex:1;height:10px;background:#ECEFF1;border-radius:6px;overflow:hidden}
+.scorebar .fill{height:100%;width:0;background:linear-gradient(90deg,#43A047,#66BB6A);transition:width 0.4s}
+.stars{font-size:16px}
+
+/* Reading */
+.reading-text{background:#F3E5F5;border-radius:12px;padding:18px 20px;font-size:17px;max-width:65ch}
+.reading-text h4{color:#6A1B9A;font-size:15px;margin:14px 0 6px;text-transform:uppercase;letter-spacing:0.4px}
+.reading-text h4:first-child{margin-top:0}
+.reading-text p{margin:8px 0}
+
+/* Editable fields */
+.field-label{font-weight:700;font-size:14px;margin:12px 0 4px;color:#37474F}
+.editable{min-height:34px;background:#FFFDE7;border:2px dashed #9E9D24;border-radius:8px;padding:8px 12px;font-size:16px;outline:none}
+.editable.tall{min-height:70px}
+.editable:focus{border-style:solid;border-color:var(--accent)}
+.editable:empty::before{content:attr(data-placeholder);color:#999}
+.qa-item{margin:12px 0}
+.qa-item .q{font-weight:700;font-size:15px;margin-bottom:5px}
+
+/* Frames / rule boxes */
+.frame{background:#FCE4EC;border-left:5px solid #AD1457;border-radius:0 10px 10px 0;padding:12px 16px;margin:12px 0;font-size:16px}
+.rulebox{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.rule{border-radius:12px;padding:14px 16px;font-size:15px}
+.rule h4{font-size:15px;margin-bottom:8px}
+.rule.a{background:#E8F5E9;border:2px solid #66BB6A}
+.rule.a h4{color:#2E7D32}
+.rule.b{background:#FFF3E0;border:2px solid #FFA726}
+.rule.b h4{color:#E65100}
+.hint{font-size:14px;color:#555;background:#F5F5F5;border-radius:8px;padding:8px 12px;margin:10px 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.chip{background:#E1F5FE;border:2px solid #81D4FA;border-radius:16px;padding:5px 14px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+.chip.on{background:#0288D1;border-color:#01579B;color:white}
+.speak{background:#E8F5E9;border-radius:10px;padding:12px 16px;font-size:16px;margin:12px 0}
+
+/* Teacher mode */
+.t-only{display:none}
+body.teacher-mode .t-only{display:block}
+.teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
+.teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
+
+/* Bottom bar */
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:white;box-shadow:0 -3px 12px rgba(0,0,0,0.12);padding:10px 14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;z-index:60}
+.bb{font-family:inherit;font-size:14px;font-weight:700;padding:10px 18px;border-radius:10px;border:none;cursor:pointer;text-decoration:none;color:white;display:inline-block}
+.bb-save{background:#2E7D32}
+.bb-print{background:#546E7A}
+.bb-teach{background:#C62828}
+#toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:#2E7D32;color:white;font-weight:700;padding:10px 22px;border-radius:20px;opacity:0;transition:all 0.3s;z-index:70}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:640px){.rulebox{grid-template-columns:1fr}.vocab-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}}
+@media print{body{background:white;padding-bottom:0}.bottom-bar,.scorebar,#toast{display:none!important}.section{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid}.sec-head,.sec-body,.page-header{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="lvl">LEVEL 4 · UPPER-INTERMEDIATE (B2)</div>
+  <h1>🔮 Session 7 — Future Worlds</h1>
+  <div class="subtitle">English Course Library · Kids &amp; Teens</div>
+  <div class="badge">🎯 Today: make bold predictions with the <b>future perfect</b> and <b>future continuous</b> · ≈50 min core</div>
+</div>
+
+<div class="scorebar">
+  <span>⭐ Score:</span><span id="score-num">0 / 0</span>
+  <div class="bar"><div class="fill" id="score-fill"></div></div>
+  <span class="stars" id="score-stars"></span>
+</div>
+
+<div id="toast">✓ Saved</div>
+
+<div class="container">
+
+<div class="namebox">
+  <label for="student-name">👋 Your name:</label>
+  <input id="student-name" type="text" placeholder="Type your name…">
+  <span class="hello" id="hello-msg"></span>
+</div>
+
+<div class="agenda">
+  <h2>📋 Today's plan — tap each step when you finish it</h2>
+  <div class="agenda-pills" id="agenda">
+    <span class="ap" data-s="1">1️⃣ Goal</span><span class="ap" data-s="2">2️⃣ Warm-up</span>
+    <span class="ap" data-s="3">3️⃣ New words</span><span class="ap" data-s="4">4️⃣ Reading</span>
+    <span class="ap" data-s="5">5️⃣ Grammar</span><span class="ap" data-s="6">6️⃣ Create</span>
+    <span class="ap" data-s="7">7️⃣ Game</span><span class="ap" data-s="8">8️⃣ Review</span>
+  </div>
+</div>
+
+<!-- STEP 1 GOAL -->
+<div class="section goal">
+  <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
+    <p><em>"Today you will travel to the year 2050 — with grammar as your time machine. By the end, you can describe what the world <b>will have become</b> and what people <b>will be doing</b>, like a professional futurist."</em> 🚀</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Diagnostic question: "What do you think phones will be like in 2050?" Just listen — note whether the student uses any future form beyond plain "will". Don't correct yet; today's lesson adds the two advanced futures on top of what they have.</div>
+  </div>
+</div>
+
+<!-- STEP 2 WARM-UP -->
+<div class="section warmup">
+  <div class="sec-head"><span class="icon">⚡</span> Warm-Up — The Fortune Teller <span class="timing">5 min</span><span class="step">Step 2</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: pure talking game, cameras on. Use the 👍 reaction if the prediction sounds TRUE, 👎 if it sounds impossible.</span>
+    <p><b>How to play:</b></p>
+    <p>1. Your teacher becomes a fortune teller 🔮 and makes <b>3 predictions</b> about YOUR next weekend. ("On Saturday at 10, you will be sleeping…")<br>
+    2. You react: 👍 likely or 👎 no way! Correct the wrong ones.<br>
+    3. Swap! Now YOU predict your teacher's weekend. Start each one with <b>"You will be…"</b> or <b>"By Sunday evening, you will have…"</b></p>
+    <p class="hint">No score here — just wake up your future brain! 🧠</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 2</h4>Model both target forms clearly and slowly: "This time on Saturday, you WILL BE playing games." / "By Sunday night, you WILL HAVE eaten too much pizza." Exaggerate the auxiliary chain. If the student answers with plain "will", echo back with the fuller form — no explicit correction yet.</div>
+  </div>
+</div>
+
+<!-- STEP 3 VOCAB -->
+<div class="section vocab">
+  <div class="sec-head"><span class="icon">📝</span> New Words — Tomorrow's World <span class="timing">10 min</span><span class="step">Step 3</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share your screen. You click 🔊 on each card, student repeats it twice, then makes ONE quick sentence with three of the words.</span>
+    <p>Tap any card to <b>hear</b> it 🔊. Say it out loud after the sound!</p>
+    <div class="vocab-grid" id="vocab-grid"></div>
+    <h3>🎧 Practice — tap the right word</h3>
+    <p class="hint">Read the clue and tap the word that matches. Green = correct!</p>
+    <div id="vocab-quiz"></div>
+  </div>
+</div>
+
+<!-- STEP 4 READING -->
+<div class="section reading">
+  <div class="sec-head"><span class="icon">📖</span> Reading — The 2050 Files <span class="timing">10 min</span><span class="step">Step 4</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. Take turns reading one chunk each. Then the student uses Zoom → Annotate to circle every future perfect they can find in 60 seconds.</span>
+    <p>Read Amara's school project about an ordinary Tuesday in 2050. Tap 🔊 to hear any part read aloud.
+      <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
+    <div class="reading-text" id="read-text">
+      <h4>🌍 The 2050 Files — a school project by Amara, 14</h4>
+      <p>Last week our teacher gave us an unusual piece of homework: describe one ordinary Tuesday in the year 2050. At first I laughed at the idea. Then I did some proper research, and honestly, the future looks wilder than any science-fiction film.</p>
+      <h4>🤖 Morning, 2050</h4>
+      <p>By 2050, most experts believe we <b>will have replaced</b> petrol cars almost completely. So my future self <b>will be riding</b> a driverless electric pod to school — if school buildings still exist at all.</p>
+      <p>Some scientists predict that many classrooms <b>will have moved</b> into virtual reality by then. Imagine studying volcanoes while standing inside one. No burnt eyebrows, I hope.</p>
+      <h4>🏙️ The city around me</h4>
+      <p>Cities are already changing fast. Engineers say that by the middle of the century we <b>will have built</b> whole neighbourhoods that produce their own clean energy.</p>
+      <p>Rooftops will be covered in gardens, and delivery drones <b>will be buzzing</b> overhead like polite mechanical bees. Traffic jams might finally become a story that grandparents tell.</p>
+      <h4>🚀 The big questions</h4>
+      <p>Will humans <b>have landed</b> on Mars by 2050? The space agencies certainly believe so. A few researchers even claim that a small crew <b>will be living</b> there permanently, growing potatoes in the red dust.</p>
+      <p>Personally, I'm less sure about that one. Rockets are expensive, and potatoes are surprisingly fussy vegetables.</p>
+      <p>Still, one prediction seems safe: by 2050, space tourists <b>will be posting</b> selfies from orbit. And the rest of us will be complaining about the price of the tickets.</p>
+      <h4>⚠️ Not everything is shiny</h4>
+      <p>Of course, some predictions are worrying rather than exciting. If we don't act quickly, the climate crisis <b>will have damaged</b> many coastlines by mid-century.</p>
+      <p>That is exactly why my generation cares so much about renewable energy and sustainable cities. We're not being dramatic — we're being practical. It's our Tuesday in 2050, after all.</p>
+      <h4>✍️ My conclusion</h4>
+      <p>So here is my personal prediction. By the time I'm forty, I <b>will have visited</b> a city with flying taxis, and I <b>will be laughing</b> at how slow the internet was back in 2026.</p>
+      <p>One thing won't change, though. Whatever the year, some kid somewhere <b>will be finishing</b> their homework at midnight. Probably me.</p>
+    </div>
+
+    <h3>🔎 Did you understand? Tap your answer</h3>
+    <div id="reading-quiz"></div>
+
+    <h3>💬 Your turn — write your answer</h3>
+    <div class="qa-item"><div class="q">1. Amara says her generation is "not being dramatic — we're being practical." What does she mean by that?</div><div class="editable" id="r-open1" contenteditable="true" data-placeholder="She means that…"></div></div>
+    <div class="qa-item"><div class="q">2. Which of Amara's predictions do you believe most, and which do you doubt? Why?</div><div class="editable tall" id="r-open2" contenteditable="true" data-placeholder="I believe that… will have… / I doubt that… because…"></div></div>
+
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> the two written questions above can be homework instead.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 4 + answer key</h4>Quiz answers: describe a Tuesday in 2050 · virtual reality · like polite mechanical bees · the climate crisis. Open Q1 sample: she means young people worry about climate because they will actually LIVE in that future — it affects them directly, so acting is common sense, not exaggeration. Open Q2: any answer with a full future perfect or reason accepted. Annotation hunt key — future perfects in text: will have replaced, will have moved, will have built, have landed (in question form), will have damaged, will have visited.</div>
+  </div>
+</div>
+
+<!-- STEP 5 GRAMMAR -->
+<div class="section grammar">
+  <div class="sec-head"><span class="icon">🔧</span> Grammar — Future Perfect vs Future Continuous <span class="timing">10 min</span><span class="step">Step 5</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: share screen. For each quiz item, student says the answer BEFORE you click it.</span>
+    <div class="rulebox">
+      <div class="rule a"><h4>✅ FUTURE PERFECT — "finished by then"</h4>
+        <b>will have + past participle</b><br>
+        Looks BACK from a future point: the action is complete before that moment.<br><br>
+        <em>By 2050, we <b>will have replaced</b> petrol cars.</em> 🏁<br>
+        <em>By Friday, I <b>will have finished</b> the project.</em><br><br>
+        🔑 Signal words: <b>by 2050, by then, by the time…</b></div>
+      <div class="rule b"><h4>🎬 FUTURE CONTINUOUS — "in progress then"</h4>
+        <b>will be + verb-ing</b><br>
+        Freezes a future moment: the action is happening AT that time.<br><br>
+        <em>This time tomorrow, I <b>will be sitting</b> on a train.</em> 🚆<br>
+        <em>Drones <b>will be buzzing</b> overhead.</em><br><br>
+        🔑 Signal words: <b>this time tomorrow, at 8 pm, in 2050 (during)</b></div>
+    </div>
+    <div class="frame">💡 <b>The camera trick:</b> future continuous = a video clip of the future moment 🎥 ("what will be happening"). Future perfect = the trophy shelf at that moment 🏆 ("what will already be done"). Ask: clip or trophy?</div>
+    <p class="hint">💡 Hungarian tip: Hungarian says both with simple future + time words ("Addigra befejezem" / "Akkor éppen alszom"). English builds the difference INTO the verb — so listen for <b>will have done</b> vs <b>will be doing</b>, not for extra words.</p>
+    <h3>✏️ Practice — tap the correct form</h3>
+    <div id="grammar-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>If the student scores 6+/8, skip ahead and bank time for Step 6. Under 5: redo the missed ones aloud with the "clip or trophy?" question each time. Watch for the classic slip: "will have + -ing" — rebuild the two chains on paper if it appears.</div>
+  </div>
+</div>
+
+<!-- MOVE BREAK -->
+<div class="move">
+  <h2>🤸 MOVE! — 1 minute break</h2>
+  <p>Stand up! Do your best <b>robot dance</b> for 20 seconds 🤖, then power down slowly to the floor and reboot with a big stretch. Cameras stay on — teacher robots too! 😄</p>
+</div>
+
+<!-- STEP 6 CREATIVE TASK -->
+<div class="section task">
+  <div class="sec-head"><span class="icon">🎨</span> Create — Postcard from 2050 <span class="timing">10 min</span><span class="step">Step 6</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in their own browser, shares their screen and types while you watch.</span>
+    <p>Write a postcard from your <b>40-year-old future self</b> to the you of today! ✉️ First pick the topics your postcard will mention.</p>
+    <h3>Tap 3–4 topics for your postcard:</h3>
+    <div class="chips" id="topic-chips"></div>
+    <div class="field-label">🏆 Two things I <b>will have achieved</b> by 2050 (future perfect!)</div>
+    <div class="editable" id="t-achieved" contenteditable="true" data-placeholder="By 2050, I will have… and I will have…"></div>
+    <div class="field-label">🎥 What I <b>will be doing</b> on an ordinary Tuesday in 2050 (future continuous!)</div>
+    <div class="editable" id="t-doing" contenteditable="true" data-placeholder="This time in 2050, I will be…"></div>
+    <div class="field-label">⚠️ One worry and 🌟 one hope about the world in 2050</div>
+    <div class="editable tall" id="t-worryhope" contenteditable="true" data-placeholder="I'm worried that… will have… / I hope that people will be…"></div>
+    <div class="speak">🗣️ <b>Now read your postcard out loud</b> — dramatic future-self voice required! Then answer your teacher's question: <em>"What will you be doing this time next year?"</em></div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> do only the 🏆 line + the spoken postcard; type the rest as homework.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>Push for BOTH target forms in speech, not just "will". Good follow-ups: "By what year will you have done that?" (forces perfect) and "Describe the scene — what will be happening around you?" (forces continuous). If ideas dry up, offer silly options: pet robot, chocolate-powered car, underwater house.</div>
+  </div>
+</div>
+
+<!-- STEP 7 CHALLENGE GAME -->
+<div class="section challenge">
+  <div class="sec-head"><span class="icon">🎮</span> Challenge Game — Time Agent 2050 <span class="timing">8 min</span><span class="step">Step 7</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: student's browser, their clicks, their score! You watch on their shared screen and cheer. 🎉</span>
+    <p class="hint">🕰️ You are a Time Agent checking predictions. Three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
+    <h3>Round 1 — Clip 🎥 or trophy 🏆?</h3>
+    <div id="ch-quiz1"></div>
+    <h3>Round 2 — Fix the broken time machine</h3>
+    <div id="ch-quiz2"></div>
+    <h3>Round 3 — Boss level: master forecaster 👑</h3>
+    <div id="ch-quiz3"></div>
+    <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can be the start of the next lesson's warm-up.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>All answers show live in the score bar. Wrong answers auto-reveal the correct one in green — ask "clip or trophy?" on each miss. The BOSS item combines both tenses plus a signal-word trap.</div>
+  </div>
+</div>
+
+<!-- STEP 8 REVIEW -->
+<div class="section review">
+  <div class="sec-head"><span class="icon">🏁</span> Review &amp; Homework <span class="timing">3 min</span><span class="step">Step 8</span></div>
+  <div class="sec-body">
+    <span class="zoom-cue">📹 Zoom: cameras on, screens off. Finish with faces, not slides.</span>
+    <div class="frame">⚡ <b>30-second recap:</b> teacher gives a time phrase ("by 2040" / "this time next week") — you answer with a full sentence in the matching tense. Five rounds, fast!</div>
+    <h3>🏠 Homework</h3>
+    <div class="frame">
+      <p>🔮 <b>Interview one family member:</b> ask for 3 predictions about the year 2050.</p>
+      <p>✏️ <b>Write their predictions in English</b> — at least one with <em>will have</em> and one with <em>will be -ing</em>.</p>
+      <p>📌 Example: <em>"My mum thinks that by 2050, robots will have taken over the ironing. She hopes she will be relaxing on a beach instead."</em></p>
+    </div>
+    <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="t-only">
+      <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
+      <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">What to adjust next time?</div><div class="editable" id="tn-adjust" contenteditable="true" data-placeholder="…"></div></div>
+      <div class="qa-item"><div class="q">Student's strongest / weakest moment today?</div><div class="editable" id="tn-notes" contenteditable="true" data-placeholder="…"></div></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="bottom-bar">
+  <button class="bb bb-save" onclick="saveWork()">💾 Save my work</button>
+  <button class="bb bb-print" onclick="window.print()">🖨️ Print</button>
+  <button class="bb bb-teach" id="teach-btn" onclick="unlockTeacher()">🔐</button>
+</div>
+
+<script>
+/* ============ ENGINE (identical across all Library sessions) ============ */
+var LEVEL=4, SESSION=7, K='ecl_L'+LEVEL+'s'+SESSION+'_';
+
+/* ---- TTS audio ---- */
+function say(text){try{window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(text);u.lang='en-GB';u.rate=0.9;window.speechSynthesis.speak(u);}catch(e){}}
+
+/* ---- Quiz engine ---- */
+var score=0,total=0;
+function buildQuiz(containerId,items){
+  var c=document.getElementById(containerId);
+  items.forEach(function(it){
+    total++;
+    var qz=document.createElement('div');qz.className='qz';
+    var opts='<div class="opts">';
+    it.options.forEach(function(o){opts+='<button class="opt" data-ok="'+(o===it.answer?'1':'0')+'" onclick="pick(this)">'+o+'</button>';});
+    opts+='</div><div class="fb"></div>';
+    qz.innerHTML='<div class="q">'+it.q+'</div>'+opts;
+    c.appendChild(qz);
+  });
+  updateScore();
+}
+function pick(btn){
+  var qz=btn.closest('.qz');if(qz.dataset.done)return;qz.dataset.done='1';
+  var ok=btn.dataset.ok==='1';var fb=qz.querySelector('.fb');
+  if(ok){btn.classList.add('correct');score++;fb.className='fb ok';fb.textContent='✓ Correct! Great job!';}
+  else{btn.classList.add('wrong');var good=qz.querySelector('[data-ok="1"]');if(good)good.classList.add('correct');
+    fb.className='fb no';fb.textContent='Almost! The green one is right. Try to remember it! 💪';}
+  qz.querySelectorAll('.opt').forEach(function(b){b.disabled=true;});
+  updateScore();
+}
+function updateScore(){
+  var answered=document.querySelectorAll('.qz[data-done]').length;
+  document.getElementById('score-num').textContent=score+' / '+total;
+  document.getElementById('score-fill').style.width=(total?Math.round(answered/total*100):0)+'%';
+  var st='',pct=total?score/total:0;
+  if(answered===total&&total>0){st=pct>=0.8?'⭐⭐⭐':pct>=0.5?'⭐⭐':'⭐';}
+  document.getElementById('score-stars').textContent=st;
+}
+
+/* ---- Student name ---- */
+var nameInput=document.getElementById('student-name');
+function applyName(){
+  var n=nameInput.value.trim();
+  document.getElementById('hello-msg').textContent=n?('Hello, '+n+'! 🌟'):'';
+  document.querySelectorAll('.stud-name').forEach(function(el){el.textContent=n?('Amazing work today, '+n+'!'):'Amazing work today!';});
+  localStorage.setItem(K+'name',n);
+}
+nameInput.addEventListener('input',applyName);
+
+/* ---- Agenda pills ---- */
+document.querySelectorAll('.ap').forEach(function(p){
+  p.onclick=function(){p.classList.toggle('done');localStorage.setItem(K+'ap'+p.dataset.s,p.classList.contains('done'));};
+});
+
+/* ---- Teacher mode ---- */
+function unlockTeacher(){
+  if(document.body.classList.contains('teacher-mode')){document.body.classList.remove('teacher-mode');document.getElementById('teach-btn').textContent='🔐';return;}
+  var pin=prompt('Teacher PIN:');
+  if(pin==='teach'){document.body.classList.add('teacher-mode');document.getElementById('teach-btn').textContent='🔓 Teacher';}
+}
+
+/* ---- Save work (.txt export) ---- */
+function saveWork(){
+  var n=(localStorage.getItem(K+'name')||'Student').replace(/[^\wÀ-ſ-]/g,'');
+  var out=n+' — Level '+LEVEL+' Session '+SESSION+'\n'+new Date().toLocaleDateString()+'\n'+'='.repeat(34)+'\n\n';
+  var picks=[].slice.call(document.querySelectorAll('.chips .chip.on')).map(function(x){return x.textContent.trim();});
+  if(picks.length)out+='Picked: '+picks.join(', ')+'\n\n';
+  var count=0;
+  document.querySelectorAll('.editable[id]').forEach(function(el){var t=el.innerText.trim();if(t){out+='['+el.id+'] '+t+'\n';count++;}});
+  out+='\nScore: '+score+' / '+total;
+  if(count===0&&!picks.length){alert('Type something first! 🙂');return;}
+  var b=new Blob([out],{type:'text/plain;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u;a.download=n+'_L'+LEVEL+'S'+SESSION+'_'+new Date().toISOString().slice(0,10)+'.txt';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);
+  var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show');},1600);
+}
+
+/* ---- Autosave / autoload ---- */
+function autosave(){document.querySelectorAll('.editable[id]').forEach(function(el){localStorage.setItem(K+el.id,el.innerHTML);});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){localStorage.setItem(K+'chip'+i,el.classList.contains('on'));});}
+function autoload(){
+  document.querySelectorAll('.editable[id]').forEach(function(el){var v=localStorage.getItem(K+el.id);if(v!==null)el.innerHTML=v;});
+  document.querySelectorAll('.chips .chip').forEach(function(el,i){if(localStorage.getItem(K+'chip'+i)==='true')el.classList.add('on');});
+  document.querySelectorAll('.ap').forEach(function(p){if(localStorage.getItem(K+'ap'+p.dataset.s)==='true')p.classList.add('done');});
+  var n=localStorage.getItem(K+'name');if(n){nameInput.value=n;applyName();}
+}
+document.addEventListener('input',function(){clearTimeout(window._t);window._t=setTimeout(autosave,600);});
+window.addEventListener('load',autoload);
+
+/* ============ SESSION CONTENT (changes per session) ============ */
+
+/* ---- Vocabulary: tomorrow's world ---- */
+var VOCAB=[
+  {w:'artificial intelligence',e:'🤖',p:'AI — machines that learn'},
+  {w:'self-driving car',e:'🚗',p:'no driver needed'},
+  {w:'renewable energy',e:'☀️',p:'sun, wind, water power'},
+  {w:'virtual reality',e:'🥽',p:'VR — a digital world'},
+  {w:'breakthrough',e:'💥',p:'a huge discovery'},
+  {w:'sustainable',e:'🌱',p:'good for the planet long-term'},
+  {w:'automation',e:'⚙️',p:'machines doing human jobs'},
+  {w:'prediction',e:'🔮',p:'a guess about the future'},
+  {w:'decade',e:'📅',p:'ten years'},
+  {w:'space colony',e:'🪐',p:'a human settlement in space'},
+  {w:'delivery drone',e:'🚁',p:'a flying robot courier'},
+  {w:'climate crisis',e:'🌡️',p:'dangerous global warming'},
+  {w:'hologram',e:'✨',p:'a 3D image made of light'}
+];
+(function buildVocab(){
+  var g=document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v){
+    var d=document.createElement('div');d.className='vc';
+    d.innerHTML='<div class="vc-play">🔊</div><div class="vc-emoji">'+v.e+'</div><div class="vc-word">'+v.w+'</div><div class="vc-pron">'+v.p+'</div>';
+    d.onclick=function(){say(v.w);};
+    g.appendChild(d);
+  });
+})();
+
+/* ---- Postcard topic chips for Step 6 ---- */
+(function(){
+  var TOPICS=['🏫 school','🚗 transport','🍔 food','🏠 homes','🎮 entertainment','🪐 space','🤖 robots','🌡️ climate','💼 jobs','🏥 health'];
+  var c=document.getElementById('topic-chips');
+  TOPICS.forEach(function(t){
+    var s=document.createElement('span');s.className='chip';s.textContent=t;
+    s.onclick=function(){s.classList.toggle('on');say(t.replace(/^\S+\s/,''));};
+    c.appendChild(s);
+  });
+})();
+
+/* ---- Quizzes ---- */
+buildQuiz('vocab-quiz',[
+  {q:'☀️ Power from the sun, wind and water is called…',options:['renewable energy','automation','virtual reality'],answer:'renewable energy'},
+  {q:'💥 Scientists suddenly discover something huge. It\'s a…',options:['decade','breakthrough','hologram'],answer:'breakthrough'},
+  {q:'🚗 A car that needs no human driver is a…',options:['delivery drone','space colony','self-driving car'],answer:'self-driving car'},
+  {q:'📅 The years 2040–2050 are one…',options:['decade','prediction','breakthrough'],answer:'decade'},
+  {q:'🌱 Something the planet can keep doing forever is…',options:['artificial','sustainable','virtual'],answer:'sustainable'},
+  {q:'🔮 "By 2050, robots will cook everything." That sentence is a…',options:['hologram','climate crisis','prediction'],answer:'prediction'}
+]);
+buildQuiz('reading-quiz',[
+  {q:'What exactly was Amara\'s homework?',options:['describe a Tuesday in 2050','build a robot','interview a scientist'],answer:'describe a Tuesday in 2050'},
+  {q:'Where does Amara say many classrooms will have moved by 2050?',options:['underground','into virtual reality','to Mars'],answer:'into virtual reality'},
+  {q:'How does Amara describe the delivery drones?',options:['like angry wasps','like polite mechanical bees','like tiny helicopters'],answer:'like polite mechanical bees'},
+  {q:'What will have damaged many coastlines if we don\'t act?',options:['the climate crisis','delivery drones','flying taxis'],answer:'the climate crisis'},
+  {q:'What is Amara\'s final "one thing won\'t change" prediction?',options:['kids will still do homework at midnight','the internet will stay slow','potatoes will stay fussy'],answer:'kids will still do homework at midnight'}
+]);
+buildQuiz('grammar-quiz',[
+  {q:'By 2050, we ___ petrol cars almost completely.',options:['will have replaced','will be replacing'],answer:'will have replaced'},
+  {q:'This time tomorrow, I ___ my history exam. Wish me luck!',options:['will have taken','will be taking'],answer:'will be taking'},
+  {q:'Don\'t call at 8 pm — we ___ dinner then.',options:['will be having','will have had'],answer:'will be having'},
+  {q:'By the time you arrive, I ___ the whole pizza. Sorry.',options:['will be eating','will have eaten'],answer:'will have eaten'},
+  {q:'In 2050, robots ___ most of the boring jobs already.',options:['will have taken over','will be taking over'],answer:'will have taken over'},
+  {q:'At midnight tonight, most people in this town ___.',options:['will have slept','will be sleeping'],answer:'will be sleeping'},
+  {q:'By next June, she ___ English for exactly five years.',options:['will have been learning','will be learning'],answer:'will have been learning'},
+  {q:'Scientists hope that by 2040 they ___ a cure for the disease.',options:['will be finding','will have found'],answer:'will have found'}
+]);
+buildQuiz('ch-quiz1',[
+  {q:'"This time on Saturday, I\'ll be surfing." — clip 🎥 or trophy 🏆?',options:['🎥 clip (future continuous)','🏆 trophy (future perfect)'],answer:'🎥 clip (future continuous)'},
+  {q:'"By Sunday, I\'ll have written all three essays." — clip 🎥 or trophy 🏆?',options:['🎥 clip (future continuous)','🏆 trophy (future perfect)'],answer:'🏆 trophy (future perfect)'},
+  {q:'Which signal phrase usually calls for the FUTURE PERFECT?',options:['by the time we land','at this exact moment tomorrow'],answer:'by the time we land'}
+]);
+buildQuiz('ch-quiz2',[
+  {q:'❌ "By 2050, humans will landing on Mars."',options:['By 2050, humans will have landed on Mars.','By 2050, humans will have landing on Mars.'],answer:'By 2050, humans will have landed on Mars.'},
+  {q:'❌ "This time next week I will have lie on a beach."',options:['This time next week I will be lying on a beach.','This time next week I will have lain to a beach.'],answer:'This time next week I will be lying on a beach.'},
+  {q:'❌ "She will has finished the game by dinner."',options:['She will have finished the game by dinner.','She will be finished the game by dinner.'],answer:'She will have finished the game by dinner.'},
+  {q:'❌ "Robots will be took our jobs by 2060."',options:['Robots will have taken our jobs by 2060.','Robots will being take our jobs by 2060.'],answer:'Robots will have taken our jobs by 2060.'}
+]);
+buildQuiz('ch-quiz3',[
+  {q:'Pick the sentence that describes an action IN PROGRESS at a future moment:',options:['At 9 pm I\'ll be watching the match.','By 9 pm I\'ll have watched the match.'],answer:'At 9 pm I\'ll be watching the match.'},
+  {q:'"___ you ___ packing by the time the taxi comes?"',options:['Will / have finished','Will / be finished'],answer:'Will / have finished'},
+  {q:'Best prediction with a future continuous:',options:['In 2050, doctors will be using AI helpers every day.','In 2050, doctors will have use AI helpers every day.'],answer:'In 2050, doctors will be using AI helpers every day.'},
+  {q:'👑 BOSS: "By 2050 the city ___ its last petrol station, and electric pods ___ silently through the streets."',options:['will have closed / will be gliding','will be closing / will have glided','will have closed / will have glided'],answer:'will have closed / will be gliding'}
+]);
+</script>
+</body>
+</html>
