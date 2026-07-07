@@ -1,6 +1,6 @@
 # SESSION_NOTES — English Course Library
 
-## 2026-07-07 — Teljes library build (folyamatban)
+## 2026-07-07 — Teljes library build (KÉSZ ✅)
 
 **Mit csináltunk:**
 - Dea-kurzus (6 session) pedagógiai audit: erős rituálé-struktúra, DE A2-plafon, listening-hiány (S2–S6), alábecsült időzítés, falba-írt olvasmányok, hard-coded "Dea"
@@ -13,7 +13,7 @@
 - Wave 1 KÉSZ + független verifikáció: L1, L2, L3 mind a 30 session PASS (markerek, méret, no-Dea case-sensitive check)
 - Git repo a mappában (Dea-minta), push → **https://github.com/DrAnRaz/english-course-library** (public), GitHub Pages ENABLED → **https://dranraz.github.io/english-course-library/**
 
-**Folyamatban:** Wave 2 (12 agent): L0, L4, L5, L6 — 40 session. Utána: verifikáció + végső commit/push + élő URL smoke test.
+**Befejezve:** Wave 2 is kész (1 agent API-hiba után resume-olva, L6 s03 pótolva). Mind a 70 session PASS a 12-markeres verifikáción; L0 s01 + L6 s10 böngészőben is tesztelve (quiz engine, certificate név-sync). 2 commit pusholva, Pages build BUILT, élő URL-ek 200 OK (index, placement, L0/L3/L4/L5/L6 minták, teacher guide).
 
 **Érintett fájlok:** minden e mappában; Dea_EnglishCourse érintetlen maradt.
 
