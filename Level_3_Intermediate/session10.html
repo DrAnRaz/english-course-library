@@ -359,7 +359,8 @@ body.teacher-mode .t-only{display:block}
 var LEVEL=3, SESSION=10, K='ecl_L'+LEVEL+'s'+SESSION+'_';
 
 /* ---- TTS audio ---- */
-function say(text){try{window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(text);u.lang='en-GB';u.rate=0.9;window.speechSynthesis.speak(u);}catch(e){}}
+function say(text){try{var ss=window.speechSynthesis;if(!ss)return;ss.cancel();clearTimeout(window._sayT);window._sayT=setTimeout(function(){var u=new SpeechSynthesisUtterance(text);u.lang='en-GB';u.rate=0.9;var vs=ss.getVoices(),v=null,i;for(i=0;i<vs.length;i++){if(vs[i].lang&&vs[i].lang.toLowerCase().indexOf('en')===0){v=vs[i];if(vs[i].lang==='en-GB')break;}}if(v)u.voice=v;u.onend=u.onerror=function(){clearInterval(window._sayKA);};clearInterval(window._sayKA);window._sayKA=setInterval(function(){if(ss.speaking){ss.pause();ss.resume();}else{clearInterval(window._sayKA);}},10000);ss.resume();ss.speak(u);},80);}catch(e){}}
+try{if(window.speechSynthesis){window.speechSynthesis.getVoices();window.speechSynthesis.onvoiceschanged=function(){window.speechSynthesis.getVoices();};}}catch(e){}
 
 /* ---- Quiz engine ---- */
 var score=0,total=0;
@@ -369,7 +370,8 @@ function buildQuiz(containerId,items){
     total++;
     var qz=document.createElement('div');qz.className='qz';
     var opts='<div class="opts">';
-    it.options.forEach(function(o){opts+='<button class="opt" data-ok="'+(o===it.answer?'1':'0')+'" onclick="pick(this)">'+o+'</button>';});
+    var shuf=it.options.slice();for(var j=shuf.length-1;j>0;j--){var k=Math.floor(Math.random()*(j+1));var tmp=shuf[j];shuf[j]=shuf[k];shuf[k]=tmp;}
+    shuf.forEach(function(o){opts+='<button class="opt" data-ok="'+(o===it.answer?'1':'0')+'" onclick="pick(this)">'+o+'</button>';});
     opts+='</div><div class="fb"></div>';
     qz.innerHTML='<div class="q">'+it.q+'</div>'+opts;
     c.appendChild(qz);
