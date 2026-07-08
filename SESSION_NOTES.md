@@ -17,6 +17,10 @@
 
 **Érintett fájlok:** minden e mappában; Dea_EnglishCourse érintetlen maradt.
 
+**2026-07-07 este — 2 javítás (Aniko visszajelzésére):**
+- TTS `say()` robusztussá téve mind a 71 fájlban: cancel→speak race fix (80ms defer), `resume()` a beragadt paused állapotra, explicit angol hang választás, 10s keep-alive hosszú felolvasáshoz (Chrome ~15s-nél vágta volna). Playwright-tal verifikálva.
+- Anti-cheat: minden quiz válaszopció Fisher–Yates shuffle-t kap MINDEN betöltésnél (buildQuiz + buildTagged engine) — a helyes válasz pozíciója diákonként/frissítésenként más. Verifikálva: 8/10 quiz sorrend változott két betöltés között, pontozás intakt.
+
 **Nyitott kérdések:**
 - Dea következő órájára: futtasd le vele a placement-et (várható: L3)
 - Teacher PIN egyszerű (`teach`) — tudatos döntés, nem biztonsági határ
