@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 6 · NEAR-NATIVE (C2)</div>
   <h1>🗝️ Session 7 — Untranslatable</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: master <b>idioms, untranslatable words and cultural references</b> — the secret handshakes of English · ≈50 min core</div>
+  <div class="badge">🎯 Today: master <b>idioms, untranslatable words and cultural references</b> — the secret handshakes of English</div>
 </div>
 
 <div class="scorebar">
@@ -169,9 +172,9 @@ body.teacher-mode .t-only{display:block}
 <div class="section goal">
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student rephrases it in her own words, ideally with an idiom.</span>
-    <p><em>"Today you will crack the code of phrases that make dictionaries useless: idioms, untranslatable words and cultural references. By the end, you'll know which 'button' each phrase presses — and when NOT to press it."</em> 🗝️</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Diagnostic opener: ask "What does 'break a leg' mean, and who would you say it to?" A C2-track student should give both the meaning (good luck) AND the context (performers, informal). If context is missing, today's register work matters extra.</div>
+    <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student rephrases it in their own words, ideally with an idiom.</span>
+    <p class="frame">🎯 Today: idioms and untranslatable words — English's secret handshakes! 🗝️</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S6):</b> the half-length rewrite of a real paragraph + three diseases named — student reads before/after aloud; listen for correct disease terms, and ask which "darling" they cut.<br><b>Say:</b> "Today you will crack the code of phrases that make dictionaries useless: idioms, untranslatable words and cultural references. By the end, you'll know which 'button' each phrase presses — and when NOT to press it." 🗝️<br>Diagnostic opener: ask "What does 'break a leg' mean, and who would you say it to?" A C2-track student should give both the meaning (good luck) AND the context (performers, informal). If context is missing, today's register work matters extra.</div>
   </div>
 </div>
 
@@ -199,6 +202,7 @@ body.teacher-mode .t-only{display:block}
     <h3>🎧 Practice — tap the phrase that fits</h3>
     <p class="hint">Read the situation and tap the phrase a native speaker would reach for. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Drill each card as a "button-press": you say the phrase, the student names the exact situation it fits in five seconds. Prioritise the untranslatables (saudade, hygge, tsundoku, sobremesa) and the register-loaded idioms; if time is tight, skip any the student already owns from earlier levels. Personalise: have them anchor each new phrase to a real person or moment in their own life so it sticks.</div>
   </div>
 </div>
 
@@ -206,26 +210,27 @@ body.teacher-mode .t-only{display:block}
 <div class="section reading">
   <div class="sec-head"><span class="icon">📖</span> Reading — The Words That Refuse to Travel <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: share screen. Take turns reading chunks aloud; student annotates every idiom she spots (Zoom → Annotate) before the quiz.</span>
+    <span class="zoom-cue">📹 Zoom: share screen. Take turns reading chunks aloud; student annotates every idiom they spot (Zoom → Annotate) before the quiz.</span>
     <p>Read Priya's column for her school magazine. Tap 🔊 to hear it read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
+    <p class="hint">🔎 Watch for <b>idioms and cultural references</b> in the story — we unlock them in Step 5!</p>
     <div class="reading-text" id="read-text">
       <h4>🧳 Some words refuse to pack their bags — by Priya, 15</h4>
-      <p>Last month my aunt flew in from Lisbon and gave me a present that fits in no suitcase: the word <b>saudade</b>. She described it as the sweet ache of missing something — a person, a summer, an older version of yourself — while somehow enjoying the ache. English owns half a million words, yet not one of them sits in that exact shape.</p>
+      <p>Last month my aunt flew in from Lisbon and gave me a present that fits in no suitcase: the word <b>saudade</b>. She described it as the sweet ache of missing something — a person, a summer, an older version of yourself — while somehow enjoying the ache. English owns half a million words, yet not one of them sits in that exact shape. I have carried the word around for a month now, trying it on like a borrowed coat, and it fits feelings I did not even know I owned.</p>
       <h4>🗺️ A quick tour of the untranslatables</h4>
-      <p>Every language hides treasures like this. Danish has <b>hygge</b>, the candlelit cosiness of doing very little with people you like very much. Japanese offers <b>tsundoku</b>, the guilty habit of buying books and letting them tower, unread, beside your bed.</p>
-      <p>Spanish gives us <b>sobremesa</b>: that golden stretch after lunch when nobody moves and the conversation outshines the food. German, never subtle, contributes <b>Schadenfreude</b> — the small, shameful spark of joy when your rival trips over his own shoelaces. Hungarian speakers will recognise its twin, káröröm, instantly.</p>
+      <p>Every language hides treasures like this. Danish has <b>hygge</b>, the candlelit cosiness of doing very little with people you like very much. Japanese offers <b>tsundoku</b>, the guilty habit of buying books and letting them tower, unread, beside your bed. If you have ever bought a book for the person you were hoping to become, you understand tsundoku better than any dictionary ever could.</p>
+      <p>Spanish gives us <b>sobremesa</b>: that golden stretch after lunch when nobody moves and the conversation outshines the food. German, never subtle, contributes <b>Schadenfreude</b> — the small, shameful spark of joy when your rival trips over his own shoelaces. Hungarian speakers will recognise its twin, káröröm, instantly. It is oddly comforting that two languages, born a whole continent apart, both decided this grubby little feeling deserved a name of its very own.</p>
       <h4>🤔 So is translation impossible?</h4>
-      <p>Here comes the twist: none of these words is truly untranslatable, because I have just translated every single one. It simply took me a sentence instead of a syllable. What refuses to travel is not the meaning — it is the compression, the way a whole culture folds a shared experience into two neat syllables.</p>
+      <p>Here comes the twist: none of these words is truly untranslatable, because I have just translated every single one. It simply took me a sentence instead of a syllable. What refuses to travel is not the meaning — it is the compression, the way a whole culture folds a shared experience into two neat syllables. A translation, then, is less a swap than an unpacking: you take the tightly folded suitcase of a foreign word and shake all its clothes out across the bed — and yes, it does take up rather more room that way.</p>
       <p>When a Dane says hygge, she is not defining anything. She is pressing a button that releases a thousand remembered evenings.</p>
       <h4>🐘 Meanwhile, English hides its own</h4>
-      <p>Before we get smug, notice that English performs exactly the same trick — with idioms. When I mention <b>the elephant in the room</b>, no zoo is involved; I mean that everyone can see the problem and nobody will name it. When my brother calls our family drama <b>a storm in a teacup</b>, he compresses a whole verdict into five words: too much fuss, too small a cause.</p>
+      <p>Before we get smug, notice that English performs exactly the same trick — with idioms. When I mention <b>the elephant in the room</b>, no zoo is involved; I mean that everyone can see the problem and nobody will name it. When my brother calls our family drama <b>a storm in a teacup</b>, he compresses a whole verdict into five words: too much fuss, too small a cause. Notice that neither of us paused to explain ourselves; the phrase did the explaining, instantly, the way a shared joke never needs a footnote.</p>
       <p>Try translating <b>throw someone under the bus</b> literally into another language and watch faces fill with horror. The bus is not the point. The betrayal is.</p>
       <h4>🏛️ References — idioms with a backstory</h4>
-      <p>English also squeezes entire stories into a phrase. Call a free app with hidden malware <b>a Trojan horse</b>, and you have quoted a three-thousand-year-old war in three words. Say the goalkeeper is our team's <b>Achilles heel</b>, and you have borrowed a Greek hero's fatal weakness without a single history lesson.</p>
+      <p>English also squeezes entire stories into a phrase. Call a free app with hidden malware <b>a Trojan horse</b>, and you have quoted a three-thousand-year-old war in three words. Say the goalkeeper is our team's <b>Achilles heel</b>, and you have borrowed a Greek hero's fatal weakness without a single history lesson. The whole point is economy: one borrowed name, and three thousand years of story arrive already assembled.</p>
       <p>These references work like a secret handshake. Miss them, and a paragraph feels locked; catch them, and the writer winks at you across the page.</p>
       <h4>🗝️ The real skill</h4>
-      <p>Near-native English is not about swallowing a dictionary. It is about knowing which button each phrase presses — that <b>tongue-in-cheek</b> signals a joke wearing a serious costume, that <b>reading the room</b> can rescue you before you even open your mouth.</p>
+      <p>Near-native English is not about swallowing a dictionary. It is about knowing which button each phrase presses — that <b>tongue-in-cheek</b> signals a joke wearing a serious costume, that <b>reading the room</b> can rescue you before you even open your mouth. The dictionary hands you the words; only living inside the language teaches you which one the moment is quietly asking for.</p>
       <p>So collect untranslatables the way other people collect stickers. Every one you learn is a small country you can suddenly visit without a passport. And when you find a feeling English has no word for — congratulations: you have reached the edge of the language, and edges are where the interesting things live.</p>
     </div>
 
@@ -277,7 +282,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section task">
   <div class="sec-head"><span class="icon">🎨</span> Create — My Phrasebook of Untranslatables <span class="timing">10 min</span><span class="step">Step 6</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in her own browser, shares her screen and types here while you watch.</span>
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in their own browser, shares their screen and types here while you watch.</span>
     <p>Build the first page of your personal phrasebook — and then do what real linguists dream of: <b>coin a brand-new word</b>. 🧪</p>
     <h3>First, tap the phrases you're adopting into your active English:</h3>
     <div class="chips" id="exp-chips"></div>
@@ -297,7 +302,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section challenge">
   <div class="sec-head"><span class="icon">🎮</span> Challenge Game — The Code-Breaker <span class="timing">8 min</span><span class="step">Step 7</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen and cheer. 🎉</span>
+    <span class="zoom-cue">📹 Zoom: student's browser, their clicks, their score! You watch on their shared screen and cheer. 🎉</span>
     <p class="hint">🗝️ Three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
     <h3>Round 1 — Idiom decoder</h3>
     <div id="ch-quiz1"></div>
@@ -306,7 +311,7 @@ body.teacher-mode .t-only{display:block}
     <h3>Round 3 — Boss level: press the right button 👑</h3>
     <div id="ch-quiz3"></div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can open the next lesson as a warm-up.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>All answers show live in her score. On each miss ask "which button did the wrong option press?" — naming the wrong meaning cements the right one. The BOSS item tests register + meaning together; that's deliberate.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>All answers show live in their score. On each miss ask "which button did the wrong option press?" — naming the wrong meaning cements the right one. The BOSS item tests register + meaning together; that's deliberate.</div>
   </div>
 </div>
 
@@ -323,6 +328,7 @@ body.teacher-mode .t-only{display:block}
       <p>🧪 Bonus: use your invented word from Step 6 in a real conversation and report what happened.</p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise one idiom or untranslatable the student reached for naturally and unprompted — that spontaneous reach is the real win. Hand off the homework clearly: the idiom safari (3 idioms in the wild, each with the exact sentence, the "button" it presses, and formal/informal) plus the invented-word field test; tell them to bring both next session. Fill the self-evaluation below while it's fresh.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

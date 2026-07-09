@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 6 · NEAR-NATIVE (C2)</div>
   <h1>⭐ Session 4 — Literature Corner</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: read a literary excerpt like a critic — spot <b>imagery, symbolism &amp; foreshadowing</b> and argue your interpretation · ≈50 min core</div>
+  <div class="badge">🎯 Today: read a literary excerpt like a critic — spot <b>imagery, symbolism &amp; foreshadowing</b> and argue your interpretation</div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student rephrases it in one sentence of their own.</span>
-    <p><em>"Today you become a literary detective. You will read an original story excerpt, catch the writer's hidden techniques — imagery, symbolism, foreshadowing — and defend your own interpretation with evidence, the way real critics do."</em> 🔍📚</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Ask first: "What's a book or story that stayed with you — and can you say WHY in one sentence?" A C2 student should reach beyond "it was exciting". If they name a technique unprompted (voice, twist, atmosphere), you're set; if not, today gives them that vocabulary.</div>
+    <p class="frame">🎯 Today: become a literary detective — catch the writer's hidden techniques! 🔍📚</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S3):</b> speech hunt (three devices with quoted lines) + the four-line silly persuader — have them deliver the mini-speech; listen for a real rhetorical question, rule of three and call to action.<br><b>Say:</b> "Today you become a literary detective. You will read an original story excerpt, catch the writer's hidden techniques — imagery, symbolism, foreshadowing — and defend your own interpretation with evidence, the way real critics do." 🔍📚<br>Ask first: "What's a book or story that stayed with you — and can you say WHY in one sentence?" A C2 student should reach beyond "it was exciting". If they name a technique unprompted (voice, twist, atmosphere), you're set; if not, today gives them that vocabulary.</div>
   </div>
 </div>
 
@@ -199,6 +202,7 @@ body.teacher-mode .t-only{display:block}
     <h3>🎧 Practice — tap the right term</h3>
     <p class="hint">Read the example and tap the technique it shows. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Thirteen cards is a lot — prioritise <b>imagery, symbolism, foreshadowing, personification</b> and <b>motif</b>; the reading leans hardest on those. Don't accept the definition alone: the invented 5-second example is the real check. Personalise: ask which technique their favourite film or series uses best, and where.</div>
   </div>
 </div>
 
@@ -206,28 +210,30 @@ body.teacher-mode .t-only{display:block}
 <div class="section reading">
   <div class="sec-head"><span class="icon">📖</span> Reading — "The Tide Clock" (original excerpt) <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: share screen. Take turns reading chunks aloud. Then student uses Zoom → Annotate to circle every image of water or time she can find.</span>
+    <span class="zoom-cue">📹 Zoom: share screen. Take turns reading chunks aloud. Then student uses Zoom → Annotate to circle every image of water or time they can find.</span>
+    <p class="hint">🔎 Watch for <b>imagery, symbolism and quiet hints of trouble to come (foreshadowing)</b> in the story — we unlock them in Step 5!</p>
     <p>This excerpt was written for this lesson — your job is to read it the way a critic would. Tap 🔊 to hear any part.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
       <h4>📜 The Tide Clock — part one</h4>
-      <p>On the morning Marisol arrived at her grandmother's house, the sea was pretending to be calm. It lay flat and silver, like a coin someone had pressed into the shore. Only the gulls seemed to know better, wheeling inland in long, worried spirals.</p>
-      <p>The house stood at the end of the lane, leaning slightly toward the water, the way old people lean toward a conversation they do not want to miss. Salt had chewed the paint from its shutters. In the front window hung a brass tide clock, its single hand frozen between HIGH and LOW.</p>
+      <p>On the morning Marisol arrived at her grandmother's house, the sea was pretending to be calm. It lay flat and silver, like a coin someone had pressed into the shore. Only the gulls seemed to know better, wheeling inland in long, worried spirals. Marisol had learned to read birds the way other people read headlines. Whatever was coming, they had heard about it first.</p>
+      <p>The house stood at the end of the lane, leaning slightly toward the water, the way old people lean toward a conversation they do not want to miss. Salt had chewed the paint from its shutters. In the front window hung a brass tide clock, its single hand frozen between HIGH and LOW. The lane itself was quiet — the kind of quiet that feels arranged. Even the bees moved as though they had signed an agreement.</p>
       <h4>🕰️ The clock</h4>
-      <p>"It stopped the winter your mother left," Grandmother said, without being asked. She said it the way you might mention the weather. Then she carried Marisol's suitcase inside as if it weighed nothing at all.</p>
+      <p>"It stopped the winter your mother left," Grandmother said, without being asked. She said it the way you might mention the weather. Then she carried Marisol's suitcase inside as if it weighed nothing at all. Grandmothers, Marisol suspected, carried heavier things than suitcases every day of their lives.</p>
       <p>Marisol stayed on the porch a moment longer. She was fourteen, and she had already learned that adults hide their largest griefs inside their smallest sentences. The clock, she decided, had not simply stopped; it had been stopped.</p>
       <h4>🍞 The kitchen</h4>
-      <p>Inside, the kitchen smelled of fresh bread and of something older — candle wax, maybe, or years. Photographs crowded the wall, but Marisol noticed the gaps at once: pale rectangles of wallpaper where frames had been taken down. Every missing picture, she guessed, had held the same face.</p>
-      <p>"You will have your mother's old room," Grandmother said. The words came out flat and careful, each one placed like a cup on a shelf that had held broken things before.</p>
+      <p>Inside, the kitchen smelled of fresh bread and of something older — candle wax, maybe, or years. Photographs crowded the wall, but Marisol noticed the gaps at once: pale rectangles of wallpaper where frames had been taken down. Every missing picture, she guessed, had held the same face. She counted the gaps without meaning to: seven, arranged in a careful line, like windows onto rooms that no longer existed.</p>
+      <p>"You will have your mother's old room," Grandmother said. The words came out flat and careful, each one placed like a cup on a shelf that had held broken things before. Marisol said thank you. It seemed the safest of the available words.</p>
       <h4>🚪 The room</h4>
-      <p>The room upstairs was clean — too clean — the bed made with sharp hospital corners. On the desk sat a second tide clock, small as a pocket watch, and this one was running. Its hand crept toward HIGH with a patience that felt almost smug.</p>
+      <p>The room upstairs was clean — too clean — the bed made with sharp hospital corners. On the desk sat a second tide clock, small as a pocket watch, and this one was running. Its hand crept toward HIGH with a patience that felt almost smug. Someone wound this one, Marisol thought. Someone in this house wanted at least one clock to keep going.</p>
       <p>Marisol watched it for a long moment. Somewhere below, the sea had given up pretending; she could hear it now, muttering its old complaints against the rocks. The ocean never forgets, she thought — it only waits politely.</p>
-      <p>She unpacked slowly, folding each shirt twice. At the very bottom of her suitcase, wrapped in a scarf, lay the letter her mother had pressed into her hand at the station, still sealed. Marisol set it beside the small clock and did not open it.</p>
+      <p>She unpacked slowly, folding each shirt twice. At the very bottom of her suitcase, wrapped in a scarf, lay the letter her mother had pressed into her hand at the station, still sealed. Marisol set it beside the small clock and did not open it. She told herself she would open it when she was ready. She did not ask herself when that might be.</p>
       <h4>🕯️ Supper</h4>
       <p>At supper they spoke of safe things: the ferry timetable, the price of bread, a neighbour's noisy dog. Twice, Marisol almost asked about the photographs. Twice, the question folded itself up and crawled back down her throat.</p>
-      <p>Grandmother watched her not-asking with something that might have been approval, or might have been relief. In this house, Marisol was learning, silence was not the absence of conversation. It was the conversation.</p>
+      <p>Grandmother watched her not-asking with something that might have been approval, or might have been relief. A dog barked somewhere down the lane, twice, and the silence closed back over the sound like water over a stone. In this house, Marisol was learning, silence was not the absence of conversation. It was the conversation.</p>
+      <p>Later, drying the dishes, Grandmother hummed three notes of a tune and stopped, as though the song, too, had been put away in a drawer.</p>
       <h4>🌙 That night</h4>
-      <p>That night the wind rose, and the old house creaked in its sleep like a ship changing course. Marisol dreamed of a silver coin sinking through dark water, turning as it fell. When she woke before dawn, the little clock's hand stood exactly at HIGH — and downstairs, faint but unmistakable, the frozen clock in the window had begun, after all these years, to tick.</p>
+      <p>That night the wind rose, and the old house creaked in its sleep like a ship changing course. Marisol dreamed of a silver coin sinking through dark water, turning as it fell. In the dream she reached for it, and the water was warmer than she expected. When she woke before dawn, the little clock's hand stood exactly at HIGH — and downstairs, faint but unmistakable, the frozen clock in the window had begun, after all these years, to tick.</p>
     </div>
 
     <h3>🔎 Read like a critic — tap your answer</h3>
@@ -247,6 +253,17 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🔧</span> Language Focus — Writing About Literature <span class="timing">10 min</span><span class="step">Step 5</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen. For each quiz item, student says the answer BEFORE you click — and for items 1–2, explains WHY in one sentence.</span>
+    <h3>🧰 Today's three devices — spot them, name them</h3>
+    <div class="frame">🎨 <b>Imagery</b> — word-pictures that appeal to the senses, so the reader sees, hears or smells the scene instead of being told about it.<br>
+      <em>"It lay flat and silver, like a coin someone had pressed into the shore"</em> — a visual picture that makes the calm sea look man-made, unnatural.<br>
+      <em>"the kitchen smelled of fresh bread and of something older — candle wax, maybe, or years"</em> — smell carrying memory: the house's past is literally in the air.</div>
+    <div class="frame">🕊️ <b>Symbolism</b> — an object that secretly carries a bigger meaning than itself.<br>
+      <em>The stopped tide clock</em> — frozen "the winter your mother left", it stands for the family's frozen grief: time in this house stopped when she did.<br>
+      <em>The sealed letter</em> — an unopened decision. As long as it stays sealed, Marisol can postpone the conversation she is not ready to have.</div>
+    <div class="frame">🌩️ <b>Foreshadowing</b> — a quiet early hint of what is coming later.<br>
+      <em>"Only the gulls seemed to know better, wheeling inland in long, worried spirals"</em> — the birds warn us, before anyone speaks, that the calm will not last.<br>
+      <em>The little clock's hand creeping "toward HIGH"</em> — the rising tide builds quietly all day towards the night when everything starts moving again.</div>
+    <h3>✍️ How critics write about them</h3>
     <div class="rulebox">
       <div class="rule a"><h4>✅ THE CRITIC'S SENTENCE — claim + evidence + hedge</h4>
         <b>analytical verb</b> + <b>quoted evidence</b> + <b>careful hedging</b><br><br>
@@ -279,7 +296,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section task">
   <div class="sec-head"><span class="icon">🎨</span> Create — Write Like an Author <span class="timing">10 min</span><span class="step">Step 6</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in her own browser, shares her screen, and types while you watch the paragraph grow live.</span>
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in their own browser, shares their screen, and types while you watch the paragraph grow live.</span>
     <p>Now switch chairs: stop analysing and start writing. Create the OPENING paragraph of your own story — and hide at least <b>two techniques</b> inside it for your teacher to find. 🕵️</p>
     <h3>First, tap the techniques you will smuggle in:</h3>
     <div class="chips" id="exp-chips"></div>
@@ -301,7 +318,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section challenge">
   <div class="sec-head"><span class="icon">🎮</span> Challenge Game — The Critics' Circle <span class="timing">8 min</span><span class="step">Step 7</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen and demand a one-line justification for every answer. 🎉</span>
+    <span class="zoom-cue">📹 Zoom: student's browser, their clicks, their score! You watch on their shared screen and demand a one-line justification for every answer. 🎉</span>
     <p class="hint">🕵️ Three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
     <h3>Round 1 — Name that technique</h3>
     <div id="ch-quiz1"></div>
@@ -327,6 +344,7 @@ body.teacher-mode .t-only{display:block}
       <p>✏️ <b>Write three critic's sentences</b> using the pattern: QUOTE it → NAME the technique → EXPLAIN the effect. Bring them next time — best sentence wins bragging rights.</p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise their best critic's sentence of the day — repeat the QUOTE → NAME → EXPLAIN chain it followed so they hear the pattern one last time. Hand off homework by choosing the source paragraph together (a song lyric counts) so the hunt starts tonight, not never.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

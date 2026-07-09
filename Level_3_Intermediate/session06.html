@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 3 · INTERMEDIATE (B1)</div>
   <h1>🕵️ Session 6 — Phrasal Verb Detective</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: crack the code of <b>12 phrasal verbs</b> — verb + little word = brand-new meaning · ≈50 min core</div>
+  <div class="badge">🎯 Today: crack the code of <b>12 phrasal verbs</b> — verb + little word = brand-new meaning</div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
-    <p><em>"Today you will crack the secret code of phrasal verbs — a verb plus a little word that together mean something completely NEW. By the end, you can use 12 of the most common ones like a native speaker."</em> 🕵️</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Live diagnostic: ask "What time do you get up?" and "What do you do when you can't find your phone?" Note whether the student understands / already uses any phrasal verbs. Don't teach yet.</div>
+    <p class="frame">🎯 Today: crack the secret code of phrasal verbs!</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S5):</b> 3 dinner-table sentences in reported speech (2 with said, 1 with told + person) — student reads them; listen for backshift and the say/tell split.<br><b>Say:</b> "Today you will crack the secret code of phrasal verbs — a verb plus a little word that together mean something completely NEW. By the end, you can use 12 of the most common ones like a native speaker." 🕵️<br>Live diagnostic: ask "What time do you get up?" and "What do you do when you can't find your phone?" Note whether the student understands / already uses any phrasal verbs. Don't teach yet.</div>
   </div>
 </div>
 
@@ -199,6 +202,7 @@ body.teacher-mode .t-only{display:block}
     <h3>🎧 Practice — tap the right phrasal verb</h3>
     <p class="hint">Read the clue and tap the phrasal verb that matches. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Drill each card as ONE chunk — never let the student translate the pieces ("give" + "up"); say the whole verb + meaning twice. Pairs that confuse (look for / look after, turn on / turn off) deserve extra rounds; skip any chunk the student already uses naturally. Personalization: act out 3–4 of them live ("Put on your hood! Pick up a pen!") — physical response glues the chunk.</div>
   </div>
 </div>
 
@@ -207,6 +211,7 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — The Vanishing Cookies <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen. Take turns reading chunks aloud. Bonus hunt: the student annotates every phrasal verb they can spot (Zoom → Annotate).</span>
+    <p class="hint">🔎 Watch for <b>verb + little word</b> teams (get up, look for, find out…) in the story — we crack their code in Step 5!</p>
     <p>Read the detective story. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
@@ -215,11 +220,14 @@ body.teacher-mode .t-only{display:block}
       <h4>🍪 The crime scene</h4>
       <p>Nadia arrived at the Reyes house at nine. Mrs Reyes explained the mystery. Every night she baked cookies. Every morning, three or four were gone. "We have almost <b>run out of</b> chocolate chips," she said sadly.</p>
       <p>Nadia <b>looked for</b> clues. She found crumbs on the floor and a small, muddy footprint near the window. She also found a long grey hair. It was not human hair. It was not cat hair either. Hmm.</p>
+      <p>She <b>picked up</b> the hair with her tweezers and put it in a little evidence bag. "A good detective keeps everything," she said. Then she checked the kitchen window. It didn't close properly — anyone small could open it from outside.</p>
       <h4>🌙 The stake-out</h4>
       <p>That night, Nadia hid behind the sofa. She <b>turned off</b> all the lights and waited. She wanted to <b>find out</b> the truth. At midnight, she heard a soft sound. She almost <b>gave up</b> because she was so sleepy — but then the kitchen door opened!</p>
+      <p>To stay awake, she read her detective handbook under a blanket, with a torch. Chapter one says: "Never <b>give up</b> before midnight." Chapter two says: "Bring snacks." Nadia forgot the snacks, of course.</p>
       <h4>🐾 Case closed</h4>
       <p>A fat raccoon climbed in, <b>picked up</b> two cookies with its little hands, and hurried away. Nadia laughed so hard she fell over. The next day she told the family everything.</p>
       <p>Now Mr Reyes closes the window at night, and the raccoon <b>hangs out</b> in the garden instead — where the family leaves it a small, healthy snack. Nadia <b>took off</b> her lucky coat, went home, and wrote in her notebook: "Case number nine: closed. The cookie thief had a tail."</p>
+      <p>Mrs Reyes was so happy that she baked a special thank-you batch. "You never <b>gave up</b>," she said. "You are welcome here any time." Nadia wrote the date in her notebook, next to the grey hair in its little bag.</p>
       <p>P.S. Nadia's little brother now wants her to <b>look after</b> his hamster. Detectives never rest.</p>
     </div>
 
@@ -285,7 +293,7 @@ body.teacher-mode .t-only{display:block}
     <div class="editable" id="t-ending" contenteditable="true" data-placeholder="In the end, …"></div>
     <div class="speak">🗣️ <b>Now read your mystery out loud</b> — in your best detective voice. Dramatic pauses allowed! 🎬</div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> type only the case + the ending; tell the clues out loud instead of typing them.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>No fixed key — verify at least 4 phrasal verbs are used correctly and check particle placement ("turn it on", never "turn on it"). Ask one follow-up question that forces one more phrasal verb: "And then? Did she give up?"</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>No fixed key — verify at least 4 phrasal verbs are used correctly and check particle placement ("turn it on", never "turn on it"). Ask one follow-up question that forces one more phrasal verb: "And then? Did the detective give up?"</div>
   </div>
 </div>
 
@@ -319,6 +327,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Bonus: write one sentence about your morning using <em>get up</em> AND <em>put on</em>.</p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise the best phrasal-verb chunk from the student's mini-mystery — quote the whole sentence back.<br>Hand off homework by naming one song or game the student mentioned today and predicting a phrasal verb they'll find in it — it turns the hunt into a bet.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

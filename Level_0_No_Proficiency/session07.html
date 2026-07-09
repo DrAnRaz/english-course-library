@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 0 · NO PROFICIENCY (PRE-A1)</div>
   <h1>🐶 Session 7 — Animals</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: 12 animals + <b>"It's a ___"</b> + animal sounds · ≈50 min core</div>
+  <div class="badge">🎯 Today: 12 animals + <b>"It's a ___"</b> + animal sounds</div>
 </div>
 
 <div class="scorebar">
@@ -170,9 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on. Wave hello! Teacher reads the goal with 🔊. Student says it back.</span>
-    <p style="font-size:20px"><em>"Today I learn <b>12 animals</b>. I can say <b>It's a dog!</b> 🐶"</em>
-      <button class="opt" style="padding:5px 14px" onclick="say('Today I learn twelve animals. I can say: It is a dog!')">🔊 Listen</button></p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Play the goal with 🔊 first, then say it slowly yourself. Student repeats chunk by chunk: "Today — I learn — animals." Point at the emoji while speaking. No grammar talk at L0 — the sentence IS the lesson.</div>
+    <p class="frame">🎯 Today: <b>12 animals</b> — <b>"It's a dog!"</b> 🐶 <button class="opt" style="padding:5px 14px" onclick="say('Today I learn twelve animals. I can say: It is a dog!')">🔊 Listen</button></p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S6):</b> monster drawing + 3 "My monster has ___ ___." lines — ask the student to show the monster and say the lines; listen for "has" (not "have") and the numbers.<br><b>Say:</b> "Today I learn 12 animals. I can say: 'It's a dog!'"<br>Play the goal with 🔊 first, then say it slowly yourself. Student repeats chunk by chunk: "Today — I learn — animals." Point at the emoji while speaking. No grammar talk at L0 — the sentence IS the lesson.</div>
   </div>
 </div>
 
@@ -200,6 +202,7 @@ body.teacher-mode .t-only{display:block}
     <h3>🎧 Practice — tap the right animal</h3>
     <p class="hint">Listen to the clue. Tap the animal. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Drill: 🔊 → choral ×2 → solo + the animal sound every time (the sound is the memory hook). Prioritize dog/cat/cow/duck/sheep; the exotic ones are recognition only. Personalize: ask about pets — if the student has one, that animal becomes today's star card.</div>
   </div>
 </div>
 
@@ -208,32 +211,39 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — The Farm Day <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen. Teacher reads one line with 🔊, student echoes it. Point at each emoji. Student annotates answers on your screen.</span>
+    <p class="hint">🔎 Watch for <b>It's a ___</b> in the story — we unlock it in Step 5!</p>
     <p>Look at the pictures. Listen. Then read out loud!
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
       <h4>🚜 On the farm</h4>
       <p>🌞 It is a sunny day.</p>
+      <p>🌞 The sun is yellow.</p>
       <p>🐶 Look! It's a dog. Woof! Woof!</p>
       <p>🐱 It's a cat. Meow!</p>
+      <p>🐱 The cat is black and white.</p>
       <p>🐴 It's a horse. It is big.</p>
+      <p>🐴 The horse says neigh! Neigh!</p>
       <h4>🎵 More animal friends</h4>
       <p>🐷 It's a pig. It is pink.</p>
       <p>🐮 It's a cow. Moo! Moo!</p>
       <p>🦆 It's a duck. Quack! Quack!</p>
       <p>🐑 It's a sheep. Baa!</p>
+      <p>🐑 The sheep is white.</p>
+      <p>🐰 It's a rabbit. Hop, hop!</p>
       <p>🐦 A bird sings. Tweet, tweet!</p>
       <p>❤️ I love the farm!</p>
+      <p>🚜 Goodbye, farm! See you!</p>
     </div>
 
     <h3>🔎 Did you understand? Tap your answer</h3>
     <div id="reading-quiz"></div>
 
     <h3>💬 Your turn — write a little</h3>
-    <div class="qa-item"><div class="q">1. What animal do you like? Write: I like the ___.</div><div class="editable" id="r-open1" contenteditable="true" data-placeholder="I like the…"></div></div>
+    <div class="qa-item"><div class="q">1. What is YOUR favorite animal? Write: My favorite animal is the ___.</div><div class="editable" id="r-open1" contenteditable="true" data-placeholder="My favorite animal is the…"></div></div>
     <div class="qa-item"><div class="q">2. What does your animal say? Write the sound!</div><div class="editable" id="r-open2" contenteditable="true" data-placeholder="Woof! Meow! …"></div></div>
 
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> the two written lines can be homework instead.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 4 + answer key</h4>Quiz answers: Woof! · pink · big · the bird. Open questions — any animal is correct; accept single words ("dog", "Woof!"). Model the full line back: "I like the dog. Woof!" Read line → student echoes line. Keep a steady rhythm; the emoji carries the meaning.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 4 + answer key</h4>Quiz answers: Woof! · pink · big · the bird. Open questions — any animal is correct; accept single words ("dog", "Woof!"). Model the full line back: "My favorite animal is the dog. Woof!" (same frame as S2's "My favorite letter is…"). Read line → student echoes line. Keep a steady rhythm; the emoji carries the meaning.</div>
   </div>
 </div>
 
@@ -281,8 +291,8 @@ body.teacher-mode .t-only{display:block}
     <div class="editable" id="t-animal" contenteditable="true" data-placeholder="It's a…"></div>
     <div class="field-label">🎵 Its sound — It says ___!</div>
     <div class="editable" id="t-sound" contenteditable="true" data-placeholder="It says…"></div>
-    <div class="field-label">❤️ Why? — I like the ___.</div>
-    <div class="editable" id="t-like" contenteditable="true" data-placeholder="I like the…"></div>
+    <div class="field-label">❤️ My favorite — My favorite animal is the ___.</div>
+    <div class="editable" id="t-like" contenteditable="true" data-placeholder="My favorite animal is the…"></div>
     <div class="speak">🗣️ <b>Now say your 3 lines out loud!</b> Big voice! Make the sound too! 🎤</div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> do only the 🌟 line + say it. Type the rest as homework.</div>
     <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>Accept single-word answers in the boxes; the SPOKEN part matters most. Feed the frame orally: "It's a…?" (pause) — student completes. If the student can draw, invite them to hold a quick drawing to the camera and present it with the 3 lines.</div>
@@ -293,7 +303,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section challenge">
   <div class="sec-head"><span class="icon">🎮</span> Challenge Game — Animal Champion <span class="timing">8 min</span><span class="step">Step 7</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! Watch on her shared screen and cheer. 🎉</span>
+    <span class="zoom-cue">📹 Zoom: the student's browser, their clicks, their score! Watch on their shared screen and cheer. 🎉</span>
     <p class="hint">🏆 Three rounds. It gets harder. Beat 80% for ⭐⭐⭐!</p>
     <h3>Round 1 — Sound Safari 🎵</h3>
     <div id="ch-quiz1"></div>
@@ -319,6 +329,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Example: <em>"It's a dog. Woof! Woof!"</em> <button class="opt" style="padding:3px 10px" onclick="say('It is a dog. Woof! Woof!')">🔊</button></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise the pattern power: 12 animals × "It's a ___" = 12 sentences the student can now say — tell them that number out loud. Homework hand-off: model the example line with its 🔊 button once, and agree which animal they'll draw before you say goodbye.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

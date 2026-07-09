@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 0 · NO PROFICIENCY (PRE-A1)</div>
   <h1>🎉 Session 10 — Review Party!</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: party games with EVERYTHING from Level 0 + your <b>certificate</b>! 🏅 · ≈50 min core</div>
+  <div class="badge">🎯 Today: party games with EVERYTHING from Level 0 + your <b>certificate</b>! 🏅</div>
 </div>
 
 <div class="scorebar">
@@ -170,9 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on. Party wave! 🎉 Teacher plays the goal with 🔊. Student says it back.</span>
-    <p style="font-size:20px"><em>"Today is a <b>party</b>! I play games. I show ALL my English. I get my <b>certificate</b>! 🏅"</em>
-      <button class="opt" style="padding:5px 14px" onclick="say('Today is a party! I play games. I show all my English. I get my certificate!')">🔊 Listen</button></p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Make it feel like a real party: party hat, balloon, or a 🎉 virtual background if you have one. Today is CELEBRATION + review diagnostic — note which of the 9 topics wobble, they tell you where Level 1 needs extra support.</div>
+    <p class="frame">🎯 Today: <b>party games</b> + your <b>certificate</b>! 🏅 <button class="opt" style="padding:5px 14px" onclick="say('Today is a party! I play games. I show all my English. I get my certificate!')">🔊 Listen</button></p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S9):</b> Bag Show for the family (5 things, "This is my ___") — ask the student to redo 2 objects on camera now; listen for "This is my" before each thing.<br><b>Say:</b> "Today is a party! I play games. I show ALL my English. I get my certificate!"<br>Make it feel like a real party: party hat, balloon, or a 🎉 virtual background if you have one. Today is CELEBRATION + review diagnostic — note which of the 9 topics wobble, they tell you where Level 1 needs extra support.</div>
   </div>
 </div>
 
@@ -195,12 +197,13 @@ body.teacher-mode .t-only{display:block}
 <div class="section vocab">
   <div class="sec-head"><span class="icon">📝</span> Star Words — Best of Level 0 <span class="timing">10 min</span><span class="step">Step 3</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: share your screen. YOU tap 🔊 on each card. Student repeats — she knows these! Cheer!</span>
+    <span class="zoom-cue">📹 Zoom: share your screen. YOU tap 🔊 on each card. Student repeats — they know these! Cheer!</span>
     <p>You know ALL these words! Tap. Listen 🔊. Say it loud! ⭐</p>
     <div class="vocab-grid" id="vocab-grid"></div>
     <h3>🎧 Practice — tap the right answer</h3>
     <p class="hint">Read the clue. Tap the answer. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Review drill: this time the STUDENT leads — they tap, say the word, YOU echo. No re-teaching; every card gets one loud rep and a cheer. Note any card that needs the 🔊 twice — those words go on your Level 1 watch-list.</div>
   </div>
 </div>
 
@@ -208,21 +211,26 @@ body.teacher-mode .t-only{display:block}
 <div class="section reading">
   <div class="sec-head"><span class="icon">📖</span> Reading — The Party <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: share screen. Student reads FIRST this time — she can! Teacher echoes. 🔊 helps if stuck. Student annotates answers.</span>
+    <span class="zoom-cue">📹 Zoom: share screen. Student reads FIRST this time — they can! Teacher echoes. 🔊 helps if stuck. Student annotates answers.</span>
     <p>Big moment: YOU read first! 🔊 can help you.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
       <h4>🎉 Welcome!</h4>
       <p>🎈 Hello! Welcome to my party!</p>
+      <p>👋 "Hello! How are you?" — "I'm fine, thank you!"</p>
       <p>🔟 I am ten years old.</p>
       <p>🎈 Look! Ten red balloons.</p>
+      <p>🔟 Count the balloons: one, two… ten!</p>
       <h4>👨‍👩‍👧 My party friends</h4>
       <p>👩 This is my mum.</p>
+      <p>👴 This is my grandpa.</p>
+      <p>🖐️ High five, grandpa!</p>
       <p>🐶 My dog is here. Woof!</p>
       <p>🐱 My cat is here too. Meow!</p>
       <h4>🍕 Party food</h4>
       <p>🍕 I like pizza. Yum!</p>
       <p>🎂 This is my cake.</p>
+      <p>🎂 The cake is big and pink.</p>
       <p>👏 Clap your hands! Sing!</p>
       <p>😊 Goodbye, Level 0! Hello, Level 1!</p>
     </div>
@@ -235,7 +243,7 @@ body.teacher-mode .t-only{display:block}
     <div class="qa-item"><div class="q">2. What party food do you like? Write: I like ___. Yum!</div><div class="editable" id="r-open2" contenteditable="true" data-placeholder="I like… Yum!"></div></div>
 
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> the two written lines can be homework instead.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 4 + answer key</h4>Quiz answers: ten · my mum · Woof! · pizza. Open questions — any people/animals/foods count ("my dad, my dog"; "I like cake"). The reading deliberately recycles S1 hello, S3 numbers, S4 colors, S5 family, S7 animals, S8 food, S9 "this is my". If she reads it mostly alone — that IS the Level 0 exam. Celebrate!</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 4 + answer key</h4>Quiz answers: ten · my mum · Woof! · pizza. Open questions — any people/animals/foods count ("my dad, my dog"; "I like cake"). The reading deliberately recycles S1 hello, S3 numbers, S4 colors, S5 family, S7 animals, S8 food, S9 "this is my". If they read it mostly alone — that IS the Level 0 exam. Celebrate!</div>
   </div>
 </div>
 
@@ -282,7 +290,7 @@ body.teacher-mode .t-only{display:block}
     <div class="editable tall" id="t-sentence" contenteditable="true" data-placeholder="It's a… / I like… / This is my…"></div>
     <div class="speak">🗣️ <b>Show time!</b> Read your 3 lines to the camera. Like a star! 🎤⭐</div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> do only Line 1 + say it. Type the rest as homework.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>This mini-performance is the "graduation speech" — film-frame it: ask for a drum roll, applaud after. Accept any pattern in Line 3; correct only by echoing the right chunk. Screenshot her star sheet for the parents if appropriate.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>This mini-performance is the "graduation speech" — film-frame it: ask for a drum roll, applaud after. Accept any pattern in Line 3; correct only by echoing the right chunk. Screenshot their star sheet for the parents if appropriate.</div>
   </div>
 </div>
 
@@ -290,7 +298,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section challenge">
   <div class="sec-head"><span class="icon">🎮</span> Party Games — Level 0 Grand Final <span class="timing">8 min</span><span class="step">Step 7</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! Watch on her shared screen. Drum roll before Round 3! 🥁</span>
+    <span class="zoom-cue">📹 Zoom: the student's browser, their clicks, their score! Watch on their shared screen. Drum roll before Round 3! 🥁</span>
     <p class="hint">🎉 Three party games. All of Level 0! Beat 80% for ⭐⭐⭐!</p>
     <h3>Game 1 — 🎈 Balloon Pop</h3>
     <div id="ch-quiz1"></div>
@@ -337,6 +345,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Example: <em>"This is my certificate! I like English!"</em> <button class="opt" style="padding:3px 10px" onclick="say('This is my certificate! I like English!')">🔊</button></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise the journey, not just today: name 2–3 concrete things the student could NOT do ten sessions ago and can do now. Homework hand-off: rehearse the "teach 3 words" task once — let them teach YOU one word right now so they feel what being the teacher is like.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">Which Level 0 topics still wobble? (take these into L1)</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 2 · ELEMENTARY (A2)</div>
   <h1>⭐ Session 5 — Yesterday</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: travel back in time with <b>-ed verbs</b> and <b>was / were</b> · ≈50 min core</div>
+  <div class="badge">🎯 Today: travel back in time with <b>-ed verbs</b> and <b>was / were</b></div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — the student says it back in their own words.</span>
-    <p><em>"Today you get a time machine! 🕰️ You will talk about <b>yesterday</b>: what you <b>played</b>, <b>watched</b> and <b>cooked</b> — and how things <b>were</b>. By the end, you can tell anyone about your day BEFORE today."</em> 🚀</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Quick diagnostic: ask "What did you do yesterday?" Accept anything — just note whether ANY past form appears ("I play football" vs "I played"). That tells you how much drilling Step 5 needs.</div>
+    <p class="frame">🎯 Today: jump in the time machine — and tell the story of yesterday! 🕰️</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S4):</b> the spy report (3 "is/are + -ing" lines + 1 "usually" line) — student reads it aloud; listen for the -ing forms and the tense switch on the "usually" line.<br><b>Say:</b> "Today you get a time machine! 🕰️ You will talk about <b>yesterday</b>: what you <b>played</b>, <b>watched</b> and <b>cooked</b> — and how things <b>were</b>. By the end, you can tell anyone about your day BEFORE today." 🚀<br>Quick diagnostic: ask "What did you do yesterday?" Accept anything — just note whether ANY past form appears ("I play football" vs "I played"). That tells you how much drilling Step 5 needs.</div>
   </div>
 </div>
 
@@ -208,23 +211,29 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — Zainab's Strange Saturday <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen. Take turns — the student reads one chunk aloud, you read the next. Then the student annotates the quiz answers on your screen (Zoom → Annotate).</span>
+    <p class="hint">🔎 Watch for <b>-ed verbs</b> and <b>was / were</b> in the diary — we unlock them in Step 5!</p>
     <p>Read Zainab's diary page. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
       <h4>📔 Dear Diary — by Zainab, 11</h4>
       <p>Yesterday was the strangest Saturday ever. In the morning, it was rainy and cold. I watched cartoons and listened to music in my pyjamas. Normal, right? Wait for it.</p>
+      <p>I texted my best friend and waited for the rain to stop. Boring? Just wait.</p>
       <h4>🍚 The kitchen disaster</h4>
       <p>At noon, my brother Danil cooked lunch for the first time in his life. Dad wasn't at home — he was at work.</p>
       <p>The kitchen was a war zone! There was rice on the ceiling. Rice. On. The. Ceiling.</p>
       <p>We cleaned the kitchen together for one hour, and Mum wasn't even angry — she just laughed.</p>
+      <p>Danil looked at the ceiling and whispered: "I only wanted to make a surprise." Well, he definitely surprised us!</p>
       <h4>🏡 The surprise visit</h4>
       <p>In the afternoon, my cousins visited us. We played board games and danced to silly songs.</p>
+      <p>My cousins loved the music. We jumped, we clapped, and Alma shouted all the words.</p>
       <p>My little cousin Alma stopped in the middle of the dance and shouted: "The cat! Look at the cat!"</p>
       <h4>🐈 The famous cat</h4>
       <p>Our cat Mango was on the table — inside the empty rice pot. Her white fur was full of rice! We laughed for ten minutes.</p>
       <p>Danil talked about it all evening. Later, I helped Alma with a puzzle, and we studied the photos of Mango again and again.</p>
+      <p>Mum snapped about twenty photos, and Danil posted the best one to the family chat. Everybody wanted a copy!</p>
       <h4>🌙 The end</h4>
       <p>It was a strange day, but the photos were fantastic. My parents were tired, but they were happy too. My weekend homework? I already have my story!</p>
+      <p>Before bed, I brushed my teeth, hugged Mango — very carefully! — and finished this diary page.</p>
     </div>
 
     <h3>🔎 Did you understand? Tap your answer</h3>
@@ -328,6 +337,7 @@ body.teacher-mode .t-only{display:block}
       <p>🎁 Bonus: underline every -ed with a coloured pen!</p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise two concrete wins — e.g. a self-corrected past form after the time-machine clap, or a correct was/were person-check. Hand off the homework: read the example diary aloud together and confirm the recipe: 2 × -ed + 1 × was + 1 × were — the mini diary opens the next lesson's homework check.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

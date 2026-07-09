@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 6 · NEAR-NATIVE (C2)</div>
   <h1>⭐ Session 5 — Wit &amp; Banter</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: master <b>understatement, comebacks &amp; politeness strategies</b> — be funny AND kind, like a native · ≈50 min core</div>
+  <div class="badge">🎯 Today: master <b>understatement, comebacks &amp; politeness strategies</b> — be funny AND kind, like a native</div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back with one deliberate understatement.</span>
-    <p><em>"Today you learn the hardest native-speaker skill there is: wit. You will decode understatement and deadpan, build comebacks that are quick AND kind, and learn the politeness tricks English hides inside tiny words like 'just' and 'a bit'."</em> ⚡😏</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Ask: "What's the funniest thing anyone has said to you in English — and did you get it immediately?" Delayed laughter usually means understatement or deadpan wasn't decoded in time. Name that gap: today closes it. Also state the ground rule early: today's humor is a sport with safety rules — kind targets only.</div>
+    <p class="frame">🎯 Today: dry humour, kind comebacks, tiny polite words! ⚡😏</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S4):</b> three critic's sentences from a chosen paragraph — student reads all three aloud; listen for the QUOTE → NAME → EXPLAIN pattern and award the promised bragging rights.<br><b>Say:</b> "Today you learn the hardest native-speaker skill there is: wit. You will decode understatement and deadpan, build comebacks that are quick AND kind, and learn the politeness tricks English hides inside tiny words like 'just' and 'a bit'." ⚡😏<br>Ask: "What's the funniest thing anyone has said to you in English — and did you get it immediately?" Delayed laughter usually means understatement or deadpan wasn't decoded in time. Name that gap: today closes it. Also state the ground rule early: today's humor is a sport with safety rules — kind targets only.</div>
   </div>
 </div>
 
@@ -199,6 +202,7 @@ body.teacher-mode .t-only{display:block}
     <h3>🎧 Practice — tap the right term</h3>
     <p class="hint">Read the situation and tap the term that matches. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Keep the 5-second film-moment game strict — the time pressure proves the term is understood, not memorised. If time is tight, prioritise <b>understatement, deadpan, comeback, self-deprecating</b> and <b>softener</b>; the reading and games lean on those. Personalise: ask which card best describes the student's own humour style — and which describes yours.</div>
   </div>
 </div>
 
@@ -206,27 +210,30 @@ body.teacher-mode .t-only{display:block}
 <div class="section reading">
   <div class="sec-head"><span class="icon">📖</span> Reading — The Gentle Art of Not Quite Saying It <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: share screen, take turns reading chunks aloud — reader must keep a straight face. Then student annotates every softener word she can find (Zoom → Annotate).</span>
+    <span class="zoom-cue">📹 Zoom: share screen, take turns reading chunks aloud — reader must keep a straight face. Then student annotates every softener word they can find (Zoom → Annotate).</span>
+    <p class="hint">🔎 Watch for <b>understatement and softener words like "just" and "a bit"</b> in the essay — we unlock them in Step 5!</p>
     <p>Read this short essay on English wit. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
       <h4>🌧️ A strange superpower</h4>
       <p>In most languages, if your house burned down, you would say your house had burned down. In English — especially in Britain — you might say you'd had "a bit of a rough morning." This is understatement: describing an earthquake as a wobble, and trusting your listener to translate.</p>
       <p>It works like a magic trick in reverse. Instead of making something look bigger, you shrink it, and the listener's imagination does the growing for you. "The exam didn't go entirely to plan" can land far harder than "It was a catastrophe."</p>
+      <p>Historians of the language love pointing out that this habit is old. Sailors described hurricanes as "a bit of weather"; soldiers have called complete chaos "some local difficulty". The tradition survives every generation intact, for the simplest reason: it keeps working.</p>
       <h4>🏓 The rules of banter</h4>
       <p>Banter is verbal ping-pong: quick, playful, and — this is the crucial part — friendly. A proper banter partner teases you about your questionable playlist, never about things that genuinely hurt. The target of good banter is always small, chosen, and safe.</p>
-      <p>There is a simple test. After the joke, is everyone laughing — including the person the joke was about? If yes, it was banter; if not, it was meanness wearing banter's jacket.</p>
-      <p>Timing matters as much as content. Banter has the rhythm of table tennis: a beat too slow and the joke curdles into commentary, a beat too fast and it becomes an ambush. The best players leave a tiny pause — just long enough for the other person to see the ball coming.</p>
+      <p>There is a simple test. After the joke, is everyone laughing — including the person the joke was about? If yes, it was banter; if not, it was meanness wearing banter's jacket. The jacket fools bystanders, sometimes for years. It rarely fools the person inside the joke.</p>
+      <p>Timing matters as much as content. Banter has the rhythm of table tennis: a beat too slow and the joke curdles into commentary, a beat too fast and it becomes an ambush. The best players leave a tiny pause — just long enough for the other person to see the ball coming. This is why banter between old friends looks telepathic: years of rallies have taught them each other's speed. With someone new, wise players serve gently first.</p>
       <h4>🎯 The comeback clinic</h4>
       <p>A great comeback is not the loudest reply; it is the quickest calm one. Suppose someone smirks, "Nice haircut — did you lose a bet?" Anger hands them the victory, but agreement with a twist takes it back: "I did, actually. Worth every centimetre."</p>
-      <p>Agreeing with an insult and then exaggerating it drains all the power out of it. There is nothing left to attack — you got there first, and you clearly don't mind.</p>
-      <p>Self-deprecating humor, joking about yourself, is the safest wit of all. You cannot lose a game in which you cheerfully play for both teams. Just keep it light: joke about your burnt toast, never about your worth.</p>
+      <p>Agreeing with an insult and then exaggerating it drains all the power out of it. There is nothing left to attack — you got there first, and you clearly don't mind. The comeback also ends the game. A defensive reply invites another attack; a cheerful agreement leaves the teaser holding an empty racket and, usually, a grin.</p>
+      <p>Self-deprecating humor, joking about yourself, is the safest wit of all. You cannot lose a game in which you cheerfully play for both teams. Just keep it light: joke about your burnt toast, never about your worth. There is a boundary worth marking here, too: one joke about your burnt toast is charm; ten in a row is a request for reassurance. The audience can always tell the difference.</p>
       <h4>🧸 The polite escape</h4>
       <p>English also hides tiny cushions everywhere: "just", "actually", "a bit", "I was wondering". These softeners turn commands into requests. "Move" becomes "Sorry, could you just scooch over a bit?" — the same message, entirely different weather.</p>
       <p>Notice, too, the quiet genius of "I was wondering". Grammatically it is only a report on your own thoughts, so nobody has been ordered to do anything at all — and yet, somehow, the window gets opened.</p>
+      <p>Learners sometimes hear all this cushioning as dishonesty. It is closer to shock absorption: the road is exactly the same, but everyone arrives with their spine intact.</p>
       <p>Politeness and wit are not opposites; they are dance partners. The most admired speakers in English are rarely the loudest — they are the ones who can disagree so gracefully that you only realise an hour later that your argument has been quietly dismantled.</p>
       <h4>🥇 The golden rule</h4>
-      <p>So here is the entire art in one sentence: aim your sharpest jokes at yourself, your gentlest jokes at your friends, and your politest sentences at your opponents. Anyone can be loud. Wit is quiet, quick, and kind — and that combination, in any language, is rare enough to be unforgettable.</p>
+      <p>So here is the entire art in one sentence: aim your sharpest jokes at yourself, your gentlest jokes at your friends, and your politest sentences at your opponents. Reverse any part of that formula and the whole machine turns cruel: sharp jokes at friends wound, and rudeness to opponents loses arguments you had already won. Anyone can be loud. Wit is quiet, quick, and kind — and that combination, in any language, is rare enough to be unforgettable.</p>
     </div>
 
     <h3>🔎 Did you decode it? Tap your answer</h3>
@@ -245,7 +252,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section grammar">
   <div class="sec-head"><span class="icon">🔧</span> Language Focus — Softeners &amp; Politeness Strategies <span class="timing">10 min</span><span class="step">Step 5</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: share screen. Student answers each item aloud BEFORE you click — in her flattest, driest delivery. Voice is part of the answer today.</span>
+    <span class="zoom-cue">📹 Zoom: share screen. Student answers each item aloud BEFORE you click — in their flattest, driest delivery. Voice is part of the answer today.</span>
     <div class="rulebox">
       <div class="rule a"><h4>✅ THE SOFT TOOLKIT — small words, big effect</h4>
         <b>just · a bit · slightly · not exactly · I was wondering · could you · perhaps</b><br><br>
@@ -261,6 +268,7 @@ body.teacher-mode .t-only{display:block}
         ⚠️ Not rude everywhere — but in English small talk they hit harder than most learners intend.</div>
     </div>
     <div class="frame">💡 <b>The understatement scale:</b> catastrophe → "a bit of a problem" · brilliant → "not bad at all" · furious → "slightly disappointed". Native listeners automatically multiply — learners must learn to do the same, in BOTH directions.</div>
+    <div class="frame">⚡ <b>The comeback formula: AGREE + EXAGGERATE.</b> "Nice haircut — did you lose a bet?" → <em>"I did, actually. Worth every centimetre."</em> Agreeing steals the insult's power; exaggerating turns it into YOUR joke — nothing is left to attack.</div>
     <p class="hint">💡 Hungarian tip: Hungarian humor happily runs on direct irony, so English understatement can read as sincerity — if a British friend calls your idea "interesting" with a flat voice, multiply before you celebrate. And English "not exactly brilliant" usually means "bad", not "almost brilliant".</p>
     <h3>✏️ Practice — tap the correct choice</h3>
     <div id="grammar-quiz"></div>
@@ -278,7 +286,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section task">
   <div class="sec-head"><span class="icon">🎨</span> Create — The Comeback Lab <span class="timing">10 min</span><span class="step">Step 6</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in her own browser, shares her screen, and types. You play the teaser; she fires the comebacks live.</span>
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in their own browser, shares their screen, and types. You play the teaser; they fire the comebacks live.</span>
     <p>Time to build your own comebacks — quick, calm, and kind. Rule of the lab: your reply must make BOTH people smile. 🧪</p>
     <h3>First, tap the wit moves you'll use:</h3>
     <div class="chips" id="exp-chips"></div>
@@ -292,7 +300,7 @@ body.teacher-mode .t-only{display:block}
     <div class="editable tall" id="t-polite" contenteditable="true" data-placeholder="Could I just… I was wondering if…"></div>
     <div class="speak">🗣️ <b>Now perform them!</b> Deliver each line aloud — deadpan face, calm voice, perfect timing. Teacher rates every comeback: ⚡ speed, 😄 wit, 💚 kindness. Three hearts or it goes back in the lab!</div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> do scenarios 1 and 4 only — one comeback, one politeness repair. The other two become homework material.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>Model answers: S1 "They did, actually — best prize I've ever eaten my way to." S2 "And for my next trick, the floor again." S3 "I love it. Is my head really that majestic?" S4 "Sorry — could I just finish this one thought? I was wondering if we could take turns a bit more." If a comeback drifts into sharpness, don't ban it — ask "would BOTH of you laugh?" and let her redesign it. That self-check is the actual skill.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>Model answers: S1 "They did, actually — best prize I've ever eaten my way to." S2 "And for my next trick, the floor again." S3 "I love it. Is my head really that majestic?" S4 "Sorry — could I just finish this one thought? I was wondering if we could take turns a bit more." If a comeback drifts into sharpness, don't ban it — ask "would BOTH of you laugh?" and let them redesign it. That self-check is the actual skill.</div>
   </div>
 </div>
 
@@ -300,7 +308,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section challenge">
   <div class="sec-head"><span class="icon">🎮</span> Challenge Game — The Wit Championship <span class="timing">8 min</span><span class="step">Step 7</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen — she must read each winning answer aloud in perfect deadpan. 🎉</span>
+    <span class="zoom-cue">📹 Zoom: student's browser, their clicks, their score! You watch on their shared screen — they must read each winning answer aloud in perfect deadpan. 🎉</span>
     <p class="hint">🏆 Three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
     <h3>Round 1 — Name that humor</h3>
     <div id="ch-quiz1"></div>
@@ -309,7 +317,7 @@ body.teacher-mode .t-only{display:block}
     <h3>Round 3 — Boss level: the politeness engineer 👑</h3>
     <div id="ch-quiz3"></div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 makes a perfect warm-up for next lesson — park it there.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>Wrong answers auto-reveal in green. In Round 2 the wrong options are deliberately tempting: one too cruel, one too weak — debrief WHY the winner wins (fast + calm + both laugh). The BOSS item stacks three softeners; have her count them aloud after answering.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>Wrong answers auto-reveal in green. In Round 2 the wrong options are deliberately tempting: one too cruel, one too weak — debrief WHY the winner wins (fast + calm + both laugh). The BOSS item stacks three softeners; have them count the softeners aloud after answering.</div>
   </div>
 </div>
 
@@ -326,6 +334,7 @@ body.teacher-mode .t-only{display:block}
       <p>🧸 <b>Bonus:</b> soften this brutal text message for a friend: "You are late. Again. Fix this." — keep the message, change the weather.</p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise the quickest-yet-kindest comeback of the day — quote it back and name the formula it used (agree + exaggerate). Hand off homework by agreeing which comedy scene they'll mine, and model one softener rewrite of the bonus text so the format is clear.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

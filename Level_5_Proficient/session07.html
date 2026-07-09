@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 5 · PROFICIENT (C1)</div>
   <h1>🎙️ Session 7 — The Interview</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: point a spotlight at the exact word that matters — <b>cleft sentences</b> &amp; emphasis structures for pro-level Q&amp;A · ≈50 min core</div>
+  <div class="badge">🎯 Today: point a spotlight at the exact word that matters — <b>cleft sentences</b> &amp; emphasis structures for pro-level Q&amp;A</div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student repeats it back as if announcing it on a podcast.</span>
-    <p><em>"Today you will learn how skilled speakers shine a spotlight on the ONE word that matters — using <b>cleft sentences</b> ('It was the silence that scared me') and other emphasis structures — and you will use them in a real interview."</em> 🎙️</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Say one flat sentence ("The music surprised me") and one cleft ("It was the MUSIC that surprised me") and ask which sounds more dramatic and why. That contrast is the whole lesson in ten seconds — no terminology needed yet.</div>
+    <p class="frame">🎯 Today: shine a spotlight on the ONE word that matters! 🎙️</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S6):</b> the dinner-table debate paragraph (concede → rebut → common ground) — student reads it aloud; listen for a real "While it's true that…" concession, and ask whether the real-life try changed the conversation.<br><b>Say:</b> "Today you will learn how skilled speakers shine a spotlight on the ONE word that matters — using cleft sentences ('It was the silence that scared me') and other emphasis structures — and you will use them in a real interview."<br>Say one flat sentence ("The music surprised me") and one cleft ("It was the MUSIC that surprised me") and ask which sounds more dramatic and why. That contrast is the whole lesson in ten seconds — no terminology needed yet.</div>
   </div>
 </div>
 
@@ -207,22 +210,27 @@ body.teacher-mode .t-only{display:block}
 <div class="section reading">
   <div class="sec-head"><span class="icon">📖</span> Reading — Ten Honest Minutes <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: share screen. Take turns reading — student reads Dario's quoted answers (in character!), you read the reporter's parts. Then she annotates every cleft sentence she can find (Zoom → Annotate).</span>
+    <span class="zoom-cue">📹 Zoom: share screen. Take turns reading — student reads Dario's quoted answers (in character!), you read the reporter's parts. Then they annotate every cleft sentence they can find (Zoom → Annotate).</span>
+    <p class="hint">🔎 Watch for <b>the bold "It was… that…" / "What… is…" spotlight sentences</b> in the profile — we unlock them in Step 5!</p>
     <p>A school-magazine profile of a teenage podcaster. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
       <h4>🎙️ The student who interviews everyone — by Amara Diallo, The Northside Voice</h4>
       <p>Every school has a quiet legend. At Northside International, it is Dario Kovač, sixteen, the calm voice behind the podcast "Ten Honest Minutes". He has interviewed a firefighter, a chess grandmaster and — famously — his own headteacher.</p>
+      <p>The numbers are quietly impressive. Forty-nine episodes, three years, and a listenership that escaped the school gates long ago — the grandmaster episode alone has been downloaded four thousand times. Not bad for a show recorded in a cupboard next to the music room.</p>
       <p>This month, our magazine turned the microphone around. For once, Dario had to answer the questions. He agreed, on one condition: "Ask me the hard ones."</p>
       <h4>🔍 Why interviews?</h4>
       <p>"People assume <b>it was journalism that</b> attracted me first," Dario laughs. "Actually, it was shyness. Asking questions gave me a script — a safe, structured way to talk to absolutely anyone."</p>
       <p>"<b>What changed everything was</b> one conversation with my grandfather. I recorded him describing his village, and he revealed things nobody in our family had ever heard. <b>It was that afternoon that</b> turned a hobby into an obsession."</p>
+      <p>The grandfather episode never aired, by the way. "Some recordings are for an audience," Dario says, "and some are for a family. <b>What matters is</b> knowing which is which before you press publish."</p>
       <h4>🛠️ The craft behind the questions</h4>
       <p>Dario prepares obsessively. For a single ten-minute episode, he writes roughly thirty questions — and then abandons most of them. "<b>The reason I write so many is</b> not to use them," he explains. "It is to feel free enough to listen."</p>
       <p>Listening, he insists, matters far more than asking. "<b>What most beginners do is</b> race ahead to their next question. <b>What a good interviewer does is</b> chase the unexpected answer — the one that wasn't in the plan."</p>
       <p>There is one more ritual. At the top of every page of notes, Dario writes a single "forbidden question" — the one he is genuinely afraid to ask. "If I never ask it, the episode feels polite but empty. If I do ask it, it usually becomes the title."</p>
+      <p>His teachers have noticed the method spreading. Two younger students have started shows of their own, and the history department now borrows his technique for a local-memories project. "<b>It was Dario who</b> made asking questions look cool," one teacher admits. "We've been trying to do that for years."</p>
       <h4>😬 The awkward episodes</h4>
       <p>Not every recording goes smoothly. One guest answered every single question with one word; another cried, then made Dario promise to delete the whole recording — which he did, immediately. "<b>All I could do was</b> keep the silence comfortable," he remembers. "<b>Never have I felt</b> so useless — or learned so much."</p>
+      <p>The failures changed his preparation more than the successes did. He now sends every guest the first question in advance — "nerves live in the first minute" — and he keeps a glass of water on the table, not for himself, but because a pause to drink is a kinder silence than a stare.</p>
       <h4>🧭 Advice for future interviewers</h4>
       <p>So what should you do if you want to start? Dario's list is short and strict. Research your guest until you could introduce them without notes; ask follow-up questions, because "the second question is where the honesty lives"; and never fake curiosity, since people can hear it instantly.</p>
       <p>"<b>It isn't equipment that</b> makes a good interview," he says, tapping his ancient, taped-together microphone. "<b>What makes a good interview is</b> attention. That, and the courage to ask the question everyone else is politely avoiding."</p>
@@ -267,7 +275,7 @@ body.teacher-mode .t-only{display:block}
     <p class="hint">💡 Hungarian tip: Hungarian shows emphasis just by moving the word before the verb (<em>„A CSEND ijesztett meg"</em>). English word order is locked — so English builds a whole frame around the word instead. Same spotlight, different lamp.</p>
     <h3>✏️ Practice — tap the correct form</h3>
     <div id="grammar-quiz"></div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>Watch for the classic error: "What I admire her is honesty" (the emphasized noun must come AFTER be). If she scores 7+/8, add a live drill: you say a flat sentence, she clefts it instantly. If under 5, park inversion (items 7–8) and master it-clefts only.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>Watch for the classic error: "What I admire her is honesty" (the emphasized noun must come AFTER be). If the student scores 7+/8, add a live drill: you say a flat sentence, they cleft it instantly. If under 5, park inversion (items 7–8) and master it-clefts only.</div>
   </div>
 </div>
 
@@ -281,7 +289,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section task">
   <div class="sec-head"><span class="icon">🎨</span> Create — Your Dream Interview <span class="timing">10 min</span><span class="step">Step 6</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in her own browser, types here, and shares her screen so you can coach live.</span>
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in their own browser, types here, and shares their screen so you can coach live.</span>
     <p>You just got a press pass to interview <b>anyone on Earth</b> — alive, historical or fictional. Plan it like Dario would. 🎫</p>
     <h3>First, tap the topics your interview will dig into:</h3>
     <div class="chips" id="topic-chips"></div>
@@ -295,7 +303,7 @@ body.teacher-mode .t-only{display:block}
     <div class="editable" id="t-cleft" contenteditable="true" data-placeholder="What changed everything was… / It was … that…"></div>
     <div class="speak">🗣️ <b>Now perform it!</b> Your teacher becomes your guest for 2 minutes. Ask your questions, chase one unexpected answer with your follow-up — and wrap up politely.</div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> plan only the guest + 3 questions and do the live interview; type the cleft answer as homework.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>Play the guest with SLIGHTLY evasive answers so the follow-up is genuinely needed — deflect once on purpose and see if she notices and pushes. Praise any spontaneous cleft or inversion out loud. If questions come out closed (yes/no), have her convert them live: "Do you like fame?" → "What does fame actually feel like?"</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>Play the guest with SLIGHTLY evasive answers so the follow-up is genuinely needed — deflect once on purpose and see if they notice and push. Praise any spontaneous cleft or inversion out loud. If questions come out closed (yes/no), have them convert live: "Do you like fame?" → "What does fame actually feel like?"</div>
   </div>
 </div>
 
@@ -303,7 +311,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section challenge">
   <div class="sec-head"><span class="icon">🎮</span> Challenge Game — Spotlight Master <span class="timing">8 min</span><span class="step">Step 7</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen and commentate like a sports announcer. 🎉</span>
+    <span class="zoom-cue">📹 Zoom: student's browser, their clicks, their score! You watch on their shared screen and commentate like a sports announcer. 🎉</span>
     <p class="hint">🔦 Three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
     <h3>Round 1 — Spot the spotlight</h3>
     <div id="ch-quiz1"></div>
@@ -312,7 +320,7 @@ body.teacher-mode .t-only{display:block}
     <h3>Round 3 — Boss level: total emphasis 👑</h3>
     <div id="ch-quiz3"></div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can open the next lesson's warm-up.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>Wrong answers auto-reveal the correct one in green — on each miss ask "which word is in the spotlight here?" The 👑 item stacks a wh-cleft AND an inversion; if she explains WHY it's right, that's full mastery.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>Wrong answers auto-reveal the correct one in green — on each miss ask "which word is in the spotlight here?" The 👑 item stacks a wh-cleft AND an inversion; if the student explains WHY it's right, that's full mastery.</div>
   </div>
 </div>
 
@@ -329,6 +337,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Example: <em>"My mum said the move to Chicago changed her life."</em> → <em>"<b>What changed her life was</b> the move to Chicago."</em></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise the best follow-up question of the live interview — that's the skill Dario called "where the honesty lives". Hand off homework by choosing WHO at home gets interviewed and locking the first question together, so the recording actually happens.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

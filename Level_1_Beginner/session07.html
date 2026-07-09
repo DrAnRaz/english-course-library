@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 1 · BEGINNER (A1)</div>
   <h1>⭐ Session 7 — Always or Never?</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: talk about your typical week with <b>always, usually, sometimes, never</b> · ≈50 min core</div>
+  <div class="badge">🎯 Today: talk about your typical week with <b>always, usually, sometimes, never</b></div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
-    <p><em>"Today you will talk about your typical week. You will use special little words — <b>always, usually, often, sometimes, never</b> — to say HOW OFTEN you do things."</em> 📅</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Quick diagnostic: ask "Do you eat breakfast every day?" Listen — does the student already use any frequency word? Note it, don't correct yet.</div>
+    <p class="frame">🎯 Today: your typical week — how often do you do things?</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S6):</b> family interview + 2 sentences with love/like + -ing and a day — student reads them aloud; listen for the -ing ending and "On + day".<br><b>Say:</b> "Today you will talk about your typical week. You will use special little words — <b>always, usually, often, sometimes, never</b> — to say HOW OFTEN you do things." 📅<br>Quick diagnostic: ask "Do you eat breakfast every day?" Listen — does the student already use any frequency word? Note it, don't correct yet.</div>
   </div>
 </div>
 
@@ -209,19 +212,20 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — Nina's Week <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen. Take turns — student reads one chunk aloud, you read the next. Then student annotates the frequency words on your screen (Zoom → Annotate).</span>
+    <p class="hint">🔎 Watch for the "how often" words in <b>bold</b> (always, usually, never…) in the story — we unlock them in Step 5!</p>
     <p>Read about Nina's week. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
       <h4>📅 My week — by Nina, 10</h4>
-      <p>Hi! I'm Nina. Here is my typical week. Can you find all the "how often" words?</p>
+      <p>Hi! I'm Nina. Here is my typical week. Can you find all the "how often" words? My week is busy, but I love it.</p>
       <h4>🌅 My mornings</h4>
-      <p>I <b>always</b> get up at seven o'clock. I <b>usually</b> eat cereal for breakfast, but on Sundays my dad makes pancakes. I am <b>never</b> late for school — well, almost never!</p>
+      <p>I <b>always</b> get up at seven o'clock. I <b>usually</b> eat cereal for breakfast, but on Sundays my dad makes pancakes. I am <b>never</b> late for school — well, almost never! My school is ten minutes from my house, and I walk there with my friend Maya.</p>
       <h4>⚽ After school</h4>
-      <p>On Mondays and Wednesdays I have football practice. I <b>often</b> score a goal, but I <b>rarely</b> score two! On Fridays I <b>sometimes</b> visit my grandma. She <b>always</b> gives me cookies.</p>
+      <p>On Mondays and Wednesdays I have football practice. I <b>often</b> score a goal, but I <b>rarely</b> score two! On Fridays I <b>sometimes</b> visit my grandma. She <b>always</b> gives me cookies. Grandma's cookies are the best in the world!</p>
       <h4>🌙 My evenings</h4>
-      <p>I <b>usually</b> do my homework before dinner. After dinner, we <b>often</b> play cards. My little brother <b>never</b> wins, but he <b>always</b> wants to play again!</p>
+      <p>I <b>usually</b> do my homework before dinner. After dinner, we <b>often</b> play cards. My little brother <b>never</b> wins, but he <b>always</b> wants to play again! He is five, and he loves the card with the dog on it.</p>
       <h4>🎉 The weekend</h4>
-      <p>At the weekend I <b>never</b> get up early. On Saturdays I <b>usually</b> ride my bike in the park. Sunday is my favourite day because we <b>always</b> have a family film night.</p>
+      <p>At the weekend I <b>never</b> get up early. On Saturdays I <b>usually</b> ride my bike in the park. Sunday is my favourite day because we <b>always</b> have a family film night. We eat popcorn, and my dad picks funny films.</p>
     </div>
 
     <h3>🔎 Did you understand? Tap your answer</h3>
@@ -321,6 +325,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Example: <em>"My mum always drinks coffee in the morning. She never drinks tea."</em></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise correct word order: quote one "before the verb" and one "after am/is/are" sentence the student got right.<br>Homework hand-off: read the example together, then ask WHO they will watch as frequency detective — 4 sentences (always / usually / sometimes / never) next lesson.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>
@@ -489,7 +494,7 @@ buildQuiz('grammar-quiz',[
   {q:'"always" means…',options:['100%','50%','0%'],answer:'100%'},
   {q:'"never" means…',options:['70%','0%','90%'],answer:'0%'},
   {q:'My cat sleeps all day, every day. It ___ sleeps!',options:['always','never'],answer:'always'},
-  {q:'Snow in Vallejo in July? It ___ snows in July!',options:['never','always'],answer:'never'},
+  {q:'Snow in York in July? It ___ snows there in July!',options:['never','always'],answer:'never'},
   {q:'I ride my bike ___ — on Tuesday and on Thursday.',options:['twice a week','once a week'],answer:'twice a week'}
 ]);
 buildQuiz('ch-quiz1',[

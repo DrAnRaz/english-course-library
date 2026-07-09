@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 2 · ELEMENTARY (A2)</div>
   <h1>🏙️ Session 3 — My Town</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: describe a town with <b>there is / there are</b> + prepositions — and give simple <b>directions</b> · ≈50 min core</div>
+  <div class="badge">🎯 Today: describe a town with <b>there is / there are</b> + prepositions — and give simple <b>directions</b></div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
-    <p><em>"Today you become a <b>city planner</b> — a person who designs whole towns! You will describe where things are with <b>there is / there are</b> and prepositions, and at the end you will design your own dream town."</em> 🗺️</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Ask: "Is there a park near your house?" Listen for whether "there is" comes back naturally or the student answers Hungarian-style ("Near my house is a park"). That is your live diagnostic for Step 5.</div>
+    <p class="frame">🎯 Today: be a city planner — and design your own dream town! 🗺️</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S2):</b> the 6-sentence animal fact card about a new animal — student reads it aloud; listen for "can + base verb" (no -s) and one "can't".<br><b>Say:</b> "Today you become a <b>city planner</b> — a person who designs whole towns! You will describe where things are with <b>there is / there are</b> and prepositions, and at the end you will design your own dream town." 🗺️<br>Ask: "Is there a park near your house?" Listen for whether "there is" comes back naturally or the student answers Hungarian-style ("Near my house is a park"). That is your live diagnostic for Step 5.</div>
   </div>
 </div>
 
@@ -210,6 +213,7 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — Welcome to Millbrook! <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen. Student reads one chunk aloud, you read the next — take turns. THEN: student sketches Millbrook on paper and holds it up to the camera — if the map is right, the reading is understood!</span>
+    <p class="hint">🔎 Watch for <b>there is</b> and <b>there are</b> in the town guide — we unlock them in Step 5!</p>
     <p>Read the town guide. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
@@ -217,14 +221,18 @@ body.teacher-mode .t-only{display:block}
       <p>Welcome to Millbrook, a small and friendly town in England! Let me show you around.</p>
       <h4>🌳 The centre</h4>
       <p>In the centre, there is a big park. The park has a fountain in the middle and lots of green trees. Next to the park, there is a lovely café with tables outside.</p>
+      <p>On Saturdays, there is a little market in the park, too. You can buy fruit, flowers and honey there, and there is always happy music.</p>
       <h4>🏛️ Around the park</h4>
       <p>Opposite the park, there is the town hall. It is a big white building with tall columns. Between the town hall and the café, there is a car park — very useful for visitors!</p>
       <h4>🛒 Shops and buses</h4>
       <p>Near the car park, there is a supermarket. It is open every day from eight o'clock in the morning. In front of the supermarket, there is a bus stop, where people wait for the bus to the city.</p>
+      <p>Behind the supermarket, there is a quiet river with a small bridge. There are ducks on the river — children love to watch them from the bridge!</p>
       <h4>🏫 School and library</h4>
       <p>The school is behind the park. It is a red brick building with a big playground and two football pitches. Next to the school, there is a small library with more than ten thousand books!</p>
+      <p>In the library, there is a special reading corner with big soft chairs. There isn't a computer room in the library, but there are lots of comics and maps.</p>
       <h4>🎬 And more…</h4>
       <p>There is also a cinema, a hospital and three restaurants. There isn't a shopping mall — Millbrook is a small, quiet town. But there are lots of friendly people, and it is a wonderful place to live!</p>
+      <p>The cinema is small — there is only one screen — but the films are great, and the popcorn is famous in the whole town.</p>
       <p>Would you like to live in Millbrook? What is there in YOUR town?</p>
     </div>
 
@@ -325,6 +333,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Example: <em>"There is a bakery opposite my house. Next to the bakery, there is a small shop."</em></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise two concrete wins — e.g. a sentence launched with "There is…" (not Hungarian order) or a correct "there aren't any". Hand off the homework: read the bakery example together, confirm it is a drawn map + 5 sentences with a different preposition each — the map opens the next lesson's homework check.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

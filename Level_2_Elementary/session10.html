@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 2 · ELEMENTARY (A2)</div>
   <h1>🏰 Session 10 — Adventure Review</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: use EVERYTHING from Level 2 to finish the Greystone quest — and win your <b>certificate</b>! · ≈50 min core</div>
+  <div class="badge">🎯 Today: use EVERYTHING from Level 2 to finish the Greystone quest — and win your <b>certificate</b>!</div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, big hello — it's the FINAL session of Level 2! Student says the goal back in their own words.</span>
-    <p><em>"Today is your final quest! You are going to use everything from Level 2 — food, animals, your town, past stories, comparing, future plans and rules — to open the gates of Greystone Castle and win your <b>Level 2 certificate</b>."</em> 🗝️</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Set the story frame with full drama: "You are an adventurer. The castle has three gates. Your English is the key." Level 2 covered: S1 food+like · S2 animals+can · S3 town+there is/are · S4 present continuous vs simple · S5 past simple+was/were · S6 irregular past · S7 comparatives/superlatives · S8 going to/would like to · S9 must/have to/should. Today samples ALL of them.</div>
+    <p class="frame">🎯 Today: the final quest — open Greystone Castle and win your certificate! 🗝️</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S9):</b> the 3 "Secret Rules of My Home" (must / mustn't / don't have to) + the should-advice for you — student reads them aloud; listen for base verb after must and the mustn't vs don't-have-to difference.<br><b>Say:</b> "Today is your final quest! You are going to use everything from Level 2 — food, animals, your town, past stories, comparing, future plans and rules — to open the gates of Greystone Castle and win your <b>Level 2 certificate</b>." 🗝️<br>Set the story frame with full drama: "You are an adventurer. The castle has three gates. Your English is the key." Level 2 covered: S1 food+like · S2 animals+can · S3 town+there is/are · S4 present continuous vs simple · S5 past simple+was/were · S6 irregular past · S7 comparatives/superlatives · S8 going to/would like to · S9 must/have to/should. Today samples ALL of them.</div>
   </div>
 </div>
 
@@ -207,7 +210,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section reading">
   <div class="sec-head"><span class="icon">📖</span> Reading — The Golden Key of Greystone <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: share screen. Take turns — student reads one chunk aloud, you read the next. Then she annotates one PAST verb, one comparison and one "going to" (Zoom → Annotate).</span>
+    <span class="zoom-cue">📹 Zoom: share screen. Take turns — student reads one chunk aloud, you read the next. Then the student annotates one PAST verb, one comparison and one "going to" (Zoom → Annotate).</span>
     <p>Read the adventure story. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
@@ -216,12 +219,15 @@ body.teacher-mode .t-only{display:block}
       <h4>🚪 The locked door</h4>
       <p>The friends walked across the old bridge and found a huge wooden door. There was a sign on it: "You <b>must answer</b> three questions to enter."</p>
       <p>Sam read the questions aloud, and Juno knew every answer. She was <b>the smartest</b> of the four. The door opened slowly, with a sound like an old dinosaur.</p>
+      <p>"You <b>should go</b> first," said Sam to Juno. "You are <b>braver than</b> me!" Juno laughed and stepped inside.</p>
       <h4>🦉 The dark tower</h4>
       <p>Inside, the castle was <b>darker than</b> a cave. Suddenly, they heard a strange sound above them. "Something <b>is moving</b> up there!" whispered Bea.</p>
       <p>It wasn't a ghost. It was an old owl — and it was <b>angrier than</b> a wet cat.</p>
+      <p>"We <b>mustn't wake</b> the little owls," whispered Juno. "Look — <b>there is</b> a nest next to the window!" So the friends walked up the stairs as quietly as four mice.</p>
       <h4>🗝️ The golden key</h4>
       <p>At the top of the tower, Tarek <b>saw</b> a small wooden box. Inside was the golden key — and a note: "Well done, adventurers. Next year, we <b>are going to hide</b> the key again. You <b>should come</b> back!"</p>
       <p>The friends <b>took</b> a photo with the key and walked home in the sunshine. Everyone agreed: it was <b>the best</b> day of the spring.</p>
+      <p>That evening, Bea wrote in her diary: "Today we found the golden key. Next year, we <b>are going to find</b> it again — because now we know the castle <b>better than</b> anybody!"</p>
     </div>
 
     <h3>🔎 Did you understand? Tap your answer</h3>
@@ -271,7 +277,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section task">
   <div class="sec-head"><span class="icon">🎨</span> Create — My Own Adventure Page <span class="timing">10 min</span><span class="step">Step 6</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in her own browser, types here and shares her screen (Zoom → Share Screen) while you watch.</span>
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in their own browser, types here and shares their screen (Zoom → Share Screen) while you watch.</span>
     <p>Write YOUR adventure at Greystone Castle — a mini-story with your Level 2 superpowers! 🦸</p>
     <h3>First, tap the ingredients you want in your story:</h3>
     <div class="chips" id="exp-chips"></div>
@@ -291,7 +297,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section challenge">
   <div class="sec-head"><span class="icon">🎮</span> Challenge — The Three Gates of Greystone <span class="timing">8 min</span><span class="step">Step 7</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen, narrate the story and cheer at every gate. 🎉</span>
+    <span class="zoom-cue">📹 Zoom: student's browser, their clicks, their score! You watch on their shared screen, narrate the story and cheer at every gate. 🎉</span>
     <p class="hint">🗝️ Three gates, each harder than the last. Open all three and beat 80% for ⭐⭐⭐ — and the golden key is yours!</p>
     <h3>Gate 1 — The Gate of Words 🚪</h3>
     <div id="ch-quiz1"></div>
@@ -300,7 +306,7 @@ body.teacher-mode .t-only{display:block}
     <h3>Gate 3 — The Dragon's Gate 🐉👑</h3>
     <div id="ch-quiz3"></div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Gate 3 can be the start of the first Level 3 lesson's warm-up.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>Narrate between gates: "Gate 1 creaks open… the dragon wakes up…" Wrong answers auto-reveal the correct one in green — ask "why?" on each miss. If she beats 80%, declare the golden key officially won — it "unlocks" the certificate in Step 8.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>Narrate between gates: "Gate 1 creaks open… the dragon wakes up…" Wrong answers auto-reveal the correct one in green — ask "why?" on each miss. If they beat 80%, declare the golden key officially won — it "unlocks" the certificate in Step 8.</div>
   </div>
 </div>
 
@@ -330,6 +336,7 @@ body.teacher-mode .t-only{display:block}
       <p>✏️ <b>Write 3 sentences</b> about Level 3: <em>"In Level 3 I'm going to… I'd like to… It's going to be…"</em></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Make the certificate ceremony BIG: read it aloud with full drama, print or save it as PDF, and praise two specific Level 2 wins (e.g. past-tense storytelling, the mustn't/don't-have-to save). Hand off the homework: showing the certificate to family + 3 "Level 3" future sentences — collect those sentences at the start of Level 3, Session 1.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">Which Level 2 topics are SOLID?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

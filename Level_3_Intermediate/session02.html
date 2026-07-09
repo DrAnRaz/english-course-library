@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 3 · INTERMEDIATE (B1)</div>
   <h1>🎬 Session 2 — What Was Happening</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: tell a story like a film — <b>past continuous</b> for the scene, <b>past simple</b> for the surprise · ≈50 min core</div>
+  <div class="badge">🎯 Today: tell a story like a film — <b>past continuous</b> for the scene, <b>past simple</b> for the surprise</div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
-    <p><em>"Today you will tell a story like a film director. First the camera shows what <b>was happening</b>… and then — BAM! — something <b>happened</b>. By the end, you can mix past continuous and past simple like a real storyteller."</em> 🎬</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Ask: "What were you doing at 8 o'clock last night?" Don't correct yet — just note whether they attempt "I was …-ing". That's your live diagnostic for Step 5.</div>
+    <p class="frame">🎯 Today: tell a story like a film director!</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S1):</b> 3 family "Have you ever…?" interview answers — student reads them aloud; listen for present perfect openers plus one past simple detail in each.<br><b>Say:</b> "Today you will tell a story like a film director. First the camera shows what <b>was happening</b>… and then — BAM! — something <b>happened</b>. By the end, you can mix past continuous and past simple like a real storyteller." 🎬<br>Ask: "What were you doing at 8 o'clock last night?" Don't correct yet — just note whether they attempt "I was …-ing". That's your live diagnostic for Step 5.</div>
   </div>
 </div>
 
@@ -199,6 +202,7 @@ body.teacher-mode .t-only{display:block}
     <h3>🎧 Practice — tap the right word</h3>
     <p class="hint">Read the clue and tap the word that matches. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Drill each card twice — once quietly, once dramatically (this deck is all storm-and-story drama, so ham it up). "Suddenly" and "while" are the two cards that matter most for Step 5 — don't skip them; sound-effect words (scream, whisper, thunder) can be quick if known. Personalization: ask "When did YOU last hear thunder / drop something / trip over?" for 2–3 cards.</div>
   </div>
 </div>
 
@@ -206,7 +210,8 @@ body.teacher-mode .t-only{display:block}
 <div class="section reading">
   <div class="sec-head"><span class="icon">📖</span> Reading — The Night Everything Went Dark <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: share screen. Student reads one chunk aloud, you read the next — take turns. Then she annotates every past continuous verb on your screen (Zoom → Annotate).</span>
+    <span class="zoom-cue">📹 Zoom: share screen. Student reads one chunk aloud, you read the next — take turns. Then they annotate every past continuous verb on your screen (Zoom → Annotate).</span>
+    <p class="hint">🔎 Watch for <b>was/were + -ing</b> next to sudden <b>past simple</b> actions in the story — we unlock the pattern in Step 5!</p>
     <p>Read Nadia's story. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
@@ -219,12 +224,15 @@ body.teacher-mode .t-only{display:block}
       <h4>😱 A little bit of panic</h4>
       <p>Samir <b>screamed</b> and dropped a cushion on the dog. Biscuit <b>was barking</b> at the darkness like a tiny hero.</p>
       <p>I <b>was looking</b> for my phone when I <b>tripped</b> over the sofa and sat on the popcorn bowl. My heart was racing.</p>
+      <p>Mum <b>was calling</b> our names in the dark. "Is everyone OK?" she asked. I said yes — but there was popcorn in my hair, in my socks, everywhere.</p>
       <h4>🔦 The investigation</h4>
       <p>Dad found a torch, and we walked around the house like detectives. Strange shadows <b>were dancing</b> on the walls. Nothing was broken — the storm outside had killed the power.</p>
       <p>While we <b>were checking</b> the garden, our neighbour Mr. Okafor <b>called</b> over the fence: "Is your power off too? The whole street is dark!"</p>
+      <p>Up and down the street, torch lights <b>were flashing</b> in windows like tiny stars. Somewhere a car alarm <b>was beeping</b>, and two cats <b>were crying</b> on a wall. The night felt strange and exciting at the same time.</p>
       <h4>🕯️ The best part</h4>
       <p>So we did something we never do. Mum lit candles, and we <b>were telling</b> scary stories in the dark when, suddenly, the lights <b>came</b> back on.</p>
       <p>Dad's story was the scariest — he <b>was describing</b> a ghost train when Biscuit howled, and we all jumped. And do you know what Samir shouted when the lights returned? <em>"Turn them off again!"</em> Now we have a new family rule: one Saturday every month, the lights go off on purpose. No TV. Just stories.</p>
+      <p>Last week we had our first "dark Saturday". While Dad <b>was telling</b> his ghost-train story again, Biscuit <b>fell</b> asleep in the middle of it. Samir says that next time HE is telling the scariest story. I can't wait.</p>
     </div>
 
     <h3>🔎 Did you understand? Tap your answer</h3>
@@ -276,7 +284,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section task">
   <div class="sec-head"><span class="icon">🎨</span> Create — Story Builder <span class="timing">10 min</span><span class="step">Step 6</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in her own browser and types here while sharing her screen (Zoom → Share Screen).</span>
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in their own browser and types here while sharing their screen (Zoom → Share Screen).</span>
     <p>Build your own "…when suddenly!" story — true or invented. First pick your ingredients, then film it in words. 🎬</p>
     <h3>First, tap 2–3 story ingredients:</h3>
     <div class="chips" id="story-chips"></div>
@@ -296,7 +304,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section challenge">
   <div class="sec-head"><span class="icon">🎮</span> Challenge Game — Story Detective <span class="timing">8 min</span><span class="step">Step 7</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen and cheer. 🎉</span>
+    <span class="zoom-cue">📹 Zoom: student's browser, their clicks, their score! You watch on their shared screen and cheer. 🎉</span>
     <p class="hint">🕵️ Three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
     <h3>Round 1 — Which tense?</h3>
     <div id="ch-quiz1"></div>
@@ -305,7 +313,7 @@ body.teacher-mode .t-only{display:block}
     <h3>Round 3 — Boss level: build the story 👑</h3>
     <div id="ch-quiz3"></div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can be the start of the next lesson's warm-up.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>All answers show live in her score. Wrong answers auto-reveal the correct one in green — ask "camera rolling or sudden BANG?" on each miss.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>All answers show live in their score. Wrong answers auto-reveal the correct one in green — ask "camera rolling or sudden BANG?" on each miss.</div>
   </div>
 </div>
 
@@ -322,6 +330,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Example: <em>"My cousins were dancing and Grandpa was laughing. Then the cake fell on the floor — and the dog ate it."</em></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise ONE "was …-ing when …" sentence the student built today — quote it back word for word.<br>Hand off homework by describing a photo of your own first (two continuous, two simple sentences) so they hear the model before they leave.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

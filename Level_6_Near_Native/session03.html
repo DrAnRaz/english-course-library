@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 6 · NEAR-NATIVE (C2)</div>
   <h1>📣 Session 3 — The Persuader</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: crack the code of <b>great speeches</b> — ethos, pathos, logos &amp; the devices that move crowds · ≈50 min core</div>
+  <div class="badge">🎯 Today: crack the code of <b>great speeches</b> — ethos, pathos, logos &amp; the devices that move crowds</div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
-    <p><em>"Today you will take a great speech apart like an engineer — find the <b>ethos, pathos and logos</b> inside it, name the devices that make it soar, and then build a 60-second speech of your own that actually persuades."</em> 🏛️</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Diagnostic: ask "What's the most convincing thing anyone ever said to you?" Whatever they name, you'll be able to point back at it later — almost every real example contains pathos or ethos, rarely pure logic. That observation IS the session thesis.</div>
+    <p class="frame">🎯 Today: take a great speech apart — then build your own! 🏛️</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S2):</b> five collected slang expressions + the adult slang interview — student presents two favourites; listen for accurate formal translations and alive/dying/dead verdicts.<br><b>Say:</b> "Today you will take a great speech apart like an engineer — find the ethos, pathos and logos inside it, name the devices that make it soar, and then build a 60-second speech of your own that actually persuades." 🏛️<br>Diagnostic: ask "What's the most convincing thing anyone ever said to you?" Whatever they name, you'll be able to point back at it later — almost every real example contains pathos or ethos, rarely pure logic. That observation IS the session thesis.</div>
   </div>
 </div>
 
@@ -199,6 +202,7 @@ body.teacher-mode .t-only{display:block}
     <h3>🎧 Practice — tap the right device</h3>
     <p class="hint">Read the clue and tap the term that matches. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Anchor each term to the warm-up: recall which appeal the student instinctively used to sell the umbrella and label it now. Drill the three appeals until solid before touching the devices — everything else hangs on them. If time is tight, skip <b>hyperbole</b> and <b>alliteration</b>; both reappear in the games.</div>
   </div>
 </div>
 
@@ -207,32 +211,36 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — "Give Us Back Our Hour" <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen. Student PERFORMS the speech aloud (this text is meant to be spoken!), you read the analysis section. Then student annotates every device they can find (Zoom → Annotate).</span>
+    <p class="hint">🔎 Watch for <b>ethos, pathos, logos — and repeated sentence openings</b> in the speech — we unlock them in Step 5!</p>
     <p>Read Amara's speech — an original speech written for this lesson. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
       <h4>🎙️ The setup</h4>
       <p>Last term, a school cut Creative Hour — sixty weekly minutes of art, music, coding and drama — to make room for extra test preparation. Amara, 15, asked to address the school council. This is the speech she gave.</p>
+      <p>She had never addressed an audience larger than her own class before. She wrote four drafts, rehearsed in front of her mirror, her dog and one very patient neighbour — and then walked in holding a single index card she never once looked at.</p>
       <h4>🏛️ The opening</h4>
       <p>"Members of the council, teachers, friends — I stand before you not to complain, but to ask a simple question: what is school actually for? Is it for filling in the right bubbles on a test sheet? Or is it for building the kind of minds that invent, question and create?</p>
-      <p>I have three minutes. I intend to use every one of them.</p>
+      <p>I have three minutes. I intend to use every one of them. I have also brought evidence, because I know this council respects evidence more than applause.</p>
       <h4>❤️ The heart of it</h4>
       <p>Think of Priya, who discovered in Creative Hour that she could compose music — real music, music that made our head teacher cry in the good way. Think of Daniel, who barely spoke in class until drama gave him a stage and, with it, a voice.</p>
       <p>And think of me, because I am one of these stories too. Coding club began as my Creative Hour experiment; it is now the reason I know what I want to do with my life. One hour did that. One hour a week.</p>
+      <p>I am not describing rare talents. I am describing what ordinary students do when someone hands them sixty minutes and says: make something.</p>
       <h4>🧠 The evidence</h4>
-      <p>And if stories don't move you, numbers should. Schools that protect creative time report better focus, better attendance and — here is the irony — better test scores. Ask our own teachers, and they will tell you the lessons after Creative Hour were the calmest of the week.</p>
+      <p>And if stories don't move you, numbers should. Schools that protect creative time report better focus, better attendance and — here is the irony — better test scores. Ask our own teachers, and they will tell you the lessons after Creative Hour were the calmest of the week. One study of forty schools found the same pattern, year after year: creativity and results rise together, or they fall together. The evidence does not whisper; it shouts.</p>
       <p>We did not trade one hour of play for one hour of learning. We traded imagination for exhaustion.</p>
       <h4>🔁 The build</h4>
       <p>We are not asking for less learning. We are asking for deeper learning. We are asking for the hour that made learning feel like ours.</p>
       <p>Give us the hour that taught Priya to compose. Give us the hour that gave Daniel his voice. Give us back our hour.</p>
       <h4>⚖️ Facing the other side</h4>
       <p>I know what some of you are thinking: exams matter. You're right — they do. But a school that produces perfect test-takers and empty notebooks has not succeeded; it has simply measured the wrong thing.</p>
-      <p>We can prepare for exams and protect creativity. Other schools do both. So can we.</p>
+      <p>We can prepare for exams and protect creativity. Other schools do both. So can we. This is not a choice between art and algebra. It never was.</p>
       <h4>📣 The call to action</h4>
       <p>So here is my request, plain and simple: restore Creative Hour from next term. Pilot it, measure it, judge us by the results.</p>
       <p>If focus drops, cancel it — you have my word we won't argue. But if it works, and it will, you will have given us something no test can: proof that this school believes in what we might become. Thank you."</p>
       <h4>🔍 Why it worked</h4>
-      <p>The council voted eight to one to restore the hour. Look again and you'll see why: the speech opens with a rhetorical question, builds ethos ("I stand before you not to complain"), stacks pathos through Priya and Daniel, anchors logos with evidence, then hammers the ending with anaphora — "Give us the hour" — three times, because three is the magic number of rhetoric.</p>
+      <p>The council voted eight to one to restore the hour. Look again and you'll see why: the speech opens with a rhetorical question, builds ethos ("I stand before you not to complain"), stacks pathos through Priya and Daniel, anchors logos with evidence, then hammers the ending with anaphora — it repeats the "Give us" demand three times — because three is the magic number of rhetoric.</p>
       <p>Notice the antithesis too — "perfect test-takers and empty notebooks" — and the concession that disarms the opposition before it can speak. Amara didn't get lucky. She built it.</p>
+      <p>There is one more trick worth stealing. Count the sentence lengths in the final section: long, long, short. Great speakers save the shortest sentence for the biggest moment, because a short line after long ones lands like a drumbeat. And notice what Amara never does: she never insults the council, never raises her voice on paper, never asks for pity. She asks for a fair test — pilot it, measure it, judge us — which is exactly the language the council itself uses. Speaking your audience's own dialect is persuasion's quietest device of all.</p>
     </div>
 
     <h3>🔎 Did you understand? Tap your answer</h3>
@@ -263,11 +271,17 @@ body.teacher-mode .t-only{display:block}
         <em>"Schools that protect creative time report better focus."</em></div>
       <div class="rule b"><h4>🛠️ THE DELIVERY DEVICES</h4>
         <b>Anaphora</b> — repeated sentence openings<br>
+        <em>"Give us the hour… Give us the hour… Give us back our hour."</em><br>
         <b>Rule of three</b> — lists of exactly three<br>
+        <em>"invent, question and create"</em><br>
         <b>Antithesis</b> — two opposites, one sentence<br>
+        <em>"perfect test-takers and empty notebooks"</em><br>
         <b>Rhetorical question</b> — no answer expected<br>
+        <em>"What is school actually for?"</em><br>
         <b>Concession</b> — agree first, then pivot with "but"<br>
-        <b>Call to action</b> — tell them exactly what to do</div>
+        <em>"You're right — exams matter. But…"</em><br>
+        <b>Call to action</b> — tell them exactly what to do<br>
+        <em>"Restore Creative Hour from next term."</em></div>
     </div>
     <div class="frame">💡 <b>The persuader's recipe:</b> hook with a rhetorical question → earn ethos → move with pathos → prove with logos → concede the strongest objection → end with anaphora + call to action. Amara's speech follows it beat for beat.</div>
     <p class="hint">💡 Tip: three is rhetoric's magic number in English — "invent, question and create". Two feels unfinished, four feels like a shopping list. When in doubt, cut or grow your list to exactly three.</p>
@@ -333,6 +347,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Example line: <em>"Is there any subject more universal, more delicious, more unifying than pizza?"</em></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise the single best device you heard in the 60-second speech — name it with the proper term so the label sticks. Hand off homework by suggesting one specific speech to hunt (a film speech works fine) so choice paralysis doesn't kill the task.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

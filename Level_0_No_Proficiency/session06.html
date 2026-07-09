@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 0 · NO PROFICIENCY (PRE-A1)</div>
   <h1>⭐ Session 6 — My Body</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: body words + Simon Says — <b>"Touch your nose!"</b> · ≈50 min core</div>
+  <div class="badge">🎯 Today: body words + Simon Says — <b>"Touch your nose!"</b></div>
 </div>
 
 <div class="scorebar">
@@ -170,10 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on. Big smile, big wave. Teacher taps 🔊 — student repeats the goal.</span>
-    <p style="font-size:20px">🙌 Today you learn <b>body words</b>.<br>
-    ⭐ You will play: <b>"Touch your nose!"</b>
-    <button class="opt" style="padding:5px 14px" onclick="say('Touch your nose!')">🔊 Listen</button></p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Say the goal, then immediately touch your own nose and say "nose!". Today is a full TPR session — the student moves the whole time, perfect for wiggly learners. Keep instructions under 8 words, always model the movement first.</div>
+    <p class="frame">🎯 Today: <b>body words</b> + the game <b>"Touch your nose!"</b> <button class="opt" style="padding:5px 14px" onclick="say('Touch your nose!')">🔊 Listen</button></p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S5):</b> family photo/drawing + "This is my ___. I love my ___." lines — ask the student to point and say them now; listen for the "my" in every chunk.<br><b>Say:</b> "Today you learn body words. You will play: 'Touch your nose!'"<br>Say the goal, then immediately touch your own nose and say "nose!". Today is a full TPR session — the student moves the whole time, perfect for wiggly learners. Keep instructions under 8 words, always model the movement first.</div>
   </div>
 </div>
 
@@ -210,7 +211,8 @@ body.teacher-mode .t-only{display:block}
 <div class="section reading">
   <div class="sec-head"><span class="icon">📖</span> Reading — Robo the Robot <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: share screen. Tap 🔊 line by line — student echoes AND does what Robo says. Then she annotates: circle all the body words (Zoom → Annotate).</span>
+    <span class="zoom-cue">📹 Zoom: share screen. Tap 🔊 line by line — student echoes AND does what Robo says. Then they annotate: circle all the body words (Zoom → Annotate).</span>
+    <p class="hint">🔎 Watch for <b>Touch your ___!</b> and <b>has + number + body part</b> in the story — we unlock them in Step 5!</p>
     <p>Tap any line. 🔊 Listen. Say it. Do it!
       <button class="opt" style="padding:5px 14px" onclick="sayAll()">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
@@ -221,13 +223,16 @@ body.teacher-mode .t-only{display:block}
       <p data-s="Robo has two ears." style="cursor:pointer" onclick="say(this.dataset.s)">👂 Robo has two ears.</p>
       <p data-s="Robo has one nose." style="cursor:pointer" onclick="say(this.dataset.s)">👃 Robo has one nose.</p>
       <p data-s="Robo has strong arms." style="cursor:pointer" onclick="say(this.dataset.s)">💪 Robo has strong arms.</p>
+      <p data-s="Robo has ten fingers. Count them!" style="cursor:pointer" onclick="say(this.dataset.s)">🖐️ Robo has ten fingers. Count them!</p>
       <h4>🎵 Robo can move!</h4>
       <p data-s="Robo says: touch your head!" style="cursor:pointer" onclick="say(this.dataset.s)">🙌 Robo says: touch your head!</p>
       <p data-s="Clap your hands!" style="cursor:pointer" onclick="say(this.dataset.s)">👏 Clap your hands!</p>
       <p data-s="Move your legs!" style="cursor:pointer" onclick="say(this.dataset.s)">🦵 Move your legs!</p>
       <p data-s="Stomp your feet!" style="cursor:pointer" onclick="say(this.dataset.s)">🦶 Stomp your feet!</p>
+      <p data-s="Touch your ears! Touch your knees!" style="cursor:pointer" onclick="say(this.dataset.s)">👂 Touch your ears! Touch your knees!</p>
       <p data-s="Robo is funny." style="cursor:pointer" onclick="say(this.dataset.s)">😄 Robo is funny.</p>
       <p data-s="Now you! Touch your nose!" style="cursor:pointer" onclick="say(this.dataset.s)">🫵 Now you! Touch your nose!</p>
+      <p data-s="Good job! Robo is happy." style="cursor:pointer" onclick="say(this.dataset.s)">🤖 "Good job! Robo is happy."</p>
     </div>
 
     <h3>🔎 Did you understand? Tap your answer</h3>
@@ -260,6 +265,8 @@ body.teacher-mode .t-only{display:block}
         <em><b>I have</b> ten fingers.</em> 🖐️🖐️<br><br>
         <button class="opt" style="padding:5px 14px" onclick="say('I have two eyes. I have ten fingers.')">🔊 Listen</button></div>
     </div>
+    <div class="frame">👹 <b>Monster mini-pattern:</b> I <b>have</b> → my monster <b>HAS</b>! (he / she / it → <b>has</b>)<br><em>"My monster <b>has</b> three eyes."</em> · <em>"Robo <b>has</b> one nose."</em>
+      <button class="opt" style="padding:4px 12px" onclick="say('I have two eyes. My monster has three eyes. Robo has one nose.')">🔊</button></div>
     <div class="frame">💡 <b>Say and DO:</b> every sentence gets a movement. Say <em>"Touch your ears"</em> — and touch them! 👂 Body + words = super memory. 🧠</div>
     <p class="hint">💡 Hungarian tip: English always says <b>YOUR</b>: "Touch your nose." Small word, never skip it! 😊</p>
     <h3>✏️ Practice — tap the correct word</h3>
@@ -278,7 +285,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section task">
   <div class="sec-head"><span class="icon">🎨</span> Create — My Silly Monster <span class="timing">10 min</span><span class="step">Step 6</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat. Student opens it and types. She shares her screen — you watch and cheer.</span>
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat. The student opens it and types. They share their screen — you watch and cheer.</span>
     <p>Draw a silly monster on paper. 👹 Crazy is good!</p>
     <h3>First, tap the body parts your monster has:</h3>
     <div class="chips" id="exp-chips"></div>
@@ -290,7 +297,7 @@ body.teacher-mode .t-only{display:block}
     <div class="editable" id="t-mon3" contenteditable="true" data-placeholder="My monster has one big nose."></div>
     <div class="speak">🗣️ <b>Now show your monster!</b> Hold it to the camera. Point and say your 3 lines. Then command your teacher: <em>"Touch your head!"</em> — teacher must do it! 📢😄</div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> draw + SAY only — typing becomes homework.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>Monsters free the numbers: three eyes, four arms — recycles Session 3 numbers. Sample answers: "My monster has three eyes / four arms / one big nose." The role-reversal ("student commands teacher") is the highlight — obey dramatically, get it "wrong" once so she corrects you.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>Monsters free the numbers: three eyes, four arms — recycles Session 3 numbers. Sample answers: "My monster has three eyes / four arms / one big nose." The role-reversal ("student commands teacher") is the highlight — obey dramatically, get it "wrong" once so they correct you.</div>
   </div>
 </div>
 
@@ -298,7 +305,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section challenge">
   <div class="sec-head"><span class="icon">🎮</span> Challenge Game — Simon Says Quest <span class="timing">8 min</span><span class="step">Step 7</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen and cheer. 🎉</span>
+    <span class="zoom-cue">📹 Zoom: the student's browser, their clicks, their score! You watch on their shared screen and cheer. 🎉</span>
     <p class="hint">🕵️ Three rounds. Round 3 is hard! Get 80% for ⭐⭐⭐!</p>
     <h3>Round 1 — Body parts! 👀</h3>
     <div id="ch-quiz1"></div>
@@ -308,7 +315,7 @@ body.teacher-mode .t-only{display:block}
     <div id="ch-quiz3"></div>
     <p class="hint">🎤 After the quiz: play REAL Simon Says on camera! Teacher says it, you do it. "Simon says" first = do it. No "Simon says" = don't move!</p>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 + live Simon Says can start the next lesson's warm-up.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>Student SAYS each answer before tapping — and touches the part. Answers R1: nose · knees · fingers · mouth. R2: head · hands · feet. R3: "touch your nose" · ears · "Don't move!" · BOSS "Simon says: touch your head and your toes." Live Simon Says after: keep commands to taught words, trick her max twice, let her be Simon last.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>Student SAYS each answer before tapping — and touches the part. Answers R1: nose · knees · fingers · mouth. R2: head · hands · feet. R3: "touch your nose" · ears · "Don't move!" · BOSS "Simon says: touch your head and your toes." Live Simon Says after: keep commands to taught words, trick them max twice, let them be Simon last.</div>
   </div>
 </div>
 
@@ -325,6 +332,7 @@ body.teacher-mode .t-only{display:block}
       <p>🎮 <b>Play Simon Says</b> with someone at home. YOU are Simon!</p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise the moving-and-speaking combo — name one command the student gave YOU correctly (that's advanced!). Homework hand-off: replay 5 seconds of Simon Says with them as Simon so they walk away knowing how to run the game at home, and remind them to bring the monster drawing.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

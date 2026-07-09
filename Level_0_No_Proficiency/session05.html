@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 0 · NO PROFICIENCY (PRE-A1)</div>
   <h1>⭐ Session 5 — My Family</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: family words — <b>"This is my mum!"</b> · ≈50 min core</div>
+  <div class="badge">🎯 Today: family words — <b>"This is my mum!"</b></div>
 </div>
 
 <div class="scorebar">
@@ -170,10 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on. Big smile, big wave. Teacher taps 🔊 — student repeats the goal.</span>
-    <p style="font-size:20px">👨‍👩‍👧‍👦 Today you learn <b>family words</b>.<br>
-    ⭐ You will say: <b>"This is my mum!"</b>
-    <button class="opt" style="padding:5px 14px" onclick="say('This is my mum!')">🔊 Listen</button></p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Say the goal slowly, twice; student echoes. Preview: point at yourself, say "me!", then show a family photo (or draw stick figures) and say "my family". Keep every instruction under 8 words, gesture everything.</div>
+    <p class="frame">🎯 Today: <b>family words</b> — <b>"This is my mum!"</b> <button class="opt" style="padding:5px 14px" onclick="say('This is my mum!')">🔊 Listen</button></p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S4):</b> 3 shapes drawn + "It's a ___ ___." under each — ask the student to show the picture and read the lines aloud; listen for color-before-shape order.<br><b>Say:</b> "Today you learn family words. You will say: 'This is my mum!'"<br>Say the goal slowly, twice; student echoes. Preview: point at yourself, say "me!", then show a family photo (or draw stick figures) and say "my family". Keep every instruction under 8 words, gesture everything.</div>
   </div>
 </div>
 
@@ -210,7 +211,8 @@ body.teacher-mode .t-only{display:block}
 <div class="section reading">
   <div class="sec-head"><span class="icon">📖</span> Reading — Tom's Family Photo <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: share screen. Tap 🔊 line by line — student echoes each line. Then she annotates: draw a ❤️ on every "my" (Zoom → Annotate).</span>
+    <span class="zoom-cue">📹 Zoom: share screen. Tap 🔊 line by line — student echoes each line. Then they annotate: draw a ❤️ on every "my" (Zoom → Annotate).</span>
+    <p class="hint">🔎 Watch for <b>This is my ___</b> and <b>I love my ___</b> in the story — we unlock them in Step 5!</p>
     <p>Tap any line. 🔊 Listen. Say it back!
       <button class="opt" style="padding:5px 14px" onclick="sayAll()">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
@@ -220,13 +222,17 @@ body.teacher-mode .t-only{display:block}
       <p data-s="This is my dad." style="cursor:pointer" onclick="say(this.dataset.s)">👨 This is my dad.</p>
       <p data-s="This is my sister, Lily." style="cursor:pointer" onclick="say(this.dataset.s)">👧 This is my sister, Lily.</p>
       <p data-s="This is my baby brother." style="cursor:pointer" onclick="say(this.dataset.s)">👶 This is my baby brother.</p>
+      <p data-s="My baby brother is one year old." style="cursor:pointer" onclick="say(this.dataset.s)">1️⃣ My baby brother is one year old.</p>
       <h4>🍪 At grandma's house</h4>
       <p data-s="This is my grandma." style="cursor:pointer" onclick="say(this.dataset.s)">👵 This is my grandma.</p>
       <p data-s="Grandma has cookies. Yum!" style="cursor:pointer" onclick="say(this.dataset.s)">🍪 Grandma has cookies. Yum!</p>
       <p data-s="This is my grandpa." style="cursor:pointer" onclick="say(this.dataset.s)">👴 This is my grandpa.</p>
+      <p data-s="Grandpa has a big hat." style="cursor:pointer" onclick="say(this.dataset.s)">🎩 Grandpa has a big hat.</p>
       <p data-s="And this is my dog!" style="cursor:pointer" onclick="say(this.dataset.s)">🐶 And this is my dog!</p>
+      <p data-s="My dog is brown. Woof!" style="cursor:pointer" onclick="say(this.dataset.s)">🐾 My dog is brown. Woof!</p>
       <p data-s="I love my family." style="cursor:pointer" onclick="say(this.dataset.s)">❤️ I love my family.</p>
-      <p data-s="My family loves me." style="cursor:pointer" onclick="say(this.dataset.s)">🥰 My family loves me.</p>
+      <p data-s="I love my grandma and my grandpa too." style="cursor:pointer" onclick="say(this.dataset.s)">🥰 I love my grandma and my grandpa too.</p>
+      <p data-s="My family loves me." style="cursor:pointer" onclick="say(this.dataset.s)">💕 My family loves me.</p>
     </div>
 
     <h3>🔎 Did you understand? Tap your answer</h3>
@@ -277,7 +283,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section task">
   <div class="sec-head"><span class="icon">🎨</span> Create — My Family Page <span class="timing">10 min</span><span class="step">Step 6</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat. Student opens it and types. She shares her screen — you watch and cheer.</span>
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat. The student opens it and types. They share their screen — you watch and cheer.</span>
     <p>Draw your family on paper. 🖍️ Stick people are great!</p>
     <h3>First, tap the people in YOUR family:</h3>
     <div class="chips" id="exp-chips"></div>
@@ -291,7 +297,7 @@ body.teacher-mode .t-only{display:block}
     <div class="editable" id="t-love" contenteditable="true" data-placeholder="I love my family."></div>
     <div class="speak">🗣️ <b>Now show your drawing!</b> Hold it to the camera. Point at each person. Say: <em>"This is my ___!"</em> 📢</div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> draw and SAY only — typing becomes homework.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>The show-and-point moment is the real output; typing is secondary. Sample answers: "This is my mum." ×3 + "I love my family." Pets count as family — a dog line is a joy, allow it. Ask "Who is this?" and let her answer with the chunk.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>The show-and-point moment is the real output; typing is secondary. Sample answers: "This is my mum." ×3 + "I love my family." Pets count as family — a dog line is a joy, allow it. Ask "Who is this?" and let them answer with the chunk.</div>
   </div>
 </div>
 
@@ -299,7 +305,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section challenge">
   <div class="sec-head"><span class="icon">🎮</span> Challenge Game — Family Quest <span class="timing">8 min</span><span class="step">Step 7</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen and cheer. 🎉</span>
+    <span class="zoom-cue">📹 Zoom: the student's browser, their clicks, their score! You watch on their shared screen and cheer. 🎉</span>
     <p class="hint">🕵️ Three rounds. Round 3 is hard! Get 80% for ⭐⭐⭐!</p>
     <h3>Round 1 — Who is it? 👀</h3>
     <div id="ch-quiz1"></div>
@@ -325,6 +331,7 @@ body.teacher-mode .t-only{display:block}
       <p>✏️ <b>Write 2 lines:</b> <em>"This is my ___. I love my ___."</em></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise the pointing moment: the student presented real people in English today — say so out loud. Homework hand-off: point at an imaginary photo yourself and model "This is my ___. I love my ___." once, then confirm they'll bring the photo or drawing next time.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

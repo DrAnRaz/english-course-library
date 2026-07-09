@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 0 · NO PROFICIENCY (PRE-A1)</div>
   <h1>⭐ Session 2 — ABC &amp; My Name</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: learn <b>letter sounds</b> and <b>spell your name</b> · ≈50 min core</div>
+  <div class="badge">🎯 Today: learn <b>letter names</b> and <b>spell your name</b></div>
 </div>
 
 <div class="scorebar">
@@ -170,9 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on. Quick hello from last time! Then teacher reads the goal with 🔊 — student copies it back.</span>
-    <p style="font-size:19px">🌟 Today you learn the <b>ABC</b>. And you <b>spell your name</b>! <button class="opt" style="padding:4px 12px" onclick="say('A, B, C! My name is Tam. T, A, M.')">🔊 Listen</button></p>
-    <p>🔤 Letters have names. You will say them. Ready? 🚀</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Warm re-entry: elicit last session's chunks first ("Hello! How are you?"). Today's win condition = student can spell their OWN name aloud in English letters. Everything else is a bonus. Letter NAMES only today — no phonics drills.</div>
+    <p class="frame">🎯 Today: the <b>ABC</b> + <b>spell your name</b>! <button class="opt" style="padding:4px 12px" onclick="say('A, B, C! My name is Tam. T, A, M.')">🔊 Listen</button></p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Say:</b> "Today you learn the ABC. And you spell your name! Letters have names. You will say them. Ready?"<br>Warm re-entry: elicit last session's chunks first ("Hello! How are you?"). Today's win condition = student can spell their OWN name aloud in English letters. Everything else is a bonus. Letter NAMES only today — no phonics drills.</div>
   </div>
 </div>
 
@@ -201,6 +203,7 @@ body.teacher-mode .t-only{display:block}
     <h3>🎧 Practice — tap the right letter</h3>
     <p class="hint">Listen to the clue. Tap the letter. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Drill each card: 🔊 → letter name choral ×2 → anchor word once. Prioritize the letters in the student's OWN name plus the A/E/I trap trio; skip W and Z if time is tight. Personalize: after the grid, air-write a letter and have them shout its name.</div>
   </div>
 </div>
 
@@ -209,16 +212,17 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — The Name Game <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen. Point at each emoji first. Play 🔊 line by line — student echoes every line ("my turn → your turn").</span>
+    <p class="hint">🔎 Watch for <b>My name is ___</b> and <b>letter spelling (T-A-M)</b> in the story — we unlock them in Step 5!</p>
     <p>Look at the pictures. Listen 🔊. Say each line!
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
       <h4>🏫 At school</h4>
-      <p>🧑‍🏫 "Good morning! I am Mr. Ravi."<br>👧🧒 "Good morning!"</p>
+      <p>🧑‍🏫 "Good morning! I am Mr. Ravi."<br>👧🧒 "Good morning!"<br>🧑‍🏫 "Welcome to school!"</p>
       <h4>💬 What is your name?</h4>
-      <p>🧒 "My name is Tam. T-A-M."<br>👧 "I am Isa. I-S-A."<br>🧑‍🏫 "Nice to meet you!"</p>
+      <p>🧑‍🏫 "What is your name?"<br>🧒 "My name is Tam. T-A-M."<br>👧 "I am Isa. I-S-A."<br>🧑‍🏫 "Nice to meet you!"</p>
       <h4>🐦 And the bird?</h4>
-      <p>🐦 The bird is Kiki.<br>😄 "K-I-K-I. Kiki!"<br>🌟 Kiki is a happy bird.</p>
-      <p>👏 "Good job! High five!"</p>
+      <p>🐦 The bird is Kiki.<br>😄 "K-I-K-I. Kiki!"<br>🌟 Kiki is a happy bird.<br>🐦 Kiki says, "Tweet! Tweet!"<br>🧒 "Hello, Kiki!"<br>🐦 "Hello! Hello!"</p>
+      <p>😄 Tam is happy. Isa is happy too.<br>👏 "Good job! High five!"</p>
     </div>
 
     <h3>🔎 Did you understand? Tap your answer</h3>
@@ -271,7 +275,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section task">
   <div class="sec-head"><span class="icon">🎨</span> Create — My Name Poster <span class="timing">10 min</span><span class="step">Step 6</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it and types (or dictates while you type). Student shares her screen.</span>
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — the student opens it and types (or dictates while you type). The student shares their screen.</span>
     <p>Make your name poster! 🖼️</p>
     <h3>First, tap the letters in YOUR name:</h3>
     <div class="chips" id="letter-chips"></div>
@@ -291,7 +295,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section challenge">
   <div class="sec-head"><span class="icon">🎮</span> Challenge Game — Letter Detective <span class="timing">8 min</span><span class="step">Step 7</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! Read each question aloud with 🔊 help. You cheer. 🎉</span>
+    <span class="zoom-cue">📹 Zoom: the student's browser, their clicks, their score! Read each question aloud with 🔊 help. You cheer. 🎉</span>
     <p class="hint">🕵️ Three rounds. Round 3 has a BOSS! Get 80% for ⭐⭐⭐!</p>
     <h3>Round 1 — First letter</h3>
     <div id="ch-quiz1"></div>
@@ -317,6 +321,7 @@ body.teacher-mode .t-only{display:block}
       <p>🔎 Find 3 things at home. What letter do they start with?</p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise the big win: the student can spell their OWN name in English — say it back to them letter by letter as applause. Homework hand-off: demo task 3 once (hold up an object, ask "What letter?") so they know exactly what to do at home.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

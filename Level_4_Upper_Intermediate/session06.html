@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 4 · UPPER-INTERMEDIATE (B2)</div>
   <h1>🏛️ Session 6 — The Art of Persuasion</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: build an argument that convinces — <b>claims, evidence, linking words</b>, and the counter-argument move · ≈50 min core</div>
+  <div class="badge">🎯 Today: build an argument that convinces — <b>claims, evidence, linking words</b>, and the counter-argument move</div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student repeats it back in their own words.</span>
-    <p><em>"Today you will build an argument that actually convinces people: a clear claim, real evidence, professional linking words — and the black-belt move: welcoming the counter-argument and answering it."</em> 🥋</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Diagnostic: "Convince me in ONE sentence that weekends should be three days long." Note whether any linkers (because, so, but, also) appear naturally — that calibrates Step 5.</div>
+    <p class="frame">🎯 Today: build an argument that really changes minds!</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S5):</b> 4 idiom sentences + one idiom taught to a family member — student reads and retells; listen for FIXED wording (no "spill the peas") and natural placement.<br><b>Say:</b> "Today you will build an argument that actually convinces people: a clear claim, real evidence, professional linking words — and the black-belt move: welcoming the counter-argument and answering it." 🥋<br>Diagnostic: "Convince me in ONE sentence that weekends should be three days long." Note whether any linkers (because, so, but, also) appear naturally — that calibrates Step 5.</div>
   </div>
 </div>
 
@@ -199,6 +202,7 @@ body.teacher-mode .t-only{display:block}
     <h3>🎧 Practice — tap the right word</h3>
     <p class="hint">Read the clue and tap the word that matches. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Teach the four core moves as one chain: claim → evidence → counter-argument → rebuttal — everything else in the lesson hangs on these four. "Concede" is the hardest and most important; act it out with a handshake gesture. Personalisation: what was the last thing they persuaded their parents to do, and what evidence worked?</div>
   </div>
 </div>
 
@@ -206,23 +210,28 @@ body.teacher-mode .t-only{display:block}
 <div class="section reading">
   <div class="sec-head"><span class="icon">📖</span> Reading — Should Schools Ban Smartphones? <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: share screen, take turns reading one chunk each. Then student annotates every LINKING WORD she finds (Zoom → Annotate) — there are more than ten!</span>
+    <span class="zoom-cue">📹 Zoom: share screen, take turns reading one chunk each. Then student annotates every LINKING WORD they find (Zoom → Annotate) — there are more than ten!</span>
+    <p class="hint">🔎 Watch for the <b>bold linking words</b> (Furthermore, However, Admittedly…) steering the argument — we unlock them in Step 5!</p>
     <p>Read this opinion piece from a school magazine. Watch how it argues — the linking words are in <b>bold</b>. Tap 🔊 to hear any part.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
       <h4>🎣 The hook</h4>
       <p>Imagine a classroom where nobody checks a screen for six whole hours. To some students, that sounds like a nightmare; to many teachers, it sounds like paradise. This year, our school is debating a total phone ban — and everyone has an opinion.</p>
+      <p>The student council has been collecting views for two weeks. Its box in the corridor is already stuffed with more than a hundred notes, and the debate has spread from the classrooms to the dinner tables of half the town.</p>
       <h4>📣 The case for a ban</h4>
       <p>Supporters make a strong claim: phones destroy concentration. <b>According to</b> one widely reported study, it can take over twenty minutes to fully refocus after a single notification. <b>Furthermore</b>, phones don't only distract their owners — one lit screen pulls the eyes of every student nearby.</p>
       <p><b>In addition</b>, there is the social argument. Break time used to mean conversation; now it often means thirty heads bent over thirty screens. <b>As a result</b>, some students say they feel lonelier at school than anywhere else.</p>
+      <p>Teachers tell a similar story. Ms Varga, who has taught maths here for twelve years, says the change is visible from the front of the room: "Ten years ago I competed with daydreaming. Now I compete with a casino in every pocket."</p>
       <h4>🔄 The other side</h4>
       <p><b>However</b>, opponents of the ban raise fair points. Phones are not just toys: they are calculators, dictionaries and cameras. <b>Moreover</b>, parents want to reach their children in an emergency, and many students travel home alone.</p>
       <p>Opponents also argue that a ban teaches the wrong lesson. <b>Whereas</b> adults are trusted to manage their own screen time, a total ban treats teenagers like small children. School, they say, should teach self-control — not simply remove the temptation.</p>
+      <p>There is a practical worry too. Who would collect three hundred phones every morning, guard them safely, and hand the right one back to the right student? A rule that cannot be enforced, opponents warn, quickly becomes a rule that nobody respects.</p>
       <h4>🥊 The rebuttal</h4>
       <p><b>Admittedly</b>, phones can be useful tools. <b>Nevertheless</b>, the evidence suggests we are not using them as tools most of the time. One survey at our own school found that fewer than one in ten phone pick-ups during lessons were for school work.</p>
       <p><b>Therefore</b>, keeping phones in our pockets "just in case" means accepting hours of distraction in exchange for minutes of usefulness.</p>
       <h4>⚖️ The verdict</h4>
       <p><b>On balance</b>, a full ban during lessons — with phones allowed at lunchtime and after school — seems the fairest compromise. It protects concentration where it matters most, while still respecting students' lives outside the classroom.</p>
+      <p>The school votes next month. Both sides are preparing posters, and the student council has promised that every vote — student or teacher — will count equally.</p>
       <p>Whatever you believe, notice one thing: this article did not shout, insult anyone, or exaggerate. It made claims, offered evidence, faced the counter-argument, and answered it. That — not volume — is the art of persuasion.</p>
     </div>
 
@@ -273,7 +282,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section task">
   <div class="sec-head"><span class="icon">🎨</span> Create — The One-Minute Pitch <span class="timing">10 min</span><span class="step">Step 6</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student types in her own browser and shares her screen. For the delivery: she stands up, camera on, you time 60 seconds.</span>
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student types in their own browser and shares their screen. For the delivery: they stand up, camera on, you time 60 seconds.</span>
     <p>Build a speech that could actually change someone's mind — using today's skeleton. 🏗️</p>
     <h3>First, tap your topic:</h3>
     <div class="chips" id="topic-chips"></div>
@@ -295,7 +304,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section challenge">
   <div class="sec-head"><span class="icon">🎮</span> Challenge Game — Debate Arena <span class="timing">8 min</span><span class="step">Step 7</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen and cheer. 🎉</span>
+    <span class="zoom-cue">📹 Zoom: student's browser, their clicks, their score! You watch on their shared screen and cheer. 🎉</span>
     <p class="hint">🏛️ Three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
     <h3>Round 1 — Pick the linker</h3>
     <div id="ch-quiz1"></div>
@@ -304,7 +313,7 @@ body.teacher-mode .t-only{display:block}
     <h3>Round 3 — Boss level: build &amp; rebut 👑</h3>
     <div id="ch-quiz3"></div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can be the start of the next lesson's warm-up.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>Wrong answers auto-reveal the correct one in green — ask "why?" on each miss. The BOSS item is the full skeleton order; if she gets it, ask her to say her Step 6 pitch's skeleton from memory as a victory lap.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>Wrong answers auto-reveal the correct one in green — ask "why?" on each miss. The BOSS item is the full skeleton order; if the student gets it, ask them to say their Step 6 pitch's skeleton from memory as a victory lap.</div>
   </div>
 </div>
 
@@ -321,6 +330,7 @@ body.teacher-mode .t-only{display:block}
       <p>🎧 <b>Bonus:</b> watch any 2-minute speech in English and write down two linking words you hear the speaker use.</p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise the concede-and-rebut move if it appeared in their pitch — that's today's black belt; name it. Hand off homework: confirm their paragraph topic now and remind them the concession must be UNDERLINED — that's what you'll check first next lesson.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

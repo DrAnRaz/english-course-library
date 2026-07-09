@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 3 · INTERMEDIATE (B1)</div>
   <h1>🦸 Session 3 — If I Had a Superpower</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: real plans with <b>will</b> (first conditional) &amp; wild dreams with <b>would</b> (second conditional) · ≈50 min core</div>
+  <div class="badge">🎯 Today: real plans with <b>will</b> (first conditional) &amp; wild dreams with <b>would</b> (second conditional)</div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
-    <p><em>"Today you will make real plans with <b>will</b> and impossible dreams with <b>would</b>. By the end, you can say what you WILL do if things go right — and what you WOULD do if you had a superpower."</em> 🦸</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Ask: "If you had a million dollars, what would you do?" Don't correct yet — just note whether "would" appears at all. That's your live diagnostic for Step 5.</div>
+    <p class="frame">🎯 Today: real plans and wild superpower dreams!</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S2):</b> the photo story (2 past continuous + 2 past simple sentences) — student reads it aloud; listen for a clean "was/were + -ing" vs simple split.<br><b>Say:</b> "Today you will make real plans with <b>will</b> and impossible dreams with <b>would</b>. By the end, you can say what you WILL do if things go right — and what you WOULD do if you had a superpower." 🦸<br>Ask: "If you had a million dollars, what would you do?" Don't correct yet — just note whether "would" appears at all. That's your live diagnostic for Step 5.</div>
   </div>
 </div>
 
@@ -199,6 +202,7 @@ body.teacher-mode .t-only{display:block}
     <h3>🎧 Practice — tap the right power</h3>
     <p class="hint">Read the clue and tap the power that matches. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Drill each card twice: you click 🔊, the student repeats the power name AND the "would"-dream line under it — the dream line is the real target. If time is tight, skip powers the student names instantly and spend the saved minute on the quiz. Personalization: after 3–4 cards ask "Which of these would YOU pick — and why?" and accept any "I would…" attempt.</div>
   </div>
 </div>
 
@@ -206,7 +210,8 @@ body.teacher-mode .t-only{display:block}
 <div class="section reading">
   <div class="sec-head"><span class="icon">📖</span> Reading — The Great Superpower Survey <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: share screen. Student reads one chunk aloud, you read the next — take turns. Then she circles every "would" and every "will" on your screen (Zoom → Annotate).</span>
+    <span class="zoom-cue">📹 Zoom: share screen. Student reads one chunk aloud, you read the next — take turns. Then they circle every "would" and every "will" on your screen (Zoom → Annotate).</span>
+    <p class="hint">🔎 Watch for <b>if… will</b> plans and <b>if… would</b> dreams in the story — we unlock both in Step 5!</p>
     <p>Read Kofi's report about his school survey. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
@@ -218,13 +223,16 @@ body.teacher-mode .t-only{display:block}
       <h4>🥈 Second place: invisibility</h4>
       <p>Fifteen students would like to be invisible. Most gave the same slightly scary reason: "If I <b>were</b> invisible, I <b>would find out</b> what my friends really say about me." Hmm — are you sure you want to know?</p>
       <p>Our teacher laughed and hid her phone.</p>
+      <p>Priya, fourteen, was one of the fifteen, but her reason was kinder: "If I <b>were</b> invisible, I <b>would visit</b> the cinema for free — but I <b>would feel</b> lonely if nobody could see me." Her answer made the whole club go quiet for a moment.</p>
       <h4>🐱 The surprise: talking to animals</h4>
       <p>Ten students chose talking to animals. Bence, thirteen, explained: "If I <b>could talk</b> to my cat, I <b>would finally understand</b> why she knocks my pencils off the desk. I think she does it for fun."</p>
       <h4>⚡ And the rest</h4>
       <p>Five students picked super speed, mind reading or time travel. Only one person chose super strength. "Gyms are cheaper than superpowers," she wrote. Fair point.</p>
+      <p>One of the mind-reading fans added a warning: "If everyone <b>could read</b> minds, nobody <b>would have</b> any secrets — and school <b>would be</b> a very dangerous place." We gave that answer a special prize for wisdom.</p>
       <h4>🌟 What happens next</h4>
       <p>Then we asked a second question: "Forget magic — what <b>will</b> you do this year?" Suddenly the answers got real.</p>
       <p>"If I <b>practise</b> every day, I <b>will make</b> the basketball team." "If I <b>save</b> my pocket money, I <b>will buy</b> a telescope." "If I <b>get</b> nervous before the test, I <b>will breathe</b> and count to ten."</p>
+      <p>My own answer? If I <b>pass</b> my exams in June, I <b>will start</b> a podcast about our club. And if I <b>had</b> more free time, I <b>would interview</b> every student in the school. One question is never enough.</p>
       <p>Maybe that is the real lesson of our survey. Dreams need <b>would</b>. Plans need <b>will</b>. And the happiest people we know use both.</p>
     </div>
 
@@ -277,7 +285,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section task">
   <div class="sec-head"><span class="icon">🎨</span> Create — Design Your Superhero Self <span class="timing">10 min</span><span class="step">Step 6</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in her own browser and types here while sharing her screen (Zoom → Share Screen).</span>
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in their own browser and types here while sharing their screen (Zoom → Share Screen).</span>
     <p>Time to build your superhero identity! Pick your powers, then write your hero file. 🦸</p>
     <h3>First, tap the 1–2 powers you would choose:</h3>
     <div class="chips" id="power-chips"></div>
@@ -299,7 +307,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section challenge">
   <div class="sec-head"><span class="icon">🎮</span> Challenge Game — Conditional Quest <span class="timing">8 min</span><span class="step">Step 7</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen and cheer. 🎉</span>
+    <span class="zoom-cue">📹 Zoom: student's browser, their clicks, their score! You watch on their shared screen and cheer. 🎉</span>
     <p class="hint">🗝️ Three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
     <h3>Round 1 — Real or dream?</h3>
     <div id="ch-quiz1"></div>
@@ -308,7 +316,7 @@ body.teacher-mode .t-only{display:block}
     <h3>Round 3 — Boss level: complete the chain 👑</h3>
     <div id="ch-quiz3"></div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can be the start of the next lesson's warm-up.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>All answers show live in her score. Wrong answers auto-reveal the correct one in green — ask "real chance or just imagine?" on each miss.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>All answers show live in their score. Wrong answers auto-reveal the correct one in green — ask "real chance or just imagine?" on each miss.</div>
   </div>
 </div>
 
@@ -325,6 +333,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Example: <em>"If I finish my project early, I will watch a film. If I had super speed, I would finish it in one second."</em></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise ONE "If I…, I would…" dream the student invented today — quote it back word for word.<br>Hand off homework by giving one real plan and one dream of your own first, so they hear the will/would contrast once more before leaving.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

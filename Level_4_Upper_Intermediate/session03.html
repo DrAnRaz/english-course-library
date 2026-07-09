@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 4 · UPPER-INTERMEDIATE (B2)</div>
   <h1>🔗 Session 3 — Who, Which, Whose</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: connect ideas like a pro with <b>relative clauses</b> — defining &amp; non-defining · ≈50 min core</div>
+  <div class="badge">🎯 Today: connect ideas like a pro with <b>relative clauses</b> — defining &amp; non-defining</div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
-    <p><em>"Today you learn to glue two ideas into one smart sentence with <b>who, which, whose, where</b> — and to control the commas: 'My cousin, <b>who</b> lives in London, has a cat <b>which</b> opens doors.' By the end, you can define anything in the world in one elegant sentence."</em> 🔗</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Quick diagnostic: ask "Who is your best friend? Tell me about them in ONE sentence." Note whether they chain with "and… and…" or attempt "who…". No correction — that's your baseline.</div>
+    <p class="frame">🎯 Today: glue two ideas into one smart sentence — like a pro!</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S2):</b> 3 reported family wishes + 1 mixed conditional — student reads them aloud; listen for "wishes she had…" and "would… now" before moving on.<br><b>Say:</b> "Today you learn to glue two ideas into one smart sentence with <b>who, which, whose, where</b> — and to control the commas: 'My cousin, <b>who</b> lives in London, has a cat <b>which</b> opens doors.' By the end, you can define anything in the world in one elegant sentence." 🔗<br>Quick diagnostic: ask "Who is your best friend? Tell me about them in ONE sentence." Note whether they chain with "and… and…" or attempt "who…". No correction — that's your baseline.</div>
   </div>
 </div>
 
@@ -199,6 +202,7 @@ body.teacher-mode .t-only{display:block}
     <h3>🎧 Practice — tap the right word</h3>
     <p class="hint">Read the clue and tap the word that matches. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Drill the invention "life cycle" as a chain: curious → design → prototype → improve → patent — say it once, then let the student rebuild it from memory. "Patent" and "prototype" matter most for the reading; "accidentally" is a gift for pronunciation practice. Personalisation: which device would they redesign, and what one thing would they improve?</div>
   </div>
 </div>
 
@@ -207,25 +211,31 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — Kids Whose Ideas Changed Your Day <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen. Student reads one inventor's story aloud, you read the next. Relative-clause hunt: student annotates every who/which/whose/that on your screen (Zoom → Annotate) — aim for 10+.</span>
+    <p class="hint">🔎 Watch for <b>who / which / whose / where</b> gluing ideas together in the article — we unlock them in Step 5!</p>
     <p>Read the article. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
       <h4>💡 Kids Whose Ideas Changed Your Day</h4>
       <p>Do you think inventions only come from old scientists in white coats? Think again. Some of the objects that you use every single day were dreamed up by people your age.</p>
+      <p>Here are four inventors who never waited for permission — and whose ideas are probably lying within two metres of you right now.</p>
       <h4>🍧 The frozen accident</h4>
       <p>In 1905, an eleven-year-old called Frank Epperson mixed a fruit drink on his porch and forgot about it — on a night when the temperature dropped below freezing. The next morning he found a frozen block, which he pulled out by its wooden stirring stick.</p>
       <p>Frank, whose friends went crazy for the icy treat, kept making it for years. As an adult he patented his "frozen ice on a stick", and the ice pop that you eat every summer was born — from a lucky mistake.</p>
+      <p>There is a lesson hiding in that porch, which scientists repeat all the time: don't throw away the experiments that go wrong. One of them might turn out to be delicious.</p>
       <h4>🤸 The bouncing teenager</h4>
       <p>George Nissen was a sixteen-year-old gymnast who loved watching circus acrobats fall into safety nets. He asked himself a simple question: what if the net could bounce you back up?</p>
       <p>In his parents' garage, which became his first laboratory, he built a prototype from canvas and rubber tyres. Today we call his bouncy invention the trampoline.</p>
+      <p>Nissen, whose talent for showmanship matched his engineering, spent years improving the design and demonstrating it anywhere people would watch. He even performed with a kangaroo, an animal whose enormous jumps made the perfect advertisement.</p>
       <h4>👆 Reading in the dark</h4>
       <p>Louis Braille, who lost his sight at the age of three, was only fifteen when he created something world-changing. He designed an alphabet of raised dots, which blind readers could feel with their fingertips.</p>
       <p>The system that he invented in 1824 is still used today, in almost every language on Earth. Not bad for a teenager whose teachers thought his idea was unnecessary.</p>
+      <p>The idea did not appear from nowhere. Braille started with a military code which soldiers used to read messages in the dark, and simplified it until fingertips could race across a page. Blind students, whose lessons had depended on heavy raised-letter books, could finally write as fast as they read.</p>
       <h4>📺 The boy in the potato field</h4>
       <p>Finally, meet Philo Farnsworth, a fourteen-year-old farm boy whose daily job was ploughing potato fields. The long straight lines, which he stared at for hours, gave him a wild idea: a picture could be drawn line by line with electrons.</p>
       <p>That idea, which he first sketched for his science teacher, became a key part of early television. The screen that you watched last night can be traced back to a homework diagram.</p>
       <h4>✨ Your turn</h4>
       <p>Every inventor in this article was simply a person who noticed something small and asked "what if?". The next everyday genius, whose invention we can't even imagine yet, might be reading this exact sentence right now.</p>
+      <p>So keep a notebook, which is cheaper than a time machine and far more reliable. Write down every strange question that pops into your head. Somewhere among the silly ones, there may be an idea whose time has come.</p>
     </div>
 
     <h3>🔎 Did you understand? Tap your answer</h3>
@@ -325,6 +335,7 @@ body.teacher-mode .t-only{display:block}
       <p>⭐ <b>Bonus:</b> make ONE entry non-defining, with both commas: <em>"My dog, who thinks he is a cat, sleeps on the fridge."</em></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise the star exhibit sentence from Step 6 — especially if BOTH commas landed; say so explicitly. Hand off homework: brainstorm the 5 dictionary entries' topics together (school, friend, phone…) so at home they only write, not decide.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

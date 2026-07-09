@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 5 · PROFICIENT (C1)</div>
   <h1>🏛️ Session 6 — Debate Club Pro</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: argue like a champion — <b>hedge</b>, <b>concede</b>, <b>rebut</b> · ≈50 min core</div>
+  <div class="badge">🎯 Today: argue like a champion — <b>hedge</b>, <b>concede</b>, <b>rebut</b></div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
-    <p><em>"Today you learn how champions disagree. You will <b>hedge</b> your claims so they can't be broken, <b>concede</b> a point without losing, and <b>rebut</b> an argument without attacking the person. By the end, you can win a disagreement — and keep the friend."</em> 🏆</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Live diagnostic: say "Winter is the best season. Change my mind." Note their FIRST move — do they say "No, you're wrong" (direct) or "Well, it depends…" (already hedging)? Today upgrades whichever they do naturally. Don't correct yet.</div>
+    <p class="frame">🎯 Today: win the argument — and keep the friend! 🏆</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S5):</b> two collected jokes + their mechanisms — student performs one, you groan appropriately; listen for whether they can name the word doing two jobs or the flipped expectation.<br><b>Say:</b> "Today you learn how champions disagree. You will hedge your claims so they can't be broken, concede a point without losing, and rebut an argument without attacking the person. By the end, you can win a disagreement — and keep the friend."<br>Live diagnostic: say "Winter is the best season. Change my mind." Note their FIRST move — do they say "No, you're wrong" (direct) or "Well, it depends…" (already hedging)? Today upgrades whichever they do naturally. Don't correct yet.</div>
   </div>
 </div>
 
@@ -208,15 +211,18 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — Inside the Final <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen, take turns reading chunks aloud — do the quoted debate lines in "debater voice". Student annotates: H over every hedge, C over every concession.</span>
+    <p class="hint">🔎 Watch for <b>hedges ("tends to…"), concessions ("I'll concede…") and rebuttals</b> in the report — we unlock the three moves in Step 5!</p>
     <p>Read this report from a school debating final. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
       <h4>🏛️ The motion</h4>
       <p>Every year, Millbrook Academy's debate final fills the hall. This year's motion: "This house believes homework should be abolished." Speaking for the motion, Tomas; against it, Farida.</p>
       <p>What follows are the key moments from the transcript, with notes on the moves each speaker made. Watch how the winners argue: rarely with volume, almost always with structure.</p>
+      <p>The hall knew both finalists well. Tomas had lost last year's final by a single point and had spent the year rebuilding his style; Farida, captain of the junior team, was famous for never raising her voice. The audience expected fireworks. What they got was chess.</p>
       <h4>🌿 Opening moves: the hedge</h4>
       <p>Tomas began carefully: "The evidence suggests that homework, in its current form, tends to add stress without adding much learning." Notice what he did not say: "Homework is useless."</p>
       <p>That caution is called hedging — softening a claim so it can be defended. "Suggests", "tends to", "in its current form": each phrase gives Tomas room to move when attacked. A hedged claim bends; an absolute claim snaps.</p>
+      <p>The judges' scoresheets, published afterwards, show how well the caution worked: where the semi-final speakers had lost points for "overclaiming", Tomas's opening survived every attack Farida threw at it — precisely because it had promised so little.</p>
       <h4>🤝 The concession trick</h4>
       <p>Farida's reply surprised the audience: "I'll concede that badly designed homework exists — we've all suffered through pointless worksheets." A debater agreeing with her opponent? Exactly.</p>
       <p>This is concession, and it is a power move, not a surrender. By granting the weakest version of Tomas's point, Farida looked fair and reasonable — and earned the right to attack the strongest version.</p>
@@ -226,9 +232,11 @@ body.teacher-mode .t-only{display:block}
       <p>"My opponent says homework teaches independence," he said. "But notice that she offered no evidence — only the assumption that suffering builds character. Finland assigns among the least homework in Europe and still tops the learning surveys."</p>
       <p>He attacked the argument's support, not the person, and replaced it with evidence of his own. That is textbook rebuttal: locate the weak plank, press on it, then build your own.</p>
       <p>Compare that with the lazy alternative, the strawman: inventing a weaker version of your opponent's claim and defeating that instead. "So you want students to do nothing all evening?" would have been a strawman — Farida never said that.</p>
+      <p>Judges punish the strawman severely, and audiences sense it even when they cannot name it. The moment a speaker answers a claim nobody made, the debate stops being a contest of ideas and becomes a performance of shadow-boxing.</p>
       <h4>⚖️ What the judges said</h4>
       <p>The chief judge's feedback afterwards is worth memorising. "We don't reward certainty," she said. "We reward speakers who know exactly how strong each of their claims is — and say so."</p>
       <p>She singled out the phrases that scored: "to some extent", "the evidence points towards", "while it's true that". Beginner debaters fear these phrases sound weak. The judges hear the opposite: control.</p>
+      <p>She also praised something the audience never noticed: the pauses. Both finalists left half a second of silence before every rebuttal — long enough to show the point had been heard rather than merely waited out. Listening, she reminded the hall, is the half of debating that never appears on the scoresheet.</p>
       <p>Her final advice went beyond debating. "You will spend your life disagreeing with people you must keep working with. Concede honestly, hedge precisely, rebut the argument and never the person — and disagreement becomes collaboration."</p>
       <p>Farida won by two points. Tomas, gracious in defeat, was heard practising for the rematch on the bus home: "Admittedly, she was better today. But…"</p>
     </div>
@@ -327,6 +335,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Bonus: actually try the concession on them in real life — and report back whether the conversation changed. 😄</p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise the most honest concession of the day — quote it back and say why it earned the right to attack. Hand off homework by choosing the family disagreement TOGETHER now; agree on the exact "While it's true that…" opener so the paragraph is already half-built.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

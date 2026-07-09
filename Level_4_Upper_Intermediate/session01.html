@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 4 · UPPER-INTERMEDIATE (B2)</div>
   <h1>🕵️ Session 1 — Mysteries &amp; Deduction</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: solve mysteries like a detective with <b>must have / might have / can't have</b> · ≈50 min core</div>
+  <div class="badge">🎯 Today: solve mysteries like a detective with <b>must have / might have / can't have</b></div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
-    <p><em>"Today you become a detective. You will look at clues and say how sure you are about the past: <b>must have</b> (I'm sure it happened), <b>might have</b> (it's possible), <b>can't have</b> (impossible!). By the end, you can solve a mystery out loud — in English."</em> 🔎</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Quick diagnostic: say "My coffee cup is empty" and ask "What happened to my coffee?" Note whether the student attempts any deduction language ("maybe you drank it" vs "you must have drunk it"). Don't correct yet — this shows you where they start.</div>
+    <p class="frame">🎯 Today: become a detective — how sure are you about the past?</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Say:</b> "Today you become a detective. You will look at clues and say how sure you are about the past: <b>must have</b> (I'm sure it happened), <b>might have</b> (it's possible), <b>can't have</b> (impossible!). By the end, you can solve a mystery out loud — in English." 🔎<br>Quick diagnostic: say "My coffee cup is empty" and ask "What happened to my coffee?" Note whether the student attempts any deduction language ("maybe you drank it" vs "you must have drunk it"). Don't correct yet — this shows you where they start.</div>
   </div>
 </div>
 
@@ -199,6 +202,7 @@ body.teacher-mode .t-only{display:block}
     <h3>🎧 Practice — tap the right word</h3>
     <p class="hint">Read the clue and tap the word that matches. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Drill the cards in contrasting pairs (suspect ↔ culprit, clue ↔ red herring) — meaning sticks faster with contrast. "Alibi" and "red herring" carry today's reading, so don't skip them. Personalisation: ask which word best describes someone in their family or a pet — and why.</div>
   </div>
 </div>
 
@@ -207,6 +211,7 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — The Case of the Missing Mascot <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen. Take turns — student reads one chunk aloud, you read the next. After each chunk, student predicts: "Who took Marvin?" Then student annotates quiz answers on your screen (Zoom → Annotate).</span>
+    <p class="hint">🔎 Watch for <b>must have / might have / can't have</b> in the story — we unlock them in Step 5!</p>
     <p>Read Priya's case file. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
@@ -215,8 +220,10 @@ body.teacher-mode .t-only{display:block}
       <h4>🔍 The clues</h4>
       <p>The storeroom door hadn't been forced, so the thief <b>must have had</b> a key. Only four people carry one: Coach Dembélé, the caretaker Mr Novak, our team captain Alicia, and Dev from the drama club.</p>
       <p>On the dusty floor I found small footprints — size 36, far too small for the coach or the caretaker. There was also a faint smell of fresh paint, and one shiny silver sequin.</p>
+      <p>I photographed everything and wrote each detail in my notebook. My journalism teacher always says that a good reporter records the facts first and forms opinions later, so that is exactly what I did.</p>
       <h4>🧩 The suspects</h4>
       <p>Alicia had a perfect alibi. She was at basketball practice all afternoon, in front of thirty witnesses. She <b>can't have taken</b> the costume, so I ruled her out immediately.</p>
+      <p>The adults were easy to check too. Coach Dembélé had left for an away match at lunchtime, and Mr Novak had spent the whole afternoon fixing a leaking pipe in the library — the librarian confirmed it. Neither of them <b>could have visited</b> the storeroom, and anyway, their feet are enormous. Two more suspects ruled out.</p>
       <p>Dev, however, had been acting strangely. He had stayed late on Friday "to organise props", and his drama club was rehearsing a musical with silver costumes. He <b>might have borrowed</b> Marvin for the show, I thought — but it felt too obvious, almost like a trick.</p>
       <h4>💡 The deduction</h4>
       <p>Then I remembered the paint. The art club had been repainting scenery in the room next door all week. Their youngest member, Riko, wears size 36 shoes — and borrows the caretaker's key to fetch brushes.</p>
@@ -224,7 +231,9 @@ body.teacher-mode .t-only{display:block}
       <p>"The costume looked so tired and grey," Riko explained, blushing. "I wanted to surprise everyone at the final. I <b>must have forgotten</b> to leave a note — sorry!"</p>
       <h4>🏆 Case closed</h4>
       <p>On Saturday, Marvin marched into the sports hall with his golden crown shining, and the crowd went wild. Sometimes a mystery has no villain — just a shy artist with a good heart.</p>
+      <p>Riko didn't get into trouble. In fact, the head teacher praised the golden crown in Monday's assembly, and the drama club asked Riko to help paint their scenery for the musical. Our next issue of the school paper sold out within a day — everyone wanted to read how the mystery had been solved.</p>
       <p>And the silver sequin? It <b>can't have come</b> from Riko, who never wears sequins. It was a red herring — it had probably fallen from a drama costume weeks earlier.</p>
+      <p>Next time something strange happens at school, I'll be ready — with my notebook, my camera, and a healthy suspicion of any clue that seems a little too obvious.</p>
       <p>A true detective checks every clue, even the ones that lead nowhere.</p>
     </div>
 
@@ -328,6 +337,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Example: <em>"My headphones weren't on my desk. My sister must have borrowed them again."</em></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise their best full deduction chunk from Step 6 — quote it back word for word. Hand off homework: read the example aloud together and agree WHERE they'll hunt for their mini-mystery (kitchen? garden? school bag?) so it feels concrete, not abstract.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

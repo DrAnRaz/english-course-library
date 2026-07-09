@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 2 · ELEMENTARY (A2)</div>
   <h1>⭐ Session 6 — Story Time</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: tame the <b>rebel verbs</b> (went, ate, saw…) and tell your own short story · ≈50 min core</div>
+  <div class="badge">🎯 Today: tame the <b>rebel verbs</b> (went, ate, saw…) and tell your own short story</div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — the student says it back in their own words.</span>
-    <p><em>"Last time you met the friendly -ed verbs. Today you meet the REBELS: verbs like <b>go → went</b> and <b>eat → ate</b> that refuse the -ed jacket! By the end, you will tell a whole short story with them — like a real storyteller."</em> 📚🔥</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Quick diagnostic: ask "What did you eat yesterday?" If you hear "I eated" or "I eat", today's target is confirmed. Frame irregulars as "rebels" — kids remember characters better than lists.</div>
+    <p class="frame">🎯 Today: meet the rebel verbs — and become a real storyteller! 📚🔥</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S5):</b> the 4-sentence mini diary (2 × -ed, 1 × was, 1 × were) — student reads it aloud; listen for the -ed endings and the was/were person match.<br><b>Say:</b> "Last time you met the friendly -ed verbs. Today you meet the REBELS: verbs like <b>go → went</b> and <b>eat → ate</b> that refuse the -ed jacket! By the end, you will tell a whole short story with them — like a real storyteller." 📚🔥<br>Quick diagnostic: ask "What did you eat yesterday?" If you hear "I eated" or "I eat", today's target is confirmed. Frame irregulars as "rebels" — kids remember characters better than lists.</div>
   </div>
 </div>
 
@@ -208,24 +211,29 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — The Case of the Missing Sandwich <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen. Read it like a radio drama — student is the narrator, you voice Mateo and Luna. Then the student annotates the quiz answers on your screen (Zoom → Annotate).</span>
+    <p class="hint">🔎 Watch for the <b>rebel past verbs</b> (went, ate, saw, made…) in the story — we unlock them in Step 5!</p>
     <p>A detective story! Read it — tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
       <h4>🥪 One morning…</h4>
       <p>One Saturday morning, Mateo made the best sandwich of his life. Cheese, tomato, and three secret sauces.</p>
       <p>He put it on the kitchen table and took a photo of it. Then he went upstairs to get his football shirt.</p>
+      <p>He also made a big glass of lemonade and put it next to the plate. A perfect Saturday lunch!</p>
       <h4>😱 Suddenly…</h4>
       <p>Two minutes later, he came back. The plate was empty. The sandwich was gone!</p>
       <p>"Who ate my sandwich?" he shouted. His sister Luna said, "Not me! I drank a smoothie for breakfast."</p>
+      <p>Mateo looked at her for a long time. Luna looked back. "Really! I didn't eat it!" she said.</p>
       <h4>🕵️ The detective</h4>
       <p>Mateo got serious. He looked for clues, like a real detective.</p>
       <p>Soon he found something small and yellow on the floor: a piece of cheese. Then he saw another piece near the sofa. The clues made a little cheese road across the room.</p>
+      <p>Mateo took another photo — a detective needs evidence! Then he followed the cheese road, step by step, very slowly.</p>
       <h4>🐶 The truth</h4>
       <p>The cheese road went behind the sofa. There, Mateo found Biscuit, the family dog.</p>
       <p>Biscuit had a very happy face and a very round tummy. A piece of tomato sat on his nose.</p>
       <h4>😂 The end</h4>
       <p>"BISCUIT!" Mateo said. The dog ran to the garden at top speed. Everyone laughed — even Mateo.</p>
       <p>In the end, Luna and Mateo made two new sandwiches together and ate them outside. Biscuit got nothing… but he still looked very, very proud.</p>
+      <p>Biscuit came back after five minutes with big, sorry eyes. He went straight to his basket and had a long nap. Detectives need rest — and so do sandwich thieves!</p>
     </div>
 
     <h3>🔎 Did you understand? Tap your answer</h3>
@@ -325,6 +333,7 @@ body.teacher-mode .t-only{display:block}
       <p>🎤 Next lesson you will TELL your story out loud — practise it once in the mirror!</p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise two concrete wins — e.g. a rebel verb used correctly in the story, or a caught "didn't + base verb". Hand off the homework carefully: it is a STORY TO TELL ALOUD next lesson — confirm the skeleton (One day… Suddenly… In the end…) + 4 rebel verbs, and repeat the promise: "Next time, you are the storyteller first thing!"</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

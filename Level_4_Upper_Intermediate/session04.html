@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 4 · UPPER-INTERMEDIATE (B2)</div>
   <h1>📰 Session 4 — The News Room</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: report news with <b>passive reporting structures</b>, crack headline grammar, and spot fake news · ≈50 min core</div>
+  <div class="badge">🎯 Today: report news with <b>passive reporting structures</b>, crack headline grammar, and spot fake news</div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student repeats it back in their own words.</span>
-    <p><em>"Today you will learn to talk like a news room: report claims with the passive (<b>it is said that…</b>, <b>is thought to have…</b>), crack the secret grammar of headlines, and catch a fake story before it catches you."</em> 🗞️</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Diagnostic questions: "Where did you last see a news story — TV, YouTube, TikTok?" and "Have you ever believed something online that turned out to be false?" Note whether words like <em>viral</em>, <em>fake news</em>, <em>source</em> come up naturally — that sets your Step 3 speed.</div>
+    <p class="frame">🎯 Today: run the news room — and catch a fake story!</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S3):</b> 5 "Dictionary of My Life" entries with relative clauses — student reads them aloud; listen for pronoun choice and both commas in the bonus non-defining entry.<br><b>Say:</b> "Today you will learn to talk like a news room: report claims with the passive (<b>it is said that…</b>, <b>is thought to have…</b>), crack the secret grammar of headlines, and catch a fake story before it catches you." 🗞️<br>Diagnostic questions: "Where did you last see a news story — TV, YouTube, TikTok?" and "Have you ever believed something online that turned out to be false?" Note whether words like <em>viral</em>, <em>fake news</em>, <em>source</em> come up naturally — that sets your Step 3 speed.</div>
   </div>
 </div>
 
@@ -199,6 +202,7 @@ body.teacher-mode .t-only{display:block}
     <h3>🎧 Practice — tap the right word</h3>
     <p class="hint">Read the clue and tap the word that matches. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Drill in opposing pairs (verify ↔ claim, source ↔ anonymous, evidence ↔ hoax) — today's whole lesson lives in those contrasts. "Clickbait" and "go viral" the student probably knows; let them teach YOU those two for confidence. Personalisation: which app do they get news from, and has anything misleading ever fooled them?</div>
   </div>
 </div>
 
@@ -206,7 +210,8 @@ body.teacher-mode .t-only{display:block}
 <div class="section reading">
   <div class="sec-head"><span class="icon">📖</span> Reading — The Shark in the Lake <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: share screen, take turns reading one chunk each. Then student annotates every passive reporting phrase she finds (Zoom → Annotate).</span>
+    <span class="zoom-cue">📹 Zoom: share screen, take turns reading one chunk each. Then student annotates every passive reporting phrase they find (Zoom → Annotate).</span>
+    <p class="hint">🔎 Watch for <b>was said to be / it was reported that / is thought to have…</b> in the story — we unlock them in Step 5!</p>
     <p>Read the true-to-life story of a hoax that fooled a whole town. As you read, hunt for reporting phrases like <b>was said to be</b>. Tap 🔊 to hear any part.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
@@ -215,15 +220,19 @@ body.teacher-mode .t-only{display:block}
       <h4>📰 What the reports said</h4>
       <p>The shark <b>was said to be</b> over three metres long. <b>It was reported that</b> a fisherman had seen it "with his own eyes", and one website even claimed that a dog had been chased out of the water.</p>
       <p>By Wednesday morning, schools near the lake <b>were said to be</b> planning to cancel their swimming lessons. Panic travels fast.</p>
+      <p>By lunchtime, the story had crossed into other towns. The lake car park <b>was reported to be</b> full of shark-watchers with binoculars, and a local café began selling "Shark Alert" hot chocolate. Nobody, however, had actually filmed the shark — which was strange, in a town where everybody films everything.</p>
       <h4>🕵️ Enter the fact-checkers</h4>
       <p>At Milford High School, a media club led by fourteen-year-old Priya Nair decided to investigate. The club had been trained to ask three simple questions: Who published this? What is the evidence? Do other reliable sources agree?</p>
       <p>The answers were worrying. The "local news page" had been created only two weeks earlier, the fisherman was never named, and no other newspaper had reported the story at all.</p>
+      <p>The club also looked at the page's other articles: a two-headed duck, a UFO over the supermarket, and a snowstorm predicted for July. A pattern was starting to appear.</p>
       <h4>🔍 The truth comes out</h4>
       <p>Then came the breakthrough. Using a reverse image search, the club discovered that the photo had actually been taken in Australia in 2019 — <b>it is thought to have</b> appeared in at least twelve fake stories since then.</p>
       <p>And the "fin" in Lake Harmon? It <b>was later confirmed to be</b> a piece of black plastic pipe, placed in the water as a prank by two bored college students.</p>
+      <p>The students apologised, and the pipe was fished out of the lake in front of a small, slightly disappointed crowd. Swimming lessons continued as normal that Friday.</p>
       <h4>💭 Why it matters</h4>
       <p>The hoax <b>was believed by</b> thousands of people, partly because it felt exciting, and partly because everyone else was already sharing it. As Priya told a real journalist afterwards, "A lie doesn't need to be clever. It just needs to be shared faster than the truth."</p>
       <p>Experts say that stories which trigger strong emotions — fear, anger, excitement — are shared far more often than calm, true ones. So next time a headline makes your heart race, pause. Ask who, ask what, ask where else. The shark you are afraid of might just be a plastic pipe.</p>
+      <p>Priya's club now runs a "Question It" noticeboard in the school corridor, where the fake story of the week is posted next to the three questions. <b>It is said to be</b> the most-read board in the whole school.</p>
     </div>
 
     <h3>🔎 Did you understand? Tap your answer</h3>
@@ -257,6 +266,7 @@ body.teacher-mode .t-only{display:block}
         🔑 Same verbs, fancier melody 🎵</div>
     </div>
     <div class="frame">🗞️ <b>Headline code:</b> headlines drop <em>a/the/is</em> and squeeze time: present simple = a PAST event ("TEEN <b>SAVES</b> DOG" = a teen has saved a dog) · <b>TO</b> + verb = FUTURE ("MAYOR <b>TO OPEN</b> POOL" = the mayor is going to open a pool).</div>
+    <div class="frame">🕵️ <b>Spot fake news — the 3 checks:</b><br>1️⃣ <b>Who published it?</b> — the "local news page" was only two weeks old 🚩<br>2️⃣ <b>What's the evidence?</b> — an unnamed fisherman, and a photo really taken in Australia in 2019 🚩<br>3️⃣ <b>Do other sources agree?</b> — no other newspaper had the story at all 🚩<br>Three red flags = a plastic pipe, not a shark.</div>
     <p class="hint">💡 Hungarian tip: Hungarian does all this with one little word — <em>állítólag</em>. English builds it INTO the verb instead: <em>is said to…</em>, <em>is thought to…</em>. When your brain says "állítólag", reach for a passive reporting verb.</p>
     <h3>✏️ Practice — tap the correct form</h3>
     <div id="grammar-quiz"></div>
@@ -274,7 +284,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section task">
   <div class="sec-head"><span class="icon">🎨</span> Create — You Are the Editor <span class="timing">10 min</span><span class="step">Step 6</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in her own browser, types here, and shares her screen so you can watch.</span>
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in their own browser, types here, and shares their screen so you can watch.</span>
     <p>Your news desk just received a story tip! Pick ONE ingredient, then write it up three ways. 🖊️</p>
     <h3>First, tap your story ingredient:</h3>
     <div class="chips" id="story-chips"></div>
@@ -294,7 +304,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section challenge">
   <div class="sec-head"><span class="icon">🎮</span> Challenge Game — Fact-Checker Academy <span class="timing">8 min</span><span class="step">Step 7</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen and cheer. 🎉</span>
+    <span class="zoom-cue">📹 Zoom: student's browser, their clicks, their score! You watch on their shared screen and cheer. 🎉</span>
     <p class="hint">🕵️ Three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
     <h3>Round 1 — Headline decoder</h3>
     <div id="ch-quiz1"></div>
@@ -303,7 +313,7 @@ body.teacher-mode .t-only{display:block}
     <h3>Round 3 — Boss level: fake-news detective 👑</h3>
     <div id="ch-quiz3"></div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can be the start of the next lesson's warm-up.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>Wrong answers auto-reveal the correct one in green — ask "why?" on each miss. The BOSS item combines passive reporting + perfect infinitive: if she nails it unaided, she owns today's grammar.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>Wrong answers auto-reveal the correct one in green — ask "why?" on each miss. The BOSS item combines passive reporting + perfect infinitive: if the student nails it unaided, they own today's grammar.</div>
   </div>
 </div>
 
@@ -320,6 +330,7 @@ body.teacher-mode .t-only{display:block}
       <p>🖱️ <b>Bonus:</b> find one clickbait headline and explain in two sentences why it is clickbait.</p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise their news-anchor broadcast from Step 6 — quote their best passive reporting phrase back in an anchor voice. Hand off homework: agree WHICH news site or app they'll hunt headlines on, so the task starts itself.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 4 · UPPER-INTERMEDIATE (B2)</div>
   <h1>🎤 Session 9 — Speak Like a Speaker</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: build a talk that flows with <b>discourse markers</b> and real presentation skills · ≈50 min core</div>
+  <div class="badge">🎯 Today: build a talk that flows with <b>discourse markers</b> and real presentation skills</div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
-    <p><em>"Today you will learn what great speakers actually do — and steal their tricks. By the end, you can give a one-minute talk with a hook, clear signposts like <b>firstly</b> and <b>however</b>, and an ending people remember."</em> 🎤</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Diagnostic: "Tell me about your favourite game for 20 seconds — go!" Note the flow: does the student use ANY connectors beyond "and… and… and"? Today's win condition = at least four different discourse markers in the Step 6 talk.</div>
+    <p class="frame">🎯 Today: steal the tricks of great speakers — your first mini-TED talk!</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S8):</b> 4 sentences about a family custom (remember/stop/try pairs) — student reads them aloud; listen for the arrow: -ing looking back vs to-infinitive looking forward.<br><b>Say:</b> "Today you will learn what great speakers actually do — and steal their tricks. By the end, you can give a one-minute talk with a hook, clear signposts like <b>firstly</b> and <b>however</b>, and an ending people remember." 🎤<br>Diagnostic: "Tell me about your favourite game for 20 seconds — go!" Note the flow: does the student use ANY connectors beyond "and… and… and"? Today's win condition = at least four different discourse markers in the Step 6 talk.</div>
   </div>
 </div>
 
@@ -199,6 +202,7 @@ body.teacher-mode .t-only{display:block}
     <h3>🎧 Practice — tap the right word</h3>
     <p class="hint">Read the clue and tap the word that matches. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Make the physical cards physical: mime "gesture", freeze "pause", race-then-crawl a sentence for "pace" — the student copies each on camera. "Rehearse" and "anecdote" carry pronunciation risk; drill twice. Personalisation: which speaker (YouTuber, teacher, streamer) do they find easy to listen to — and which card explains why?</div>
   </div>
 </div>
 
@@ -207,25 +211,30 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — How to Speak So People Listen <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen. Take turns reading one chunk each. Then the student uses Zoom → Annotate to highlight every discourse marker in the text — there are plenty!</span>
+    <p class="hint">🔎 Watch for the <b>bold discourse markers</b> (first of all, however, to sum up…) guiding you through the guide — we unlock them in Step 5!</p>
     <p>Read this survival guide for teen presenters. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
       <h4>🎤 How to speak so people listen — a survival guide for teen presenters</h4>
       <p>Last term, a quiet student named Dario had to present his science project to the whole year group. He was so nervous that he rehearsed in front of his goldfish. Two minutes into the real talk, something surprising happened: people were actually listening.</p>
+      <p>Dario is not a natural performer. He speaks quietly, he hates being watched, and he once faked a cough to escape a class presentation. If HE can hold a room for two minutes, the rest of us are out of excuses.</p>
       <h4>🪝 First of all: the hook</h4>
       <p><b>First of all</b>, great speakers never begin with "So, um, my project is about…". Dario opened with a question instead: "What if I told you our school bin is a zoo?"</p>
       <p>A hook can be a question, a shocking number, or a ten-second story. <b>In other words</b>, give the audience a reason to look up from their phones within the first sentence. Dario's bin question did exactly that.</p>
+      <p>The bin really was a zoo, too. His project counted seven kinds of insects living in it, plus one very confident mouse that the caretaker still refuses to discuss.</p>
       <h4>🪧 Secondly: signpost everything</h4>
       <p><b>Secondly</b>, listeners get lost far more easily than readers, because they can't rewind you. Words like <b>firstly</b>, <b>however</b>, <b>for instance</b> and <b>to sum up</b> work like road signs through your talk.</p>
       <p>Dario used exactly three: "I'll show you three creatures. <b>Moreover</b>, one of them lives in the yoghurt corner." The room went completely silent — in the good way.</p>
       <h4>🐢 Thirdly: slow down. No, slower.</h4>
       <p><b>Thirdly</b>, nervous speakers rush. Your heart says sprint; your audience needs a walking pace and real pauses.</p>
       <p>A pause after a big point feels terrifying to you but powerful to them. <b>In fact</b>, professionals plan their silences as carefully as their sentences. Count two seconds in your head, breathe, and only then move on.</p>
+      <p>Dario practised his pauses with a kitchen timer. His rule was simple: say the big sentence, look up, count "one banana, two bananas", continue. It felt ridiculous in his bedroom and looked masterful on stage.</p>
       <h4>👀 The body talks too</h4>
       <p><b>What's more</b>, your body speaks before you do. Standing tall, looking at faces instead of shoes, and using your hands to show size and shape — all of this tells the room you believe your own words.</p>
       <p><b>On the other hand</b>, reading straight from your slides tells them you'd rather be somewhere else. Slides are your poster, not your script.</p>
       <h4>🏁 To sum up</h4>
       <p><b>To sum up</b>: hook them early, signpost the path, slow your pace, and let your body do half the talking. Dario finished to genuine applause and one excellent question about yoghurt.</p>
+      <p>Three teachers asked him for his tips afterwards. He wrote them on a sticky note: question, road signs, bananas, hands. Nobody except Dario knows what "bananas" means, and that is exactly how legends begin.</p>
       <p>His goldfish, sadly, has heard the talk forty times and remains unimpressed. Audiences are hard to please.</p>
     </div>
 
@@ -324,6 +333,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Bring the recording (or your notes) next time — Session 10 is <b>The Grand Debate</b>, and today's skills are your weapons! 🏛️</p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise the "movie trailer" version of their hook — tell them exactly what changed between take one and take two. Hand off homework: agree WHEN they will record the talk (day + place) and remind them Session 10 opens by playing it — the recording is their debate warm-up.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

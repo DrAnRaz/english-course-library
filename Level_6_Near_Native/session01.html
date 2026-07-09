@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 6 · NEAR-NATIVE (C2)</div>
   <h1>🎭 Session 1 — Style &amp; Voice</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: learn how writers <b>shift tone and register on demand</b> — and do it yourself · ≈50 min core</div>
+  <div class="badge">🎯 Today: learn how writers <b>shift tone and register on demand</b> — and do it yourself</div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
-    <p><em>"Today you will discover that <b>style is a decision, not decoration</b>. By the end, you can take one plain sentence and deliver it in five different voices — formal, deadpan, lyrical, minimalist, and pure you."</em> 🎛️</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Diagnostic: ask "How would you describe YOUR writing voice in three words?" Most C2 students have never been asked. Whatever they answer, you'll revisit it in Step 8 — write it down now.</div>
+    <p class="frame">🎯 Today: one plain sentence, five different voices — yours on demand! 🎛️</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Say:</b> "Today you will discover that style is a decision, not decoration. By the end, you can take one plain sentence and deliver it in five different voices — formal, deadpan, lyrical, minimalist, and pure you." 🎛️<br>Diagnostic: ask "How would you describe YOUR writing voice in three words?" Most C2 students have never been asked. Whatever they answer, you'll revisit it in Step 8 — write it down now.</div>
   </div>
 </div>
 
@@ -199,6 +202,7 @@ body.teacher-mode .t-only{display:block}
     <h3>🎧 Practice — tap the right term</h3>
     <p class="hint">Read the clue and tap the term that matches. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Drill the cards in contrasting pairs (terse ↔ verbose, understatement ↔ hyperbole) — the contrast is what makes them stick. If time is tight, skip <b>nuance</b> and <b>lyrical</b>; both resurface in the reading and quizzes anyway. Personalise: before the quiz, ask the student for one deadpan and one pompous sentence about their own school day.</div>
   </div>
 </div>
 
@@ -207,6 +211,7 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — One Tuesday, Five Voices <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen. Take turns reading — student performs each "voice" with matching delivery. Then student annotates the strongest word choices on your screen (Zoom → Annotate).</span>
+    <p class="hint">🔎 Watch for <b>register shifts — formal vs everyday word choices</b> in the story — we unlock them in Step 5!</p>
     <p>Read Leilani's essay. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
@@ -215,23 +220,24 @@ body.teacher-mode .t-only{display:block}
       <p>My writing teacher, Mr. Okafor, refused to let me suffer in peace. "Write it five ways," he said, "and you'll never fear a blank page again." So here it is: one small disaster, five completely different voices.</p>
       <h4>📰 Voice one — the news report</h4>
       <p>"At 12:47 on Tuesday, a Year 10 student suffered a catastrophic tray failure in the east cafeteria. Witnesses describe a scene of widespread marinara. Authorities have not ruled out gravity, and the student is expected to make a full recovery — though the same cannot be said for the garlic bread."</p>
-      <p>Notice the deadpan tone. The vocabulary stays solemn — <b>suffered</b>, <b>witnesses</b>, <b>authorities</b> — while the subject is ridiculous, and that gap is exactly where the humour lives.</p>
+      <p>Notice the deadpan tone. The vocabulary stays solemn — <b>suffered</b>, <b>witnesses</b>, <b>authorities</b> — while the subject is ridiculous, and that gap is exactly where the humour lives. My grandmother read this version and asked, quite seriously, whether anyone had been injured. That is how convincing a straight face can be on paper: keep the vocabulary solemn enough and even spaghetti sounds like a national emergency.</p>
       <h4>🕯️ Voice two — the gothic novel</h4>
       <p>"The tray trembled in my pale hands, as though it sensed its doom. Time slowed; the fluorescent lights flickered like dying stars. Then — oh, cruel fate! — the spaghetti descended, as empires fall: slowly, and then all at once."</p>
-      <p>Everything here is exaggerated and lyrical. The sentences stretch out, the punctuation gasps, and the tray practically has feelings.</p>
+      <p>Everything here is exaggerated and lyrical. The sentences stretch out, the punctuation gasps, and the tray practically has feelings. I will admit I enjoyed writing this one far too much. Once you allow a lunch tray to possess a soul, the adjectives simply pour out of you, and stopping becomes the genuinely difficult part.</p>
       <h4>✂️ Voice three — the minimalist</h4>
       <p>"Tuesday. Tray. Floor. Silence, then laughter. I ate an apple standing up."</p>
       <p>Five fragments, one complete story. Minimalism trusts the reader to supply the emotion, and that restraint somehow makes it hit harder. Notice what it leaves out: no adjectives, no excuses, no self-pity.</p>
+      <p>Strangely, this version took me the longest to write, which sounds absurd for eleven words. Cutting, it turns out, is far slower than adding, because every word that survives has to earn its place on the page.</p>
       <h4>📋 Voice four — the corporate memo</h4>
       <p>"Regarding Tuesday's incident: a comprehensive review of tray-handling procedures is now underway. Moving forward, all pasta-based items will be transported with two hands. We thank you for your patience during this challenging time."</p>
-      <p>This voice hides behind nouns — <b>incident</b>, <b>review</b>, <b>procedures</b>. Nobody drops anything; things merely occur. Passive, foggy phrasing does the heavy lifting, and responsibility quietly evaporates.</p>
+      <p>This voice hides behind nouns — <b>incident</b>, <b>review</b>, <b>procedures</b>. Nobody drops anything; things merely occur. Passive, foggy phrasing does the heavy lifting, and responsibility quietly evaporates. Mr. Okafor claims that half the adult world writes like this every single day, and that learning to recognise the fog is a survival skill. Honestly, after reading three school newsletters in a row, I believe him.</p>
       <h4>🎤 Voice five — me, talking to my best friend</h4>
       <p>"Okay, so you know how I have zero hand-eye coordination? Yeah. Whole cafeteria. <b>Whole. Cafeteria.</b> I genuinely wanted the floor to swallow me — but honestly, by Wednesday it was my best story."</p>
-      <p>This is my natural register: contractions, fragments, repetition for drama. Notice <b>genuinely</b> and <b>honestly</b> — spoken English leans on these little sincerity markers. It sounds like me because the rhythm copies how I actually speak.</p>
+      <p>This is my natural register: contractions, fragments, repetition for drama. Notice <b>genuinely</b> and <b>honestly</b> — spoken English leans on these little sincerity markers. It sounds like me because the rhythm copies how I actually speak. When I read this version aloud, my actual best friend declared it so accurate it was slightly creepy — apparently I really do repeat words when I am embarrassed.</p>
       <h4>💡 What actually changed?</h4>
-      <p>Read the five versions again and you'll notice something strange: the facts never moved. What changed was the distance. The news report stands far away; the gothic version drowns in feeling; the memo hides; the friend version leans close.</p>
-      <p>Style, it turns out, is a set of decisions: which words, how long the sentences run, how near the reader stands. Change the decisions and you change the voice — on demand. You already do this, by the way: you talk one way to your grandmother and another way to your group chat.</p>
-      <p>Mr. Okafor was right in the end. I haven't feared a blank page since. I fear the cafeteria instead.</p>
+      <p>Read the five versions again and you'll notice something strange: the facts never moved. What changed was the distance. The news report stands far away; the gothic version drowns in feeling; the memo hides; the friend version leans close. Same spaghetti, completely different distances — like photographing one object from across the street, then through a window, then from two centimetres away.</p>
+      <p>Style, it turns out, is a set of decisions: which words, how long the sentences run, how near the reader stands. Change the decisions and you change the voice — on demand. You already do this, by the way: you talk one way to your grandmother and another way to your group chat. Nobody taught you that; you absorbed it. The only real difference now is doing it on purpose — hands on the dials instead of running on autopilot.</p>
+      <p>Last week I caught myself rewriting a two-line text message three different ways before sending it, purely to feel the difference between them. Mr. Okafor was right in the end. I haven't feared a blank page since. I fear the cafeteria instead.</p>
     </div>
 
     <h3>🔎 Did you understand? Tap your answer</h3>
@@ -329,6 +335,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Example: <em>"The consumption of food is prohibited on the premises" → "Don't eat here."</em></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise a specific dial-turn you heard today — name the exact word the student chose well, not just "good English". Hand off homework by modelling one pompous "found sentence" from your own week, and remind them to bring both diary versions next session.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

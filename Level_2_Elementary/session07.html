@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 2 · ELEMENTARY (A2)</div>
   <h1>🏆 Session 7 — Bigger, Faster, Best</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: compare people, animals and things with <b>comparatives</b> and <b>superlatives</b> · ≈50 min core</div>
+  <div class="badge">🎯 Today: compare people, animals and things with <b>comparatives</b> and <b>superlatives</b></div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
-    <p><em>"Today you become a champion of comparing! By the end, you can say who is <b>faster</b>, what is <b>bigger</b>, and which one is <b>the best</b> — like a sports commentator."</em> 🏅</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Quick diagnostic: hold up two objects (pen vs book) and ask "Which one is bigger?" Note if the student says "more big" — that is the exact error this session fixes. Don't correct yet.</div>
+    <p class="frame">🎯 Today: be the champion of comparing — like a sports commentator! 🏅</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S6):</b> the rebel-verb story — the student was PROMISED they would tell it aloud today, so collect it now: they perform the story (skeleton + 4 rebel verbs) as the storyteller; listen for the irregular past forms and cheer the "Suddenly…" drama.<br><b>Say:</b> "Today you become a champion of comparing! By the end, you can say who is <b>faster</b>, what is <b>bigger</b>, and which one is <b>the best</b> — like a sports commentator." 🏅<br>Quick diagnostic: hold up two objects (pen vs book) and ask "Which one is bigger?" Note if the student says "more big" — that is the exact error this session fixes. Don't correct yet.</div>
   </div>
 </div>
 
@@ -207,7 +210,8 @@ body.teacher-mode .t-only{display:block}
 <div class="section reading">
   <div class="sec-head"><span class="icon">📖</span> Reading — Trip to the Record Zone <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: share screen. Take turns — student reads one chunk aloud, you read the next. Then the student annotates every comparative word she finds (Zoom → Annotate).</span>
+    <span class="zoom-cue">📹 Zoom: share screen. Take turns — student reads one chunk aloud, you read the next. Then the student annotates every comparative word they find (Zoom → Annotate).</span>
+    <p class="hint">🔎 Watch for <b>-er … than</b> and <b>the …-est</b> words in the story — we unlock them in Step 5!</p>
     <p>Read Kofi's blog post about a very unusual museum. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
@@ -216,10 +220,13 @@ body.teacher-mode .t-only{display:block}
       <h4>🐆 Animal champions</h4>
       <p>First we saw the animal hall. The cheetah is <b>the fastest</b> land animal. It can run 120 kilometres per hour!</p>
       <p>The blue whale is <b>bigger than</b> thirty elephants. It is <b>the biggest</b> animal in the world.</p>
+      <p>The peregrine falcon was there too. When it dives, it is <b>faster than</b> a racing car — more than 300 kilometres per hour!</p>
       <h4>🧍 People records</h4>
       <p>Then we saw a photo of <b>the tallest</b> man in history. He was 2 metres and 72 centimetres tall! My friend Priya is <b>the tallest</b> student in our class, but next to him she looked tiny.</p>
+      <p>We also saw one of his shoes. It was <b>longer than</b> my school ruler! I put my foot next to it, and my foot looked <b>smaller than</b> his thumb.</p>
       <h4>🦖 The funny hall</h4>
       <p><b>The funniest</b> record was a man who ran a marathon in a dinosaur costume. It was <b>hotter than</b> a normal race, and much <b>slower</b>. My teacher laughed so hard that she dropped her sandwich.</p>
+      <p>I liked <b>the loudest</b> scream record too. That scream was <b>louder than</b> a rock concert! Our guide said: "Please don't try it here."</p>
       <h4>🚌 The bus game</h4>
       <p>On the bus home, we played a game: find <b>the strangest</b> record. Priya won again. She found a snail race in England. The winning snail was <b>slower than</b> my grandad on the stairs — and grandad is really slow!</p>
       <p>Which record would you break? Maybe you are <b>faster</b>, <b>funnier</b> or <b>braver</b> than you think. 💪</p>
@@ -274,7 +281,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section task">
   <div class="sec-head"><span class="icon">🎨</span> Create — My Champions Podium <span class="timing">10 min</span><span class="step">Step 6</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in her own browser, types here and shares her screen (Zoom → Share Screen) while you watch.</span>
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in their own browser, types here and shares their screen (Zoom → Share Screen) while you watch.</span>
     <p>Make your personal champions podium! Real champions only: your family, friends, pets, foods and places. 🥇</p>
     <h3>First, tap the categories you want to talk about:</h3>
     <div class="chips" id="exp-chips"></div>
@@ -284,7 +291,7 @@ body.teacher-mode .t-only{display:block}
     <div class="editable" id="t-comp" contenteditable="true" data-placeholder="My dog is lazier than… / Pizza is better than…"></div>
     <div class="speak">🗣️ <b>Now say it out loud!</b> Present your podium to your teacher like a sports commentator: <em>"And the winner iiiis…!"</em> 🎤</div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> do only the 👑 superlative line + the spoken podium; the ⚖️ battle line becomes homework.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>Push for variety: at least one MORE/MOST form and one irregular (best/worst). Follow-up questions: "Why is she the funniest? Who is second?" Each "why" forces another comparative sentence.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>Push for variety: at least one MORE/MOST form and one irregular (best/worst). Follow-up questions: "Why is that person the funniest? Who is second?" Each "why" forces another comparative sentence.</div>
   </div>
 </div>
 
@@ -292,7 +299,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section challenge">
   <div class="sec-head"><span class="icon">🎮</span> Challenge Game — Record Breaker <span class="timing">8 min</span><span class="step">Step 7</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen and cheer. 🎉</span>
+    <span class="zoom-cue">📹 Zoom: student's browser, their clicks, their score! You watch on their shared screen and cheer. 🎉</span>
     <p class="hint">🏆 Three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
     <h3>Round 1 — Pick the correct form</h3>
     <div id="ch-quiz1"></div>
@@ -301,7 +308,7 @@ body.teacher-mode .t-only{display:block}
     <h3>Round 3 — Boss level: champion mix 👑</h3>
     <div id="ch-quiz3"></div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can be the start of the next lesson's warm-up.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>All answers show live in her score. Wrong answers auto-reveal the correct one in green — ask "why?" on each miss: "Short or long word? Two things or champion of all?"</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>All answers show live in the score. Wrong answers auto-reveal the correct one in green — ask "why?" on each miss: "Short or long word? Two things or champion of all?"</div>
   </div>
 </div>
 
@@ -318,6 +325,7 @@ body.teacher-mode .t-only{display:block}
       <p>⚖️ <b>Bonus:</b> add one "battle" sentence with <em>than</em>: <em>"My bed is softer than the sofa!"</em></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise two concrete wins — e.g. a correct "more + long adjective" or a remembered THE before the superlative. Hand off the homework: read the sofa example aloud together and confirm the format: 3 superlative "champions of my home" + 1 bonus "than" battle sentence — it opens the next lesson's homework check.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

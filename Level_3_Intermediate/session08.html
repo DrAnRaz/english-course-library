@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 3 · INTERMEDIATE (B1)</div>
   <h1>⭐ Session 8 — Screens &amp; Media</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: talk about your media habits with <b>quantifiers</b> — how much is too much? · ≈50 min core</div>
+  <div class="badge">🎯 Today: talk about your media habits with <b>quantifiers</b> — how much is too much?</div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
-    <p><em>"Today you will talk about screens, videos and social media like a pro — and use the right words for amounts: <b>much, many, a lot of, a few, a little, enough, too much</b>. By the end, you can describe your media habits honestly and clearly."</em> 📱</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Ask: "What did you watch yesterday?" and listen for amounts ("many videos", "much time"). Note any much/many mix-ups — that's your live diagnostic for Step 5. Don't correct yet.</div>
+    <p class="frame">🎯 Today: your media habits — how much is too much?</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S7):</b> the dinner-debate write-up (opinion + two reasons + one "That's true, but…") — student reports how the debate went; listen for the polite-disagreement sandwich.<br><b>Say:</b> "Today you will talk about screens, videos and social media like a pro — and use the right words for amounts: <b>much, many, a lot of, a few, a little, enough, too much</b>. By the end, you can describe your media habits honestly and clearly." 📱<br>Ask: "What did you watch yesterday?" and listen for amounts ("many videos", "much time"). Note any much/many mix-ups — that's your live diagnostic for Step 5. Don't correct yet.</div>
   </div>
 </div>
 
@@ -199,6 +202,7 @@ body.teacher-mode .t-only{display:block}
     <h3>🎧 Practice — tap the right word</h3>
     <p class="hint">Read the clue and tap the word that matches. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Drill each card twice (slow, then natural speed) — this deck is the student's own daily world, so most words land fast. Skip anything they already use in English every day; give the saved time to the trickier nouns they'll need for Step 5 amounts (notification, advertisement, podcast). Personalization: for 3–4 cards ask "How often do you…?" and push for a full sentence answer.</div>
   </div>
 </div>
 
@@ -207,6 +211,7 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — One Week Without My Phone <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen. Student reads one chunk aloud, you read the next — take turns. Then they annotate answers on your screen (Zoom → Annotate).</span>
+    <p class="hint">🔎 Watch for the amount words in <b>bold</b> — much, many, a lot of, too much, a few — we unlock them in Step 5!</p>
     <p>Read Tomas's blog post. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
@@ -215,13 +220,16 @@ body.teacher-mode .t-only{display:block}
       <h4>📱 My old habits</h4>
       <p>Before the challenge, I spent <b>too much</b> time on my phone. I watched <b>a lot of</b> videos, I checked every notification, and I streamed two episodes every night.</p>
       <p>My favourite influencer posted something new every hour, and I watched every advertisement before every video. My eyes were tired, my homework was late, and my dog was bored.</p>
+      <p>My family noticed too. At dinner I answered every question with "hmm", because I was reading comments under the table. My sister said I loved my phone more than my dog. That hurt — mostly because it was <b>a little</b> bit true.</p>
       <p>How <b>many</b> hours a day? About five. That is not <b>a little</b> — that is <b>a lot</b>!</p>
       <h4>😖 Day one was hard</h4>
       <p>The first day was horrible. I picked up my phone about fifty times, but there was nothing to check. I had <b>too much</b> free time and <b>too few</b> ideas.</p>
+      <p>Day two was not <b>much</b> better. I found my old handball in the garden, threw it at the wall about a hundred times, and learned an important fact: without a phone, an afternoon has <b>a lot of</b> hours in it.</p>
       <h4>😊 The surprise</h4>
       <p>By day four, something changed. I read <b>a few</b> chapters of a real book, and I cooked dinner with my mum.</p>
       <p>I even took my dog outside twice a day. Suddenly I had <b>enough</b> time for everything, and I slept much better.</p>
       <p>On day six, my friend Bence called me — with his voice, not a message! We talked for an hour.</p>
+      <p>Funny detail: at first we didn't have <b>much</b> to say, because usually we just send each other memes. After ten minutes, we had <b>too many</b> topics and not <b>enough</b> time.</p>
       <h4>🤔 What I learned</h4>
       <p>Do I hate my phone now? No! I still stream series, and I listen to a podcast on the school bus.</p>
       <p>But now I follow one simple rule: <b>a little</b> screen time is fine, but <b>too much</b> steals your whole day.</p>
@@ -249,8 +257,8 @@ body.teacher-mode .t-only{display:block}
       <div class="rule a"><h4>🔢 COUNTABLE — you can count them</h4>
         videos, followers, podcasts, ads, hours<br><br>
         <em>How <b>many</b> videos?</em><br>
-        <em><b>a few</b> videos · <b>too many</b> ads</em><br><br>
-        🔑 many · a few · too many · not many</div>
+        <em><b>a few</b> videos · <b>too many</b> ads · <b>too few</b> ideas</em><br><br>
+        🔑 many · a few · too many ↔ too few · not many</div>
       <div class="rule b"><h4>🌊 UNCOUNTABLE — no plural, no counting</h4>
         time, news, information, music, homework<br><br>
         <em>How <b>much</b> time?</em><br>
@@ -321,6 +329,7 @@ body.teacher-mode .t-only{display:block}
       <p>🌙 <b>Bonus:</b> try one screen-free evening — write one sentence about what you did instead.</p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise the student's honest media-diet line with the best quantifier in it — quote it back word for word.<br>Hand off homework by agreeing WHICH two days they will track, and predict together one "too many / not enough" discovery they might make.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

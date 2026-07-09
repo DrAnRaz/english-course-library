@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 5 · PROFICIENT (C1)</div>
   <h1>🎓 Session 8 — Academic Edge</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: shrink any text into a sharp <b>summary</b> and switch into confident <b>formal register</b> · ≈50 min core</div>
+  <div class="badge">🎯 Today: shrink any text into a sharp <b>summary</b> and switch into confident <b>formal register</b></div>
 </div>
 
 <div class="scorebar">
@@ -169,9 +172,9 @@ body.teacher-mode .t-only{display:block}
 <div class="section goal">
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student states it back in her most SERIOUS professor voice.</span>
-    <p><em>"Today you will master two skills that win marks in every exam and every school on Earth: shrinking a text into a perfect <b>summary</b>, and dressing your ideas in <b>formal register</b> — without sounding like a robot butler."</em> 🤖🎩</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Quick diagnostic: ask her to describe her morning in ONE sentence (summary instinct), then to say "the bus was late" as formally as possible. Note whether "formal" comes out as long/fancy — the anti-robot-butler message will land better if it corrects a real attempt.</div>
+    <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student states it back in their most SERIOUS professor voice.</span>
+    <p class="frame">🎯 Today: shrink any text — and dress your ideas in a suit! 🤖🎩</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S7):</b> the real 5-question home interview + the two cleft rewrites — student reads one cleft aloud with dramatic stress; listen for the spotlighted word landing after "It was…" or "What… was…".<br><b>Say:</b> "Today you will master two skills that win marks in every exam and every school on Earth: shrinking a text into a perfect summary, and dressing your ideas in formal register — without sounding like a robot butler."<br>Quick diagnostic: ask the student to describe their morning in ONE sentence (summary instinct), then to say "the bus was late" as formally as possible. Note whether "formal" comes out as long/fancy — the anti-robot-butler message will land better if it corrects a real attempt.</div>
   </div>
 </div>
 
@@ -185,7 +188,7 @@ body.teacher-mode .t-only{display:block}
     2. You instantly "translate" it into formal English (<em>"The film was somewhat disappointing."</em>) — 5 seconds! 🎩<br>
     3. Then reverse: teacher goes formal, YOU translate into teen-speak. Three rounds each way.</p>
     <p class="hint">No score here — just switch registers fast, like changing clothes. 👔👕</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 2</h4>Casual starters: "This homework is a total pain." · "The ending was awesome." · "He messed up big time." Formal starters (for her to casualise): "The refreshments were inadequate." · "Attendance is obligatory." · "The garment is aesthetically displeasing." Laughing at the mismatch is the point — register is a costume.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 2</h4>Casual starters: "This homework is a total pain." · "The ending was awesome." · "He messed up big time." Formal starters (for the student to casualise): "The refreshments were inadequate." · "Attendance is obligatory." · "The garment is aesthetically displeasing." Laughing at the mismatch is the point — register is a costume.</div>
   </div>
 </div>
 
@@ -193,13 +196,13 @@ body.teacher-mode .t-only{display:block}
 <div class="section vocab">
   <div class="sec-head"><span class="icon">📝</span> New Words — The Scholar's Vocabulary <span class="timing">10 min</span><span class="step">Step 3</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: share your screen. You click 🔊 on each card; the student repeats it, then names ONE school subject where she'd use that word this week.</span>
+    <span class="zoom-cue">📹 Zoom: share your screen. You click 🔊 on each card; the student repeats it, then names ONE school subject where they'd use that word this week.</span>
     <p>Tap any card to <b>hear</b> it 🔊. These words run every essay, report and exam answer.</p>
     <div class="vocab-grid" id="vocab-grid"></div>
     <h3>🎧 Practice — tap the right word</h3>
     <p class="hint">Read the clue and tap the term that matches. Green = correct!</p>
     <div id="vocab-quiz"></div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Stress patterns to drill: THEsis, plaGIArism, subSTANtiate. Check she can distinguish paraphrase (same length, new words) from summarize (much shorter). The three connector cards (furthermore/nevertheless/consequently) map to add / contrast / result — have her label each with one word.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Stress patterns to drill: THEsis, plaGIArism, subSTANtiate. Check the student can distinguish paraphrase (same length, new words) from summarize (much shorter). The three connector cards (furthermore/nevertheless/consequently) map to add / contrast / result — have them label each with one word.</div>
   </div>
 </div>
 
@@ -207,7 +210,8 @@ body.teacher-mode .t-only{display:block}
 <div class="section reading">
   <div class="sec-head"><span class="icon">📖</span> Reading — The Scholar's Toolkit <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: share screen. Student reads one chunk aloud, you read the next — take turns. Then she annotates every FORMAL connector she can spot (Zoom → Annotate).</span>
+    <span class="zoom-cue">📹 Zoom: share screen. Student reads one chunk aloud, you read the next — take turns. Then they annotate every FORMAL connector they can spot (Zoom → Annotate).</span>
+    <p class="hint">🔎 Watch for <b>the summary rules and the formal signposts (furthermore, nevertheless, consequently)</b> — we unlock both tools in Step 5!</p>
     <p>A study-skills column from a student newspaper. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
@@ -215,15 +219,19 @@ body.teacher-mode .t-only{display:block}
       <p>Every year, thousands of brilliant students lose marks for a strange reason. Their ideas are excellent; their writing simply wears the wrong clothes. Today we fix that with two learnable skills: summary and register.</p>
       <h4>✂️ Summary: the art of shrinking</h4>
       <p>A summary is not a shorter copy of a text. It is the text's skeleton: the main claim, the key reasons, and absolutely nothing else. If your summary still contains the jokes, the examples and the statistics, it is not a summary — it is a hostage situation.</p>
+      <p>Picture the skeleton test. If a friend asks what an article said, you do not recite it; you give the point in a single breath — "basically, exercise helps memory, and here's the main reason". That instinct, sharpened and written down, is the whole skill.</p>
       <p>Try the look-away method. Read a paragraph, close your eyes, and write one sentence in your own words. Looking away matters enormously, because it forces genuine paraphrase and blocks accidental plagiarism — copying that you did not even notice yourself doing.</p>
       <p>Length is the other trap. Professionals aim for roughly one tenth of the original: cut too little and you waste the reader's time; cut too much and the argument quietly collapses.</p>
+      <p>The one-tenth rule also exposes a common bluff. Students who cannot summarise a text usually have not fully understood it: the shrinking process is a comprehension test disguised as a writing exercise, which is exactly why examiners adore it.</p>
       <p>One warning about voice. A summary reports the author's opinion, never your own; the moment you add "which I find unfair", you have stopped summarising and started reviewing — an entirely different job.</p>
       <h4>🎩 Register: clothes for your words</h4>
       <p>Register is the level of formality you choose for a situation. Nobody wears pyjamas to a job interview, and consequently nobody should write "the results were kinda weird" in a science report. The ideas may be identical; the outfit decides how seriously they are received.</p>
       <p>Formal English follows a few visible habits. It avoids contractions (do not, it is), swaps phrasal verbs for single verbs (investigate, not look into), and prefers precise nouns to vague ones (children, not kids).</p>
       <p>Furthermore, it connects ideas openly. Words such as nevertheless and consequently are signposts; they tell your reader exactly which turn your argument is about to take.</p>
+      <p>Notice that none of these habits requires rare vocabulary. "The experiment did not succeed" is perfectly formal and contains no word a ten-year-old would fear. Formality is a set of choices, not a treasure chest of long words.</p>
       <h4>📚 Cite it or lose it</h4>
       <p>One further habit separates scholars from students: citation. When you borrow an idea, name its owner — this is not politeness, it is armour. A cited claim says "check me"; an uncited claim whispers "trust me", and examiners never, ever do.</p>
+      <p>Citation has a quieter benefit, too: it makes your own contribution visible. When the borrowed ideas are clearly labelled, whatever remains — the connections, the structure, the judgement — is unmistakably yours, and that is the part that earns the marks.</p>
       <h4>🚨 The trap on both sides</h4>
       <p>Beware, nevertheless, of over-dressing. Writing "I shall endeavour to elucidate" when you mean "I will explain" does not sound intelligent; it sounds like a robot butler. The target is formal and clear — never formal and foggy.</p>
       <h4>🧭 Your edge</h4>
@@ -246,7 +254,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section grammar">
   <div class="sec-head"><span class="icon">🔧</span> Focus — Formal Register Moves <span class="timing">10 min</span><span class="step">Step 5</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: share screen. For each quiz item, the student says the formal version out loud in her professor voice BEFORE you click it.</span>
+    <span class="zoom-cue">📹 Zoom: share screen. For each quiz item, the student says the formal version out loud in their professor voice BEFORE you click it.</span>
     <div class="rulebox">
       <div class="rule a"><h4>🎩 FORMAL — the five moves</h4>
         1. No contractions → <em>do not, it is</em><br>
@@ -262,10 +270,14 @@ body.teacher-mode .t-only{display:block}
         🔑 Formal ≠ long. Formal = precise + neutral.</div>
     </div>
     <div class="frame">💡 <b>The signpost map:</b> adding → <em>furthermore, in addition</em> · contrasting → <em>however, nevertheless</em> · result → <em>consequently, therefore</em>. One signpost per turn — never three in one sentence.</div>
+    <div class="frame">✂️ <b>The summary skeleton — two rules + one worked example:</b><br>
+      1️⃣ <b>Look-away method:</b> read the paragraph, close your eyes, write ONE sentence in your own words — looking away blocks accidental copying.<br>
+      2️⃣ <b>One-tenth rule:</b> aim for roughly a tenth of the original — keep the claim and key reasons; drop the jokes, examples and statistics.<br>
+      📌 <b>Worked example:</b> the whole "Cite it or lose it" section shrinks to one line: <em>"Citation protects the writer, because a cited claim can be verified."</em> Claim + reason — nothing else survives.</div>
     <p class="hint">💡 Hungarian tip: Hungarian formality lives mostly in WHO you're talking to (önözés). English formality lives in WORD CHOICE — you can say "you" to a professor, but you can't say "kinda". Shift the words, not the pronoun.</p>
     <h3>✏️ Practice — tap the more formal option</h3>
     <div id="grammar-quiz"></div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>After the quiz, flip one: give her "The findings were significant" and ask for the CASUAL version ("The results were a big deal") — proving register runs both ways. If she scores 7+/8, preview nominalization ("we changed the plan" → "the modification of the plan") as a taste of the boss round.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>After the quiz, flip one: give the student "The findings were significant" and ask for the CASUAL version ("The results were a big deal") — proving register runs both ways. If they score 7+/8, preview nominalization ("we changed the plan" → "the modification of the plan") as a taste of the boss round.</div>
   </div>
 </div>
 
@@ -279,7 +291,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section task">
   <div class="sec-head"><span class="icon">🎨</span> Create — Operation: Formal Rescue <span class="timing">10 min</span><span class="step">Step 6</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in her own browser, types here, and shares her screen so you can coach the rewrite live.</span>
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in their own browser, types here, and shares their screen so you can coach the rewrite live.</span>
     <p>A student sent this DISASTER to a teacher: 😱</p>
     <div class="frame"><em>"hey miss, soz but my essay's gonna be late cos my laptop died 😭 can i mayyybe send it friday? ur the best"</em></div>
     <p>Your mission: rescue it. Rewrite it as a proper formal email — same facts, tailored suit. 🎩</p>
@@ -301,7 +313,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section challenge">
   <div class="sec-head"><span class="icon">🎮</span> Challenge Game — The Register Gauntlet <span class="timing">8 min</span><span class="step">Step 7</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen and award an imaginary diploma per round. 🎉</span>
+    <span class="zoom-cue">📹 Zoom: student's browser, their clicks, their score! You watch on their shared screen and award an imaginary diploma per round. 🎉</span>
     <p class="hint">🎓 Three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
     <h3>Round 1 — Formal or informal?</h3>
     <div id="ch-quiz1"></div>
@@ -327,6 +339,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Bring both next time: we'll check the suit fits. 🤵</p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise the rescued email — quote its most professional sentence back in a butler voice for the laugh. Hand off homework by picking the article or video to summarise TOGETHER now; remind them: three sentences, look-away method, and both pieces come back next session for the suit-fitting.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

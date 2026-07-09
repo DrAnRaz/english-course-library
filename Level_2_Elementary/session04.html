@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 2 · ELEMENTARY (A2)</div>
   <h1>⭐ Session 4 — Right Now!</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: say what is happening <b>right now</b> vs what <b>usually</b> happens · ≈50 min core</div>
+  <div class="badge">🎯 Today: say what is happening <b>right now</b> vs what <b>usually</b> happens</div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — the student says it back in their own words.</span>
-    <p><em>"Today you become a live TV reporter! 📺 You will say what people <b>are doing</b> right now — and what they <b>usually do</b> every day. Two tenses, one superpower: describing the world around you."</em> 🚀</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Quick diagnostic: point your camera around the room and ask "What am I doing?" If the student answers "You dance" instead of "You are dancing", you know today's target. Don't correct yet — just note it.</div>
+    <p class="frame">🎯 Today: be a live TV reporter — right now vs every day! 📺</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S3):</b> the drawn neighbourhood map + 5 sentences — student holds the map to the camera and reads two sentences; listen for "There is/are" first and a preposition in each.<br><b>Say:</b> "Today you become a live TV reporter! 📺 You will say what people <b>are doing</b> right now — and what they <b>usually do</b> every day. Two tenses, one superpower: describing the world around you." 🚀<br>Quick diagnostic: point your camera around the room and ask "What am I doing?" If the student answers "You dance" instead of "You are dancing", you know today's target. Don't correct yet — just note it.</div>
   </div>
 </div>
 
@@ -208,21 +211,26 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — Saturday Chaos at Niko's <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen. Take turns — the student reads one chunk aloud, you read the next. Then the student annotates the quiz answers on your screen (Zoom → Annotate).</span>
+    <p class="hint">🔎 Watch for <b>is/are + -ing</b> (right now!) and plain <b>verb + -s</b> (every day) in the story — we unlock them in Step 5!</p>
     <p>Niko is writing a message on the stairs of his flat. Read it — tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
       <h4>🏠 Saturday morning live — by Niko, 12</h4>
       <p>Every Saturday morning, my family follows the same plan. Dad cooks pancakes and sings badly. Mum drinks two big cups of coffee and reads the news.</p>
       <p>My little sister watches cartoons on the sofa. I usually sleep until ten o'clock. Our dog Pixel waits outside my door like a small, hairy alarm clock.</p>
+      <p>At nine o'clock, Grandma always phones, and Mum always says the same thing: "Yes, Mum, we are fine!"</p>
       <h4>📢 But right now… listen!</h4>
       <p>Today is different! Right now, Dad is not cooking. He is dancing in the kitchen to his old rock music. He is using a spoon as a microphone.</p>
       <p>Mum is laughing so hard that her coffee is shaking. She is taking a video on her phone.</p>
+      <p>The pancakes are waiting on the table, and nobody is eating them. Even the butter is getting cold!</p>
       <h4>📱 What is my sister doing?</h4>
       <p>My sister is not watching cartoons. She is standing on the sofa and clapping. She is planning to show the video to our cousins.</p>
+      <p>Now she is texting our cousin Lena. She is typing so fast that her fingers look like little rockets.</p>
       <h4>🐶 And Pixel?</h4>
       <p>Pixel is not waiting by my door any more. He is jumping around Dad's feet and barking at the music. He thinks this is the best game ever.</p>
       <h4>🛌 What about me?</h4>
       <p>Me? I am not sleeping — nobody can sleep in this house! I am sitting on the stairs and writing this on my phone.</p>
+      <p>My hair is standing up, I am still wearing my pyjamas, and I am smiling like it is my birthday.</p>
       <p>I usually hate mornings, but I love this one. Right now, my crazy family is making my whole day.</p>
     </div>
 
@@ -320,6 +328,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Example: <em>"19:04 — Dad is watching football and shouting. He usually shouts at the news."</em></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise two concrete wins — e.g. a clean live tense switch in the news report, or a caught state verb ("I like", not "I am liking"). Hand off the homework: read the spy example aloud together and confirm the format: 3 "is/are + -ing" spy lines + 1 "usually" line — the spy report opens the next lesson's homework check.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

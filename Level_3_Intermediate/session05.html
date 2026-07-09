@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 3 · INTERMEDIATE (B1)</div>
   <h1>🗣️ Session 5 — She Said WHAT?!</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: report what people said — <b>reported speech</b> with said / told · ≈50 min core</div>
+  <div class="badge">🎯 Today: report what people said — <b>reported speech</b> with said / told</div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
-    <p><em>"Today you will learn to pass on what other people said — without using their exact words. By the end, you can turn 'I am hungry' into 'He said he was hungry', like a real news reporter."</em> 📰</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Live diagnostic: ask "What did someone in your family say to you this morning?" Don't correct anything — just note whether the student attempts any backshift ("she said she was…") or reports in present tense. That tells you how much drilling Step 5 needs.</div>
+    <p class="frame">🎯 Today: pass on what people said — like a news reporter!</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S4):</b> 3 passive object sentences + the best "Made in ___" label discovery — student shows the label and reads the sentences; listen for is/are vs was/were + participle.<br><b>Say:</b> "Today you will learn to pass on what other people said — without using their exact words. By the end, you can turn 'I am hungry' into 'He said he was hungry', like a real news reporter." 📰<br>Live diagnostic: ask "What did someone in your family say to you this morning?" Don't correct anything — just note whether the student attempts any backshift ("she said she was…") or reports in present tense. That tells you how much drilling Step 5 needs.</div>
   </div>
 </div>
 
@@ -199,6 +202,7 @@ body.teacher-mode .t-only{display:block}
     <h3>🎧 Practice — tap the right verb</h3>
     <p class="hint">Read the clue and tap the verb that matches. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Drill each card twice: verb + past form together ("say — said", "tell — told") — the past forms carry the whole lesson, so don't rush them. Skip verbs the student produces instantly; spend the time acting out the HOW-verbs (whisper it, shout it, admit it in a guilty voice). Personalization: ask "Who whispers in your family? Who announces things?" — one real sentence per verb.</div>
   </div>
 </div>
 
@@ -207,6 +211,7 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — The Great Hamster Rumor <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen. Take turns reading chunks aloud. Then the student annotates the quiz answers on your shared screen (Zoom → Annotate).</span>
+    <p class="hint">🔎 Watch for <b>said that … was / could</b> in the story — how words change when they travel — we unlock the trick in Step 5!</p>
     <p>Read the story of a rumor that grew and grew. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
@@ -215,13 +220,16 @@ body.teacher-mode .t-only{display:block}
       <h4>📞 The message starts to change</h4>
       <p>On Tuesday, Marcus told Lena about it. But he didn't remember Priya's exact words. He said that Biscuit was too fat to run in his wheel. Lena was shocked.</p>
       <p>On Wednesday, Lena told Tomás that the hamster couldn't move at all. Tomás was worried. He told his whole football team that Biscuit was the fattest hamster in the country.</p>
+      <p>On Thursday, the rumor left the school completely. Tomás's little sister told their grandmother that a hamster at school was very ill. Grandma told her neighbour, and the neighbour told the man in the corner shop. By the afternoon, the man in the shop was telling every customer that a "famous sick hamster" lived at the school.</p>
       <h4>🔥 Friday: total chaos</h4>
       <p>By Friday, everyone "knew" the story. Aisha announced that a TV crew was coming to film Biscuit. Somebody said that the head teacher had called a special hamster doctor from London. One little kid even asked if Biscuit would get his own YouTube channel.</p>
+      <p>Nobody asked Priya. Nobody checked the cage. Everyone said that somebody else had seen it with their own eyes — but nobody could say who.</p>
       <h4>🕵️ The truth comes out</h4>
       <p>Finally, their teacher, Mr Okafor, lifted Biscuit out of his cage. "Look," he said calmly. "Biscuit is fine. He is just very fluffy." The classroom went silent.</p>
       <p>Then Priya admitted that she had started everything. "I only said that he was a LITTLE bit fat," she explained. "I never said anything about TV!"</p>
       <p>Mr Okafor smiled and warned the class: "Be careful, reporters. Words change when they travel. If you report someone's words, report them honestly." Everybody looked at the floor. Biscuit ate a sunflower seed. He didn't care at all.</p>
       <p>The next Monday, the class made a new rule: check the facts first, then speak. Priya wrote it on a big poster — and yes, she asked Biscuit for his opinion.</p>
+      <p>Marcus read the poster and smiled. He said that it was the best rule in the school — and this time, he reported the words exactly.</p>
     </div>
 
     <h3>🔎 Did you understand? Tap your answer</h3>
@@ -319,6 +327,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Example: <em>"My mum said that dinner was ready. My brother told her that he wasn't hungry."</em></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise ONE clean backshift the student produced today ("You said she WAS…") — quote it back word for word.<br>Hand off homework by modelling one dinner-table report yourself ("Tonight my neighbour said that…") so they know exactly what to collect.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

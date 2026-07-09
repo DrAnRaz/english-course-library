@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 1 · BEGINNER (A1)</div>
   <h1>⭐ Session 10 — Review Quest 🗺️</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: your FINAL QUEST through all nine lands of Level 1 — win the treasure and your certificate! · ≈50 min core</div>
+  <div class="badge">🎯 Today: your FINAL QUEST through all nine lands of Level 1 — win the treasure and your certificate!</div>
 </div>
 
 <div class="scorebar">
@@ -170,9 +173,9 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Quest Briefing — The Nine Lands <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on. Read the quest map together — student reads the land names aloud like a real explorer.</span>
-    <p><em>"Explorer, this is your final quest! You travelled through NINE lands in Level 1. Today you go back through ALL of them, beat the Final Boss Tower, and win your <b>Level 1 Certificate</b>!"</em> 🗺️🏆</p>
+    <p class="frame">🎯 Today: the final quest — win your Level 1 certificate!</p>
     <div class="frame">🗺️ <b>The nine lands you know:</b> 1️⃣ Me &amp; My World · 2️⃣ My Day · 3️⃣ My School · 4️⃣ My Home · 5️⃣ Clothes &amp; Weather · 6️⃣ My Hobbies · 7️⃣ Always or Never · 8️⃣ People &amp; Jobs · 9️⃣ I Can Do It!</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Frame the whole session as one adventure — every step is a quest station. Keep energy high and pace fast; today is about showing off, not learning new material. Note which lands the student names with confidence.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S9):</b> two home interviews with 3 "Can you…?" questions each — student reads the best answers aloud; listen for "can/can't + bare verb" and the bonus "I can… but they can't" line.<br><b>Say:</b> "Explorer, this is your final quest! You travelled through NINE lands in Level 1. Today you go back through ALL of them, beat the Final Boss Tower, and win your <b>Level 1 Certificate</b>!" 🗺️🏆<br>Frame the whole session as one adventure — every step is a quest station. Keep energy high and pace fast; today is about showing off, not learning new material. Note which lands the student names with confidence.</div>
   </div>
 </div>
 
@@ -213,13 +216,13 @@ body.teacher-mode .t-only{display:block}
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
       <h4>🗺️ The explorer wakes up</h4>
-      <p>Ben the explorer wakes up at six o'clock. He is brave and friendly, and today is a big day. There is an old map on his desk.</p>
+      <p>Ben the explorer wakes up at six o'clock. He is brave and friendly, and today is a big day. There is an old map on his desk. He has toast for breakfast, and he puts the map in his bag. He is ready at seven o'clock.</p>
       <h4>🌲 The journey</h4>
-      <p>He always travels with his dog, Pixel. Pixel can run very fast, but he can't read maps! First they walk through the Forest of Words. It is cold and windy, so Ben wears his warm jacket.</p>
+      <p>He always travels with his dog, Pixel. Pixel can run very fast, but he can't read maps! First they walk through the Forest of Words. It is cold and windy, so Ben wears his warm jacket. Pixel never wears a jacket — he has warm fur!</p>
       <h4>⛰️ The mountain</h4>
-      <p>Ben's sister is a doctor. She always says: "Never climb in bad weather!" So they wait. At two o'clock the sun comes out, and they climb to the top.</p>
+      <p>Ben's sister is a doctor. She always says: "Never climb in bad weather!" So they wait. At two o'clock the sun comes out, and they climb to the top. Climbing is hard work, but Ben loves it.</p>
       <h4>💎 The treasure</h4>
-      <p>At the top there is a wooden box. Inside, there is no gold — there is a mirror! Ben laughs. The real treasure is the explorer in the mirror. Can YOU find the treasure too?</p>
+      <p>At the top there is a wooden box. Inside, there is no gold — there is a mirror! Ben laughs. The real treasure is the explorer in the mirror. Pixel barks at the mirror — he can see a dog in it! Can YOU find the treasure too?</p>
     </div>
 
     <h3>🔎 Did you understand? Tap your answer</h3>
@@ -333,7 +336,7 @@ body.teacher-mode .t-only{display:block}
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
     <div class="t-only">
-      <div class="teacher-note"><h4>Teacher note — Step 8 / level exit</h4>Ceremony matters — read the certificate in a formal voice, applaud on camera. Record the final Gauntlet + Tower scores in your notes as the Level 1 exit result. Decision: 80%+ overall → start Level 2 next session; below → one targeted revision session first (see Step 5 note for which lands).</div>
+      <div class="teacher-note t-only"><h4>Teacher note — Step 8 / level exit</h4>Ceremony matters — read the certificate in a formal voice, applaud on camera. Record the final Gauntlet + Tower scores in your notes as the Level 1 exit result. Decision: 80%+ overall → start Level 2 next session; below → one targeted revision session first (see Step 5 note for which lands).</div>
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>
       <div class="qa-item"><div class="q">What to adjust next time?</div><div class="editable" id="tn-adjust" contenteditable="true" data-placeholder="…"></div></div>

@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 2 · ELEMENTARY (A2)</div>
   <h1>🐬 Session 2 — Animals &amp; Nature</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: say what animals <b>can</b> and <b>can't</b> do — and where they live · ≈50 min core</div>
+  <div class="badge">🎯 Today: say what animals <b>can</b> and <b>can't</b> do — and where they live</div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
-    <p><em>"Today you become a <b>zoologist</b> — a scientist who studies animals! You will learn what amazing animals <b>can</b> and <b>can't</b> do, and at the end you will make a fact card about your favourite animal."</em> 🔬</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Ask: "What can YOU do — swim, run, sing?" Note whether "can" comes out correctly and whether an -s sneaks in ("he cans"). That is your live diagnostic. Say "zoologist" slowly together: zoo-OL-o-jist.</div>
+    <p class="frame">🎯 Today: be a zoologist — animal superpowers and your own fact card! 🔬</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S1):</b> the 5-day lunch menu with "I like/love/don't like… because…" sentences — ask the student to read two days aloud; listen for like/likes and a "because" reason.<br><b>Say:</b> "Today you become a <b>zoologist</b> — a scientist who studies animals! You will learn what amazing animals <b>can</b> and <b>can't</b> do, and at the end you will make a fact card about your favourite animal." 🔬<br>Ask: "What can YOU do — swim, run, sing?" Note whether "can" comes out correctly and whether an -s sneaks in ("he cans"). That is your live diagnostic. Say "zoologist" slowly together: zoo-OL-o-jist.</div>
   </div>
 </div>
 
@@ -208,6 +211,7 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — Incredible Animals <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen. Student reads one animal chunk aloud, you read the next — take turns. Then student annotates the answers on your screen (Zoom → Annotate).</span>
+    <p class="hint">🔎 Watch for <b>can</b> and <b>can't</b> in the story — we unlock them in Step 5!</p>
     <p>Read about four animal superstars. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
@@ -216,12 +220,16 @@ body.teacher-mode .t-only{display:block}
       <h4>🐬 Dolphins</h4>
       <p>Dolphins live in the ocean, but they are not fish — they are mammals. They can swim at 60 kilometres per hour, and they can jump high out of the water. They can even talk to each other with clicks and whistles!</p>
       <p>But dolphins can't breathe underwater. They swim to the surface and breathe through a hole on the top of their heads.</p>
+      <p>Baby dolphins can't hunt at first, so they stay close to their mothers and learn from them every day.</p>
       <h4>🦅 Eagles</h4>
       <p>Eagles can fly higher than mountains. They have amazing eyes — an eagle can see a small mouse from 500 metres away! Eagles can't run fast on the ground, but they don't need to.</p>
+      <p>Eagles can build giant nests, too. Some nests are bigger than your bed, and an eagle family can use the same nest for many years!</p>
       <h4>🐆 Cheetahs</h4>
       <p>Cheetahs are the fastest land animals in the world. They can run at 120 kilometres per hour — faster than a car on a normal road! Cheetahs can't roar like lions, but they can purr like a happy cat.</p>
+      <p>But a cheetah can't run for a long time. After about thirty seconds it needs a rest — just like you after a big race!</p>
       <h4>🐧 Penguins</h4>
       <p>Penguins are birds, but they can't fly. They can swim brilliantly — they use their wings like flippers. A penguin can hold its breath for 20 minutes and can survive at minus 60 degrees!</p>
+      <p>On land, penguins can't walk very fast. So they lie down and slide on the ice on their tummies — it looks like a fun game!</p>
       <h4>⭐ Your turn</h4>
       <p>Every animal has a superpower. What can your favourite animal do?</p>
     </div>
@@ -256,6 +264,7 @@ body.teacher-mode .t-only{display:block}
         ❓ Question: flip the order! <em><b>Can</b> dolphins jump? — Yes, they <b>can</b>. / No, they <b>can't</b>.</em></div>
     </div>
     <div class="frame">💡 <b>"Can" is a magic helper word:</b> it never changes. No -s, no -ed, no -ing. One shape for everyone: I can, you can, she can, they can. 🪄</div>
+    <div class="frame">🌍 <b>Where does it live? Say the habitat:</b> <em>It <b>lives in</b> the ocean.</em> 🐬 · <em><b>Its home is</b> the forest.</em> 🐺 — use these two lines for your fact card in Step 6!</div>
     <p class="hint">💡 Hungarian tip: <em>"tud úszni"</em> = "can swim" — the idea is the same! The ONE difference: in English questions the order flips: <em>"Can it fly?"</em>, not <em>"It can fly?"</em>. Watch only for that.</p>
     <h3>✏️ Practice — tap the correct form</h3>
     <div id="grammar-quiz"></div>
@@ -323,6 +332,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Example: <em>"A fox lives in the forest. It has red fur and a big tail. It can run fast."</em></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise two concrete wins — e.g. a question with flipped order ("Can it fly?") or a clean "can + base verb" with no -s. Hand off the homework: read the fox example aloud together and confirm all 6 sentence starters are clear — the new animal card opens the next lesson's homework check.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

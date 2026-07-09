@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 3 · INTERMEDIATE (B1)</div>
   <h1>⭐ Session 10 — Escape Room Review 🔐</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: escape the Grammar Vault using EVERYTHING from Level 3 — and win your certificate! · ≈50 min core</div>
+  <div class="badge">🎯 Today: escape the Grammar Vault using EVERYTHING from Level 3 — and win your certificate!</div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Mission Briefing <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on. Read the mission in a dramatic spy voice — student says it back in their own words.</span>
-    <p><em>"Agent, you are locked inside the <b>Grammar Vault</b>. Nine sessions of Level 3 knowledge are the only keys: present perfect, past continuous, conditionals, passive, reported speech, phrasal verbs, opinions, quantifiers and used to. Solve the rooms, escape the vault — and your Level 3 certificate is yours."</em> 🔐</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>This is a REVIEW session — no new grammar. Play up the escape-room drama (timer sounds, whispering, "the vault is listening"). Note which of the nine topics the student names confidently in the mission read-back; the ones they skip are the ones to slow down on later.</div>
+    <p class="frame">🎯 Today: escape the Grammar Vault — everything from Level 3!</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S9):</b> 3 "used to" interview sentences (+ the 2 bonus polite hotel questions) — student reads them aloud; listen for "used to + verb" and "did … use to" in what they report.<br><b>Say (dramatic spy voice):</b> "Agent, you are locked inside the <b>Grammar Vault</b>. Nine sessions of Level 3 knowledge are the only keys: present perfect, past continuous, conditionals, passive, reported speech, phrasal verbs, opinions, quantifiers and used to. Solve the rooms, escape the vault — and your Level 3 certificate is yours." 🔐<br>This is a REVIEW session — no new grammar. Play up the escape-room drama (timer sounds, whispering, "the vault is listening"). Note which of the nine topics the student names confidently in the mission read-back; the ones they skip are the ones to slow down on later.</div>
   </div>
 </div>
 
@@ -197,6 +200,7 @@ body.teacher-mode .t-only{display:block}
     <h3>🎧 Practice — tap the right key word</h3>
     <p class="hint">Read the clue and tap the word that matches. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>This deck is pure retrieval — the "which session is it from?" question matters more than pronunciation now. Drill fast: 🔊, repeat once, name the session. Skip nothing, but spend under 20 seconds on words they place instantly. Personalization: for two cards, ask for a full sentence from that session's grammar ("boarding pass" → a used-to sentence, "give up" → a phrasal-verb sentence).</div>
   </div>
 </div>
 
@@ -219,12 +223,15 @@ body.teacher-mode .t-only{display:block}
       <p>Milo <b>was looking</b> at the bookshelf <b>when</b> he noticed something odd. One green book was upside down.</p>
       <p><b>While he was pulling</b> it out, a secret drawer opened in the old desk. Inside lay a yellow note.</p>
       <p>The note said: <em>"This library <b>was built</b> in 1891. The first puzzle <b>was hidden</b> by the builder himself."</em></p>
+      <p>Milo read it twice and whispered: "OK. <b>If</b> the builder hid it, I <b>will find</b> it." He <b>had solved</b> a hundred puzzle books before, but a real room was different: here, the clock was ticking for him.</p>
       <h4>🗝️ The riddle</h4>
       <p>Under the desk, Milo found a small radio. The voice <b>told him that</b> the answer <b>was</b> on the ceiling.</p>
       <p>He looked up and laughed. Many years ago, someone had painted a giant golden seven above the lamp.</p>
       <p>Seven turned the lock. Then came a word puzzle, a number code, and a map that <b>was drawn</b> in invisible ink.</p>
+      <p>The word puzzle was Milo's favourite. The voice <b>said that</b> the answer <b>was</b> hiding in plain sight — and it was: the word ESCAPE, written in the first letters of six book titles on the middle shelf. "Clever," Milo admitted, "very clever."</p>
       <h4>🎉 The escape</h4>
       <p>At five to five, Milo turned the final key. The door swung open, and his teacher was waiting outside with a huge smile.</p>
+      <p>"Five minutes to spare," she said. "Most adults never get out at all." Milo tried to look calm and cool about it. He failed completely.</p>
       <p><em>"Congratulations! You <b>have used</b> everything you learned this year. <b>If you keep</b> practising, you <b>will be</b> unstoppable."</em></p>
       <p>Milo grinned and asked: "Can I do it again?"</p>
     </div>
@@ -337,6 +344,7 @@ body.teacher-mode .t-only{display:block}
       <p>✏️ <b>Write 3 sentences about Level 3:</b> <em>"I have learned… / My favourite session was… / If I could repeat one game, I would choose…"</em></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Make the certificate moment BIG: read the student's name aloud, list the two topics where they were strongest today, and let them screenshot it live.<br>Hand off the victory-lap homework by asking who at home will play their escape puzzle — and promise to hear the result at the Level 4 kickoff.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">Which Level 3 topics still wobble? (bring them into L4 warm-ups)</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

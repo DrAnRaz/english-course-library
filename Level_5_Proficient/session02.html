@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 5 · PROFICIENT (C1)</div>
   <h1>⭐ Session 2 — Collocation Power</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: build natural <b>word partnerships</b> so your English stops sounding translated · ≈50 min core</div>
+  <div class="badge">🎯 Today: build natural <b>word partnerships</b> so your English stops sounding translated</div>
 </div>
 
 <div class="scorebar">
@@ -169,9 +172,9 @@ body.teacher-mode .t-only{display:block}
 <div class="section goal">
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in her own words.</span>
-    <p><em>"Today you will learn why grammatically perfect English can still sound foreign — and how <b>collocations</b> (natural word partnerships like <b>heavy rain</b> and <b>make a decision</b>) turn 'correct' English into REAL English."</em> 🧲</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Diagnostic: ask "What did you do last weekend?" and listen for translated partnerships ("big rain", "make my homework", "very disappointed" where "bitterly" would shine). Note 2–3 examples silently — you'll recycle them in Step 5 without naming who said them.</div>
+    <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
+    <p class="frame">🎯 Today: word partnerships that make your English sound real! 🧲</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S1):</b> loaded-word hunt (3 loaded words + neutral swaps) and the register-flip email — student reads two finds aloud; listen for whether they can name the attitude each word smuggles in.<br><b>Say:</b> "Today you will learn why grammatically perfect English can still sound foreign — and how collocations (natural word partnerships like heavy rain and make a decision) turn 'correct' English into REAL English."<br>Diagnostic: ask "What did you do last weekend?" and listen for translated partnerships ("big rain", "make my homework", "very disappointed" where "bitterly" would shine). Note 2–3 examples silently — you'll recycle them in Step 5 without naming who said them.</div>
   </div>
 </div>
 
@@ -199,6 +202,7 @@ body.teacher-mode .t-only{display:block}
     <h3>🎧 Practice — tap the natural partner</h3>
     <p class="hint">Read the sentence and pick the partner a native speaker would choose. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Drill with a "broken partner" game: you say the translated version ("big rain"), the student repairs it with the whole natural chunk. Skip pairs the student already fired correctly in Step 2; give extra reps to the make/do items. Personalisation: ask which chunk they will genuinely need this week (a test? a match?) and build one true sentence with it.</div>
   </div>
 </div>
 
@@ -206,7 +210,8 @@ body.teacher-mode .t-only{display:block}
 <div class="section reading">
   <div class="sec-head"><span class="icon">📖</span> Reading — Why Your English Sounds Translated <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: share screen. Take turns reading a chunk each. Then student uses Zoom → Annotate to underline every collocation she can spot in two paragraphs.</span>
+    <span class="zoom-cue">📹 Zoom: share screen. Take turns reading a chunk each. Then student uses Zoom → Annotate to underline every collocation they can spot in two paragraphs.</span>
+    <p class="hint">🔎 Watch for <b>word partnerships (make / do / take / heavy / bitterly…)</b> in the article — we unlock them in Step 5!</p>
     <p>Read this article from a language-learning blog. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
@@ -221,12 +226,16 @@ body.teacher-mode .t-only{display:block}
       <p>Here is the uncomfortable truth: there is no rule. Nothing in logic explains why rain is <b>heavy</b> but coffee is <b>strong</b>, when both simply mean "a lot". Why do you <b>keep</b> a promise but <b>break</b> a record? Nobody decided; native speakers simply inherited the pairs.</p>
       <p>Some partnerships are strict. You can be <b>utterly exhausted</b> but not "utterly tired" — <em>utterly</em> only likes extreme words. You can be <b>bitterly disappointed</b> or <b>bitterly cold</b>, but never "bitterly happy".</p>
       <p>Linguists estimate that fluent speech is stitched together largely from these ready-made chunks. Your brain doesn't build "to be honest" word by word; it grabs the whole chunk off the shelf. That is why natives sound fast and effortless.</p>
+      <p>It also explains a strange experience every learner knows: you understand each word in a sentence, yet the whole thing takes a second too long to process. Your brain is assembling from single bricks while the native speaker next to you is snapping together whole pre-built walls.</p>
       <h4>⚔️ The make/do minefield</h4>
       <p>The most famous battlefield is <b>make</b> versus <b>do</b>. Roughly: <em>make</em> is for creating and deciding — make a plan, make a promise, make progress. <em>Do</em> is for work and duties — do homework, do the dishes, do your best.</p>
       <p>There are exceptions, of course. English wouldn't be English without exceptions.</p>
+      <p>You <b>make</b> your bed, although it feels suspiciously like a duty, and you <b>do</b> someone a favour, although a favour is surely something you create. When Réka complained that this was unfair, Callum just shrugged: "Nobody said the pairs were logical. We simply know which shoe goes with which."</p>
       <h4>📡 Training your collocation radar</h4>
       <p>The fix is not memorising lists — it's noticing. When you read or watch anything in English, hunt in pairs. Don't record "decision"; record "make a decision". Don't record "disappointed"; record "bitterly disappointed".</p>
+      <p>Songs and subtitles are perfect hunting grounds, because they repeat. Hear "take your time" in three different choruses and the chunk stops being vocabulary — it becomes reflex. Ten noticed partnerships a week beat a hundred memorised ones a month, because a noticed chunk arrives with a real situation attached to it.</p>
       <p>Réka started a "partnership notebook" on her phone. Three weeks later, Callum had stopped grinning — and had started borrowing her notes for his Spanish class.</p>
+      <p>Her rules were simple: whole chunks only, one line each, and a star next to any pair that surprised her. The starred ones, she noticed, were exactly the ones she never got wrong again.</p>
       <h4>🏆 The pay-off</h4>
       <p>Collocations are the difference between English that is correct and English that is real. Examiners reward them, listeners relax around them, and best of all, they make speaking easier — because half your sentence is already assembled.</p>
       <p>So the next time it pours in Manchester, you'll know exactly what to say. The rain is heavy. The wind is bitter. And your English? Getting stronger by the day.</p>
@@ -280,7 +289,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section task">
   <div class="sec-head"><span class="icon">🎨</span> Create — The Upgrade Studio <span class="timing">10 min</span><span class="step">Step 6</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in her own browser, shares her screen, and edits live while you watch.</span>
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in their own browser, shares their screen, and edits live while you watch.</span>
     <p>A student wrote this diary entry with <b>seven broken partnerships</b>. 🔧 Rewrite it below so every chunk sounds native. Then write three sentences about YOUR week using today's collocations.</p>
     <div class="frame">📓 <em>"Last weekend there was <b>big rain</b>, so I <b>did a decision</b> to stay at home. I <b>made my homework</b>, then <b>took a fast shower</b>. Later I <b>got a cold</b>, and I was <b>very much disappointed</b> because I missed Zed's birthday — he had <b>made a huge party</b>."</em></p>
     <h3>Tap every partnership you fix or use:</h3>
@@ -299,7 +308,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section challenge">
   <div class="sec-head"><span class="icon">🎮</span> Challenge Game — Partner Hunt <span class="timing">8 min</span><span class="step">Step 7</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen and cheer. 🎉</span>
+    <span class="zoom-cue">📹 Zoom: student's browser, their clicks, their score! You watch on their shared screen and cheer. 🎉</span>
     <p class="hint">🧲 Three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
     <h3>Round 1 — Find the partner</h3>
     <div id="ch-quiz1"></div>
@@ -308,7 +317,7 @@ body.teacher-mode .t-only{display:block}
     <h3>Round 3 — Boss level: chunk surgery 👑</h3>
     <div id="ch-quiz3"></div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can be the start of the next lesson's warm-up.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>All answers show live in her score; wrong picks auto-reveal the green one. On every miss, have the student say the CORRECT full chunk aloud twice — the mouth remembers what the eye forgets.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>All answers show live in their score; wrong picks auto-reveal the green one. On every miss, have the student say the CORRECT full chunk aloud twice — the mouth remembers what the eye forgets.</div>
   </div>
 </div>
 
@@ -325,6 +334,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Example: <em>"If the rain is heavy on Saturday, I'll stay in, do my homework early and make some real progress on my project."</em></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise the best repaired chunk from Step 6 by quoting it back word-for-word. Hand off homework by starting the partnership notebook TOGETHER now: student opens phone notes, titles it, and enters today's first chunk before the call ends.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

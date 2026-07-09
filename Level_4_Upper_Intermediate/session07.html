@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 4 · UPPER-INTERMEDIATE (B2)</div>
   <h1>🔮 Session 7 — Future Worlds</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: make bold predictions with the <b>future perfect</b> and <b>future continuous</b> · ≈50 min core</div>
+  <div class="badge">🎯 Today: make bold predictions with the <b>future perfect</b> and <b>future continuous</b></div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
-    <p><em>"Today you will travel to the year 2050 — with grammar as your time machine. By the end, you can describe what the world <b>will have become</b> and what people <b>will be doing</b>, like a professional futurist."</em> 🚀</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Diagnostic question: "What do you think phones will be like in 2050?" Just listen — note whether the student uses any future form beyond plain "will". Don't correct yet; today's lesson adds the two advanced futures on top of what they have.</div>
+    <p class="frame">🎯 Today: travel to 2050 — grammar is your time machine!</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S6):</b> 6-sentence persuasive paragraph with 4+ linkers — check the UNDERLINED concession and rebuttal first, then have them read it aloud like a speech.<br><b>Say:</b> "Today you will travel to the year 2050 — with grammar as your time machine. By the end, you can describe what the world <b>will have become</b> and what people <b>will be doing</b>, like a professional futurist." 🚀<br>Diagnostic question: "What do you think phones will be like in 2050?" Just listen — note whether the student uses any future form beyond plain "will". Don't correct yet; today's lesson adds the two advanced futures on top of what they have.</div>
   </div>
 </div>
 
@@ -199,6 +202,7 @@ body.teacher-mode .t-only{display:block}
     <h3>🎧 Practice — tap the right word</h3>
     <p class="hint">Read the clue and tap the word that matches. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Sort the cards into "already exists" (self-driving car, VR, delivery drone) vs "still coming" (space colony, hologram teachers) — the debate warms up opinions for the reading. Multi-word items (renewable energy, climate crisis) need choral repetition; stress the FIRST word. Personalisation: which invention do they want first, and which slightly scares them?</div>
   </div>
 </div>
 
@@ -207,17 +211,21 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — The 2050 Files <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen. Take turns reading one chunk each. Then the student uses Zoom → Annotate to circle every future perfect they can find in 60 seconds.</span>
+    <p class="hint">🔎 Watch for <b>will have done</b> and <b>will be doing</b> in Amara's project — we unlock them in Step 5!</p>
     <p>Read Amara's school project about an ordinary Tuesday in 2050. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
       <h4>🌍 The 2050 Files — a school project by Amara, 14</h4>
       <p>Last week our teacher gave us an unusual piece of homework: describe one ordinary Tuesday in the year 2050. At first I laughed at the idea. Then I did some proper research, and honestly, the future looks wilder than any science-fiction film.</p>
+      <p>My research method was simple: I read three serious reports, watched two documentaries, and interviewed my uncle, who repairs wind turbines for a living. Then I picked the predictions that kept appearing everywhere. Here is my Tuesday, twenty-four years from now.</p>
       <h4>🤖 Morning, 2050</h4>
       <p>By 2050, most experts believe we <b>will have replaced</b> petrol cars almost completely. So my future self <b>will be riding</b> a driverless electric pod to school — if school buildings still exist at all.</p>
       <p>Some scientists predict that many classrooms <b>will have moved</b> into virtual reality by then. Imagine studying volcanoes while standing inside one. No burnt eyebrows, I hope.</p>
+      <p>My little brother says VR school sounds perfect, because nobody can see you yawning. The reports disagree with him on one point: real teachers, they say, <b>will still be running</b> the lessons — just from anywhere on Earth.</p>
       <h4>🏙️ The city around me</h4>
       <p>Cities are already changing fast. Engineers say that by the middle of the century we <b>will have built</b> whole neighbourhoods that produce their own clean energy.</p>
       <p>Rooftops will be covered in gardens, and delivery drones <b>will be buzzing</b> overhead like polite mechanical bees. Traffic jams might finally become a story that grandparents tell.</p>
+      <p>I asked my uncle what his wind turbines will look like by then. He grinned and said, "Taller than your school, and quieter than your classroom." Apparently, engineers are already testing blades that can repair their own cracks.</p>
       <h4>🚀 The big questions</h4>
       <p>Will humans <b>have landed</b> on Mars by 2050? The space agencies certainly believe so. A few researchers even claim that a small crew <b>will be living</b> there permanently, growing potatoes in the red dust.</p>
       <p>Personally, I'm less sure about that one. Rockets are expensive, and potatoes are surprisingly fussy vegetables.</p>
@@ -225,6 +233,7 @@ body.teacher-mode .t-only{display:block}
       <h4>⚠️ Not everything is shiny</h4>
       <p>Of course, some predictions are worrying rather than exciting. If we don't act quickly, the climate crisis <b>will have damaged</b> many coastlines by mid-century.</p>
       <p>That is exactly why my generation cares so much about renewable energy and sustainable cities. We're not being dramatic — we're being practical. It's our Tuesday in 2050, after all.</p>
+      <p>Our class has already started, in a small way. This spring we are planting a row of trees behind the gym, and half the school has switched to refillable water bottles. Small things, yes — but futures are built on ordinary Tuesdays.</p>
       <h4>✍️ My conclusion</h4>
       <p>So here is my personal prediction. By the time I'm forty, I <b>will have visited</b> a city with flying taxis, and I <b>will be laughing</b> at how slow the internet was back in 2026.</p>
       <p>One thing won't change, though. Whatever the year, some kid somewhere <b>will be finishing</b> their homework at midnight. Probably me.</p>
@@ -253,7 +262,8 @@ body.teacher-mode .t-only{display:block}
         Looks BACK from a future point: the action is complete before that moment.<br><br>
         <em>By 2050, we <b>will have replaced</b> petrol cars.</em> 🏁<br>
         <em>By Friday, I <b>will have finished</b> the project.</em><br><br>
-        🔑 Signal words: <b>by 2050, by then, by the time…</b></div>
+        🔑 Signal words: <b>by 2050, by then, by the time…</b><br><br>
+        ⭐ <b>Bonus: will have been + -ing</b> (how LONG by then):<br><em>By June, I <b>will have been learning</b> English for 5 years.</em></div>
       <div class="rule b"><h4>🎬 FUTURE CONTINUOUS — "in progress then"</h4>
         <b>will be + verb-ing</b><br>
         Freezes a future moment: the action is happening AT that time.<br><br>
@@ -325,6 +335,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Example: <em>"My mum thinks that by 2050, robots will have taken over the ironing. She hopes she will be relaxing on a beach instead."</em></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise the best "will have / will be doing" pair from their postcard — read it back in the fortune-teller voice. Hand off homework: pick the family interviewee together now, and rehearse the question "What do you think the world will be like in 2050?" once aloud.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

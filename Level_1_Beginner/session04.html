@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 1 · BEGINNER (A1)</div>
   <h1>🏠 Session 4 — My Home</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: name the rooms of a home and say where things are with <b>in / on / under</b> · ≈50 min core</div>
+  <div class="badge">🎯 Today: name the rooms of a home and say where things are with <b>in / on / under</b></div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
-    <p><em>"Today you will learn the rooms of a home and the things inside them. By the end, you can say where things are: <b>in</b>, <b>on</b> and <b>under</b> — and give a tour of your dream room!"</em> 🏠✨</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Quick diagnostic: hold up a pen, put it ON a book, IN a cup, UNDER a paper. Ask "Where is the pen?" each time. Note which prepositions the student already knows — don't correct yet.</div>
+    <p class="frame">🎯 Today: rooms, furniture — and a tour of your dream room!</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S3):</b> classroom drawing + 5 "There is / There are" sentences — student shows the drawing to camera and reads the sentences; listen for the is/are match with one vs many.<br><b>Say:</b> "Today you will learn the rooms of a home and the things inside them. By the end, you can say where things are: <b>in</b>, <b>on</b> and <b>under</b> — and give a tour of your dream room!" 🏠✨<br>Quick diagnostic: hold up a pen, put it ON a book, IN a cup, UNDER a paper. Ask "Where is the pen?" each time. Note which prepositions the student already knows — don't correct yet.</div>
   </div>
 </div>
 
@@ -208,18 +211,19 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — Omar's Flat Tour <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen. Student reads one chunk aloud, you read the next — take turns. Then the student annotates the answers on your screen (Zoom → Annotate).</span>
+    <p class="hint">🔎 Watch for <b>in / on / under</b> in the story — we unlock them in Step 5!</p>
     <p>Read Omar's flat tour. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
       <h4>🏠 Welcome to my flat — by Omar, 10</h4>
-      <p>Hi! I am Omar. I live in a flat with my mum, my dad and my little sister Lina. Our flat is small, but I love it.</p>
+      <p>Hi! I am Omar. I live in a flat with my mum, my dad and my little sister Lina. Our flat is small, but I love it. Lina is six, and she is very funny.</p>
       <h4>🛋️ The living room</h4>
-      <p>The living room is my favourite room. There is a big blue sofa and a small table. Our cat, Biscuit, sleeps on the sofa every day.</p>
+      <p>The living room is my favourite room. There is a big blue sofa and a small table. Our cat, Biscuit, sleeps on the sofa every day. There is a TV on the wall, and there are photos of our family on the table.</p>
       <h4>🛌 My bedroom</h4>
-      <p>My bedroom is next to the bathroom. There is a bed, a desk and a lamp in my room. My football is under the bed.</p>
+      <p>My bedroom is next to the bathroom. There is a bed, a desk and a lamp in my room. My football is under the bed. My robot is in the wardrobe — it is my secret!</p>
       <p>My books are on the desk. Can you see my school bag? It is on the chair!</p>
       <h4>🍳 The kitchen</h4>
-      <p>The kitchen is small but happy. Dad cooks dinner there. Right now, there is a pizza in the oven. Yum! Come and visit us!</p>
+      <p>The kitchen is small but happy. Dad cooks dinner there. Right now, there is a pizza in the oven. Yum! The plates are on the table, and the juice is in the fridge. Lina's cup is under her chair — again! Come and visit us!</p>
     </div>
 
     <h3>🔎 Did you understand? Tap your answer</h3>
@@ -315,6 +319,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Example: <em>"My lamp is on the desk. My shoes are under the bed. My books are in the bag."</em></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise the dream-room tour: quote the funniest preposition sentence the student made ("The dragon is under the bed!").<br>Homework hand-off: read the example together, then ask which 5 things they will label in their bedroom drawing — 3 sentences, one each with in / on / under, checked next lesson.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

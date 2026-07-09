@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 1 · BEGINNER (A1)</div>
   <h1>🧥 Session 5 — Clothes &amp; Weather</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: say what you're wearing with <b>"I'm wearing"</b> and talk about the weather with <b>"It's sunny"</b> · ≈50 min core</div>
+  <div class="badge">🎯 Today: say what you're wearing with <b>"I'm wearing"</b> and talk about the weather with <b>"It's sunny"</b></div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Look out of your windows together: what's the weather like right now?</span>
-    <p><em>"Today you will learn clothes and weather words. By the end, you can say <b>'I'm wearing…'</b> and <b>'It's sunny!'</b> — and be a real TV weather reporter!"</em> 🌦️🎤</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Live diagnostic: ask "What's the weather like today?" and "What are you wearing?" Note if the student says "I wearing" (missing am) or "Is sunny" (missing It's) — these are today's two target fixes.</div>
+    <p class="frame">🎯 Today: clothes + weather — you become a TV weather reporter!</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S4):</b> bedroom drawing with 5 labels + 3 sentences with in / on / under — student shows the drawing and reads the sentences; listen for the preposition before each place.<br><b>Say:</b> "Today you will learn clothes and weather words. By the end, you can say <b>'I'm wearing…'</b> and <b>'It's sunny!'</b> — and be a real TV weather reporter!" 🌦️🎤<br>Live diagnostic: ask "What's the weather like today?" and "What are you wearing?" Note if the student says "I wearing" (missing am) or "Is sunny" (missing It's) — these are today's two target fixes.</div>
   </div>
 </div>
 
@@ -208,19 +211,20 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — Ravi's Season Photos <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen. Student reads one season aloud, you read the next — take turns. Then the student annotates the answers on your screen (Zoom → Annotate).</span>
+    <p class="hint">🔎 Watch for <b>I'm wearing…</b> and <b>It's + weather</b> in the story — we unlock them in Step 5!</p>
     <p>Read Ravi's photo album. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
       <h4>🌦️ Four seasons, four outfits — by Ravi, 11</h4>
-      <p>Hello! I am Ravi. I live in Manchester, and the weather here changes a lot. Look at my four photos!</p>
+      <p>Hello! I am Ravi. I live in Manchester, and the weather here changes a lot. Look at my four photos! My dad takes all the photos with his old camera.</p>
       <h4>❄️ Winter</h4>
-      <p>In this photo, it is snowy and very cold. I'm wearing a warm coat, a red scarf and boots. My gloves are blue.</p>
+      <p>In this photo, it is snowy and very cold. I'm wearing a warm coat, a red scarf and boots. My gloves are blue. It's snowing in the photo, and my nose is red!</p>
       <h4>🌷 Spring</h4>
-      <p>In spring it is often rainy. In this photo, I'm wearing a yellow raincoat and green boots. I love jumping in puddles!</p>
+      <p>In spring it is often rainy. In this photo, I'm wearing a yellow raincoat and green boots. I love jumping in puddles! It's raining in this photo, but I am happy.</p>
       <h4>☀️ Summer</h4>
-      <p>It is sunny and hot! I'm wearing a T-shirt, shorts and sunglasses. My dog is wearing a funny hat. He is not happy.</p>
+      <p>It is sunny and hot! I'm wearing a T-shirt, shorts and sunglasses. My dog is wearing a funny hat. He is not happy. We are at the beach, and my ice cream is very big.</p>
       <h4>🍂 Autumn</h4>
-      <p>In autumn it is windy and cloudy. I'm wearing a jumper and jeans. Look — the leaves are dancing in the wind!</p>
+      <p>In autumn it is windy and cloudy. I'm wearing a jumper and jeans. Look — the leaves are dancing in the wind! My jumper is orange, like the leaves.</p>
       <p>What is the weather like today where you live? What are you wearing?</p>
     </div>
 
@@ -252,6 +256,7 @@ body.teacher-mode .t-only{display:block}
         <b>It's + weather word</b><br><br>
         <em><b>It's</b> sunny.</em> ☀️ <em><b>It's</b> rainy.</em> 🌧️<br>
         <em><b>It's</b> hot.</em> 🥵 <em><b>It's</b> cold.</em> 🥶<br><br>
+        ☔ Rain and snow are whole phrases — learn them as chunks: <em><b>It's raining!</b></em> 🌧️ <em><b>It's snowing!</b></em> ❄️<br><br>
         🔑 Weather sentences always start with <b>It's</b>.</div>
     </div>
     <div class="frame">🍂 <b>The four seasons:</b> spring 🌷 → summer ☀️ → autumn 🍂 → winter ❄️<br><em>"<b>In</b> winter <b>it's</b> snowy, so <b>I'm wearing</b> a coat."</em> — weather + clothes in one super-sentence!</div>
@@ -318,6 +323,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Example: <em>"Monday: It's cloudy and cold. I'm wearing a jumper and jeans."</em></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise the weather report — quote the student's best "It's…" line and their bravest TV-voice moment.<br>Homework hand-off: read the diary example together, agree WHICH three days they will write, and remind them: two sentences a day — one "It's…", one "I'm wearing…".</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 6 · NEAR-NATIVE (C2)</div>
   <h1>🌍 Session 8 — Model UN</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: speak like a diplomat — <b>formal negotiation, hedging and committee language</b> · ≈50 min core</div>
+  <div class="badge">🎯 Today: speak like a diplomat — <b>formal negotiation, hedging and committee language</b></div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on. Greet each other FORMALLY today ("Good afternoon, distinguished delegate") — stay in role for two minutes.</span>
-    <p><em>"Today you become a delegate. You will learn the language of formal negotiation — how diplomats disagree without offending, concede without losing, and say 'no' in ways that keep the conversation alive. By the end, you can draft and defend a mini-resolution."</em> 🌍</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Diagnostic: ask the student to disagree with "Homework should be doubled" twice — once bluntly, once politely. Note the gap between the two versions; today's job is to widen it into a full formal register.</div>
+    <p class="frame">🎯 Today: talk like a diplomat — disagree without starting a war! 🌍</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S7):</b> the idiom safari (3 idioms caught in the wild) + the invented-word field test — student reads each idiom's exact sentence, its "button" and formal/informal tag; listen for register accuracy.<br><b>Say:</b> "Today you become a delegate. You will learn the language of formal negotiation — how diplomats disagree without offending, concede without losing, and say 'no' in ways that keep the conversation alive. By the end, you can draft and defend a mini-resolution." 🌍<br>Diagnostic: ask the student to disagree with "Homework should be doubled" twice — once bluntly, once politely. Note the gap between the two versions; today's job is to widen it into a full formal register.</div>
   </div>
 </div>
 
@@ -185,7 +188,7 @@ body.teacher-mode .t-only{display:block}
     2. You and your teacher take opposite sides — and negotiate.<br>
     3. <b>Banned words:</b> "no", "wrong", "bad". You must disagree using ONLY diplomatic language: <em>"My delegation respectfully disagrees…", "We are not entirely convinced that…"</em></p>
     <p class="hint">No score — the only rule is: stay diplomatic while defending pizza with your life. 🧠</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 2</h4>Escalate absurdly ("We propose an international pineapple embargo") to force creative hedging. If the student slips into "no/wrong", ring an imaginary bell and make her rephrase. Other crises if needed: "Should weekends be three days?", "Cats vs dogs: a binding resolution".</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 2</h4>Escalate absurdly ("We propose an international pineapple embargo") to force creative hedging. If the student slips into "no/wrong", ring an imaginary bell and make them rephrase. Other crises if needed: "Should weekends be three days?", "Cats vs dogs: a binding resolution".</div>
   </div>
 </div>
 
@@ -199,6 +202,7 @@ body.teacher-mode .t-only{display:block}
     <h3>🎧 Practice — tap the right term</h3>
     <p class="hint">Read the committee moment and tap the term that fits. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Drill each card by demanding an on-the-spot committee sentence ("Use 'motion' in a sentence, delegate"). Prioritise the procedural core — motion, amendment, point of order, the floor, abstain, concession; if time is short let veto and caucus ride as receptive-only. Personalise: tie each term to a real group decision the student has sat through (a class vote, a family plan) so the jargon lands.</div>
   </div>
 </div>
 
@@ -206,28 +210,29 @@ body.teacher-mode .t-only{display:block}
 <div class="section reading">
   <div class="sec-head"><span class="icon">📖</span> Reading — Committee Room B: A Delegate's Notebook <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: share screen. Take turns reading entries aloud; student annotates every piece of "diplomatic code" she can find (Zoom → Annotate).</span>
+    <span class="zoom-cue">📹 Zoom: share screen. Take turns reading entries aloud; student annotates every piece of "diplomatic code" they can find (Zoom → Annotate).</span>
     <p>Read Tomasz's weekend diary from his first Model UN conference. Tap 🔊 to hear it read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
+    <p class="hint">🔎 Watch for <b>hedging and diplomatic "code" phrases</b> in the story — we unlock them in Step 5!</p>
     <div class="reading-text" id="read-text">
       <h4>🏷️ Friday, 16:40 — badge on, nerves on</h4>
-      <p>According to the badge on my blazer, I am no longer Tomasz from Year 10; I am "the distinguished <b>delegate</b> of Chile". My committee is forty teenagers pretending to manage the world's water supply. Nobody warns you how quickly the pretending starts to feel real.</p>
-      <p>The chair — a terrifyingly calm sixth-former named Ingrid — opens with the rules of procedure. Speak only when given the floor; address everyone in the third person; never, ever point.</p>
+      <p>According to the badge on my blazer, I am no longer Tomasz from Year 10; I am "the distinguished <b>delegate</b> of Chile". My committee is forty teenagers pretending to manage the world's water supply. Nobody warns you how quickly the pretending starts to feel real. By the second hour I had stopped thinking of myself as a boy in a borrowed blazer and started genuinely worrying about Chilean rivers I could not have found on a map three weeks ago.</p>
+      <p>The chair — a terrifyingly calm sixth-former named Ingrid — opens with the rules of procedure. Speak only when given the floor; address everyone in the third person; never, ever point. Those three small rules, I would learn, exist for one purpose: to keep every disagreement about the problem and never about the person.</p>
       <h4>📄 The problem on the table</h4>
-      <p>Our topic is water security — who gets clean water when rivers cross borders. Chile's <b>position paper</b> took me two weeks and taught me the first truth of diplomacy: you may not demand anything; you may only "urge", "encourage" and "strongly recommend". The verbs are soft, but they carry knives.</p>
+      <p>Our topic is water security — who gets clean water when rivers cross borders. Chile's <b>position paper</b> took me two weeks and taught me the first truth of diplomacy: you may not demand anything; you may only "urge", "encourage" and "strongly recommend". The verbs are soft, but they carry knives. It is a strange kind of power: you win not by shouting louder but by phrasing your demand so gently that refusing it would look unreasonable.</p>
       <h4>🙋 Saturday, 09:30 — the resolution wars</h4>
-      <p>The morning begins with a <b>motion</b> to open debate, and suddenly the room is a chessboard. Sweden proposes a draft <b>resolution</b> with twelve operative clauses; Egypt calls three of them "regrettably vague", which in committee language means "terrible". I rise to a <b>point of order</b> when a delegate speaks past his time — heart hammering, voice miraculously level.</p>
+      <p>The morning begins with a <b>motion</b> to open debate, and suddenly the room is a chessboard. Sweden proposes a draft <b>resolution</b> with twelve operative clauses; Egypt calls three of them "regrettably vague", which in committee language means "terrible". I rise to a <b>point of order</b> when a delegate speaks past his time — heart hammering, voice miraculously level. The chair nods, the offending delegate sits, and I discover that in this room a calm voice is worth more than a loud argument.</p>
       <h4>🤝 Saturday, 14:00 — the unmoderated caucus</h4>
-      <p>Then the chair announces an unmoderated <b>caucus</b>, and formality dissolves. This is the real marketplace: knots of delegates trading <b>concessions</b> like football stickers. "We will support your <b>amendment</b> on desalination funding," I offer Kenya, "if you back our clause on river monitoring."</p>
+      <p>Then the chair announces an unmoderated <b>caucus</b>, and formality dissolves. This is the real marketplace: knots of delegates trading <b>concessions</b> like football stickers. "We will support your <b>amendment</b> on desalination funding," I offer Kenya, "if you back our clause on river monitoring." Deals here are sealed with a look and a half-nod; nothing is written down yet, and yet everything is remembered.</p>
       <p>Kenya narrows her eyes, consults her notes, and shakes my hand. <b>Consensus</b>, I am learning, is not agreement — it is the point where everyone is equally unsatisfied and equally invested.</p>
       <h4>🎙️ Sunday, 11:00 — the floor</h4>
-      <p>On Sunday morning the chair pronounces the six words I have rehearsed all weekend: "Chile, you have <b>the floor</b>." Ninety seconds. I thank the committee, concede that our draft is imperfect, express "deep concern" about the funding clause — and then unveil the compromise we cooked up in caucus.</p>
+      <p>On Sunday morning the chair pronounces the six words I have rehearsed all weekend: "Chile, you have <b>the floor</b>." Ninety seconds. I thank the committee, concede that our draft is imperfect, express "deep concern" about the funding clause — and then unveil the compromise we cooked up in caucus. Ninety seconds, it turns out, is plenty of time if every single word has already earned its place.</p>
       <p>No one applauds in committee; that simply is not done. But Egypt, who had threatened to <b>veto</b> everything, quietly withdraws her objection, and that is better than applause.</p>
       <h4>🗳️ Sunday, 15:30 — the vote</h4>
-      <p>Voting procedure is pure theatre: placards rise, the chair counts, the room holds its breath. Twenty-eight in favour, six against, six delegates <b>abstaining</b> — resolution adopted. Sweden hugs everyone; Egypt abstained rather than vote against, which I now understand was her final, face-saving concession to us.</p>
+      <p>Voting procedure is pure theatre: placards rise, the chair counts, the room holds its breath. Twenty-eight in favour, six against, six delegates <b>abstaining</b> — resolution adopted. Sweden hugs everyone; Egypt abstained rather than vote against, which I now understand was her final, face-saving concession to us. Watching her abstain rather than oppose us, I finally understood that in diplomacy the shape of a defeat can matter almost as much as who wins.</p>
       <p>My hands, I notice during the count, are shaking slightly. My notes, I notice afterwards, are covered in tiny doodles of rivers.</p>
       <h4>🌍 What I actually learned</h4>
-      <p>Here is my confession: I arrived believing diplomacy was the art of talking. It is mostly the art of listening for what the other side cannot say out loud.</p>
+      <p>Here is my confession: I arrived believing diplomacy was the art of talking. It is mostly the art of listening for what the other side cannot say out loud. The best delegates in that room barely spoke; they simply heard the sentence hiding underneath everyone else's.</p>
       <p>Nobody in that room ever said "you're wrong". They said "my delegation respectfully disagrees" — and somehow the disagreement stayed about water, never about us. Imagine if group chats worked like that.</p>
     </div>
 
@@ -280,7 +285,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section task">
   <div class="sec-head"><span class="icon">🎨</span> Create — Draft Resolution 1.0 <span class="timing">10 min</span><span class="step">Step 6</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in her own browser, shares her screen and drafts live while you play the opposing delegation.</span>
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in their own browser, shares their screen and drafts live while you play the opposing delegation.</span>
     <p>Choose a cause you actually care about (school, environment, gaming, animal welfare…) and draft a mini-resolution the UN way. 📜</p>
     <h3>First, tap the committee tools you plan to use in your speech:</h3>
     <div class="chips" id="exp-chips"></div>
@@ -294,7 +299,7 @@ body.teacher-mode .t-only{display:block}
     <div class="editable" id="t-concession" contenteditable="true" data-placeholder="Should the committee support clause 1, my delegation would be willing to…"></div>
     <div class="speak">🗣️ <b>You have the floor!</b> Deliver a 45-second opening speech: thank the chair, present your clauses, offer your concession — and survive one hostile question from the opposing delegation (your teacher).</div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> draft only the two operative clauses + give the speech; the rest becomes homework.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>Play the opposition with ONE pointed but answerable question ("How would your delegation fund this?"). Grade the reply on register, not content: did she hedge, distance, and keep "the floor" composure? If she says "no" or "wrong", raise an eyebrow — in role.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>Play the opposition with ONE pointed but answerable question ("How would your delegation fund this?"). Grade the reply on register, not content: did they hedge, distance, and keep "the floor" composure? If they say "no" or "wrong", raise an eyebrow — in role.</div>
   </div>
 </div>
 
@@ -302,7 +307,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section challenge">
   <div class="sec-head"><span class="icon">🎮</span> Challenge Game — Crisis in Committee <span class="timing">8 min</span><span class="step">Step 7</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen and heckle diplomatically. 🎉</span>
+    <span class="zoom-cue">📹 Zoom: student's browser, their clicks, their score! You watch on their shared screen and heckle diplomatically. 🎉</span>
     <p class="hint">🌍 Three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
     <h3>Round 1 — Procedure check</h3>
     <div id="ch-quiz1"></div>
@@ -311,7 +316,7 @@ body.teacher-mode .t-only{display:block}
     <h3>Round 3 — Boss level: the negotiation table 👑</h3>
     <div id="ch-quiz3"></div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can open the next lesson as a warm-up.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>On every miss in Round 2, have her read the "dynamite" option aloud in a diplomat's calm voice — hearing the clash between tone and words is the fastest fix. The BOSS item combines decoding + strategy; expect a think-pause.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>On every miss in Round 2, have them read the "dynamite" option aloud in a diplomat's calm voice — hearing the clash between tone and words is the fastest fix. The BOSS item combines decoding + strategy; expect a think-pause.</div>
   </div>
 </div>
 
@@ -328,6 +333,7 @@ body.teacher-mode .t-only{display:block}
       <p>🤝 Bonus: resolve one real-life disagreement using only committee language — report whether it worked.</p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise one genuinely diplomatic line the student produced under pressure and name it back so they can reuse it. Hand off the homework: finish the resolution (one more preambulatory + one more operative clause) and the diplomacy watch (decode one real piece of diplomatic code); ask them to bring both. Fill the self-evaluation below while it's fresh.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

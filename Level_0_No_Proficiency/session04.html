@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 0 · NO PROFICIENCY (PRE-A1)</div>
   <h1>⭐ Session 4 — Colors &amp; Shapes</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: 11 colors, 5 shapes — <b>"It's a red circle!"</b> · ≈50 min core</div>
+  <div class="badge">🎯 Today: 11 colors, 5 shapes — <b>"It's a red circle!"</b></div>
 </div>
 
 <div class="scorebar">
@@ -170,10 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on. Big smile, big wave. Teacher taps 🔊 — student repeats the goal.</span>
-    <p style="font-size:20px">🌈 Today you learn <b>colors</b> and <b>shapes</b>.<br>
-    ⭐ You will say: <b>"It's a red circle!"</b>
-    <button class="opt" style="padding:5px 14px" onclick="say('It is a red circle!')">🔊 Listen</button></p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Say the goal slowly, twice. Student echoes it — even half is fine. Hold up something red on camera and say "red!" as a preview. Keep all instructions under 8 words. Speak slowly, pause a lot, gesture everything.</div>
+    <p class="frame">🎯 Today: <b>colors</b> + <b>shapes</b> — <b>"It's a red circle!"</b> <button class="opt" style="padding:5px 14px" onclick="say('It is a red circle!')">🔊 Listen</button></p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S3):</b> cake drawing + "I am ___ years old." — ask the student to show the cake, count the candles aloud, and say the full chunk; listen for "years old".<br><b>Say:</b> "Today you learn colors and shapes. You will say: 'It's a red circle!'"<br>Say the goal slowly, twice. Student echoes it — even half is fine. Hold up something red on camera and say "red!" as a preview. Keep all instructions under 8 words. Speak slowly, pause a lot, gesture everything.</div>
   </div>
 </div>
 
@@ -210,7 +211,8 @@ body.teacher-mode .t-only{display:block}
 <div class="section reading">
   <div class="sec-head"><span class="icon">📖</span> Reading — Mia Paints <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: share screen. Tap 🔊 line by line — student echoes each line. Then she annotates: circle all the color words (Zoom → Annotate).</span>
+    <span class="zoom-cue">📹 Zoom: share screen. Tap 🔊 line by line — student echoes each line. Then they annotate: circle all the color words (Zoom → Annotate).</span>
+    <p class="hint">🔎 Watch for <b>It's a + color + shape</b> in the story — we unlock it in Step 5!</p>
     <p>Tap any line. 🔊 Listen. Say it back!
       <button class="opt" style="padding:5px 14px" onclick="sayAll()">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
@@ -227,6 +229,10 @@ body.teacher-mode .t-only{display:block}
       <p data-s="The sun is orange." style="cursor:pointer" onclick="say(this.dataset.s)">☀️ The sun is orange.</p>
       <p data-s="The tree is green." style="cursor:pointer" onclick="say(this.dataset.s)">🌳 The tree is green.</p>
       <p data-s="The door is purple." style="cursor:pointer" onclick="say(this.dataset.s)">🚪 The door is purple.</p>
+      <p data-s="The sky is blue." style="cursor:pointer" onclick="say(this.dataset.s)">☁️ The sky is blue.</p>
+      <p data-s="Look at the cat! The cat is black." style="cursor:pointer" onclick="say(this.dataset.s)">🐱 Look at the cat! The cat is black.</p>
+      <p data-s="The flower is pink." style="cursor:pointer" onclick="say(this.dataset.s)">🌸 The flower is pink.</p>
+      <p data-s="Wow! It's a big house!" style="cursor:pointer" onclick="say(this.dataset.s)">🖼️ "Wow! It's a big house!"</p>
       <p data-s="Mia is happy." style="cursor:pointer" onclick="say(this.dataset.s)">😊 Mia is happy.</p>
     </div>
 
@@ -235,10 +241,10 @@ body.teacher-mode .t-only{display:block}
 
     <h3>💬 Your turn — write short words</h3>
     <div class="qa-item"><div class="q">1. Look around your room. 👀 What color is your door? Write: "My door is ___."</div><div class="editable" id="r-open1" contenteditable="true" data-placeholder="My door is…"></div></div>
-    <div class="qa-item"><div class="q">2. What is YOUR favorite color? Write: "I like ___."</div><div class="editable" id="r-open2" contenteditable="true" data-placeholder="I like…"></div></div>
+    <div class="qa-item"><div class="q">2. What is YOUR favorite color? Write: "My favorite color is ___."</div><div class="editable" id="r-open2" contenteditable="true" data-placeholder="My favorite color is…"></div></div>
 
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> the two written lines above can be homework instead.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 4 + answer key</h4>Quiz answers: a circle · yellow · orange · purple. Open questions — any real answer is a win; sample: 1) "My door is white." 2) "I like blue." Accept one word ("blue!") and then feed the full frame back: "Yes! I like blue." Echo-reading: you read the line, she repeats — never force solo reading at L0.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 4 + answer key</h4>Quiz answers: a circle · yellow · orange · purple. Open questions — any real answer is a win; sample: 1) "My door is white." 2) "My favorite color is blue." (same frame as S2's "My favorite letter is…"). Accept one word ("blue!") and then feed the full frame back: "Yes! My favorite color is blue." Echo-reading: you read the line, they repeat — never force solo reading at L0.</div>
   </div>
 </div>
 
@@ -279,7 +285,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section task">
   <div class="sec-head"><span class="icon">🎨</span> Create — My Color Picture <span class="timing">10 min</span><span class="step">Step 6</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat. Student opens it and types. She shares her screen — you watch and cheer.</span>
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat. The student opens it and types. They share their screen — you watch and cheer.</span>
     <p>Draw a picture on paper. 🖍️ Use 3 colors. Use 2 shapes.</p>
     <h3>First, tap the colors and shapes YOU used:</h3>
     <div class="chips" id="exp-chips"></div>
@@ -287,11 +293,11 @@ body.teacher-mode .t-only{display:block}
     <div class="editable" id="t-shape1" contenteditable="true" data-placeholder="It's a red circle."></div>
     <div class="field-label">✏️ Write about shape 2 — "It's a ___ ___."</div>
     <div class="editable" id="t-shape2" contenteditable="true" data-placeholder="It's a blue star."></div>
-    <div class="field-label">🌈 My favorite color — "I like ___."</div>
-    <div class="editable" id="t-fav" contenteditable="true" data-placeholder="I like green."></div>
+    <div class="field-label">🌈 My favorite color — "My favorite color is ___."</div>
+    <div class="editable" id="t-fav" contenteditable="true" data-placeholder="My favorite color is green."></div>
     <div class="speak">🗣️ <b>Now show your picture!</b> Hold it to the camera. Say your two sentences out loud. Loud and proud! 📢</div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> draw only ONE shape; type the other lines as homework.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>Paper + crayons beat typing at L0 — typing is only 2 short lines. While she draws, narrate colors: "Ooh, green! I see a green tree!" Sample answers: "It's a red circle." / "It's a blue star." / "I like green." Accept invented spelling; praise the pattern, fix gently by echoing correctly.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>Paper + crayons beat typing at L0 — typing is only 2 short lines. While they draw, narrate colors: "Ooh, green! I see a green tree!" Sample answers: "It's a red circle." / "It's a blue star." / "My favorite color is green." Accept invented spelling; praise the pattern, fix gently by echoing correctly.</div>
   </div>
 </div>
 
@@ -299,7 +305,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section challenge">
   <div class="sec-head"><span class="icon">🎮</span> Challenge Game — Color &amp; Shape Quest <span class="timing">8 min</span><span class="step">Step 7</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen and cheer. 🎉</span>
+    <span class="zoom-cue">📹 Zoom: the student's browser, their clicks, their score! You watch on their shared screen and cheer. 🎉</span>
     <p class="hint">🕵️ Three rounds. Round 3 is hard! Get 80% for ⭐⭐⭐!</p>
     <h3>Round 1 — Colors! 🌈</h3>
     <div id="ch-quiz1"></div>
@@ -325,6 +331,7 @@ body.teacher-mode .t-only{display:block}
       <p>📸 Bring your picture next time!</p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise the magic pattern: have the student say one proud "It's a ___ ___!" about their own picture as the finale. Homework hand-off: sketch one quick shape yourself, write "It's a red circle." under it, and show it — that's exactly what they do 3 times at home (and bring it next lesson!).</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

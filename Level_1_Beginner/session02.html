@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 1 · BEGINNER (A1)</div>
   <h1>🌅 Session 2 — My Day</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: talk about your daily routine with <b>present simple</b> + tell the time · ≈50 min core</div>
+  <div class="badge">🎯 Today: talk about your daily routine with <b>present simple</b> + tell the time</div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello + homework check from Session 1. Read the goal together — the student says it back in their own words.</span>
-    <p><em>"Today you will learn to talk about what you do every day — your morning, your afternoon, your evening — and tell the time in English. By the end, you can describe a whole day, yours or someone else's!"</em> 🚀</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Homework check from S1: 4 sentences about a family member. Recycle: "ARE you a morning person?" (to be from S1). Then ask "What do you do every morning?" — note whether any routine verbs already exist. That's your diagnostic.</div>
+    <p class="frame">🎯 Today: your whole day in English — morning to night!</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Homework check from S1: 4 sentences about a family member. Recycle: "ARE you a morning person?" (to be from S1).<br><b>Say:</b> "Today you will learn to talk about what you do every day — your morning, your afternoon, your evening — and tell the time in English. By the end, you can describe a whole day, yours or someone else's!" 🚀<br>Then ask "What do you do every morning?" — note whether any routine verbs already exist. That's your diagnostic.</div>
   </div>
 </div>
 
@@ -196,7 +199,7 @@ body.teacher-mode .t-only{display:block}
     <span class="zoom-cue">📹 Zoom: share your screen. YOU click 🔊 on each card — the student repeats the phrase twice, then mimes it in 1 second.</span>
     <p>Tap any card to <b>hear</b> the phrase 🔊. The cards go in order — from morning ☀️ to night 🌙!</p>
     <div class="vocab-grid" id="vocab-grid"></div>
-    <div class="frame">⏰ <b>Telling the time:</b> 7:00 = <b>seven o'clock</b> · 7:30 = <b>half past seven</b>.<br><em>"I wake up <b>at</b> seven o'clock."</em> — use <b>at</b> before the time!
+    <div class="frame">⏰ <b>Telling the time:</b> 7:00 = <b>seven o'clock</b> · 7:30 = <b>half past seven</b>.<br>More examples: 4:00 = <b>four o'clock</b> · 4:30 = <b>half past four</b>.<br><em>"I wake up <b>at</b> seven o'clock."</em> · <em>"School starts <b>at</b> half past eight."</em> — use <b>at</b> before the time!
       <button class="opt" style="padding:5px 14px" onclick="say('Seven o clock. Half past seven. I wake up at seven o clock.')">🔊 Listen</button></div>
     <h3>🎧 Practice — tap the right phrase</h3>
     <p class="hint">Read the clue and tap the phrase that matches. Green = correct!</p>
@@ -210,20 +213,21 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — A Day with Tomas <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen. Student reads one chunk aloud, you read the next — take turns. Then the student annotates every verb ending in -s on your screen (Zoom → Annotate).</span>
+    <p class="hint">🔎 Watch for verbs with <b>-s</b> (wakes, goes) and <b>at + time</b> in the story — we unlock them in Step 5!</p>
     <p>Read about Tomas's day. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
       <h4>🌅 Morning</h4>
       <p>Tomas is twelve years old. He lives in Leeds, in England.</p>
-      <p>He wakes up at seven o'clock. He gets dressed and has breakfast with his mum. He usually eats toast and drinks orange juice.</p>
+      <p>He wakes up at seven o'clock. He gets dressed and has breakfast with his mum. He usually eats toast and drinks orange juice. His little brother Alfie drinks milk. Alfie is only four, so he stays at home.</p>
       <h4>🏫 School time</h4>
-      <p>School starts at half past eight. Tomas walks to school with his friend Priya. They talk about football on the way.</p>
-      <p>At one o'clock, Tomas has lunch in the school canteen. He usually has a sandwich and an apple.</p>
+      <p>School starts at half past eight. Tomas walks to school with his friend Priya. They talk about football on the way. Priya likes maths, but Tomas likes English best.</p>
+      <p>At one o'clock, Tomas has lunch in the school canteen. He usually has a sandwich and an apple. Priya sits with him every day.</p>
       <h4>🌙 After school</h4>
-      <p>School finishes at half past three. Tomas goes home and does his homework.</p>
-      <p>In the evening, the family has dinner at six. After dinner, Tomas reads a book. He goes to bed at half past nine — never late!</p>
+      <p>School finishes at half past three. Tomas goes home and does his homework. Then he plays outside with Alfie in the garden.</p>
+      <p>In the evening, the family has dinner at six. After dinner, Tomas reads a book. He goes to bed at half past nine — never late! His mum says goodnight and turns off the light.</p>
       <h4>🎉 The weekend</h4>
-      <p>On Saturdays, everything is different. Tomas wakes up at nine and plays football all afternoon. He loves weekends!</p>
+      <p>On Saturdays, everything is different. Tomas wakes up at nine and plays football all afternoon. He loves weekends! On Sundays, the family visits Grandma. She makes a big lunch for everyone.</p>
     </div>
 
     <h3>🔎 Did you understand? Tap your answer</h3>
@@ -322,6 +326,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Example: <em>"My mum wakes up at six o'clock. She goes to work at eight."</em></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise one perfect -s sentence and one good "at + time" line the student produced — repeat their exact words.<br>Homework hand-off: read the example aloud together, then ask "Mum's day or Dad's day?" so the choice is made before the lesson ends — 5 sentences, every verb with -s.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 2 · ELEMENTARY (A2)</div>
   <h1>📜 Session 9 — Rules &amp; Advice</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: give rules and advice with <b>must</b>, <b>have to</b> and <b>should</b> · ≈50 min core</div>
+  <div class="badge">🎯 Today: give rules and advice with <b>must</b>, <b>have to</b> and <b>should</b></div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
-    <p><em>"Today you learn the language of rules and good advice. By the end, you can say what people <b>must</b> do, what they <b>mustn't</b> do, and what they <b>should</b> do — like a wise camp leader."</em> 🏕️</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Quick diagnostic: ask "Tell me one rule at your school." Note the verb they choose ("we must…", "we can't…", "it is forbidden…"). Don't correct — it shows you their starting point for Step 5.</div>
+    <p class="frame">🎯 Today: be the wise camp leader — rules and good advice! 🏕️</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S8):</b> the family interview (one "is going to…" plan + one "would like to…" dream) — student reads both sentences aloud; listen for am/is/are before "going to" and the TO after "would like".<br><b>Say:</b> "Today you learn the language of rules and good advice. By the end, you can say what people <b>must</b> do, what they <b>mustn't</b> do, and what they <b>should</b> do — like a wise camp leader." 🏕️<br>Quick diagnostic: ask "Tell me one rule at your school." Note the verb they choose ("we must…", "we can't…", "it is forbidden…"). Don't correct — it shows you their starting point for Step 5.</div>
   </div>
 </div>
 
@@ -207,7 +210,8 @@ body.teacher-mode .t-only{display:block}
 <div class="section reading">
   <div class="sec-head"><span class="icon">📖</span> Reading — Welcome to Camp Falcon <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: share screen. Take turns — student reads one chunk aloud, you read the next. Then she annotates every must / have to / should she finds (Zoom → Annotate).</span>
+    <span class="zoom-cue">📹 Zoom: share screen. Take turns — student reads one chunk aloud, you read the next. Then the student annotates every must / have to / should they find (Zoom → Annotate).</span>
+    <p class="hint">🔎 Watch for <b>must</b>, <b>have to</b> and <b>should</b> in the letter — we unlock them in Step 5!</p>
     <p>Read Dalia's welcome letter for new campers. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
@@ -216,11 +220,15 @@ body.teacher-mode .t-only{display:block}
       <h4>📜 The rules — you must follow these</h4>
       <p>You <b>must wear</b> a helmet on the climbing wall. No helmet, no climbing. That is the biggest rule at camp.</p>
       <p>You <b>have to be</b> at breakfast at eight o'clock. Mr Okafor, the cook, closes the kitchen at half past eight — and he never waits.</p>
+      <p>You also <b>have to keep</b> your cabin tidy. Every morning a helper checks the cabins, and the tidiest cabin wins a star.</p>
       <p>You <b>mustn't feed</b> the squirrels. They look cute, but they are little thieves. Last year one took my whole sandwich!</p>
+      <p>And you <b>mustn't leave</b> the camp without a leader. The forest is big, and all the paths look the same.</p>
       <h4>😊 The good news</h4>
       <p>You <b>don't have to make</b> a campfire alone — a helper always does it with you. And you <b>don't have to swim</b> if you don't want to. Nobody has to do everything.</p>
+      <p>You <b>don't have to bring</b> food, because Mr Okafor cooks everything — and his pancakes are the best in the world.</p>
       <h4>💡 My advice</h4>
       <p>You <b>should bring</b> a torch, because the path to the cabins is very dark at night. You <b>should write</b> your name on your socks. Trust me on this one.</p>
+      <p>You <b>should</b> also <b>drink</b> lots of water on hot days, and you <b>should ask</b> the helpers anything — we love questions.</p>
       <p>And you <b>shouldn't leave</b> chocolate in your bag. Remember the squirrels? See you at Camp Falcon — I can't wait to meet you! 🦅</p>
     </div>
 
@@ -271,7 +279,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section task">
   <div class="sec-head"><span class="icon">🎨</span> Create — My Rulebook <span class="timing">10 min</span><span class="step">Step 6</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in her own browser, types here and shares her screen (Zoom → Share Screen) while you watch.</span>
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in their own browser, types here and shares their screen (Zoom → Share Screen) while you watch.</span>
     <p>You are the boss now! 👑 Pick a place and write its official rulebook.</p>
     <h3>First, tap the place you are the boss of:</h3>
     <div class="chips" id="exp-chips"></div>
@@ -291,7 +299,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section challenge">
   <div class="sec-head"><span class="icon">🎮</span> Challenge Game — The Rule Keeper <span class="timing">8 min</span><span class="step">Step 7</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen and cheer. 🎉</span>
+    <span class="zoom-cue">📹 Zoom: student's browser, their clicks, their score! You watch on their shared screen and cheer. 🎉</span>
     <p class="hint">🗝️ Three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
     <h3>Round 1 — What does it mean?</h3>
     <div id="ch-quiz1"></div>
@@ -300,7 +308,7 @@ body.teacher-mode .t-only{display:block}
     <h3>Round 3 — Boss level: Dragon School rules 👑</h3>
     <div id="ch-quiz3"></div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can be the start of the next lesson's warm-up.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>All answers show live in her score. Wrong answers auto-reveal the correct one in green — ask "why?" on each miss: "Forbidden, not necessary, or advice?"</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>All answers show live in the score. Wrong answers auto-reveal the correct one in green — ask "why?" on each miss: "Forbidden, not necessary, or advice?"</div>
   </div>
 </div>
 
@@ -317,6 +325,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Example: <em>"You should drink tea before our lesson. It makes your brain faster."</em></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise two concrete wins — e.g. a correct mustn't vs don't-have-to choice, or a clean "must + base verb" (no "to"). Hand off the homework: read the tea example aloud together and confirm the recipe: 3 home rules (must / mustn't / don't have to) + 1 should-advice for YOU — the rules open the next lesson's homework check.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

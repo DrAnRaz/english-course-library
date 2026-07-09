@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 6 · NEAR-NATIVE (C2)</div>
   <h1>🎙️ Session 9 — Creator Studio</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: think like a producer — <b>scriptwriting and podcast craft</b>, writing English for the ear · ≈50 min core</div>
+  <div class="badge">🎯 Today: think like a producer — <b>scriptwriting and podcast craft</b>, writing English for the ear</div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on. Open like a podcast: teacher does a 10-second "cold open" hello, student answers in kind.</span>
-    <p><em>"Today you step into the producer's chair. You will learn the craft language of podcasts and scripts — and the near-native superpower behind them: writing English that sounds completely natural when spoken aloud. By the end, you'll have scripted your own pilot's cold open."</em> 🎙️</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Diagnostic: ask "What do you listen to or watch — and what makes you NOT click away in the first 30 seconds?" Her answer is raw material for Step 6; jot down the show she names.</div>
+    <p class="frame">🎯 Today: write like a podcast producer — English that sounds great out loud! 🎙️</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S8):</b> the finished resolution (one added preambulatory + one added operative clause) + the diplomacy watch — student reads the real diplomatic phrase they found and decodes what it truly meant.<br><b>Say:</b> "Today you step into the producer's chair. You will learn the craft language of podcasts and scripts — and the near-native superpower behind them: writing English that sounds completely natural when spoken aloud. By the end, you'll have scripted your own pilot's cold open." 🎙️<br>Diagnostic: ask "What do you listen to or watch — and what makes you NOT click away in the first 30 seconds?" Their answer is raw material for Step 6; jot down the show they name.</div>
   </div>
 </div>
 
@@ -193,12 +196,13 @@ body.teacher-mode .t-only{display:block}
 <div class="section vocab">
   <div class="sec-head"><span class="icon">📝</span> New Words — Studio Jargon <span class="timing">10 min</span><span class="step">Step 3</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: share your screen. Click 🔊 on each card; student repeats it, then points to where she has SEEN or HEARD the thing in real shows.</span>
+    <span class="zoom-cue">📹 Zoom: share your screen. Click 🔊 on each card; student repeats it, then points to where they have SEEN or HEARD the thing in real shows.</span>
     <p>Tap any card to <b>hear</b> it 🔊. This is how creators actually talk about their work.</p>
     <div class="vocab-grid" id="vocab-grid"></div>
     <h3>🎧 Practice — tap the right term</h3>
     <p class="hint">Read the studio moment and tap the term a producer would use. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Drill each card by having the student name a real show where they have SEEN or HEARD the technique (cold open, segue, cliffhanger…). Prioritise the structural terms — cold open, hook, segue, outro, call to action, cliffhanger; let ad-lib, b-roll and banter ride as receptive. Personalise: tie every term to a podcast or channel the student actually follows, so the jargon feels like insider language rather than vocabulary.</div>
   </div>
 </div>
 
@@ -206,30 +210,31 @@ body.teacher-mode .t-only{display:block}
 <div class="section reading">
   <div class="sec-head"><span class="icon">📖</span> Reading — Anatomy of an Episode <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: share screen. Student reads the "spoken" quotes with full podcast-host energy; you read the narration. Then she annotates every craft term (Zoom → Annotate).</span>
+    <span class="zoom-cue">📹 Zoom: share screen. Student reads the "spoken" quotes with full podcast-host energy; you read the narration. Then they annotate every craft term (Zoom → Annotate).</span>
     <p>Read how two young creators produce their show. Tap 🔊 to hear it read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
+    <p class="hint">🔎 Watch for <b>lines written for the ear — contractions, short sentences, questions</b> in the story — we unlock them in Step 5!</p>
     <div class="reading-text" id="read-text">
       <h4>🎧 Meet the show — by Leila, 14</h4>
-      <p>Every Sunday, my cousin Dawit and I record "Static &amp; Sundays", a podcast about the strange questions nobody asks out loud. We have 214 subscribers, one squeaky chair, and a production process we take extremely seriously. Here is how an episode actually gets made.</p>
+      <p>Every Sunday, my cousin Dawit and I record "Static &amp; Sundays", a podcast about the strange questions nobody asks out loud. We have 214 subscribers, one squeaky chair, and a production process we take extremely seriously. Here is how an episode actually gets made. Nobody taught us any of this; we learned it one embarrassing episode at a time, mostly by noticing what made us skip other people's shows.</p>
       <h4>🪝 Minute zero: the cold open</h4>
       <p>We never start with "Hello and welcome". We start with a <b>cold open</b> — a slice of the episode's most dramatic moment, played before any introductions: "So the octopus has three hearts, and honestly, that explains everything about my week."</p>
-      <p>That is the <b>hook</b>. Podcast wisdom says you have about twenty seconds before a listener's thumb drifts towards another show; a good cold open buys you a full minute.</p>
+      <p>That is the <b>hook</b>. Podcast wisdom says you have about twenty seconds before a listener's thumb drifts towards another show; a good cold open buys you a full minute. A minute does not sound like much until you realise it is the entire distance between a listener and a bounce.</p>
       <h4>📝 The script that doesn't sound like one</h4>
-      <p>People assume we improvise everything. In truth, every episode has a script — but it is written for the ear, not the eye: short sentences, contractions everywhere, questions that pull the listener forward.</p>
-      <p>We also mark spots for <b>ad-libs</b>, where Dawit is legally allowed to wander off script for fifteen seconds. His <b>banter</b> is the show's engine; my job is steering it back with a <b>segue</b>: "Speaking of disasters — the news segment."</p>
+      <p>People assume we improvise everything. In truth, every episode has a script — but it is written for the ear, not the eye: short sentences, contractions everywhere, questions that pull the listener forward. We read every line out loud before we keep it, because a sentence can look perfect on the page and then collapse the moment it reaches the mouth.</p>
+      <p>We also mark spots for <b>ad-libs</b>, where Dawit is legally allowed to wander off script for fifteen seconds. His <b>banter</b> is the show's engine; my job is steering it back with a <b>segue</b>: "Speaking of disasters — the news segment." The trick with a segue is to make the swerve feel deliberate, as if we had always meant to end up exactly there.</p>
       <h4>🎙️ Recording day</h4>
       <p>We record inside a blanket fort, because blankets swallow echo. Each of us records a separate track, so if I laugh over Dawit's punchline, the edit can rescue it. When a take dies, we don't stop — we clap once, and the spike in the waveform marks the crime scene for later.</p>
-      <p>Our gear is humble: two borrowed microphones, a laptop older than either of us, and a "RECORDING — QUIET PLEASE" sign that our cat has never once respected. It turns out the script matters more than any of it.</p>
+      <p>Our gear is humble: two borrowed microphones, a laptop older than either of us, and a "RECORDING — QUIET PLEASE" sign that our cat has never once respected. It turns out the script matters more than any of it. We spent our first month convinced we needed better microphones; we spent our second month learning that a boring script sounds boring on any equipment.</p>
       <h4>✂️ The edit: where the magic hides</h4>
       <p>Editing is honest work: we cut every "um", every dead pause, every joke that only the two of us found funny. A <b>jump cut</b> in audio is forgivable; boredom is not.</p>
-      <p>We always rescue one <b>sound bite</b> — a quotable ten-second moment — and post it as a teaser clip. That clip recruits more listeners than anything else we do.</p>
+      <p>We always rescue one <b>sound bite</b> — a quotable ten-second moment — and post it as a teaser clip. That clip recruits more listeners than anything else we do. Choosing that one clip is agony, because the ten seconds that hook a stranger are almost never the ten seconds we personally love the most.</p>
       <h4>📣 Shipping it</h4>
-      <p>Before upload, I write the <b>show notes</b>: a two-line summary, timestamps, and the links we mentioned. The <b>outro</b> lands the same two beats every week — a thank-you, then a <b>call to action</b>: "If the octopus facts improved your week, share the show with exactly one human."</p>
+      <p>Before upload, I write the <b>show notes</b>: a two-line summary, timestamps, and the links we mentioned. The <b>outro</b> lands the same two beats every week — a thank-you, then a <b>call to action</b>: "If the octopus facts improved your week, share the show with exactly one human." That single-person ask works far better than begging a whole audience; one real listener telling one friend is how the show has genuinely grown.</p>
       <p>And we always end on a <b>cliffhanger</b> for next Sunday. Dawit insists; he is usually right.</p>
       <p>Upload time is six o'clock sharp, every single week. Consistency, Dawit read somewhere, is the only growth hack that actually works.</p>
       <h4>🌟 Why this matters for your English</h4>
-      <p>Here is the secret we discovered by accident: scripting a podcast is the best English lesson we have ever had. Writing for the ear forces you to sound like yourself — only sharper.</p>
+      <p>Here is the secret we discovered by accident: scripting a podcast is the best English lesson we have ever had. Writing for the ear forces you to sound like yourself — only sharper. Suddenly grammar stopped being a rulebook and became a set of dials we could actually turn.</p>
       <p>When every sentence has to survive being spoken aloud, lazy phrases get exposed in seconds. Try it once, and you will never write a school presentation the same way again.</p>
     </div>
 
@@ -249,7 +254,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section grammar">
   <div class="sec-head"><span class="icon">🔧</span> Language Focus — Writing for the Ear <span class="timing">10 min</span><span class="step">Step 5</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: share screen. Student must read BOTH options of each quiz item ALOUD before choosing — her own ear is the judge.</span>
+    <span class="zoom-cue">📹 Zoom: share screen. Student must read BOTH options of each quiz item ALOUD before choosing — their own ear is the judge.</span>
     <div class="rulebox">
       <div class="rule a"><h4>🎙️ SOUNDS SPOKEN — do this</h4>
         <b>Contractions:</b> <em>"It&#39;s wild, isn&#39;t it?"</em><br>
@@ -268,7 +273,7 @@ body.teacher-mode .t-only{display:block}
     <p class="hint">💡 Tip: this is why your favourite hosts sound "effortless" — the effort happened in the script. Effortless is a style, and styles can be learned.</p>
     <h3>✏️ Practice — which line survives being spoken?</h3>
     <div id="grammar-quiz"></div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>The aloud-first rule is non-negotiable here — the wrong options are designed to FEEL wrong in the mouth. If 8+/10, bonus: she converts one paragraph of a school textbook into podcast style live. If under 6, slow down and do the conversion together on two items.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>The aloud-first rule is non-negotiable here — the wrong options are designed to FEEL wrong in the mouth. If 8+/10, bonus: they convert one paragraph of a school textbook into podcast style live. If under 6, slow down and do the conversion together on two items.</div>
   </div>
 </div>
 
@@ -282,7 +287,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section task">
   <div class="sec-head"><span class="icon">🎨</span> Create — Your Pilot Episode <span class="timing">10 min</span><span class="step">Step 6</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in her own browser, shares her screen and scripts live. You are the producer taking notes.</span>
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in their own browser, shares their screen and scripts live. You are the producer taking notes.</span>
     <p>Green light! 🟢 Script the opening of YOUR pilot episode — any topic you could talk about for ten minutes straight.</p>
     <h3>First, tap the craft elements your pilot will use:</h3>
     <div class="chips" id="exp-chips"></div>
@@ -296,7 +301,7 @@ body.teacher-mode .t-only{display:block}
     <div class="editable tall" id="t-outro" contenteditable="true" data-placeholder="Thanks for listening… If you enjoyed…, then… Next week:…"></div>
     <div class="speak">🗣️ <b>ON AIR!</b> Perform your cold open + segue with full host energy — voice up, smile audible. Your teacher-producer gives one note, then you perform the improved take. Two takes, like a real studio.</div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> script + perform only the cold open; segue and outro become homework.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>Producer note should target EAR-writing, not content ("that sentence has three ideas — split it", "swap 'furthermore' for 'and here&#39;s the wild part'"). The two-take ritual matters: hearing her own improvement is the strongest feedback in this whole level.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>Producer note should target EAR-writing, not content ("that sentence has three ideas — split it", "swap 'furthermore' for 'and here&#39;s the wild part'"). The two-take ritual matters: hearing their own improvement is the strongest feedback in this whole level.</div>
   </div>
 </div>
 
@@ -304,7 +309,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section challenge">
   <div class="sec-head"><span class="icon">🎮</span> Challenge Game — The Production Meeting <span class="timing">8 min</span><span class="step">Step 7</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen and play the demanding executive. 🎉</span>
+    <span class="zoom-cue">📹 Zoom: student's browser, their clicks, their score! You watch on their shared screen and play the demanding executive. 🎉</span>
     <p class="hint">🎬 Three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
     <h3>Round 1 — Jargon check</h3>
     <div id="ch-quiz1"></div>
@@ -313,7 +318,7 @@ body.teacher-mode .t-only{display:block}
     <h3>Round 3 — Boss level: cut for broadcast 👑</h3>
     <div id="ch-quiz3"></div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can open the next lesson as a warm-up.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>In Round 2, after each answer, have her perform the WINNING line aloud — the game doubles as delivery practice. The BOSS item forces a structural decision (what to cut), which is producer thinking, not just language.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>In Round 2, after each answer, have them perform the WINNING line aloud — the game doubles as delivery practice. The BOSS item forces a structural decision (what to cut), which is producer thinking, not just language.</div>
   </div>
 </div>
 
@@ -330,6 +335,7 @@ body.teacher-mode .t-only{display:block}
       <p>🕵️ Bonus: watch/listen to the first minute of any favourite show and name its hook out loud.</p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise one line the student wrote that genuinely sounded spoken, not written — read it back so they hear what "for the ear" feels like. Hand off the homework: record the cold open (listen back once, note one change) and write the show notes; ask them to bring both. Fill the self-evaluation below while it's fresh.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

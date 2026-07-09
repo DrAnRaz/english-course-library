@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 2 · ELEMENTARY (A2)</div>
   <h1>🗓️ Session 8 — Future Plans</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: talk about plans with <b>going to</b> and dreams with <b>would like to</b> · ≈50 min core</div>
+  <div class="badge">🎯 Today: talk about plans with <b>going to</b> and dreams with <b>would like to</b></div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
-    <p><em>"Today you become the boss of your future! By the end, you can say what you <b>are going to do</b> this weekend — and what you <b>would like to do</b> one day."</em> 🚀</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Quick diagnostic: ask "What are you going to do after our lesson?" Note whether any future form appears ("I will…", "I go…", "I'm going to…"). Don't correct — this tells you where to slow down in Step 5.</div>
+    <p class="frame">🎯 Today: be the boss of your future — weekend plans and big dreams! 🚀</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S7):</b> the 3 "Champions of My Home" superlative sentences (+ bonus "than" battle) — student reads them aloud; listen for THE before each superlative and -est vs "the most".<br><b>Say:</b> "Today you become the boss of your future! By the end, you can say what you <b>are going to do</b> this weekend — and what you <b>would like to do</b> one day." 🚀<br>Quick diagnostic: ask "What are you going to do after our lesson?" Note whether any future form appears ("I will…", "I go…", "I'm going to…"). Don't correct — this tells you where to slow down in Step 5.</div>
   </div>
 </div>
 
@@ -207,7 +210,8 @@ body.teacher-mode .t-only{display:block}
 <div class="section reading">
   <div class="sec-head"><span class="icon">📖</span> Reading — Rafael's Dream Weekend <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: share screen. Take turns — student reads one chunk aloud, you read the next. Then she annotates every "going to" she finds (Zoom → Annotate).</span>
+    <span class="zoom-cue">📹 Zoom: share screen. Take turns — student reads one chunk aloud, you read the next. Then the student annotates every "going to" they find (Zoom → Annotate).</span>
+    <p class="hint">🔎 Watch for <b>going to</b> (plans) and <b>would like to</b> (dreams) in the story — we unlock them in Step 5!</p>
     <p>Read Rafael's plan for the perfect weekend. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
@@ -215,12 +219,15 @@ body.teacher-mode .t-only{display:block}
       <p>On Friday my teacher asked us: "What are you going to do this weekend?" Most students said "nothing much". Not me! I have a big plan.</p>
       <h4>🎂 Saturday — cake day</h4>
       <p>On Saturday morning, I<b>'m going to sleep late</b>. No alarm clock! Then my dad and I <b>are going to bake</b> a chocolate cake. Dad says it<b>'s going to be</b> a disaster. I believe in us.</p>
+      <p>We<b>'re going to use</b> Grandma's secret recipe. I<b>'m going to break</b> the eggs, and Dad <b>is going to do</b> the difficult parts. What can go wrong?</p>
       <p>In the afternoon, we<b>'re going to visit</b> my grandparents. Grandma <b>would like to see</b> my new skateboard tricks. Grandpa says he <b>would like to try</b> the skateboard too. Mum says no. Loudly.</p>
       <h4>🧺 Sunday — picnic day</h4>
       <p>On Sunday, my friends and I <b>are going to have</b> a picnic by the lake. Žaneta <b>is going to bring</b> her dog, Biscuit. Biscuit <b>is going to steal</b> our sandwiches. He always does.</p>
       <p>We<b>'re going to bring</b> extra sandwiches this time. We have a system now.</p>
+      <p>After lunch, we<b>'re going to play</b> football by the lake. Žaneta <b>is going to be</b> the goalkeeper — she never misses a ball. Biscuit <b>would like to play</b> too, but he only chases the ball.</p>
       <h4>🌙 The evening</h4>
       <p>In the evening, I<b>'d like to watch</b> a film, but I<b>'m not going to stay up</b> late. School starts on Monday. Ugh.</p>
+      <p>Mum <b>is going to check</b> my school bag, and I<b>'m going to say</b>: "Five more minutes!" It never works.</p>
       <p>So that's my dream weekend: cake, grandparents, a picnic and a sandwich-stealing dog. What about you? What <b>are you going to do</b> this weekend?</p>
     </div>
 
@@ -272,7 +279,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section task">
   <div class="sec-head"><span class="icon">🎨</span> Create — My Dream Weekend Planner <span class="timing">10 min</span><span class="step">Step 6</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in her own browser, types here and shares her screen (Zoom → Share Screen) while you watch.</span>
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in their own browser, types here and shares their screen (Zoom → Share Screen) while you watch.</span>
     <p>Design your PERFECT weekend! Anything is possible — no school, no limits. 🌈</p>
     <h3>First, tap the plans you want in your weekend:</h3>
     <div class="chips" id="exp-chips"></div>
@@ -292,7 +299,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section challenge">
   <div class="sec-head"><span class="icon">🎮</span> Challenge Game — Future Machine <span class="timing">8 min</span><span class="step">Step 7</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen and cheer. 🎉</span>
+    <span class="zoom-cue">📹 Zoom: student's browser, their clicks, their score! You watch on their shared screen and cheer. 🎉</span>
     <p class="hint">🔮 Three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
     <h3>Round 1 — Plan or dream?</h3>
     <div id="ch-quiz1"></div>
@@ -301,7 +308,7 @@ body.teacher-mode .t-only{display:block}
     <h3>Round 3 — Boss level: future mix 👑</h3>
     <div id="ch-quiz3"></div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can be the start of the next lesson's warm-up.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>All answers show live in her score. Wrong answers auto-reveal the correct one in green — ask "why?" on each miss: "Calendar or dream? Where is the be-verb? Where is the to?"</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>All answers show live in the score. Wrong answers auto-reveal the correct one in green — ask "why?" on each miss: "Calendar or dream? Where is the be-verb? Where is the to?"</div>
   </div>
 </div>
 
@@ -318,6 +325,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Example: <em>"My mum is going to work tomorrow. She would like to sleep for two days."</em></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise two concrete wins — e.g. a full "am/is/are + going to + verb" chain, or a caught "would like TO". Hand off the homework: read the mum example aloud together and confirm the mission: interview one family member, write their plan (going to) and their dream (would like to) — the interview opens the next lesson's homework check.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

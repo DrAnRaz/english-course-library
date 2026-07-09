@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 5 · PROFICIENT (C1)</div>
   <h1>🎓 Session 10 — Masterclass Review</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: prove your mastery of ALL nine Level 5 sessions, deliver your own mini-masterclass — and earn your <b>C1 certificate</b> · ≈50 min core</div>
+  <div class="badge">🎯 Today: prove your mastery of ALL nine Level 5 sessions, deliver your own mini-masterclass — and earn your <b>C1 certificate</b></div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on. This is graduation day — greet each other formally, like at a real ceremony, then burst out laughing.</span>
-    <p><em>"Today is your <b>masterclass</b>. You will revisit all nine doors of Level 5 — from shades of meaning to the Englishes of the world — teach ME something for once, and walk away with your C1 certificate."</em> 🎓✨</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Frame the whole session as HER show: today you are the audience and examiner, she is the masterclass presenter. Preview the certificate at the bottom of Step 8 for motivation — then make her earn it. The 9 topics: 1 connotation/register · 2 collocations · 3 narrative tenses · 4 inference/bias · 5 humor/wordplay · 6 hedging/debate · 7 clefts · 8 summary/formal · 9 world Englishes.</div>
+    <p class="frame">🎯 Today: your masterclass — nine doors, one certificate! 🎓✨</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S9):</b> the 3 collected variety words + the imitated accent sentence — the student PERFORMS it now (style points were promised, award them theatrically); listen for where each collected word "lives".<br><b>Say:</b> "Today is your masterclass. You will revisit all nine doors of Level 5 — from shades of meaning to the Englishes of the world — teach ME something for once, and walk away with your C1 certificate."<br>Frame the whole session as the STUDENT'S show: today you are the audience and examiner, they are the masterclass presenter. Preview the certificate at the bottom of Step 8 for motivation — then make them earn it. The 9 topics: 1 connotation/register · 2 collocations · 3 narrative tenses · 4 inference/bias · 5 humor/wordplay · 6 hedging/debate · 7 clefts · 8 summary/formal · 9 world Englishes.</div>
   </div>
 </div>
 
@@ -193,7 +196,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section vocab">
   <div class="sec-head"><span class="icon">📝</span> Power Words — The Language of Mastery <span class="timing">10 min</span><span class="step">Step 3</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: share your screen. You click 🔊; the student explains each term to YOU in her own words — she's the professor today.</span>
+    <span class="zoom-cue">📹 Zoom: share your screen. You click 🔊; the student explains each term to YOU in their own words — they're the professor today.</span>
     <p>Tap any card to <b>hear</b> it 🔊. Twelve expert terms — one badge from each door of Level 5. Can you explain them all?</p>
     <div class="vocab-grid" id="vocab-grid"></div>
     <h3>🎧 Practice — tap the right term</h3>
@@ -207,26 +210,26 @@ body.teacher-mode .t-only{display:block}
 <div class="section reading">
   <div class="sec-head"><span class="icon">📖</span> Reading — Nine Doors: A Graduation Speech <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: share screen. Student reads the speech aloud AS the speaker — podium voice, dramatic pauses. You are the graduating audience: react! Then she annotates one technique from each "door" she can spot in the speech itself (Zoom → Annotate).</span>
+    <span class="zoom-cue">📹 Zoom: share screen. Student reads the speech aloud AS the speaker — podium voice, dramatic pauses. You are the graduating audience: react! Then they annotate one technique from each "door" they can spot in the speech itself (Zoom → Annotate).</span>
     <p>The closing speech from an imaginary language academy — it secretly USES every skill it mentions. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
       <h4>🎓 Nine doors — the graduation speech of Dr. Rosa Almeida, Academy of Living English</h4>
       <p>Graduates, families, honoured guests — welcome. Tradition demands that I stand here and call you "proficient". I intend to do something more useful: to remind you which doors you have opened.</p>
       <h4>🚪 The first three doors</h4>
-      <p>Behind the first door, you learned that words have temperatures. "Slim" is a compliment and "scrawny" is an insult, although both describe the same person; choosing between them is called judgement, and no dictionary can do it for you.</p>
-      <p>Behind the second, you discovered that words travel in loyal pairs — we make mistakes, we do damage, and heavy rain falls on light sleepers. Behind the third, you learned to bend time itself: while the phone rang, you had already been writing stories for an hour.</p>
+      <p>Behind the first door, you learned that words have temperatures. "Slim" is a compliment and "scrawny" is an insult, although both describe the same person; choosing between them is called judgement, and no dictionary can do it for you. You will spend the rest of your speaking life in the narrow gap between two true synonyms — and, if I have taught you anything, you will learn to relish it.</p>
+      <p>Behind the second, you discovered that words travel in loyal pairs — we make mistakes, we do damage, and heavy rain falls on light sleepers. Behind the third, you learned to bend time itself: while the phone rang, you had already been writing stories for an hour. Notice how much three tenses accomplished in a single breath there — that is time itself, folded like a letter and slipped inside one sentence.</p>
       <h4>🚪 The middle doors</h4>
-      <p>The fourth door taught you to read what a text whispers rather than what it shouts — to notice that "sources suggest" is not the same as "we know". It was that door, I suspect, that made you harder to fool.</p>
-      <p>The fifth door was the funniest: puns, irony, and the discovery that a joke is just grammar wearing a costume. The sixth taught you to disagree like a diplomat — conceding a fair point, hedging a bold claim, and striking back politely with evidence.</p>
+      <p>The fourth door taught you to read what a text whispers rather than what it shouts — to notice that "sources suggest" is not the same as "we know". It was that door, I suspect, that made you harder to fool. A reader who can hear the distance between "sources suggest" and "we know" is a reader no headline will ever bully again.</p>
+      <p>The fifth door was the funniest: puns, irony, and the discovery that a joke is just grammar wearing a costume. The sixth taught you to disagree like a diplomat — conceding a fair point, hedging a bold claim, and striking back politely with evidence. Diplomacy, you discovered, is not weakness wearing a smile; it is strength that has finally learned some manners.</p>
       <h4>🚪 The final doors</h4>
-      <p>Behind the seventh door, you learned the spotlight: it was emphasis, not volume, that made your answers unforgettable. The eighth dressed your ideas in a tailored suit — summaries with nothing wasted, essays with nothing vague.</p>
-      <p>And the ninth door opened onto the whole planet. You met the lifts and elevators, the queues and the lines, and you learned that an accent is an address, not an error.</p>
+      <p>Behind the seventh door, you learned the spotlight: it was emphasis, not volume, that made your answers unforgettable. The eighth dressed your ideas in a tailored suit — summaries with nothing wasted, essays with nothing vague. You began to trust that a short sentence, chosen on purpose, can outweigh a long one that merely happened.</p>
+      <p>And the ninth door opened onto the whole planet. You met the lifts and elevators, the queues and the lines, and you learned that an accent is an address, not an error. Every variety you met was a complete, working language in its own right — its own logic, its own music, its own jokes.</p>
       <h4>🗝️ What mastery actually is</h4>
       <p>I watched you earn these keys, by the way. I heard you hedge your first bold claim, saw you rescue a drowning essay with one ruthless summary, and — memorably — witnessed your first deliberate pun. The whole staffroom heard about that one.</p>
       <p>So let me be candid with you. Mastery is not knowing; it is choosing. A proficient speaker knows the rules, whereas a masterful one knows which rule this exact moment deserves — that is the entire difference, and you now stand on its doorstep.</p>
       <h4>🚪 The tenth door</h4>
-      <p>One door remains, and I will not pretend otherwise. Behind it wait style, wit, rhetoric and the freedom of near-native English — the level where you stop following the language and start conducting it.</p>
+      <p>One door remains, and I will not pretend otherwise. Behind it wait style, wit, rhetoric and the freedom of near-native English — the level where you stop following the language and start conducting it. It is not a steeper version of the same climb; it is a different kind of walking altogether — freer, stranger, and far more yours.</p>
       <p>Some of you will hesitate on that doorstep, and that is entirely sensible; the tenth door is heavy. But you have opened nine already, and heavy doors respect practised hands. Go and knock, graduates — loudly.</p>
     </div>
 
@@ -279,7 +282,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section task">
   <div class="sec-head"><span class="icon">🎨</span> Create — Your 60-Second Masterclass <span class="timing">10 min</span><span class="step">Step 6</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in her own browser, plans here, then delivers her masterclass over her shared screen. You are her student now — take notes visibly!</span>
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in their own browser, plans here, then delivers their masterclass over their shared screen. You are their student now — take notes visibly!</span>
     <p>Every masterclass ends with the student becoming the teacher. Choose your best door and teach it back to me in 60 seconds. 🎤</p>
     <h3>First, tap the doors you're choosing from (pick your top 3, then circle one out loud):</h3>
     <div class="chips" id="door-chips"></div>
@@ -299,7 +302,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section challenge">
   <div class="sec-head"><span class="icon">🎮</span> Challenge Game — The Masterclass Gauntlet <span class="timing">8 min</span><span class="step">Step 7</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen — this is the final boss of Level 5, commentate accordingly. 🏆</span>
+    <span class="zoom-cue">📹 Zoom: student's browser, their clicks, their score! You watch on their shared screen — this is the final boss of Level 5, commentate accordingly. 🏆</span>
     <p class="hint">🎓 Three rounds across all nine doors, getting harder. Beat 80% for ⭐⭐⭐ and the certificate is officially EARNED!</p>
     <h3>Round 1 — Apprentice</h3>
     <div id="ch-quiz1"></div>
@@ -308,7 +311,7 @@ body.teacher-mode .t-only{display:block}
     <h3>Round 3 — Boss level: the final exam 👑</h3>
     <div id="ch-quiz3"></div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can be the ceremonial opener of your first Level 6 lesson.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>Rounds sweep all nine doors; the 👑 item stacks THREE skills (cleft + hedging + formal register) — if she can name all three in the winning option, that's a C1 pass with distinction. Misses here are holiday revision, not today's problem. Celebrate the final score whatever it is.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>Rounds sweep all nine doors; the 👑 item stacks THREE skills (cleft + hedging + formal register) — if they can name all three in the winning option, that's a C1 pass with distinction. Misses here are holiday revision, not today's problem. Celebrate the final score whatever it is.</div>
   </div>
 </div>
 
@@ -346,6 +349,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Bring both to your first Level 6 session — they'll be your opening ceremony. 🎓</p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>End on a genuine high — this is graduation. Praise one specific moment from their masterclass and name one door they clearly own now. Hand off the two homework pieces (the recorded 60-second masterclass + their written "Level 5 top three") as the ceremonial opener of their first Level 6 lesson, and tell them to bring both. Fill the self-evaluation below while the lesson is still fresh.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

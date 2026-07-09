@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 2 · ELEMENTARY (A2)</div>
   <h1>🍕 Session 1 — Food and Me</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: say what food you <b>like</b> and <b>don't like</b> — and ask <b>Do you like…?</b> · ≈50 min core</div>
+  <div class="badge">🎯 Today: say what food you <b>like</b> and <b>don't like</b> — and ask <b>Do you like…?</b></div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
-    <p><em>"Today we talk about food — what you love, what you don't like, and why. By the end, you can say <b>I like / I don't like</b>, ask <b>Do you like…?</b>, and you will design the menu for your own dream restaurant!"</em> 👩‍🍳</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Ask: "What did you eat today?" Don't correct anything yet — just listen for whether "like/likes" appears and whether articles are used. That is your live diagnostic for Step 5.</div>
+    <p class="frame">🎯 Today: talk about food you love — and build your dream restaurant! 👩‍🍳</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Say:</b> "Today we talk about food — what you love, what you don't like, and why. By the end, you can say <b>I like / I don't like</b>, ask <b>Do you like…?</b>, and you will design the menu for your own dream restaurant!"<br>Ask: "What did you eat today?" Don't correct anything yet — just listen for whether "like/likes" appears and whether articles are used. That is your live diagnostic for Step 5.</div>
   </div>
 </div>
 
@@ -209,6 +212,7 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — Food Around the World <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen. Student reads one chunk aloud, you read the next — take turns. Then student annotates the answers on your screen (Zoom → Annotate).</span>
+    <p class="hint">🔎 Watch for <b>like / likes / don't like / doesn't like</b> in the story — we unlock them in Step 5!</p>
     <p>Read Priya's food blog. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
@@ -217,16 +221,20 @@ body.teacher-mode .t-only{display:block}
       <h4>🍝 My favourite food</h4>
       <p>My favourite food is pasta. I eat pasta three times a week! I really like tomato pasta and cheese pasta.</p>
       <p>I also love pizza. My perfect pizza has mushrooms and olives on top.</p>
+      <p>On Fridays, my dad and I make pizza at home. I put the cheese on top, and he puts the pizza in the oven. I really like cooking with my dad!</p>
       <h4>🌶️ Foods I don't like</h4>
       <p>But I don't like everything. I don't like spicy food at all. When I eat something spicy, my eyes water and my face goes red!</p>
       <p>I don't like fish very much either. My mum loves fish, but I think it smells funny.</p>
       <h4>🧀 My friend Marco</h4>
       <p>My friend Marco likes very different food. He likes rice and chicken, and he loves plantain — a type of banana that you cook.</p>
       <p>Marco doesn't like cheese. He says it is too strong. We always laugh, because I love cheese and he hates it!</p>
+      <p>At school, we sometimes share our lunch. Marco gives me some rice and chicken, and I give him some tomato pasta. He likes my mum's pasta a lot!</p>
       <h4>🥤 What I drink</h4>
       <p>With lunch, I usually drink water or apple juice. I don't like milk very much, but I love hot chocolate in winter.</p>
+      <p>My little brother is very different. He loves milk! He drinks it with breakfast, with lunch and with dinner. Mum says he is half cat!</p>
       <h4>🌍 One world, many tastes</h4>
       <p>In Japan, people eat sushi — raw fish with rice. In Mexico, people eat delicious tacos. In India, people love spicy curry.</p>
+      <p>One day, I want to visit all of these countries and try the food. Do you like trying new food? I do — well, when it is not spicy!</p>
       <p>Everyone likes different things, and that is fantastic. What do you love? What don't you like?</p>
     </div>
 
@@ -262,6 +270,7 @@ body.teacher-mode .t-only{display:block}
         🔑 he / she / it → <b>does</b></div>
     </div>
     <div class="frame">💡 <b>The taste scale:</b> 😍 I love → 😊 I like → 😐 It's OK → 😕 I don't like → 🤢 I hate. Point at the scale and place today's foods on it!</div>
+    <div class="frame">💪 <b>How much? really / quite / absolutely + like/love:</b> <em>I <b>absolutely</b> love chocolate!</em> (number one! 😍) · <em>I <b>really</b> like pizza.</em> (a lot 👍) · <em>I <b>quite</b> like salad.</em> (it's OK 😐)</div>
     <p class="hint">💡 Hungarian tip: in Hungarian you say <em>"Szeretem A pizzát"</em> — with "a". In English, general likes drop "the": <em>"I like pizza"</em>, NOT <em>"I like the pizza"</em>. And remember: she like<b>s</b>, but she <b>doesn't like</b> (the -s moves into <em>does</em>).</p>
     <h3>✏️ Practice — tap the correct form</h3>
     <div id="grammar-quiz"></div>
@@ -329,6 +338,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Example: <em>"Monday: soup and bread. I like the soup because it is warm and delicious."</em></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise two concrete wins by name — e.g. a full "I don't like… because…" sentence, or a correct <em>does/doesn't</em>. Then hand off the homework: read the Monday example aloud together, confirm the student knows it is 5 days + one "because" sentence each, and promise you will ask about their menu at the start of the next lesson.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

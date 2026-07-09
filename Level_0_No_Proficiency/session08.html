@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 0 · NO PROFICIENCY (PRE-A1)</div>
   <h1>🍕 Session 8 — Food I Eat</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: 12 foods + <b>"I like ___"</b> + yum/yuck · ≈50 min core</div>
+  <div class="badge">🎯 Today: 12 foods + <b>"I like ___"</b> + yum/yuck</div>
 </div>
 
 <div class="scorebar">
@@ -170,9 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on. Wave hello! Teacher plays the goal with 🔊. Student says it back.</span>
-    <p style="font-size:20px"><em>"Today I learn <b>12 foods</b>. I can say <b>I like pizza!</b> 🍕 Yum!"</em>
-      <button class="opt" style="padding:5px 14px" onclick="say('Today I learn twelve foods. I can say: I like pizza! Yum!')">🔊 Listen</button></p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Rub your tummy for "yum", make a funny face for "yuck" — anchor both gestures NOW, you'll reuse them all lesson. Student repeats the goal in chunks: "Today — I learn — foods."</div>
+    <p class="frame">🎯 Today: <b>12 foods</b> — <b>"I like pizza!"</b> 🍕 Yum! <button class="opt" style="padding:5px 14px" onclick="say('Today I learn twelve foods. I can say: I like pizza! Yum!')">🔊 Listen</button></p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S7):</b> favorite-animal drawing + 5 animal names with sounds — ask the student to show the drawing and fire "It's a ___!" for it; listen for the "It's a" chunk.<br><b>Say:</b> "Today I learn 12 foods. I can say: 'I like pizza!' Yum!"<br>Rub your tummy for "yum", make a funny face for "yuck" — anchor both gestures NOW, you'll reuse them all lesson. Student repeats the goal in chunks: "Today — I learn — foods."</div>
   </div>
 </div>
 
@@ -201,6 +203,7 @@ body.teacher-mode .t-only{display:block}
     <h3>🎧 Practice — tap the right food</h3>
     <p class="hint">Read the clue. Tap the food. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Drill: 🔊 → choral ×2 → solo + a yum/yuck verdict on every card (the verdict makes it personal). Prioritize foods the student actually eats; the rest are recognition only. Personalize: ask "Pizza — yum or yuck?" after each card and mirror their face.</div>
   </div>
 </div>
 
@@ -209,21 +212,26 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — Yum or Yuck? <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen. Teacher reads a line with 🔊, student echoes with the yum/yuck face. Student annotates answers on your screen.</span>
+    <p class="hint">🔎 Watch for <b>I like ___</b> and <b>I don't like ___</b> in the story — we unlock them in Step 5!</p>
     <p>Look at the pictures. Listen. Then read out loud!
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
       <h4>😋 Yum!</h4>
       <p>🍎 I like apples. Yum!</p>
+      <p>🍎 The apple is red. Yum!</p>
       <p>🍌 I like bananas. Yum! Yum!</p>
       <p>🥛 I like milk.</p>
+      <p>🥛 Milk is white.</p>
       <p>🧀 I like cheese. It is yellow.</p>
       <p>🍕 Pizza is my favorite! Yum!</p>
       <h4>😝 Yuck!</h4>
       <p>🥕 I don't like carrots. Yuck!</p>
       <p>🍲 I don't like soup. Yuck!</p>
+      <p>🍋 I don't like lemons. Yuck!</p>
       <h4>🍰 Sweet!</h4>
       <p>🍦 Ice cream is cold. Yum!</p>
       <p>🍰 Cake! Yes, please!</p>
+      <p>🍰 The cake is pink and white.</p>
       <p>😋 I am happy. Yum, yum, yum!</p>
     </div>
 
@@ -295,7 +303,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section challenge">
   <div class="sec-head"><span class="icon">🎮</span> Challenge Game — Little Chef <span class="timing">8 min</span><span class="step">Step 7</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! Watch on her shared screen and cheer. 🎉</span>
+    <span class="zoom-cue">📹 Zoom: the student's browser, their clicks, their score! Watch on their shared screen and cheer. 🎉</span>
     <p class="hint">👨‍🍳 Three rounds. It gets harder. Beat 80% for ⭐⭐⭐!</p>
     <h3>Round 1 — Yum or Yuck? 😋😝</h3>
     <div id="ch-quiz1"></div>
@@ -321,6 +329,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Example: <em>"I like ice cream. Yum!"</em> <button class="opt" style="padding:3px 10px" onclick="say('I like ice cream. Yum!')">🔊</button></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise the opinion power: today the student said what THEY like and don't like in English — that's real communication, tell them so. Homework hand-off: play the example 🔊 once, do one yum-face rehearsal together, and remind them to bring the 3-food drawing next time.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

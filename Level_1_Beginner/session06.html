@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 1 · BEGINNER (A1)</div>
   <h1>🎨 Session 6 — My Hobbies</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: talk about hobbies with <b>like / love + -ing</b> and learn the <b>days of the week</b> · ≈50 min core</div>
+  <div class="badge">🎯 Today: talk about hobbies with <b>like / love + -ing</b> and learn the <b>days of the week</b></div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
-    <p><em>"Today you will talk about the things you love doing. By the end, you can say <b>'I like swimming'</b> and <b>'I love drawing'</b> — and tell me your whole hobby week, from Monday to Sunday!"</em> ⚽🎨🎸</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Live diagnostic: ask "What do you like doing?" Note whether the student says "I like swim" (missing -ing) — that's today's number one target fix. Also ask "What day is it today?" to test days.</div>
+    <p class="frame">🎯 Today: your hobbies + your whole week, Monday to Sunday!</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S5):</b> 3-day weather diary, 2 sentences per day — student reads one day aloud; listen for "It's + weather" and "I'm wearing + clothes".<br><b>Say:</b> "Today you will talk about the things you love doing. By the end, you can say <b>'I like swimming'</b> and <b>'I love drawing'</b> — and tell me your whole hobby week, from Monday to Sunday!" ⚽🎨🎸<br>Live diagnostic: ask "What do you like doing?" Note whether the student says "I like swim" (missing -ing) — that's today's number one target fix. Also ask "What day is it today?" to test days.</div>
   </div>
 </div>
 
@@ -208,19 +211,20 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — Amara's Busy Week <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen. Student reads one chunk aloud, you read the next — take turns. Then the student annotates the answers on your screen (Zoom → Annotate).</span>
+    <p class="hint">🔎 Watch for <b>like / love + -ing</b> and <b>On + day</b> in the story — we unlock them in Step 5!</p>
     <p>Read about Amara's week. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
       <h4>🗓️ My busy week — by Amara, 12</h4>
-      <p>Hi! My name is Amara. I have many hobbies. Every day is different — here is my week!</p>
+      <p>Hi! My name is Amara. I have many hobbies. Every day is different — here is my week! My school is busy, but my hobbies are the best part.</p>
       <h4>🏫 School days</h4>
-      <p>On Monday I play football with my friends. I love scoring goals! On Wednesday I go swimming at the pool.</p>
-      <p>On Friday I have my guitar lesson. Playing the guitar is hard, but I like it.</p>
+      <p>On Monday I play football with my friends. I love scoring goals! On Wednesday I go swimming at the pool. Swimming makes me happy and very hungry!</p>
+      <p>On Friday I have my guitar lesson. Playing the guitar is hard, but I like it. My teacher says my fingers are fast. I like singing too, and we sing together.</p>
       <h4>🎉 The weekend</h4>
-      <p>Saturday is my favourite day. In the morning I ride my bike in the park. In the afternoon I love drawing — I draw dogs, dragons and my little brother!</p>
-      <p>On Sunday we cook together. I like making cookies. Then we watch a film on the sofa.</p>
+      <p>Saturday is my favourite day. In the morning I ride my bike in the park. In the afternoon I love drawing — I draw dogs, dragons and my little brother! My brother is not happy about that.</p>
+      <p>On Sunday we cook together. I like making cookies. Then we watch a film on the sofa. I love funny films. My dad loves them too.</p>
       <h4>⭐ My dream</h4>
-      <p>I don't like tidying my room — boring! But I love dancing. One day, I want to dance on a big stage. What do you love doing?</p>
+      <p>I don't like tidying my room — boring! But I love dancing. One day, I want to dance on a big stage. I practise dancing in my room on Thursday. What do you love doing?</p>
     </div>
 
     <h3>🔎 Did you understand? Tap your answer</h3>
@@ -315,6 +319,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Example: <em>"My mum loves reading. On Sunday she reads in the garden."</em></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise the hobby poster: quote the student's best "-ing" sentence and the funniest "I don't like…" line.<br>Homework hand-off: read the example together, then ask WHO they will interview — 2 sentences with love/like + -ing and a day, checked next lesson.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

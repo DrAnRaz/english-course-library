@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 6 · NEAR-NATIVE (C2)</div>
   <h1>⭐ Session 6 — The Editor</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: think like an editor — <b>spot errors, cut the fat, sharpen every sentence</b> until it says exactly what you mean · ≈50 min core</div>
+  <div class="badge">🎯 Today: think like an editor — <b>spot errors, cut the fat, sharpen every sentence</b> until it says exactly what you mean</div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student repeats it back in FEWER words than the original. Editing starts now.</span>
-    <p><em>"Today you get the red pen. You will diagnose the classic diseases of bad writing — run-ons, danglers, redundancy, ambiguity — and operate on a genuinely terrible paragraph until it is short, sharp, and honest."</em> ✂️🖊️</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Ask: "When you reread your own writing, what do you fix first — and what do you never notice?" C2 students usually self-report spelling but are blind to wordiness and modifier placement. Note their answer; check at the end of Step 6 whether today changed it.</div>
+    <p class="frame">🎯 Today: you get the red pen — cut, fix, sharpen! ✂️🖊️</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S5):</b> three wit techniques caught in a comedy scene + the softened "You are late" text — student performs the best line; listen for correct technique names and real softeners.<br><b>Say:</b> "Today you get the red pen. You will diagnose the classic diseases of bad writing — run-ons, danglers, redundancy, ambiguity — and operate on a genuinely terrible paragraph until it is short, sharp, and honest." ✂️🖊️<br>Ask: "When you reread your own writing, what do you fix first — and what do you never notice?" C2 students usually self-report spelling but are blind to wordiness and modifier placement. Note their answer; check at the end of Step 6 whether today changed it.</div>
   </div>
 </div>
 
@@ -199,6 +202,7 @@ body.teacher-mode .t-only{display:block}
     <h3>🎧 Practice — diagnose the patient</h3>
     <p class="hint">Read the sick sentence and tap its disease. Green = correct diagnosis!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>The invented-example game is the real check — a student who can PRODUCE a dangler understands it. Prioritise <b>run-on, fragment, redundancy, dangling modifier</b> and <b>ambiguity</b>; the reading names all five. Personalise: ask which disease infects their own essays most — their Step-1 answer usually tells you.</div>
   </div>
 </div>
 
@@ -207,25 +211,26 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — Confessions of a Semicolon Addict <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen, take turns reading chunks aloud. Then student uses Zoom → Annotate to mark every "disease" the writer names in the text.</span>
+    <p class="hint">🔎 Watch for <b>the writing "diseases" — run-ons, danglers, redundancy, ambiguity</b> in the confession — we unlock the cures in Step 5!</p>
     <p>Read this confession from a school-paper editor. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
       <h4>🖊️ The red pen finds me</h4>
       <p>Nobody plans to become an editor. It happens the way most fates do: quietly, and then all at once. One Tuesday I fixed a friend's history essay; by Friday, half my class had discovered that I cannot walk past a broken sentence any more than a dog can walk past a dropped sausage.</p>
-      <p>Now I edit our school paper, The Weekly Racket. Every Thursday, articles arrive in my inbox like patients arriving at a small, understaffed hospital. Some need a plaster; some need surgery.</p>
+      <p>Now I edit our school paper, The Weekly Racket. Every Thursday, articles arrive in my inbox like patients arriving at a small, understaffed hospital. Some need a plaster; some need surgery. A few, I am sorry to report, arrive beyond saving and must be sent back with flowers and a kind note. I keep the note short. It seems only consistent.</p>
       <h4>🔬 The usual suspects</h4>
-      <p>After two years, I can diagnose the classic diseases on sight. There is the run-on sentence, which starts in the cafeteria and refuses to stop until it has visited every corridor in the school. There is its opposite, the fragment. Alone and shivering. Like this.</p>
+      <p>After two years, I can diagnose the classic diseases on sight. There is the run-on sentence, which starts in the cafeteria and refuses to stop until it has visited every corridor in the school. There is its opposite, the fragment. Alone and shivering. Like this. Both diseases have the same cause, oddly enough: the writer stopped listening to the sentence. Read your work aloud and your own breath will tell you where the full stops go.</p>
       <p>There is redundancy, my personal favourite, in which writers "descend down the stairs", make "future plans", and receive "free gifts". And there is the dangling modifier, a circus acrobat with no safety net: "Walking to class, the fire alarm went off." As far as I know, our fire alarm has never walked anywhere.</p>
-      <p>Worst of all is ambiguity, the shape-shifter. "She told her sister that her article was chosen" — whose article, exactly? The sentence knows, but it refuses to say, and the reader is left interrogating pronouns like a detective with no witnesses.</p>
+      <p>Worst of all is ambiguity, the shape-shifter. "She told her sister that her article was chosen" — whose article, exactly? The sentence knows, but it refuses to say, and the reader is left interrogating pronouns like a detective with no witnesses. I once spent ten minutes on that exact sentence before surrendering and phoning the writer. She knew instantly whose article it was. Readers, I reminded her, cannot phone.</p>
       <h4>🎯 Why precision matters</h4>
-      <p>People assume editing is about rules. It is not, really — it is about mercy for the reader, who has one short life and should not spend it decoding "due to the fact that" when "because" was standing right there.</p>
+      <p>People assume editing is about rules. It is not, really — it is about mercy for the reader, who has one short life and should not spend it decoding "due to the fact that" when "because" was standing right there. The fancy phrase is not more intelligent; it is only longer. Intelligence, in writing, usually looks like restraint.</p>
       <p>Precision is also about honesty. A vague sentence lets a writer hide: "mistakes were made" spreads the blame so thin that nobody has to taste it. A precise sentence — "I broke the microscope" — costs more courage and buys more trust.</p>
-      <p>My history teacher once handed back an essay with a single comment: "This paragraph is hiding something." She was right. I had written four foggy sentences because I had not done the reading, and the fog itself was the confession.</p>
+      <p>My history teacher once handed back an essay with a single comment: "This paragraph is hiding something." She was right. I had written four foggy sentences because I had not done the reading, and the fog itself was the confession. I have never forgotten it. Now, when my own sentences start fogging up, I stop and ask what I am avoiding — the answer is usually the very thing I should write next.</p>
       <h4>✂️ The hardest cut</h4>
-      <p>The cruellest part of the job is deleting a sentence its writer clearly loved. Editors call these darlings. Last month I cut a description of our goalkeeper as "a majestic, mildly damp eagle" — beautiful, useless, gone.</p>
+      <p>The cruellest part of the job is deleting a sentence its writer clearly loved. Editors call these darlings. Last month I cut a description of our goalkeeper as "a majestic, mildly damp eagle" — beautiful, useless, gone. The writer mourned for a week. Then he admitted the article read better, which is the closest an editor ever comes to receiving a medal.</p>
       <p>But here is the secret every editor eventually learns: cutting is a compliment. You only sharpen a blade you intend to use.</p>
       <h4>😳 A confession</h4>
-      <p>And yes — the rumours about the semicolons are true. I love them; I overuse them; I have made my peace with it. Every editor has one weakness, and at least mine is punctuation, not cowardice.</p>
+      <p>And yes — the rumours about the semicolons are true. I love them; I overuse them; I have made my peace with it. Every editor has one weakness, and at least mine is punctuation, not cowardice. My deputy editor collects em-dashes the way other people collect stamps; we monitor each other. It is a fair system, and it mostly works.</p>
       <p>So send me your tangled paragraphs and your wandering modifiers. I will return them shorter, straighter, and slightly less damp than a majestic eagle — because good writing is not decoration. It is the shortest honest road between your mind and someone else's.</p>
     </div>
 
@@ -264,7 +269,7 @@ body.teacher-mode .t-only{display:block}
     <p class="hint">💡 Hungarian tip: Hungarian word order is famously flexible — the meaning survives the shuffle. English is stricter: position IS meaning, which is why dangling modifiers and a wandering "only" feel harmless in Hungarian but change the sentence completely in English.</p>
     <h3>✏️ Practice — diagnose and cure</h3>
     <div id="grammar-quiz"></div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>8+/10: sprint, bank time for the Red Pen Challenge. Under 6: rerun misses with the chant. The "only" item is the boss of this set — if she nails it, say so; placement sensitivity is a genuine C2 marker. Watch for overcorrection: some students start semicolon-ing everything (the reading legitimises it!). One semicolon per paragraph is plenty.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>8+/10: sprint, bank time for the Red Pen Challenge. Under 6: rerun misses with the chant. The "only" item is the boss of this set — if the student nails it, say so; placement sensitivity is a genuine C2 marker. Watch for overcorrection: some students start semicolon-ing everything (the reading legitimises it!). One semicolon per paragraph is plenty.</div>
   </div>
 </div>
 
@@ -278,7 +283,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section task">
   <div class="sec-head"><span class="icon">🎨</span> Create — The Red Pen Challenge <span class="timing">10 min</span><span class="step">Step 6</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in her own browser, shares her screen, and edits live while you watch the word count drop.</span>
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in their own browser, shares their screen, and edits live while you watch the word count drop.</span>
     <p>A "reporter" has submitted this masterpiece to your paper. It contains at least <b>eight problems</b>. You are the editor — rewrite it below: shorter, clearer, and with Grandma saved. ✂️</p>
     <div class="frame">📄 <b>The submission:</b> "Due to the fact that the new cafeteria menu, which is new, was revealed and shown to students on Monday, everyone was talking about it, it was the main topic everywhere. Walking into the cafeteria, the smell of pizza was amazing. In my personal opinion, I think that their are less options for vegetarians, which is not exactly ideal. The head cook said the menu would be adjusted in the future going forward. Lets eat students!"</p>
     <h3>Your editor's checklist — tap each cure as you apply it:</h3>
@@ -289,7 +294,7 @@ body.teacher-mode .t-only{display:block}
     <div class="editable tall" id="t-report" contenteditable="true" data-placeholder="1. … 2. … 3. …"></div>
     <div class="speak">🗣️ <b>Editorial meeting!</b> Read both versions aloud to your teacher. Defend your three biggest cuts like a professional: "I cut X because…" — precise verdicts, no mercy, full kindness.</div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> fix only the first two sentences live and diagnose the rest aloud; the full rewrite becomes homework.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 6 + answer key</h4>The 8+ planted problems: 1) "Due to the fact that" → Because; 2) "which is new" redundant; 3) "revealed and shown" redundant pair; 4) comma splice "…about it, it was…"; 5) dangling modifier "Walking into the cafeteria, the smell…"; 6) "In my personal opinion, I think that" double redundancy; 7) "their" → "there"; 8) "in the future going forward" tautology; 9) "Lets" → "Let's" AND the missing comma: "Let's eat, students!" (callback to warm-up — celebrate loudly if she catches it). Model rewrite: "Because the new cafeteria menu appeared on Monday, it became the talk of the school. Walking into the cafeteria, I was hit by the smell of pizza. There are fewer options for vegetarians, though, which is not ideal. The head cook says the menu will be adjusted. Let's eat, students!" Grade her edit on diseases CURED, not on matching your wording.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6 + answer key</h4>The 8+ planted problems: 1) "Due to the fact that" → Because; 2) "which is new" redundant; 3) "revealed and shown" redundant pair; 4) comma splice "…about it, it was…"; 5) dangling modifier "Walking into the cafeteria, the smell…"; 6) "In my personal opinion, I think that" double redundancy; 7) "their" → "there"; 8) "in the future going forward" tautology; 9) "Lets" → "Let's" AND the missing comma: "Let's eat, students!" (callback to warm-up — celebrate loudly if they catch it). Model rewrite: "Because the new cafeteria menu appeared on Monday, it became the talk of the school. Walking into the cafeteria, I was hit by the smell of pizza. There are fewer options for vegetarians, though, which is not ideal. The head cook says the menu will be adjusted. Let's eat, students!" Grade their edit on diseases CURED, not on matching your wording.</div>
   </div>
 </div>
 
@@ -297,7 +302,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section challenge">
   <div class="sec-head"><span class="icon">🎮</span> Challenge Game — Editor-in-Chief Trials <span class="timing">8 min</span><span class="step">Step 7</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen — every correct diagnosis earns a dramatic "STOP THE PRESSES!" 🎉</span>
+    <span class="zoom-cue">📹 Zoom: student's browser, their clicks, their score! You watch on their shared screen — every correct diagnosis earns a dramatic "STOP THE PRESSES!" 🎉</span>
     <p class="hint">🗞️ Three rounds, getting harder. Beat 80% to earn the Editor-in-Chief badge (⭐⭐⭐)!</p>
     <h3>Round 1 — Name that disease</h3>
     <div id="ch-quiz1"></div>
@@ -306,7 +311,7 @@ body.teacher-mode .t-only{display:block}
     <h3>Round 3 — Boss level: the precision gauntlet 👑</h3>
     <div id="ch-quiz3"></div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 keeps perfectly as next lesson's warm-up.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>Wrong answers auto-reveal in green — on each miss, ask for the disease NAME before moving on; the vocabulary is half the lesson. The BOSS item hides three separate problems in one sentence; after she answers, have her list all three aloud (their/there, fewer/less, comma splice).</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>Wrong answers auto-reveal in green — on each miss, ask for the disease NAME before moving on; the vocabulary is half the lesson. The BOSS item hides three separate problems in one sentence; after they answer, have them list all three aloud (their/there, fewer/less, comma splice).</div>
   </div>
 </div>
 
@@ -323,6 +328,7 @@ body.teacher-mode .t-only{display:block}
       <p>🩺 <b>Diagnose:</b> name at least three diseases you cured, using today's terms. Bonus: find one "darling" you loved but cut anyway — and admit it hurt.</p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise the best cut they defended in the editorial meeting — name the disease it cured, in the session's vocabulary. Hand off homework by choosing the victim paragraph together; their own last-month writing is the bravest and most instructive option.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

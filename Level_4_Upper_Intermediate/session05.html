@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 4 · UPPER-INTERMEDIATE (B2)</div>
   <h1>🎭 Session 5 — Say It Like You Mean It</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: master 12 real English <b>idioms</b> + the four flavours of <b>figurative language</b> — and use them about YOUR life · ≈50 min core</div>
+  <div class="badge">🎯 Today: master 12 real English <b>idioms</b> + the four flavours of <b>figurative language</b> — and use them about YOUR life</div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student repeats it back in their own words.</span>
-    <p><em>"Today you will stop sounding like a textbook: you'll learn 12 idioms native speakers really use, plus the four flavours of figurative language — simile, metaphor, hyperbole and personification — and put them to work on YOUR week."</em> 🎨</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Quick diagnostic: say "It's raining cats and dogs!" and watch the face. Confusion = low idiom exposure, go slower in Step 3; a grin = they have met idioms, push for production early.</div>
+    <p class="frame">🎯 Today: 12 real idioms — stop sounding like a textbook!</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S4):</b> rewritten headline + 3 passive-reporting sentences about their town — student reads them aloud; listen for "is said to / is thought to / it is believed that".<br><b>Say:</b> "Today you will stop sounding like a textbook: you'll learn 12 idioms native speakers really use, plus the four flavours of figurative language — simile, metaphor, hyperbole and personification — and put them to work on YOUR week." 🎨<br>Quick diagnostic: say "It's raining cats and dogs!" and watch the face. Confusion = low idiom exposure, go slower in Step 3; a grin = they have met idioms, push for production early.</div>
   </div>
 </div>
 
@@ -199,6 +202,7 @@ body.teacher-mode .t-only{display:block}
     <h3>🎧 Practice — tap the right idiom</h3>
     <p class="hint">Read the situation and tap the idiom that fits. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Guess-first is the rule: hide the meaning line with your cursor until the student has guessed — wrong guesses are where the laughing (and learning) happens. Group by theme if pace drags: feelings (butterflies, cold feet, over the moon) → money/effort (arm and a leg, hit the books) → secrets (spill the beans, pull your leg). Personalisation: which idiom fits their week so far, and why?</div>
   </div>
 </div>
 
@@ -206,21 +210,25 @@ body.teacher-mode .t-only{display:block}
 <div class="section reading">
   <div class="sec-head"><span class="icon">📖</span> Reading — The Audition: Leo's Diary <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: share screen, take turns — one diary day each. Then student annotates every idiom she can find (Zoom → Annotate). All 12 are hiding in there!</span>
+    <span class="zoom-cue">📹 Zoom: share screen, take turns — one diary day each. Then student annotates every idiom they can find (Zoom → Annotate). All 12 are hiding in there!</span>
+    <p class="hint">🔎 Watch for the <b>bold idioms</b> and the <b>similes with like/as</b> in Leo's diary — we unlock them in Step 5!</p>
     <p>Read Leo's diary about the school talent show. The idioms are in <b>bold</b> — try to feel what they mean from the story. Tap 🔊 to hear any part.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
       <h4>😬 Monday — the sign-up</h4>
       <p>When Ms. Okafor announced the school talent show, my best friend Sam signed me up without asking. "Relax," he said. "You've played guitar for five years — it'll be <b>a piece of cake</b>."</p>
       <p>Easy for him to say. I had <b>butterflies in my stomach</b> for the rest of the day, and when people asked what I was going to perform, I said "a secret" — because honestly, I had no idea.</p>
+      <p>Sam kept telling everyone the show was going to be legendary. I checked the sign-up sheet three times, hoping my name had somehow disappeared. It hadn't. Twenty-two names, and mine was seventh.</p>
       <h4>🎸 Tuesday — practice, sort of</h4>
       <p>I planned to practise all evening, but first I had to <b>hit the books</b> for a history test. By nine o'clock my fingers were tired and my brain felt like soup.</p>
       <p>My sister said my playing sounded "like a cat in a washing machine". She was <b>pulling my leg</b>… I hope.</p>
+      <p>Dad suggested I choose the old song he taught me two summers ago, the one we used to play together in the garage. It felt right the moment he said it — songs you love are easier to fight for.</p>
       <h4>🤒 Wednesday — disaster?</h4>
       <p>I woke up feeling <b>under the weather</b> — sore throat, heavy head. Mum checked twice, because I skip school <b>once in a blue moon</b>, then made me soup.</p>
       <p>Lying in bed, I finally had time to listen to the song properly, again and again. Weirdly, being ill was <b>a blessing in disguise</b>: I stopped panicking about my fingers and started actually hearing the music.</p>
       <h4>💪 Thursday — the comeback</h4>
       <p>My throat felt better, and I practised the song ten times without a single mistake. Even my sister admitted it sounded "almost like music". From her, that's a five-star review.</p>
+      <p>After school, Ms. Okafor let me test the stage. The hall was empty, the lights were off, and I played to three hundred empty chairs. If you can perform for nobody, I told myself, you can perform for anybody.</p>
       <h4>🥶 Friday — the audition</h4>
       <p>Backstage, I nearly <b>got cold feet</b>. The girl before me sang like a professional, and her costume probably <b>cost an arm and a leg</b>.</p>
       <p>When I walked out, the silence was terrifying — so I told the audience my sister's joke about the cat in the washing machine. Everyone laughed, and it totally <b>broke the ice</b>.</p>
@@ -228,6 +236,7 @@ body.teacher-mode .t-only{display:block}
       <h4>🌕 Saturday — the results</h4>
       <p>Ms. Okafor posted the list this morning: I'm in the final! I was <b>over the moon</b> — I ran around the kitchen twice and scared the dog.</p>
       <p>Next Friday is the real show. Am I nervous? Of course — but now I know the scariest part isn't the stage. It's the week before.</p>
+      <p>Sam says he's proud of himself for signing me up, which is typical Sam. Still, I owe him. When the final is over, I'm going to buy him the biggest ice cream in town — he has earned it. And next year? Maybe I'll sign HIM up without asking.</p>
     </div>
 
     <h3>🔎 Did you understand? Tap your answer</h3>
@@ -277,7 +286,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section task">
   <div class="sec-head"><span class="icon">🎨</span> Create — My Week in Idioms <span class="timing">10 min</span><span class="step">Step 6</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in her own browser, types here, and shares her screen so you can watch.</span>
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in their own browser, types here, and shares their screen so you can watch.</span>
     <p>Time to make these idioms YOURS. Write about your real week — like Leo did. ✍️</p>
     <h3>First, tap the 3 idioms you want to use:</h3>
     <div class="chips" id="idiom-chips"></div>
@@ -295,7 +304,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section challenge">
   <div class="sec-head"><span class="icon">🎮</span> Challenge Game — Idiom Boss Battle <span class="timing">8 min</span><span class="step">Step 7</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen and cheer. 🎉</span>
+    <span class="zoom-cue">📹 Zoom: student's browser, their clicks, their score! You watch on their shared screen and cheer. 🎉</span>
     <p class="hint">🥊 Three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
     <h3>Round 1 — What does it really mean?</h3>
     <div id="ch-quiz1"></div>
@@ -304,7 +313,7 @@ body.teacher-mode .t-only{display:block}
     <h3>Round 3 — Boss level: figurative detective 👑</h3>
     <div id="ch-quiz3"></div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can be the start of the next lesson's warm-up.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>Wrong answers auto-reveal the correct one in green — ask "why?" on each miss. The BOSS item asks for an idiom AND a simile in one sentence; if she explains WHY it's both, give an extra imaginary crown. 👑</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>Wrong answers auto-reveal the correct one in green — ask "why?" on each miss. The BOSS item asks for an idiom AND a simile in one sentence; if the student explains WHY it's both, give an extra imaginary crown. 👑</div>
   </div>
 </div>
 
@@ -321,6 +330,7 @@ body.teacher-mode .t-only{display:block}
       <p>🌍 <b>Bonus:</b> find one idiom in YOUR language, translate it word-for-word into English, and bring it — we'll laugh together and find the real English match.</p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise the idiom they used most naturally in Step 6 — tell them it sounded "native", that word lands hard here. Hand off homework: let them pick WHICH family member gets the idiom lesson and WHICH idiom, right now, out loud.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

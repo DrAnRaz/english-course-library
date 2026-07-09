@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 0 · NO PROFICIENCY (PRE-A1)</div>
   <h1>⭐ Session 3 — Numbers &amp; Age</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: count <b>1–20</b> and say <b>"I am ___ years old"</b> · ≈50 min core</div>
+  <div class="badge">🎯 Today: count <b>1–20</b> and say <b>"I am ___ years old"</b></div>
 </div>
 
 <div class="scorebar">
@@ -170,9 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on. Hello + spell your name from last time! Then teacher reads the goal with 🔊 — student copies it back.</span>
-    <p style="font-size:19px">🌟 Today you count to <b>20</b>. And you say your <b>age</b>! <button class="opt" style="padding:4px 12px" onclick="say('One, two, three! I am ten years old.')">🔊 Listen</button></p>
-    <p>🔢 <b>"I am ___ years old."</b> That is the magic line. 🚀</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Re-entry ritual: "Hello! How are you?" + spell name (Sessions 1–2 chunks). Today's win condition: student counts 1–10 solo and says "I am [age] years old" without help. 11–20 is recognition only — don't demand production yet.</div>
+    <p class="frame">🎯 Today: count to <b>20</b> + say your <b>age</b>! <button class="opt" style="padding:4px 12px" onclick="say('One, two, three! I am ten years old.')">🔊 Listen</button></p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Say:</b> "Today you count to 20. And you say your age! 'I am ___ years old.' That is the magic line."<br>Re-entry ritual: "Hello! How are you?" + spell name (Sessions 1–2 chunks). Today's win condition: student counts 1–10 solo and says "I am [age] years old" without help. 11–20 is recognition only — don't demand production yet.</div>
   </div>
 </div>
 
@@ -201,6 +203,7 @@ body.teacher-mode .t-only{display:block}
     <h3>🎧 Practice — tap the right number</h3>
     <p class="hint">Count the emoji. Tap the number word. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Drill: 🔊 → choral ×2 → solo, ALWAYS with fingers up for 1–10. Focus production on 1–10 and the student's own age number; 11–20 cards are listen-and-point only. Personalize: flash fingers for the student's age and family members' ages and have them shout the numbers.</div>
   </div>
 </div>
 
@@ -209,15 +212,16 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — The Birthday <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen. Point at each emoji first. Play 🔊 line by line — student echoes every line and counts the emoji aloud.</span>
+    <p class="hint">🔎 Watch for <b>I am ___ years old</b> and the <b>numbers</b> in the story — we unlock them in Step 5!</p>
     <p>Look at the pictures. Listen 🔊. Say each line!
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
       <h4>🎂 The birthday</h4>
-      <p>🎉 It is Mia's birthday.<br>🎂 Mia is nine years old.<br>🕯️ Count the candles: one, two, three… nine!</p>
+      <p>🎉 It is Mia's birthday.<br>🎂 Mia is nine years old.<br>🕯️ Count the candles: one, two, three… nine!<br>🎈 Balloons! One, two, three, four… ten balloons!</p>
       <h4>💬 How old are you?</h4>
-      <p>👦 "I am ten," says Bruno.<br>👧 "I am nine," says Mia.</p>
+      <p>👧 "How old are you, Bruno?"<br>👦 "I am ten," says Bruno.<br>👧 "I am nine," says Mia.</p>
       <h4>🎁 The presents</h4>
-      <p>🎁🎁🎁 One, two, three presents!<br>🐹 One present is a hamster!<br>😄 "Thank you! I am so happy!"</p>
+      <p>🎁🎁🎁 One, two, three presents!<br>🐹 One present is a hamster!<br>😄 "Thank you! I am so happy!"<br>👦 "Happy birthday, Mia!"<br>😄 Mia is happy. Bruno is happy too.</p>
     </div>
 
     <h3>🔎 Did you understand? Tap your answer</h3>
@@ -271,7 +275,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section task">
   <div class="sec-head"><span class="icon">🎨</span> Create — My Number Card <span class="timing">10 min</span><span class="step">Step 6</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it and types (or dictates while you type). Student shares her screen.</span>
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — the student opens it and types (or dictates while you type). The student shares their screen.</span>
     <p>Make your number card! 🔢</p>
     <h3>First, tap the numbers you can say:</h3>
     <div class="chips" id="number-chips"></div>
@@ -291,7 +295,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section challenge">
   <div class="sec-head"><span class="icon">🎮</span> Challenge Game — Number Ninja <span class="timing">8 min</span><span class="step">Step 7</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! Read each question aloud with 🔊 help. You cheer. 🎉</span>
+    <span class="zoom-cue">📹 Zoom: the student's browser, their clicks, their score! Read each question aloud with 🔊 help. You cheer. 🎉</span>
     <p class="hint">🥷 Three rounds. Round 3 has a BOSS! Get 80% for ⭐⭐⭐!</p>
     <h3>Round 1 — Count it!</h3>
     <div id="ch-quiz1"></div>
@@ -300,7 +304,7 @@ body.teacher-mode .t-only{display:block}
     <h3>Round 3 — Boss level: age master 👑</h3>
     <div id="ch-quiz3"></div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can start the next lesson.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>Read every question aloud; the student counts emoji with her finger on the screen. Round 2: count up aloud together to the gap if stuck. After the BOSS item, high-five the camera — Session 3 done means she can already introduce herself: name + hello + age!</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>Read every question aloud; the student counts emoji with their finger on the screen. Round 2: count up aloud together to the gap if stuck. After the BOSS item, high-five the camera — Session 3 done means they can already introduce themselves: name + hello + age!</div>
   </div>
 </div>
 
@@ -317,6 +321,7 @@ body.teacher-mode .t-only{display:block}
       <p>🎨 Draw a cake. Draw candles for YOUR age. Write: <b>"I am ___ years old."</b></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise the full chunk: have the student say "I am ___ years old" one last time and celebrate it as today's trophy. Homework hand-off: demo task 1 live (count 3 things in YOUR room aloud) so they see exactly how to do it at home.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

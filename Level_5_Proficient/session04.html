@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 5 · PROFICIENT (C1)</div>
   <h1>🕵️ Session 4 — Between the Lines</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: read between the lines — spot <b>implied meaning</b> and <b>hidden bias</b> · ≈50 min core</div>
+  <div class="badge">🎯 Today: read between the lines — spot <b>implied meaning</b> and <b>hidden bias</b></div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
-    <p><em>"Today you become a language detective. You will learn to notice what a text says <b>without saying it</b> — the implied meaning, the loaded words, the missing facts — so nobody can quietly steer your opinion again."</em> 🔍</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Warm diagnostic: say, completely flat, "Interesting haircut." Ask: "What did I SAY, and what did I MEAN?" If the student separates the two immediately, they're ready for speed today. If not, that gap IS the lesson — return to this example in Step 5.</div>
+    <p class="frame">🎯 Today: become a language detective — decode what texts don't say! 🔍</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S3):</b> the finished 150-word story (four narrative tenses bolded) + the film-opening recipe — student reads the story's rewind sentence aloud; listen for correct past perfect vs past simple sequencing.<br><b>Say:</b> "Today you become a language detective. You will learn to notice what a text says without saying it — the implied meaning, the loaded words, the missing facts — so nobody can quietly steer your opinion again."<br>Warm diagnostic: say, completely flat, "Interesting haircut." Ask: "What did I SAY, and what did I MEAN?" If the student separates the two immediately, they're ready for speed today. If not, that gap IS the lesson — return to this example in Step 5.</div>
   </div>
 </div>
 
@@ -208,6 +211,7 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — One Match, Two Stories <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen. Take turns reading chunks aloud. Then student uses Zoom → Annotate to circle every loaded word they can find in the two headlines.</span>
+    <p class="hint">🔎 Watch for <b>loaded words — and the facts each writer leaves OUT</b> — in the column. We unlock the detective tools in Step 5!</p>
     <p>Read this media-literacy column from a school magazine. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
@@ -217,17 +221,21 @@ body.teacher-mode .t-only{display:block}
       <p>The Riverside Herald ran the headline "Brave Riverside Falls to Controversial Late Penalty". Its report described a team that "battled heroically" and was "robbed" by a referee's decision "that many spectators questioned".</p>
       <p>The Northgate Post saw things differently: "Northgate Cruise Past Nervous Riverside". Its version mentioned the penalty in a single sentence, calling it "a routine decision", and devoted three paragraphs to Northgate's "dominant" midfield.</p>
       <p>Even the photographs disagreed. The Herald chose a Riverside player face-down on the grass; the Post chose Northgate's captain lifting the trophy under confetti. Neither image is false, yet each tells you how to feel before you read a word.</p>
+      <p>The captions finished the job. Under its photograph the Herald wrote "Heartbreak for the hosts"; under the very same afternoon the Post wrote "Champions at last". A reader who saw only the pictures and captions would already have chosen a side — without reading a single sentence of the reports.</p>
       <h4>🧰 The tricks to watch for</h4>
       <p>Neither article contains an outright lie. The bias lives in subtler choices: loaded language, selective omission, and framing. "Robbed" and "cruise past" carry an emotional charge that plain "lost" and "won" do not.</p>
       <p>Omission is quieter but just as powerful. The Herald never mentions that Riverside's goalkeeper made two costly errors; the Post never mentions that the referee also waved away a strong Northgate appeal. Each outlet simply leaves out whatever weakens its story.</p>
+      <p>Interviews get selected the same way. The Herald quotes a Riverside parent calling the decision "a disgrace"; the Post quotes Northgate's coach praising his team's "composure". Dozens of people left that stadium with opinions — each outlet simply chose the voice that sang its tune.</p>
       <p>Framing decides where the spotlight lands before a single word is judged. Open with the penalty, and the match becomes a story about injustice. Open with the midfield, and it becomes a story about superiority.</p>
       <h4>🧪 A quick experiment</h4>
       <p>Try this with tonight's news. Pick one story and find it on two different sites. Underline every adjective, every dramatic verb and every quotation — then compare.</p>
       <p>Most students who try it report the same surprise: the facts overlap almost completely, while the feeling of each article differs wildly. The information is shared; the attitude is engineered.</p>
+      <p>One Year 9 class turned the experiment into a game: they stripped both match reports down to bare facts and compared lists. The two lists matched on eleven points and disagreed on one — the size of the crowd. Everything that had made the articles feel opposite was carried by choices, not by facts.</p>
       <h4>👓 Reading between the lines</h4>
       <p>Skilled readers treat every text as a set of decisions. Who wrote this, and what do they want me to feel? What has been emphasised — and, more importantly, what has been left out?</p>
       <p>Notice the verbs, too. When a writer says a coach "admitted" something, we sense guilt; "explained" sounds calm and reasonable; "claimed" plants a seed of doubt. Same event, three flavours of meaning.</p>
       <p>None of this means journalism is worthless. It means reading is an active sport: the honest reader checks a second source, questions emotional vocabulary, and asks who benefits from each version.</p>
+      <p>The skill works far beyond the news, too. Product reviews, match highlights, even the way a friend retells an argument — each is a set of decisions about what to load, what to leave out, and where to point the spotlight first.</p>
       <p>So, who really deserved to win the final? The honest answer is that one report alone cannot tell you. That, perhaps, is the most useful lesson of all.</p>
     </div>
 
@@ -260,6 +268,10 @@ body.teacher-mode .t-only{display:block}
         <b>"She's stopped copying homework."</b> → she used to copy.<br><br>
         🔑 Test: nobody wrote it — but everybody understood it.</div>
     </div>
+    <div class="frame">🧰 <b>The bias toolkit — three tricks to name on sight:</b><br>
+      1️⃣ <b>Loaded language</b> — emotional charge hidden in the word: <em>"robbed" instead of "lost after a penalty".</em><br>
+      2️⃣ <b>Omission</b> — the weakening fact quietly missing: <em>the Herald never mentions the goalkeeper's two errors.</em><br>
+      3️⃣ <b>Framing</b> — where the spotlight opens: <em>open with the penalty → an injustice story; open with the midfield → a superiority story.</em></div>
     <div class="frame">💡 <b>The reporter's verb is never innocent:</b> <b>said</b> = neutral · <b>explained</b> = reasonable · <b>admitted</b> = guilty · <b>claimed</b> = doubtful · <b>insisted</b> = desperate. One little verb quietly tells you whom to believe.</div>
     <p class="hint">💡 Hungarian tip: Hungarian packs distance into one tiny word — "állítólag". English spreads the same doubt across choices: <b>allegedly, reportedly, so-called, "claimed"</b>. Watch for them: each one is the writer stepping back from the claim.</p>
     <h3>✏️ Practice — tap the correct answer</h3>
@@ -328,6 +340,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Bonus: bring the sneakiest loaded word you found. We'll open the next session with it.</p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise the sharpest decode of the day by quoting the student's own words back. Hand off homework by picking the news story TOGETHER now (sport or entertainment works best) — and remind them the sneakiest loaded word opens the next session, so it must arrive written down.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

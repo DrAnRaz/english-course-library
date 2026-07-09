@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -162,7 +165,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 6 · NEAR-NATIVE (C2)</div>
   <h1>🎓 Session 10 — Graduation</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens · THE FINAL SESSION</div>
-  <div class="badge">🎯 Today: the grand review of Level 6, your <b>capstone showcase</b> — and your Near-Native certificate 🎓 · ≈50 min core</div>
+  <div class="badge">🎯 Today: the grand review of Level 6, your <b>capstone showcase</b> — and your Near-Native certificate 🎓</div>
 </div>
 
 <div class="scorebar">
@@ -196,9 +199,9 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on. This is graduation day — dress code: at least ONE fancy item (hat, scarf, sunglasses). Teacher too.</span>
-    <p><em>"Today is the last session of the entire English Course Library. You will sweep back through all nine Level 6 sessions, perform a capstone showcase of your own making — and graduate with a Near-Native certificate. Seventy sessions end here. Make it loud."</em> 🎓</p>
+    <p class="frame">🎯 Today: your graduation — one last sweep through Level 6, then your certificate! 🎓</p>
     <div class="frame">🗺️ <b>The nine rooms you walked through:</b> 1 Style &amp; Voice · 2 Real Talk · 3 The Persuader · 4 Literature Corner · 5 Wit &amp; Banter · 6 The Editor · 7 Untranslatable · 8 Model UN · 9 Creator Studio.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Set the ceremony tone immediately — formality played with a wink is itself an S1 register lesson. Ask her to state today's goal back in TWO registers: once formally, once in slang (S2 callback). That's the diagnostic and the party trick in one.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S9):</b> the recorded cold open (one change noted after listening back) + the show notes — student plays or reads the cold open aloud; listen for a real hook in the first line and ear-friendly phrasing.<br><b>Say:</b> "Today is the last session of the entire English Course Library. You will sweep back through all nine Level 6 sessions, perform a capstone showcase of your own making — and graduate with a Near-Native certificate. Seventy sessions end here. Make it loud." 🎓<br>Set the ceremony tone immediately — formality played with a wink is itself an S1 register lesson. Ask them to state today's goal back in TWO registers: once formally, once in slang (S2 callback). That's the diagnostic and the party trick in one.</div>
   </div>
 </div>
 
@@ -212,7 +215,7 @@ body.teacher-mode .t-only{display:block}
     2. You have 10 seconds to say ONE thing you remember from it — a word, a rule, a moment, a joke. 🧠<br>
     3. All nine sessions, no repeats. Then swap: YOU call titles and your teacher remembers — feel free to judge her answers.</p>
     <p class="hint">No score — this is the trailer for today's grand review.</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 2</h4>Note which sessions produce instant memories and which produce silence — steer the Step 5 review and Step 7 game commentary toward the silent ones. When roles swap, deliberately "misremember" one fact and see if she corrects you (S6 Editor instinct check).</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 2</h4>Note which sessions produce instant memories and which produce silence — steer the Step 5 review and Step 7 game commentary toward the silent ones. When roles swap, deliberately "misremember" one fact and see if they correct you (S6 Editor instinct check).</div>
   </div>
 </div>
 
@@ -226,6 +229,7 @@ body.teacher-mode .t-only{display:block}
     <h3>🎧 Practice — tap the right word</h3>
     <p class="hint">Read the clue and tap the graduate-level word that fits. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Drill each card by asking WHICH of the nine sessions it salutes before the student reads the definition — recalling the session is half the point today. Prioritise the pure graduation words and any session word that drew a blank in the Step-2 warm-up. Personalise: have the student use two of the words in one sentence about their own journey through the Library.</div>
   </div>
 </div>
 
@@ -238,24 +242,24 @@ body.teacher-mode .t-only{display:block}
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
       <h4>🎓 The Commencement Address — to be read with your chin up</h4>
-      <p>Graduates — yes, that means you — welcome to the very last reading of the English Course Library. Tradition demands a commencement speech, and tradition, as you now know perfectly well, is mostly rhetoric wearing a gown. So here is yours.</p>
+      <p>Graduates — yes, that means you — welcome to the very last reading of the English Course Library. Tradition demands a commencement speech, and tradition, as you now know perfectly well, is mostly rhetoric wearing a gown. So here is yours. It will be short, because you have also learned that brevity is the sincerest form of respect for an audience.</p>
       <h4>🎚️ What you actually learned</h4>
-      <p>You arrived here able to speak English. You are leaving able to do things <b>with</b> English — and that difference is the whole diploma.</p>
-      <p>You learned that style is a wardrobe, not a cage: the same sentence can bow formally or slouch in slang, and both are correct when the room is right. You learned to read that room before opening your mouth.</p>
+      <p>You arrived here able to speak English. You are leaving able to do things <b>with</b> English — and that difference is the whole diploma. Anyone can memorise a language; what you have built instead is the quiet confidence to bend one.</p>
+      <p>You learned that style is a wardrobe, not a cage: the same sentence can bow formally or slouch in slang, and both are correct when the room is right. You learned to read that room before opening your mouth. You now change your English the way you change your voice for a baby, a head teacher, or a best friend — automatically, and always on purpose.</p>
       <h4>🏛️ The persuader's inheritance</h4>
-      <p>Somewhere in these sessions you stood on the shoulders of every great speech ever given. You built triads, asked questions that needed no answers, and repeated your openings until they rang like bells. If this address sounds suspiciously well-constructed — good. You can see the wires now.</p>
+      <p>Somewhere in these sessions you stood on the shoulders of every great speech ever given. You built triads, asked questions that needed no answers, and repeated your openings until they rang like bells. If this address sounds suspiciously well-constructed — good. You can see the wires now. And once you can see the wires, no speech, no advert and no politician will ever move you again without your permission.</p>
       <h4>📚 Between the lines</h4>
-      <p>Literature taught you that meaning likes to hide: in subtext, in what a character refuses to say, in the silence between two short sentences. Wit handed you the gentler weapon — the comeback that leaves both people smiling.</p>
+      <p>Literature taught you that meaning likes to hide: in subtext, in what a character refuses to say, in the silence between two short sentences. Wit handed you the gentler weapon — the comeback that leaves both people smiling. You discovered that the sharpest reply is rarely the cruellest one, and that timing can carry more weight than volume.</p>
       <p>And editing taught you the bravest lesson in the whole library: a sentence, like a speech, usually improves when you cut the part you were proudest of.</p>
       <h4>🌍 Citizens of the language</h4>
-      <p>Lately you have traded idioms like passports. You have negotiated like a delegate who knows that "deep concern" is a declaration of war in a silk glove, and you have scripted your own voice for the ear of a total stranger. That is not schoolwork; that is citizenship in a language.</p>
+      <p>Lately you have traded idioms like passports. You have negotiated like a delegate who knows that "deep concern" is a declaration of war in a silk glove, and you have scripted your own voice for the ear of a total stranger. That is not schoolwork; that is citizenship in a language. A tourist borrows a language for a week; a citizen lives inside it, argues in it, and dreams in it. You crossed that border somewhere around the middle of this level, probably without noticing.</p>
       <h4>🗝️ The truth about "near-native"</h4>
       <p>Now, a confession about the words on your certificate. "Near-native" does not mean flawless — native speakers are not flawless; they are simply unafraid.</p>
-      <p>They know the language belongs to them, so they play with it, bend it, and break it on purpose. From today it belongs to you too: every idiom you deploy, every register you shift, every silence you time — that is ownership.</p>
+      <p>They know the language belongs to them, so they play with it, bend it, and break it on purpose. From today it belongs to you too: every idiom you deploy, every register you shift, every silence you time — that is ownership. Ownership is not arrogance; it is simply no longer asking the language for permission before you speak.</p>
       <h4>🚀 What comes next (there is always a next)</h4>
       <p>So what does one do with a finished library? One leaves it. Write the story only you can write, argue the case only you can argue, launch the podcast only you would dare to make.</p>
-      <p>Keep the library on your shelf, naturally — revisit an old session the way you would visit an old friend. But do not live there; the language is out here.</p>
-      <p>And somewhere out there, a younger student is staring at the word "hello" exactly the way you once did. When you meet them, you will know precisely how far a person can travel.</p>
+      <p>Keep the library on your shelf, naturally — revisit an old session the way you would visit an old friend. But do not live there; the language is out here. Books are wonderful company, but they were always meant to be a doorway, never a destination.</p>
+      <p>And somewhere out there, a younger student is staring at the word "hello" exactly the way you once did. When you meet them, you will know precisely how far a person can travel. Be kind to them, and be honest: tell them the road is long, and tell them it is worth every single step.</p>
       <h4>🎉 Go on, then</h4>
       <p>Graduates: you came for a language and you leave with a voice. Class of the English Course Library — dismissed.</p>
       <p>Or, in a register you have also mastered: go be brilliant, you absolute legend.</p>
@@ -269,7 +273,7 @@ body.teacher-mode .t-only{display:block}
     <div class="qa-item"><div class="q">2. Which of the nine sessions changed how you actually use English the most? Give one concrete before/after example from your own life.</div><div class="editable tall" id="r-open2" contenteditable="true" data-placeholder="Session … changed the most, because before it I used to… and now I…"></div></div>
 
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> the two written questions above can be homework instead.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 4 + answer key</h4>Quiz answers: rhetoric wearing a gown · doing things WITH English · the part you were proudest of · they are simply unafraid · a register shift (formal → slang). Open q1 model: a language is the shared tool everyone has; a voice is YOUR way of using it — style, wit, choices, identity. Open q2: any session with a concrete example is correct; push past "it was fun" to an actual before/after behaviour. Meta-moment worth pointing out: the speech secretly namechecks all nine sessions — challenge her to find all nine references (S1 wardrobe/registers, S2 slang, S3 triads/rhetorical questions, S4 subtext, S5 comeback, S6 cutting, S7 idioms/passports, S8 deep concern, S9 podcast/ear).</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 4 + answer key</h4>Quiz answers: rhetoric wearing a gown · doing things WITH English · the part you were proudest of · they are simply unafraid · a register shift (formal → slang). Open q1 model: a language is the shared tool everyone has; a voice is YOUR way of using it — style, wit, choices, identity. Open q2: any session with a concrete example is correct; push past "it was fun" to an actual before/after behaviour. Meta-moment worth pointing out: the speech secretly namechecks all nine sessions — challenge them to find all nine references (S1 wardrobe/registers, S2 slang, S3 triads/rhetorical questions, S4 subtext, S5 comeback, S6 cutting, S7 idioms/passports, S8 deep concern, S9 podcast/ear).</div>
   </div>
 </div>
 
@@ -287,7 +291,7 @@ body.teacher-mode .t-only{display:block}
     <p class="hint">💡 Tip: if a question feels hard, name its session first — remembering the ROOM usually unlocks the answer inside it.</p>
     <h3>✏️ One question per session — the full sweep</h3>
     <div id="grammar-quiz"></div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>The nine items map to sessions 1–9 in order (item 10 is a meta-bonus). Whichever items she misses = the sessions to revisit informally in future conversation practice. 8+/10 is genuine graduation strength; celebrate it explicitly.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>The nine items map to sessions 1–9 in order (item 10 is a meta-bonus). Whichever items they miss = the sessions to revisit informally in future conversation practice. 8+/10 is genuine graduation strength; celebrate it explicitly.</div>
   </div>
 </div>
 
@@ -301,7 +305,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section task">
   <div class="sec-head"><span class="icon">🎨</span> Create — The Capstone Showcase <span class="timing">10 min</span><span class="step">Step 6</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student plans in her own browser, then performs ON camera, full screen, no notes if she dares.</span>
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student plans in their own browser, then performs ON camera, full screen, no notes if they dare.</span>
     <p>Your final performance: a <b>2-minute masterpiece</b> that shows off what Level 6 built. Choose your stage — a mini-speech, a podcast cold open, a diplomatic address, or a stand-up bit. 🌟</p>
     <h3>First, tap every skill you'll weave into it (aim for at least four):</h3>
     <div class="chips" id="exp-chips"></div>
@@ -315,9 +319,9 @@ body.teacher-mode .t-only{display:block}
     <div class="editable" id="t-shift" contenteditable="true" data-placeholder="I'll start formal, then drop into slang when…"></div>
     <div class="field-label">🎬 Your closing line (the one they quote afterwards)</div>
     <div class="editable" id="t-closer" contenteditable="true" data-placeholder="…"></div>
-    <div class="speak">🗣️ <b>SHOWTIME.</b> Two minutes, full commitment. Your teacher is the graduation audience — and will name every device and idiom she catches. If she catches all of them: standing ovation. 👏</div>
+    <div class="speak">🗣️ <b>SHOWTIME.</b> Two minutes, full commitment. Your teacher is the graduation audience — and will name every device and idiom they catch. If they catch all of them: standing ovation. 👏</div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> plan only hook + closer, perform ONE minute; the full two-minute version becomes the homework recording.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>This is the capstone assessment in disguise. Listen for: (1) a real hook, (2) at least one named device landed on purpose, (3) one intentional register shift, (4) composure. Give feedback as a critic reviewing a professional, not a teacher marking a student — she has earned that frame today.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>This is the capstone assessment in disguise. Listen for: (1) a real hook, (2) at least one named device landed on purpose, (3) one intentional register shift, (4) composure. Give feedback as a critic reviewing a professional, not a teacher marking a student — they have earned that frame today.</div>
   </div>
 </div>
 
@@ -325,7 +329,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section challenge">
   <div class="sec-head"><span class="icon">🎮</span> Challenge Game — The Graduation Gauntlet <span class="timing">8 min</span><span class="step">Step 7</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her final score of the whole Library! You watch on her shared screen — commentate like a sports final. 🎉</span>
+    <span class="zoom-cue">📹 Zoom: student's browser, their clicks, their final score of the whole Library! You watch on their shared screen — commentate like a sports final. 🎉</span>
     <p class="hint">🏆 Three rounds through all nine sessions. Beat 80% for the graduate's ⭐⭐⭐!</p>
     <h3>Round 1 — Sessions 1–3: Voice, Slang &amp; Rhetoric</h3>
     <div id="ch-quiz1"></div>
@@ -334,7 +338,7 @@ body.teacher-mode .t-only{display:block}
     <h3>Round 3 — Sessions 7–9 + the final BOSS 👑</h3>
     <div id="ch-quiz3"></div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> play Round 3 only — it's the hardest and contains the final BOSS of the entire Library.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>This is the last game of 70 sessions — commentate accordingly. On any miss, she must name the session the question belongs to before you move on; that self-diagnosis IS the review. The BOSS answer is the one that combines idiom + register + diplomacy in a single line.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>This is the last game of 70 sessions — commentate accordingly. On any miss, they must name the session the question belongs to before you move on; that self-diagnosis IS the review. The BOSS answer is the one that combines idiom + register + diplomacy in a single line.</div>
   </div>
 </div>
 
@@ -353,6 +357,7 @@ body.teacher-mode .t-only{display:block}
     <h3>🧭 What's next?</h3>
     <div class="frame">🌍 <b>There is no Level 7 — and that's the point.</b> After Near-Native comes simply: <b>living in the language</b>. Read what natives read, write what only you can write, argue, joke, create. The Library is finished; your English never will be. Class dismissed. 🎓</div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>This is the final hand-off of all seventy sessions — make the certificate moment genuinely ceremonial and name one concrete thing the student can now do that they could not at Session 1. Give the graduate's commission clearly: the letter to a beginner, the recorded capstone, and "start the next thing"; there is no next session to check it, so frame each as a promise to themselves. Fill the self-evaluation below.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">Capstone showcase — strongest element?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

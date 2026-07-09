@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 4 · UPPER-INTERMEDIATE (B2)</div>
   <h1>🌏 Session 8 — Culture Shock</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: explore world customs and master <b>gerund vs infinitive</b> — the verbs that change meaning · ≈50 min core</div>
+  <div class="badge">🎯 Today: explore world customs and master <b>gerund vs infinitive</b> — the verbs that change meaning</div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
-    <p><em>"Today you will explore customs from around the world — and learn why <b>'I stopped eating'</b> and <b>'I stopped to eat'</b> are two completely different stories. By the end, you can talk about cultures using gerunds and infinitives like a world traveller."</em> 🧳</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Diagnostic: "What do you remember doing on your last trip?" Note whether the gerund appears naturally after "remember". Most B2 students know verb+ing lists but NOT the meaning-change pairs — that's today's real target.</div>
+    <p class="frame">🎯 Today: world customs + the sneaky verbs that change their meaning!</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S7):</b> 3 family predictions about 2050 — student reads them aloud; listen for at least one "will have + past participle" and one "will be + -ing".<br><b>Say:</b> "Today you will explore customs from around the world — and learn why <b>'I stopped eating'</b> and <b>'I stopped to eat'</b> are two completely different stories. By the end, you can talk about cultures using gerunds and infinitives like a world traveller." 🧳<br>Diagnostic: "What do you remember doing on your last trip?" Note whether the gerund appears naturally after "remember". Most B2 students know verb+ing lists but NOT the meaning-change pairs — that's today's real target.</div>
   </div>
 </div>
 
@@ -199,6 +202,7 @@ body.teacher-mode .t-only{display:block}
     <h3>🎧 Practice — tap the right word</h3>
     <p class="hint">Read the clue and tap the word that matches. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Watch pronunciation traps: <b>bow</b> /baʊ/, <b>etiquette</b>, <b>cuisine</b> — drill those three twice. "Taboo" and "etiquette" power the reading's funniest moments, so make sure they land. Personalisation: which custom from THEIR home would they put on a visitor's do-and-don't list?</div>
   </div>
 </div>
 
@@ -207,6 +211,7 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — Culture Shock Diary <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen. Take turns reading one chunk each. Then the student uses Zoom → Annotate to underline every gerund (-ing after a verb) they can spot in 60 seconds.</span>
+    <p class="hint">🔎 Watch for <b>verb + -ing</b> vs <b>verb + to…</b> in Bruno's diary — we unlock the difference in Step 5!</p>
     <p>Read Bruno's exchange-student diary. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
@@ -215,18 +220,22 @@ body.teacher-mode .t-only{display:block}
       <h4>📅 Week one: the rules nobody writes down</h4>
       <p>I'll never forget <b>arriving</b> at my host family's house. I walked straight in, and everyone froze — I had forgotten <b>to take off</b> my shoes at the door.</p>
       <p>In Brazil we hug everyone, so I tried <b>hugging</b> my host mother. She turned into a statue of pure politeness. Now I remember <b>to bow</b>, and honestly, I like it.</p>
+      <p>My host father, Mr Sato, never laughs at my mistakes. He just raises one eyebrow, about a millimetre. I have learned to read that eyebrow the way sailors read the weather.</p>
       <h4>🚇 Small things, big lessons</h4>
       <p>On the train, nobody talks on the phone. Ever. I stopped <b>to answer</b> a call from my mum, and a hundred silent passengers politely ignored my crime.</p>
       <p>Since that day I have stopped <b>using</b> my phone on trains completely. My host brother Haruto says even his grandmother approved, which is apparently the highest honour in Osaka.</p>
+      <p>School was another planet too. Students clean their own classrooms every afternoon — there are no cleaners at all. At first I was sure I would hate it. Now I actually enjoy <b>sweeping</b> our corridor with my host brother, mostly because we race.</p>
       <h4>🍜 Food adventures</h4>
       <p>Eating here means <b>learning</b> new rules too. Slurping your noodles isn't rude — it's a compliment to the cook!</p>
       <p>I regret <b>not learning</b> more Japanese before the trip, but food words came fast. Nobody forgets the word for "delicious" when the food is this good: oishii!</p>
       <p>My host family also taught me to hold my rice bowl while eating, and never to stick my chopsticks upright in the rice. Apparently that is a serious taboo connected with funerals. I learned that one the hard way, in complete horrified silence.</p>
+      <p>There was one custom I refused <b>to give up</b>, though: Sunday pancakes. I made a Brazilian-style stack for the whole family, and my host mother quietly asked for the recipe. Cultural exchange, I have decided, works best with syrup.</p>
       <h4>💭 What culture shock really is</h4>
       <p>People think culture shock means <b>hating</b> the new place. It doesn't. It means your automatic habits suddenly stop <b>working</b>, and your brain has to drive in manual mode.</p>
       <p>It's exhausting for two weeks. Then one morning you bow to your teacher without thinking, and manual mode quietly becomes automatic again.</p>
       <h4>🎌 My advice</h4>
       <p>If you ever go on an exchange, remember <b>to watch</b> before you act, and don't be afraid of <b>making</b> mistakes. Mine make the best stories now.</p>
+      <p>One more tip: keep a diary from day one. You think you will remember everything, but week one blurs fast — trust me, mine already feels like a dream I once had.</p>
       <p>Haruto visits Brazil next year. I can't wait to watch HIS brain short-circuit when my whole family hugs him at the airport. All fourteen of us.</p>
     </div>
 
@@ -327,6 +336,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Example: <em>"My grandad remembers writing real letters. People stopped sending them when email arrived. He says I should try writing one — so I must remember to buy a stamp."</em></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise their sharpest arrow moment — e.g. if they caught a "stop to / stop -ing" difference unaided, name it as today's win. Hand off homework: choose the family member and the custom topic together now, and read the grandad example aloud once as a model.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 1 · BEGINNER (A1)</div>
   <h1>⭐ Session 9 — I Can Do It!</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: talk about what you <b>can</b> and <b>can't</b> do — and ask <b>"Can you…?"</b> · ≈50 min core</div>
+  <div class="badge">🎯 Today: talk about what you <b>can</b> and <b>can't</b> do — and ask <b>"Can you…?"</b></div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
-    <p><em>"Today you will talk about your superpowers! You will say what you <b>can</b> do, what you <b>can't</b> do yet, and ask other people: <b>'Can you…?'</b>"</em> 💪</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Quick diagnostic: ask "Can you swim?" Listen for the short answer. "Yes" alone is fine at this point; by Step 8 the target is "Yes, I can!" Note where they start.</div>
+    <p class="frame">🎯 Today: your superpowers — what can you do?</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S8):</b> mini family album — 3 people, 2 sentences each (job + one thing they do); student reads them aloud, listen for "is a + job" and the verb -s.<br><b>Say:</b> "Today you will talk about your superpowers! You will say what you <b>can</b> do, what you <b>can't</b> do yet, and ask other people: <b>'Can you…?'</b>" 💪<br>Quick diagnostic: ask "Can you swim?" Listen for the short answer. "Yes" alone is fine at this point; by Step 8 the target is "Yes, I can!" Note where they start.</div>
   </div>
 </div>
 
@@ -209,17 +212,18 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — Aisha's Talent Show <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen. Take turns — student reads one chunk aloud, you read the next. Then student annotates every "can / can't" on your screen (Zoom → Annotate).</span>
+    <p class="hint">🔎 Watch for <b>can</b> and <b>can't</b> in the story — we unlock them in Step 5!</p>
     <p>Read Aisha's story. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
       <h4>🌟 The big day</h4>
-      <p>On Friday, our school has a talent show. My name is Aisha and I am very excited — and a little scared!</p>
+      <p>On Friday, our school has a talent show. My name is Aisha and I am very excited — and a little scared! The show is in the evening, in the school hall, and all our families come to watch.</p>
       <h4>💃 What I can do</h4>
-      <p>I can sing and I can dance. I can also do a cartwheel, but I can't do two cartwheels — I fall down! My best friend Petra can juggle three balls. She can't juggle four. Nobody is perfect!</p>
+      <p>I can sing and I can dance. I can also do a cartwheel, but I can't do two cartwheels — I fall down! My best friend Petra can juggle three balls. She can't juggle four. Nobody is perfect! We practise together in Petra's garden after school.</p>
       <h4>😗 My brother's trick</h4>
-      <p>My little brother Samir can whistle very loudly. He can't sing at all, but he doesn't care. He whistles his favourite song and everybody laughs.</p>
+      <p>My little brother Samir can whistle very loudly. He can't sing at all, but he doesn't care. He whistles his favourite song and everybody laughs. Mum films him on her phone every time.</p>
       <h4>🍀 Wish us luck</h4>
-      <p>Can we win first prize? I don't know. But we can try — and we can have fun!</p>
+      <p>Can we win first prize? I don't know. But we can try — and we can have fun! Our teacher says that fun is the real prize.</p>
     </div>
 
     <h3>🔎 Did you understand? Tap your answer</h3>
@@ -316,6 +320,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Bonus: find ONE thing that YOU can do but the grown-ups can't! 😎</p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise the superpower card: quote the student's funniest invented power and their best "Can you…?" question from the interview.<br>Homework hand-off: agree WHICH two people they will interview at home — 3 "Can you…?" questions each, best answers written down for next lesson.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

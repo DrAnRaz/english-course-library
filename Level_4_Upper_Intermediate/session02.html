@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 4 · UPPER-INTERMEDIATE (B2)</div>
   <h1>⏳ Session 2 — The Time Machine</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: talk about wishes, regrets &amp; "what ifs" with <b>mixed conditionals</b> and <b>I wish / if only</b> · ≈50 min core</div>
+  <div class="badge">🎯 Today: talk about wishes, regrets &amp; "what ifs" with <b>mixed conditionals</b> and <b>I wish / if only</b></div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
-    <p><em>"Today you get a time machine. You will talk about regrets and wishes — <b>I wish I had…</b> — and connect the past to today with <b>mixed conditionals</b>: 'If I had practised more, I would be amazing now.' By the end, you can rewrite history — in perfect English."</em> 🚀</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Quick diagnostic: ask "Is there anything small you wish you had done differently last year?" Note whether they attempt "I wish I had…" or fall back on "I wish I did / I want". No correction yet — that answer is your baseline for Step 5.</div>
+    <p class="frame">🎯 Today: hop in the time machine — regrets, wishes and what-ifs!</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S1):</b> 4 deduction sentences about a real home mystery — student reads them aloud; listen for the full modal + have + past participle chunk and echo-correct once.<br><b>Say:</b> "Today you get a time machine. You will talk about regrets and wishes — <b>I wish I had…</b> — and connect the past to today with <b>mixed conditionals</b>: 'If I had practised more, I would be amazing now.' By the end, you can rewrite history — in perfect English." 🚀<br>Quick diagnostic: ask "Is there anything small you wish you had done differently last year?" Note whether they attempt "I wish I had…" or fall back on "I wish I did / I want". No correction yet — that answer is your baseline for Step 5.</div>
   </div>
 </div>
 
@@ -200,6 +203,7 @@ body.teacher-mode .t-only{display:block}
     <h3>🎧 Practice — tap the right word</h3>
     <p class="hint">Read the clue and tap the word that matches. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Drill "regret / miss a chance / make up for" as one mini-story (I missed a chance → I regret it → I'll make up for it) — chunks beat single words here. "Paradox" and "hindsight" are passive vocabulary; recognise, don't test. Personalisation: ask the student which ancestor they would most like to meet, and why.</div>
   </div>
 </div>
 
@@ -208,23 +212,28 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — The Time Machine Question <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen. Student reads one voice (Nadia/Kenji/Bianka), you read the next — change your voices for fun! Then student annotates quiz answers on your screen (Zoom → Annotate).</span>
+    <p class="hint">🔎 Watch for <b>I wish I had…</b> and <b>If I had…, I would… now</b> in the interviews — we unlock them in Step 5!</p>
     <p>Read this school magazine feature. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
       <h4>⏳ The Time Machine Question — Starline School Magazine</h4>
       <p>Last week our science club built a cardboard "time machine" for the school fair — a painted box with three broken clocks and a bicycle wheel glued to the side. It doesn't actually work, obviously. But it made everyone in the corridor ask the same question: if you could travel in time, what would you change?</p>
+      <p>The queue to sit inside the box was longer than the queue for the pancake stall, which tells you something about human beings. We interviewed dozens of students, and three answers stayed with us long after the fair had ended.</p>
       <h4>🎻 Nadia, 15 — the missed audition</h4>
       <p>"Two years ago, our music teacher invited me to audition for the county youth orchestra. I was terrified, so I pretended to be ill and stayed at home. I have regretted it ever since."</p>
       <p>"If I had gone to that audition, I would probably be playing in the orchestra now. That is my biggest 'if only'. I wish I had been braver."</p>
+      <p>Nadia still practises the violin every day, and last month she finally joined the school string group. "It isn't the county orchestra," she admits, "but it's a start. Next time a big door opens, I won't pretend to be ill — I'll walk through it, shaking knees and all."</p>
       <h4>🎮 Kenji, 13 — no regrets allowed</h4>
       <p>Kenji sees it completely differently. "People waste too much time on regret," he says. "If I visited the past, I wouldn't change a single thing — one tiny change could break the whole timeline."</p>
       <p>"Think about the famous grandparent paradox. If you stopped your grandparents from meeting, you would never have been born — so who travelled back to stop them? Exactly — my brain hurts."</p>
+      <p>He does admit one exception, though. "If I could travel as a ghost — just watching, touching nothing — I would visit ancient Egypt to see how the pyramids were really built. Watching is safe. Changing things is not. The timeline stays exactly as it is."</p>
       <h4>🐕 Bianka, 14 — one small door</h4>
       <p>Bianka's answer surprised us the most. "I wouldn't visit the dinosaurs or ancient Rome. I would go back to one rainy Tuesday last spring, when I walked past the animal shelter and didn't go in."</p>
       <p>"My neighbour adopted the scruffy little dog I saw in the window that day, and I still see him over the fence every single morning. He is a lovely dog — but if I had gone inside, he would be MY dog today. I still wish I lived with that fluffy disaster."</p>
       <h4>🔮 So… what would YOU change?</h4>
       <p>Here is what we learned from a broken cardboard box. Everyone — even "no regrets" Kenji — has a moment they think about rewriting. Nadia would take the chance she missed, and Bianka would simply open one small door.</p>
       <p>Maybe that is the real magic of the time machine question. It is not really about the past at all — it quietly shows you what matters to you right now. Try asking it at dinner tonight, and see what your family says.</p>
+      <p>One last thing. When we took the cardboard time machine apart on Monday, we found a folded note inside, left by an anonymous visitor. It said: "If I had studied for the maths test, I would not be hiding in this box now." Whoever you are — we wish you luck, and we hope hindsight treats you kindly.</p>
     </div>
 
     <h3>🔎 Did you understand? Tap your answer</h3>
@@ -324,6 +333,7 @@ body.teacher-mode .t-only{display:block}
       <p>🌀 <b>Add 1 mixed conditional about YOU:</b> <em>"If I had started guitar last year, I would already play my favourite song now."</em></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise their best mixed conditional from Step 6 — repeat it back and name what made it right ("past perfect, then 'would be… now' — perfect arrow"). Hand off homework: agree WHO they will interview and rehearse the question once aloud so the ask feels easy.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

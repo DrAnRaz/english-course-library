@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 4 · UPPER-INTERMEDIATE (B2)</div>
   <h1>🏛️ Session 10 — The Grand Debate</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: everything from Level 4 goes into one formal debate — then you earn your certificate! · ≈50 min core</div>
+  <div class="badge">🎯 Today: everything from Level 4 goes into one formal debate — then you earn your certificate!</div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello — formal handshake into the camera, debate-champion style. Read the goal together.</span>
-    <p><em>"Today is the final of Level 4: The Grand Debate. You will use everything from Sessions 1–9 — deduction, conditionals, relative clauses, reported news, idioms, persuasion, future forms, gerunds and speaker skills — to argue like a champion. Win the debate, win your certificate."</em> 🏆</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Frame it as a championship final, not a test. Quick verbal warm-check of the level: "Give me one sentence with 'must have', one with 'will have', and one idiom." Whatever is shaky here, quietly emphasise it in Steps 5 and 7.</div>
+    <p class="frame">🎯 Today: the Grand Debate — win it, win your certificate!</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S9):</b> collect the recorded one-minute talk they promised to bring — play it together, count the discourse markers (target 4+) and praise one well-placed pause.<br><b>Say:</b> "Today is the final of Level 4: The Grand Debate. You will use everything from Sessions 1–9 — deduction, conditionals, relative clauses, reported news, idioms, persuasion, future forms, gerunds and speaker skills — to argue like a champion. Win the debate, win your certificate." 🏆<br>Frame it as a championship final, not a test. Quick verbal warm-check of the level: "Give me one sentence with 'must have', one with 'will have', and one idiom." Whatever is shaky here, quietly emphasise it in Steps 5 and 7.</div>
   </div>
 </div>
 
@@ -199,6 +202,7 @@ body.teacher-mode .t-only{display:block}
     <h3>🎧 Practice — tap the right word</h3>
     <p class="hint">Read the clue and tap the word that matches. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Teach the cards as the debate's cast and script: people (chairperson, timekeeper, judge) → teams (proposition, opposition) → weapons (rebuttal, evidence, point of information). "Motion / proposition / opposition" must be automatic before Step 6 — quiz them once more at the end. Personalisation: which role would they enjoy most, and why?</div>
   </div>
 </div>
 
@@ -212,21 +216,26 @@ body.teacher-mode .t-only{display:block}
     <div class="reading-text" id="read-text">
       <h4>🏛️ Inside the Grand Final — school report by Noor, 15</h4>
       <p>Last Friday, our school hall stopped being a place where people eat sandwiches and became a courtroom of ideas. Two teams reached the national final, and I had a press pass.</p>
+      <p>I should admit that I only joined the school paper for the free biscuits. Friday changed that. Watching two teams fight with nothing but sentences was more exciting than any match I have covered this year.</p>
       <h4>📜 The motion</h4>
       <p>Every debate begins with a motion — the statement the teams fight over. Friday's motion, <b>which had been kept secret until one hour before</b>, was: "Social media does more harm than good to teenagers."</p>
       <p>The proposition team had to defend the motion. The opposition, <b>whose captain was our own Lena Kovač</b>, had to destroy it. Both teams got sixty minutes, one laptop and a mountain of nerves.</p>
+      <p>The hall was packed: parents in the back rows, three judges at a long table with serious water glasses, and a timekeeper with a bell that everyone learned to fear by round two.</p>
       <h4>🎤 Opening statements</h4>
       <p>The proposition opened with a hook: "By the time you finish school today, you <b>will have scrolled</b> through more posts than your grandparents read newspapers in a year."</p>
       <p>Strong start. <b>However</b>, Lena's opening was ice-cold: "It <b>has been claimed</b> that social media harms us. Interesting — that claim was posted… on social media." The hall actually gasped.</p>
       <h4>⚔️ The rebuttals</h4>
       <p>A rebuttal is the counter-attack: you take the other team's best argument and calmly take it apart. Lena's teammate Omar reminded everyone that banning things rarely works: "If prohibition had worked, my little brother <b>would have stopped</b> eating sugar years ago."</p>
       <p>The proposition <b>must have prepared</b> for that line, because their answer came fast: regulation, not prohibition. The audience was on the edge of their seats.</p>
+      <p>What impressed me most was the listening. While one speaker talked, the other team took notes like reporters — every weak point written down, every exaggeration circled and saved for later.</p>
       <h4>🧑‍⚖️ The verdict</h4>
       <p>The judges praised both teams for avoiding <b>getting</b> personal and for remembering <b>to attack</b> ideas, never people. That rule is the heart of formal debate.</p>
       <p>In the end, the opposition won by two points. Lena said the trophy belonged to the whole team, then carried it around the hall for an hour anyway.</p>
+      <p>Our head teacher announced that the school will host next year's semi-final. Applications for the debate club open on Monday, and after Friday, I suspect the queue will be long.</p>
       <h4>💬 Why it matters</h4>
       <p>You may never enter a debating hall, but you will argue — with friends, parents, and one day, bosses. Debate teaches you to disagree without <b>burning bridges</b>.</p>
       <p>Noor's tip if you want to try it: start small. Challenge a friend to a two-minute kitchen debate about breakfast cereal, and appoint a parent as judge.</p>
+      <p>The loser washes up; the winner chooses tomorrow's cereal. You will be surprised how seriously people argue when breakfast is at stake.</p>
       <p>As Lena put it: "Anyone can shout. Champions persuade."</p>
     </div>
 
@@ -341,6 +350,7 @@ body.teacher-mode .t-only{display:block}
       <p>✏️ <b>Write a 5-sentence "judge's report"</b> about your own performance: one deduction ("I must have…"), one conditional, and at least two discourse markers.</p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Make the certificate moment ceremonial: read it aloud, use their name, name their single best debate move (hook, rebuttal or marker) as the "judges' highlight". Hand off homework: pick the home-debate motion together now, and note in your records which sessions need revision before Level 5.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">Which Level 4 topics still need revision before Level 5?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

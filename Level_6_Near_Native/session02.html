@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 6 · NEAR-NATIVE (C2)</div>
   <h1>💬 Session 2 — Real Talk</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: master <b>informal English, slang &amp; internet language</b> — and know exactly when to switch it off · ≈50 min core</div>
+  <div class="badge">🎯 Today: master <b>informal English, slang &amp; internet language</b> — and know exactly when to switch it off</div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
-    <p><em>"Today you will treat slang and internet English as a REAL dialect with real rules — learn how it works, where it comes from, and how to <b>code-switch</b> between 'group chat you' and 'formal you' without breaking a sweat."</em> 📱</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Frame this carefully: you are NOT the adult trying to be cool. Position the student as the expert informant and yourself as the linguist. C2 students respond brilliantly to being asked to ANALYSE their own dialect rather than defend it.</div>
+    <p class="frame">🎯 Today: slang decoded — switch between chat-you and formal-you! 📱</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S1):</b> Two-Voice Diary + one pompous "found sentence" — student reads both diary versions aloud; listen for real register contrast and at least one Latinate word.<br><b>Say:</b> "Today you will treat slang and internet English as a REAL dialect with real rules — learn how it works, where it comes from, and how to code-switch between 'group chat you' and 'formal you' without breaking a sweat." 📱<br>Frame this carefully: you are NOT the adult trying to be cool. Position the student as the expert informant and yourself as the linguist. C2 students respond brilliantly to being asked to ANALYSE their own dialect rather than defend it.</div>
   </div>
 </div>
 
@@ -199,6 +202,7 @@ body.teacher-mode .t-only{display:block}
     <h3>🎧 Practice — tap the right expression</h3>
     <p class="hint">Read the situation and tap the expression that fits. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Run the census honestly — "never heard it" is data, not failure; don't rush past it. Skip cards the student already uses daily and spend the saved time on the who-can-say-it question for each term. Personalise: ask which card their parents would misuse, and how.</div>
   </div>
 </div>
 
@@ -207,20 +211,24 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — Do You Speak Internet? <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen. Student reads a section, you read the next — take turns. Then student annotates on your screen (Zoom → Annotate) every claim they agree or disagree with.</span>
+    <p class="hint">🔎 Watch for <b>informal features — ellipsis, reductions, punctuation-as-tone</b> in the article — we unlock them in Step 5!</p>
     <p>Read Mateo's magazine feature. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
       <h4>🌐 Do you speak internet? — by Mateo, 15</h4>
       <p>My grandmother texted me "lol" after telling me her cat was ill. She thought it meant "lots of love". She is not alone — and honestly, she's not even wrong, just twenty years late.</p>
+      <p>To be fair to her, she has a system: she signs every text with her full name, as though it were a letter, and she has used the same three emojis since 2019. There is something almost elegant about that consistency. She is not failing at internet English; she is speaking her own version of it.</p>
       <p>Meanwhile my little cousin uses words I have to look up, and my teachers still say things nobody has said since 2015. Internet English is the fastest-moving dialect on Earth. A word can be born on a Tuesday, peak on a Friday, and be embarrassing by the following month.</p>
       <h4>📈 Where slang actually comes from</h4>
       <p>Most of today's slang isn't invented by apps; it's borrowed. Linguists trace a huge amount of it to African American English, drag culture and gaming communities, where it lived for years before going viral.</p>
       <p>By the time a word reaches a cereal advert, its cool is basically gone. That's the life cycle: invention, adoption, explosion, cringe.</p>
+      <p>My favourite proof: the moment a bank uses a word in an advert, every teenager quietly agrees to retire it. Adults never receive the memo, which is why the word then survives another full decade — in staff rooms.</p>
       <h4>🗣️ Grammar with a wink</h4>
       <p>Internet English also bends grammar on purpose. "You coming?" drops words; "I can't even" stops mid-sentence; typing in all lowercase signals calm irony, while a full stop at the end of a text can read as quiet fury.</p>
-      <p>These aren't mistakes. They're tone of voice, rebuilt in text — punctuation doing the job your face usually does.</p>
+      <p>These aren't mistakes. They're tone of voice, rebuilt in text — punctuation doing the job your face usually does. Researchers have actually studied this: readers consistently rate the one-word reply "Fine." as colder than "fine" without the full stop. One small dot, an entire mood.</p>
       <h4>🔀 The real skill: code-switching</h4>
       <p>Here's what surprises adults: heavy slang users are often excellent code-switchers. The same student who types "no cap, that essay was a struggle" will write "I found the essay genuinely challenging" to a teacher — without blinking.</p>
+      <p>I watched my friend Priya do this live once. She sent "bruh this is tragic" to our group chat and, eleven seconds later, "Thank you for the feedback — I will revise the introduction" to our teacher. Same phone, same thumbs, two different outfits. Both messages were completely her.</p>
       <p>Switching between registers isn't fake. It's the linguistic equivalent of owning both trainers and formal shoes, and knowing which event you're dressed for.</p>
       <h4>⚠️ When slang backfires</h4>
       <p>Slang is a membership card. Use it with the right people and it says "I'm one of you"; use it in a scholarship application and it says something quite different.</p>
@@ -228,8 +236,9 @@ body.teacher-mode .t-only{display:block}
       <h4>🧪 A tiny experiment</h4>
       <p>This week I collected every abbreviation my family used in our group chat. My dad still writes "BRB", which nobody has typed unironically since about 2014, and my cousin ends serious sentences with the skull emoji, which alarmed my mum considerably.</p>
       <p>Three generations, three internets. Each of us is fluent in our own layer and mildly confused by the others.</p>
+      <p>The strangest discovery came from my mum, who has quietly invented a hybrid: flawless grammar, full punctuation, and then one wildly outdated emoji doing all the emotional work at the end. Linguists probably need a name for that layer too. I suggest "parent formal".</p>
       <h4>💬 So, should you use it?</h4>
-      <p>Yes — deliberately. Slang isn't broken English; it's English doing what English has always done: mutating, borrowing, showing who you are. Shakespeare coined new words constantly; teenagers in group chats do the same job, just faster and with more emojis.</p>
+      <p>Yes — deliberately. Slang isn't broken English; it's English doing what English has always done: mutating, borrowing, showing who you are. Shakespeare coined new words constantly; teenagers in group chats do the same job, just faster and with more emojis. People panicked about Shakespeare's inventions too, by the way. The language survived. It always does.</p>
       <p>The trick is control: know your audience, know the expiry date, and always be able to say the same thing formally. That's not selling out — that's being bilingual in your own language.</p>
       <p>Fluency at the highest level doesn't mean sounding like a dictionary. It means choosing, every single time, exactly how you want to sound.</p>
     </div>
@@ -329,6 +338,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Example entry: <em>"ngl — 'not gonna lie' — formal: 'frankly' — verdict: alive, but ageing."</em></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise the sharpest code-switch you heard today — quote it back word for word. Hand off homework by starting the field-linguistics list live: collect the first abbreviation together from a real chat so the entry format is crystal clear.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

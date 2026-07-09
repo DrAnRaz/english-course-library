@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 5 · PROFICIENT (C1)</div>
   <h1>⭐ Session 1 — Shades of Meaning</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: master <b>connotation</b> and <b>register</b> — say exactly what you mean, with exactly the attitude you choose · ≈50 min core</div>
+  <div class="badge">🎯 Today: master <b>connotation</b> and <b>register</b> — say exactly what you mean, with exactly the attitude you choose</div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student rephrases it in one sentence of their own.</span>
-    <p><em>"Today you will learn how words smuggle opinions into sentences. By the end, you can choose between near-synonyms on purpose — <b>slim</b> or <b>skinny</b>, <b>confident</b> or <b>arrogant</b> — and match your language to the situation like a writer, not a dictionary."</em> 🎛️</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Diagnostic: ask "Describe someone you admire in three adjectives — now describe someone who annoys you in three adjectives." Note whether their word choices already carry attitude. Don't teach yet; you'll refer back to their own words in Step 5.</div>
+    <p class="frame">🎯 Today: same fact, different word — you choose the attitude! 🎛️</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Say:</b> "Today you will learn how words smuggle opinions into sentences. By the end, you can choose between near-synonyms on purpose — slim or skinny, confident or arrogant — and match your language to the situation like a writer, not a dictionary."<br>Diagnostic: ask "Describe someone you admire in three adjectives — now describe someone who annoys you in three adjectives." Note whether their word choices already carry attitude. Don't teach yet; you'll refer back to their own words in Step 5.</div>
   </div>
 </div>
 
@@ -199,6 +202,7 @@ body.teacher-mode .t-only{display:block}
     <h3>🎧 Practice — choose the word with the right attitude</h3>
     <p class="hint">Read the situation and pick the word that fits the speaker's intention. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Drill in pairs: you say the neutral fact ("saves money"), the student answers with BOTH words plus a face to match each emoji. Skip pairs the student nails instantly (usually slim/skinny, relaxed/lazy) and spend the saved time on aroma/odour and candid/blunt. Personalisation: ask which word from any pair someone has actually used about them — and how it felt.</div>
   </div>
 </div>
 
@@ -206,7 +210,8 @@ body.teacher-mode .t-only{display:block}
 <div class="section reading">
   <div class="sec-head"><span class="icon">📖</span> Reading — The Persuasion Files <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: share screen. Take turns reading a chunk each. Then student uses Zoom → Annotate to circle every loaded word she can find in one paragraph.</span>
+    <span class="zoom-cue">📹 Zoom: share screen. Take turns reading a chunk each. Then student uses Zoom → Annotate to circle every loaded word they can find in one paragraph.</span>
+    <p class="hint">🔎 Watch for <b>loaded words and register shifts</b> in the article — we unlock them in Step 5!</p>
     <p>Read this school-magazine feature article. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
@@ -215,15 +220,19 @@ body.teacher-mode .t-only{display:block}
       <h4>✍️ Two honest portraits</h4>
       <p>The first profile called Dario "confident, determined and refreshingly direct." It said he "asks challenging questions" and "sticks to his opinions." Readers loved him; three people suggested him for student council.</p>
       <p>The second profile described identical behaviour in different words. Here Dario was "arrogant, stubborn and blunt" — a boy who "interrogates his teachers" and "refuses to change his mind." Readers found him exhausting. Same student, same facts, same readers.</p>
+      <p>The editors printed both profiles side by side, and the corridor debate lasted a week. The most common reaction, one Year 10 student admitted, was mild panic: "If two honest articles can do that to one boy, what has every other article I've ever read been doing to me?"</p>
       <h4>🧲 Why the words won</h4>
       <p>So what happened? Every word carries two layers of meaning: its <b>denotation</b> — the plain dictionary definition — and its <b>connotation</b>, the emotional shadow it drags behind it. "Determined" and "stubborn" both denote <em>unwilling to change</em>, but one shadow is golden and the other is grey.</p>
       <p>Linguists call these <b>loaded words</b>, and they steer readers like invisible hands. Advertisers exploit them constantly: a menu says "hand-crafted", never "home-made by somebody's uncle". Estate agents describe a tiny flat as "cosy" and a crumbling one as "full of character".</p>
+      <p>Sports commentary runs on the same fuel. When our team keeps the ball for ten patient passes, the commentator admires their "controlled build-up play"; when the rival team does exactly the same thing, it becomes "sterile passing that puts the crowd to sleep". One behaviour, two shadows — and most listeners never notice the switch happening in their own heads.</p>
       <h4>🎚️ Register: the other secret dial</h4>
       <p>Connotation is only half the machine. The other half is <b>register</b> — how formal or informal your language is. "Commence", "start" and "kick off" share one meaning, but you would never tell your best friend that the film "commences" at eight.</p>
       <p>Getting register wrong is like wearing a tuxedo to PE, or pyjamas to a wedding. The clothes are fine; the setting isn't. Skilled speakers slide along the register scale a dozen times a day without even noticing.</p>
+      <p>Notice that neither end of the scale is "better". Formal language is not clever language, and casual language is not lazy language. A thank-you text that says "I hereby express my gratitude" is just as wrong as a job application that opens with "hiya". The only question that matters is whether the words fit the room they walk into.</p>
       <h4>🕊️ The politeness machine</h4>
       <p>Register also explains <b>euphemism</b> — the art of softening. Companies don't fire people; they "let them go". Characters in old novels never die; they "pass away".</p>
       <p>Euphemisms can be kind, but they can also hide the truth. When a politician calls a serious mistake "an unfortunate outcome", listen very carefully.</p>
+      <p>Our school does it too. Look at any report card: "has difficulty maintaining focus" means <em>doesn't pay attention</em>, and "is a lively contributor to discussions" often means <em>won't stop talking</em>. Teachers soften their words for a kind reason — but a sharp reader learns to translate them back.</p>
       <h4>🎯 The takeaway</h4>
       <p>Here is the uncomfortable part: you cannot opt out. Choosing "slim" over "skinny", or "youthful" over "childish", quietly signals your attitude whether you intend it or not. Genuinely neutral language is much rarer than most people think.</p>
       <p>The good news? Once you see the machinery, you control it. Before you describe anyone — in an essay, a message, or a complaint — ask one question: is this word reporting the facts, or smuggling in my opinion?</p>
@@ -277,7 +286,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section task">
   <div class="sec-head"><span class="icon">🎨</span> Create — Spin Doctor Studio <span class="timing">10 min</span><span class="step">Step 6</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in her own browser, shares her screen, and types live while you watch.</span>
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in their own browser, shares their screen, and types live while you watch.</span>
     <p>You are a "spin doctor" — a professional word-chooser. 🎩 Invent a character (or use a book/film character), fix three TRUE facts about them, then write two honest portraits: one that makes readers love them, one that makes readers wary. <b>No new facts allowed — only new words!</b></p>
     <h3>First, tap every word pair you plan to use:</h3>
     <div class="chips" id="exp-chips"></div>
@@ -297,7 +306,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section challenge">
   <div class="sec-head"><span class="icon">🎮</span> Challenge Game — The Word Spy <span class="timing">8 min</span><span class="step">Step 7</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen and cheer. 🎉</span>
+    <span class="zoom-cue">📹 Zoom: student's browser, their clicks, their score! You watch on their shared screen and cheer. 🎉</span>
     <p class="hint">🕵️ Three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
     <h3>Round 1 — Connotation radar: positive or negative?</h3>
     <div id="ch-quiz1"></div>
@@ -306,7 +315,7 @@ body.teacher-mode .t-only{display:block}
     <h3>Round 3 — Boss level: word-choice surgery 👑</h3>
     <div id="ch-quiz3"></div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can be the start of the next lesson's warm-up.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>All answers show live in her score; wrong picks auto-reveal the green one. On every miss ask: "Which test question did we skip — 'happy to hear it about myself?' or 'who am I talking to?'" — forcing the two Step-5 tools.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>All answers show live in their score; wrong picks auto-reveal the green one. On every miss ask: "Which test question did we skip — 'happy to hear it about myself?' or 'who am I talking to?'" — forcing the two Step-5 tools.</div>
   </div>
 </div>
 
@@ -323,6 +332,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Example: <em>"yo can we move practice, sth came up 😅" → "Dear Ms Adeyemi, I am writing to ask whether practice could be rescheduled, as something unexpected has come up."</em></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise one concrete word choice you actually heard today ("your thrifty→stingy flip was instant"). Hand off homework by doing the first loaded-word hunt together: open any video title or advert on screen and let the student spot one loaded word before you say goodbye.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 1 · BEGINNER (A1)</div>
   <h1>⭐ Session 8 — People &amp; Jobs</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: learn 12 jobs and describe other people — <b>he is a… / she works…</b> · ≈50 min core</div>
+  <div class="badge">🎯 Today: learn 12 jobs and describe other people — <b>he is a… / she works…</b></div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
-    <p><em>"Today you will talk about OTHER people — not just 'I'! You will learn 12 jobs and say things like <b>'My mum is a vet. She helps animals.'</b>"</em> 👩‍🚒👨‍🍳</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Quick diagnostic: ask "What is your mum's or dad's job?" Listen for the two classic errors: missing "a" ("she is teacher") and missing -s ("she work"). Note them, don't correct yet.</div>
+    <p class="frame">🎯 Today: 12 jobs + talking about other people!</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S7):</b> frequency detective — 4 sentences about a family member with always / usually / sometimes / never; student reads them aloud, listen for the word position (before verb, after be).<br><b>Say:</b> "Today you will talk about OTHER people — not just 'I'! You will learn 12 jobs and say things like <b>'My mum is a vet. She helps animals.'</b>" 👩‍🚒👨‍🍳<br>Quick diagnostic: ask "What is your mum's or dad's job?" Listen for the two classic errors: missing "a" ("she is teacher") and missing -s ("she work"). Note them, don't correct yet.</div>
   </div>
 </div>
 
@@ -209,17 +212,18 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — Marcus's Family Album <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen. Take turns — student reads one chunk aloud, you read the next. Then student annotates every job word on your screen (Zoom → Annotate).</span>
+    <p class="hint">🔎 Watch for <b>is a + job</b> and verbs with <b>-s</b> (works, helps) in the story — we unlock them in Step 5!</p>
     <p>Read about Marcus's family. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
       <h4>📸 My family album — by Marcus, 11</h4>
-      <p>Hi! I'm Marcus. Let me show you my family album. Everyone has an interesting job!</p>
+      <p>Hi! I'm Marcus. Let me show you my family album. Everyone has an interesting job! My album has photos of everyone at work.</p>
       <h4>👩‍⚕️ My mum and dad</h4>
-      <p>My mum is a vet. She works at an animal hospital, and she helps dogs, cats and even a parrot! My dad is a cook. He works in a big restaurant and he makes fantastic pizza.</p>
+      <p>My mum is a vet. She works at an animal hospital, and she helps dogs, cats and even a parrot! The parrot is funny — it says "hello" to my mum. My dad is a cook. He works in a big restaurant and he makes fantastic pizza. On Fridays, he brings pizza home for us.</p>
       <h4>👮 My aunt and uncle</h4>
-      <p>My aunt Rosa is a police officer. She wears a uniform and she drives a police car. My uncle Ben is a farmer. He gets up at five o'clock and he has two hundred sheep!</p>
+      <p>My aunt Rosa is a police officer. She wears a uniform and she drives a police car. My uncle Ben is a farmer. He gets up at five o'clock and he has two hundred sheep! The sheep are loud, and they eat all day.</p>
       <h4>🚒 And me?</h4>
-      <p>I want to be a firefighter. Firefighters are brave and they help people. But first, I need to finish school!</p>
+      <p>I want to be a firefighter. Firefighters are brave and they help people. But first, I need to finish school! My friends say I am brave too.</p>
     </div>
 
     <h3>🔎 Did you understand? Tap your answer</h3>
@@ -257,7 +261,7 @@ body.teacher-mode .t-only{display:block}
     <p class="hint">💡 Hungarian tip: Hungarian says <em>"Anya állatorvos"</em> — two words, no "is", no "a". English needs BOTH little words: "My mum <b>is a</b> vet." Count the words: four, not two!</p>
     <h3>✏️ Practice — tap the correct word</h3>
     <div id="grammar-quiz"></div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>If the student gets 6+/8, move on. If under 5, redo the wrong ones asking two questions: "One person or two?" (is/are, a/no a) and "he/she? → -s!". Answer key is shown live by the quiz (green).</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>If the student gets 6+/8, move on. If under 5, redo the wrong ones asking two questions: "One person or two?" (is/are, a/no a) and "he/she? → -s!". Answer key is shown live by the quiz (green). Item 8 (doesn't) is a PREVIEW of do/does — help them, don't grade harshly.</div>
   </div>
 </div>
 
@@ -298,9 +302,10 @@ body.teacher-mode .t-only{display:block}
     <h3>Round 2 — Fix the broken sentence</h3>
     <div id="ch-quiz2"></div>
     <h3>Round 3 — Boss level 👑</h3>
+    <p class="hint">🔮 Sneak preview: questions use <b>do/does</b> — try it!</p>
     <div id="ch-quiz3"></div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can be the start of the next lesson's warm-up.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>All answers show live in the score. Wrong answers auto-reveal the correct one in green — ask "why?" on each miss. On the BOSS item, have the student read all three options aloud before choosing.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>All answers show live in the score. Wrong answers auto-reveal the correct one in green — ask "why?" on each miss. On the BOSS item, have the student read all three options aloud before choosing. Round 3's do/does/doesn't is a PREVIEW — it hasn't been taught yet, so help them freely and don't grade harshly.</div>
   </div>
 </div>
 
@@ -317,6 +322,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Example: <em>"My grandma is a farmer. She has ten chickens."</em></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise the mystery-person game: quote the clue sentence that used "is a" and a verb-s correctly.<br>Homework hand-off: read the example together, then ask the student to name the 3 people for their mini album — 2 sentences each (job + one thing they do), checked next lesson.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

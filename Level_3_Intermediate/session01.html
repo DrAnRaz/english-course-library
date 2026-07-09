@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 3 · INTERMEDIATE (B1)</div>
   <h1>⭐ Session 1 — My Story So Far</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: talk about your life experiences with <b>present perfect</b> vs <b>past simple</b> · ≈50 min core</div>
+  <div class="badge">🎯 Today: talk about your life experiences with <b>present perfect</b> vs <b>past simple</b></div>
 </div>
 
 <div class="scorebar">
@@ -169,9 +172,9 @@ body.teacher-mode .t-only{display:block}
 <div class="section goal">
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in her own words.</span>
-    <p><em>"Today you will talk about the cool things you <b>have done</b> in your life — and the stories behind them. By the end, you can say what you've experienced and when it happened, like a native speaker."</em> 🚀</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Ask: "Tell me ONE amazing thing you have done." Don't correct grammar yet — just note whether they attempt present perfect. That's your live diagnostic.</div>
+    <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
+    <p class="frame">🎯 Today: the amazing things you have done — and their stories!</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Say:</b> "Today you will talk about the cool things you <b>have done</b> in your life — and the stories behind them. By the end, you can say what you've experienced and when it happened, like a native speaker." 🚀<br>Ask: "Tell me ONE amazing thing you have done." Don't correct grammar yet — just note whether they attempt present perfect. That's your live diagnostic.</div>
   </div>
 </div>
 
@@ -193,12 +196,13 @@ body.teacher-mode .t-only{display:block}
 <div class="section vocab">
   <div class="sec-head"><span class="icon">📝</span> New Words — Life Experiences <span class="timing">10 min</span><span class="step">Step 3</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: share your screen. Student clicks nothing yet — YOU click 🔊, she repeats each phrase twice.</span>
+    <span class="zoom-cue">📹 Zoom: share your screen. Student clicks nothing yet — YOU click 🔊, they repeat each phrase twice.</span>
     <p>Tap any card to <b>hear</b> it 🔊. Say it out loud after the sound!</p>
     <div class="vocab-grid" id="vocab-grid"></div>
     <h3>🎧 Practice — tap the right phrase</h3>
     <p class="hint">Read the clue and tap the phrase that matches. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Drill each card twice: you click 🔊, the student repeats the phrase AND the "have + participle" line under it. If time is tight, skip the cards they clearly know — ask "Which of these have you done?" first and drill only the new ones. Personalization: for every card they tap, fire a quick <em>"Have you ever…?"</em> — real answers stick better than the card.</div>
   </div>
 </div>
 
@@ -206,7 +210,8 @@ body.teacher-mode .t-only{display:block}
 <div class="section reading">
   <div class="sec-head"><span class="icon">📖</span> Reading — Maya's Bucket List <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: share screen. Student reads one chunk aloud, you read the next — take turns. Then she annotates answers on your screen (Zoom → Annotate).</span>
+    <span class="zoom-cue">📹 Zoom: share screen. Student reads one chunk aloud, you read the next — take turns. Then they annotate answers on your screen (Zoom → Annotate).</span>
+    <p class="hint">🔎 Watch for <b>have/has + past participle</b> next to <b>past simple</b> story details — we unlock the pattern in Step 5!</p>
     <p>Read Maya's blog post. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
@@ -216,8 +221,10 @@ body.teacher-mode .t-only{display:block}
       <p>I <b>have ridden</b> a roller coaster — actually, I've ridden seven! The first time was in 2023, at a theme park in Vienna. I screamed so loudly that my dad laughed for ten minutes.</p>
       <p>I <b>have acted</b> on stage twice. Last spring I played a talking cat in our school play. I forgot one line, but nobody noticed because I meowed instead.</p>
       <p>I <b>have</b> also <b>won</b> a medal. It was a swimming competition last summer. I didn't win gold — I came third — but I have never felt so proud.</p>
+      <p>Oh, and I <b>have made</b> three videos for my cousin's channel. We filmed the last one in our garden, and a bird flew straight into the shot. We kept it in the video — everyone said it was the funniest part!</p>
       <h4>❌ Things I haven't done — yet!</h4>
       <p>I <b>haven't travelled</b> outside Europe yet, and I <b>have never tried</b> sushi. My best friend Zoe says raw fish is delicious. I'm not so sure!</p>
+      <p>I <b>haven't met</b> a celebrity either, but I <b>have seen</b> one! Two years ago, a famous singer walked past our café. I wanted to say hello, but I was too shy. I just stood there holding my hot chocolate.</p>
       <p>My next goal? I want to learn the guitar. I <b>have</b> already <b>chosen</b> the song I want to play first. Wish me luck!</p>
     </div>
 
@@ -270,7 +277,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section task">
   <div class="sec-head"><span class="icon">🎨</span> Create — My Experience Map <span class="timing">10 min</span><span class="step">Step 6</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in her own browser and types here while you watch on her shared screen (Zoom → she clicks Share Screen).</span>
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in their own browser and types here while you watch on their shared screen (Zoom → they click Share Screen).</span>
     <p>Make your own experience map! Fill each line — then tell the story of your favourite one. 🦸</p>
     <h3>First, tap the experiences you have had:</h3>
     <div class="chips" id="exp-chips"></div>
@@ -290,7 +297,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section challenge">
   <div class="sec-head"><span class="icon">🎮</span> Challenge Game — Tense Detective <span class="timing">8 min</span><span class="step">Step 7</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen and cheer. 🎉</span>
+    <span class="zoom-cue">📹 Zoom: student's browser, their clicks, their score! You watch on their shared screen and cheer. 🎉</span>
     <p class="hint">🕵️ Three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
     <h3>Round 1 — Which tense?</h3>
     <div id="ch-quiz1"></div>
@@ -299,7 +306,7 @@ body.teacher-mode .t-only{display:block}
     <h3>Round 3 — Boss level: signal words 👑</h3>
     <div id="ch-quiz3"></div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can be the start of the next lesson's warm-up.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>All answers show live in her score. Wrong answers auto-reveal the correct one in green — ask "why?" on each miss.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>All answers show live in their score. Wrong answers auto-reveal the correct one in green — ask "why?" on each miss.</div>
   </div>
 </div>
 
@@ -316,6 +323,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Example: <em>"My dad has broken his leg. It happened when he was 20, on a ski trip."</em></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise ONE specific two-tense sentence the student produced today — quote it back to them word for word.<br>Hand off homework by modelling the first interview question yourself ("Have you ever…?") so they leave knowing exactly how to start.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

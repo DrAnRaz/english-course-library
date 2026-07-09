@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 3 · INTERMEDIATE (B1)</div>
   <h1>🗳️ Session 7 — In My Opinion</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: agree &amp; disagree <b>politely</b> — and win your first mini-debate · ≈50 min core</div>
+  <div class="badge">🎯 Today: agree &amp; disagree <b>politely</b> — and win your first mini-debate</div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
-    <p><em>"Today you will share real opinions in English — and learn to disagree politely, like a champion. By the end, you will survive your first mini-debate!"</em> 🏆</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Live diagnostic: ask "Cats or dogs — which are better? Why?" Note two things: can the student give a reason ("because…"), and how do they react when you disagree once, gently? That preview shapes how hard you push in Step 6.</div>
+    <p class="frame">🎯 Today: share your opinion — and disagree like a champion!</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S6):</b> 3 phrasal verbs found "in the wild" + the bonus morning sentence — student reads each find; listen for the whole chunk used correctly in its sentence.<br><b>Say:</b> "Today you will share real opinions in English — and learn to disagree politely, like a champion. By the end, you will survive your first mini-debate!" 🏆<br>Live diagnostic: ask "Cats or dogs — which are better? Why?" Note two things: can the student give a reason ("because…"), and how do they react when you disagree once, gently? That preview shapes how hard you push in Step 6.</div>
   </div>
 </div>
 
@@ -199,6 +202,7 @@ body.teacher-mode .t-only{display:block}
     <h3>🎧 Practice — tap the right phrase</h3>
     <p class="hint">Read the situation and tap the phrase that fits. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Drill each phrase with its EMOTION, not just its words — agree phrases sound warm, disagree phrases start soft and slow. Skip nothing here: even known phrases need the polite melody. Personalization: after the drill, state one silly opinion ("Homework is delicious") and have the student answer with any card of their choice — instant transfer.</div>
   </div>
 </div>
 
@@ -207,6 +211,7 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — The Big Question <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen. Take turns: the student reads Kenji, you read Amara — different voices! Then the student annotates every polite phrase they can find (Zoom → Annotate).</span>
+    <p class="hint">🔎 Watch for polite battle moves like <b>"I see your point, but…"</b> and <b>"That's true, but…"</b> — we unlock them in Step 5!</p>
     <p>Two students, one question, zero agreement. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
@@ -216,12 +221,15 @@ body.teacher-mode .t-only{display:block}
       <p>In my opinion, phones are simply tools — like calculators or dictionaries. If we use them well, lessons get better.</p>
       <p>For example, last month our science class used phones to film a plant experiment. We watched the video in slow motion and saw things we had missed. That was real learning.</p>
       <p>Some people say phones only mean games and chatting. That's true sometimes, but the answer is teaching good habits, not banning everything. We don't ban pens because someone draws on the desk! In my class, we wrote our phone rules together, and it works.</p>
+      <p>One more thing: not every family can buy a laptop, but almost everyone has a phone. In my opinion, banning phones makes school less fair, because it takes away the cheapest learning tool we have.</p>
       <h4>🚫 Amara says NO</h4>
       <p>I see Kenji's point, but I disagree. Phones are designed to steal your attention. Every buzz pulls your brain away from the lesson.</p>
       <p>Scientists tested this: students remember more when the phone is in another room — even when it is turned off! For example, in my old school, phone-free days felt calmer. People actually talked at lunch.</p>
+      <p>And let's be honest about the "tools" argument. That's true, but a calculator never sends you a message from your best friend in the middle of maths. A phone does — every few minutes.</p>
       <p>I'm not saying phones are evil. I think that school should be the one place where our brains get a real break. Your friends are right there, in the same room. Talk to them!</p>
       <h4>🎯 What happens now?</h4>
       <p>The magazine asked 60 students to vote. The result was 31 for Kenji and 29 for Amara — almost a perfect tie! Next week, the school council will debate the question.</p>
+      <p>The magazine also collected ideas for a middle way: phone lockers, "phone parking" boxes in class, or one screen-free day every week. Maybe the best answer is not YES or NO, but a good rule that everyone helps to write.</p>
       <p>What do YOU think? And more importantly — can you say it politely?</p>
     </div>
 
@@ -319,6 +327,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Example: <em>"In my opinion, summer is better, because we can swim. That's true, winter has snow — but I still prefer summer!"</em></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise the student's best debate moment — name the exact polite phrase they used under pressure and when.<br>Hand off homework by helping them choose WHO at home gets the dinner debate, and rehearse the opening line once together.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

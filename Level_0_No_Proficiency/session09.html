@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 0 · NO PROFICIENCY (PRE-A1)</div>
   <h1>🎒 Session 9 — My Things</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: school things + <b>"This is my ___"</b> + in my bag · ≈50 min core</div>
+  <div class="badge">🎯 Today: school things + <b>"This is my ___"</b> + in my bag</div>
 </div>
 
 <div class="scorebar">
@@ -170,9 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on. Wave hello! Teacher plays the goal with 🔊. Student says it back.</span>
-    <p style="font-size:20px"><em>"Today I learn <b>school things</b>. I can say <b>This is my bag!</b> 🎒"</em>
-      <button class="opt" style="padding:5px 14px" onclick="say('Today I learn school things. I can say: This is my bag!')">🔊 Listen</button></p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Hold up YOUR bag/pen on camera while playing the goal — real objects beat pictures at L0. Ask the student to bring their school bag to the desk NOW; you'll need it in Steps 2 and 6.</div>
+    <p class="frame">🎯 Today: <b>school things</b> — <b>"This is my bag!"</b> 🎒 <button class="opt" style="padding:5px 14px" onclick="say('Today I learn school things. I can say: This is my bag!')">🔊 Listen</button></p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S8):</b> 3 yum-food drawing + "I like ___. Yum!" said to family — ask the student to show the drawing and say the line for each food; listen for the plural S ("apples").<br><b>Say:</b> "Today I learn school things. I can say: 'This is my bag!'"<br>Hold up YOUR bag/pen on camera while playing the goal — real objects beat pictures at L0. Ask the student to bring their school bag to the desk NOW; you'll need it in Steps 2 and 6.</div>
   </div>
 </div>
 
@@ -201,6 +203,7 @@ body.teacher-mode .t-only{display:block}
     <h3>🎧 Practice — tap the right thing</h3>
     <p class="hint">Read the clue. Tap the thing. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Drill: 🔊 → choral ×2 → solo, and the student holds up the REAL object for every card they own (skip drilling things they don't have — recognition is enough). Personalize: their own pencil case sets the priority order. Sneak in colors: "Your pen — what color?"</div>
   </div>
 </div>
 
@@ -209,6 +212,7 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — In My Bag <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen. Teacher reads a line with 🔊, student echoes and points at the emoji. Student annotates answers on your screen.</span>
+    <p class="hint">🔎 Watch for <b>This is my ___</b> and <b>These are my ___</b> in the story — we unlock them in Step 5!</p>
     <p>Look at the pictures. Listen. Then read out loud!
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
@@ -219,11 +223,16 @@ body.teacher-mode .t-only{display:block}
       <h4>🖊️ Look inside!</h4>
       <p>🖊️ This is my pen. It is blue.</p>
       <p>📏 This is my ruler.</p>
+      <p>📏 My ruler is green.</p>
       <p>🖍️ My crayons! Red, blue, green.</p>
+      <p>🖍️ One, two, three crayons!</p>
       <h4>✂️ More things</h4>
       <p>✂️ These are my scissors.</p>
+      <p>✂️ Snip, snip!</p>
       <p>🧴 This is my glue.</p>
+      <p>🧴 The glue is white.</p>
       <p>😊 My bag is full!</p>
+      <p>😄 I love my bag!</p>
     </div>
 
     <h3>🔎 Did you understand? Tap your answer</h3>
@@ -256,6 +265,8 @@ body.teacher-mode .t-only{display:block}
         <em>The pen is <b>in my bag</b>.</em> <button class="opt" style="padding:3px 10px" onclick="say('The pen is in my bag.')">🔊</button><br><br>
         🔑 Put it in! Say: <b>in my bag</b></div>
     </div>
+    <div class="frame">✂️ <b>Mini-pattern:</b> one thing → <b>This is</b>; many things → <b>These are</b>!<br><em>"<b>This is</b> my pen."</em> 🖊️ (one) · <em>"<b>These are</b> my scissors."</em> ✂️ · <em>"<b>These are</b> my crayons."</em> 🖍️🖍️🖍️ (many)
+      <button class="opt" style="padding:4px 12px" onclick="say('This is my pen. These are my scissors. These are my crayons.')">🔊</button></div>
     <div class="frame">💡 <b>Say it and DO it:</b> hold the thing up — "This is my pen!" Drop it in — "In my bag!" 🎒</div>
     <p class="hint">💡 Hungarian tip: English "my" comes FIRST: <b>my bag</b>. Hungarian puts it at the end: "táská<b>m</b>". Say "my" first! 👉</p>
     <h3>✏️ Practice — tap the correct one</h3>
@@ -274,7 +285,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section task">
   <div class="sec-head"><span class="icon">🎨</span> Create — My Bag Show <span class="timing">10 min</span><span class="step">Step 6</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat. Student opens it and types. Then she presents her REAL bag on camera!</span>
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat. The student opens it and types. Then they present their REAL bag on camera!</span>
     <p>Show your bag! Tap, type, then present it! 🌟</p>
     <h3>First, tap the things in YOUR bag:</h3>
     <div class="chips" id="exp-chips"></div>
@@ -294,7 +305,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section challenge">
   <div class="sec-head"><span class="icon">🎮</span> Challenge Game — Bag Master <span class="timing">8 min</span><span class="step">Step 7</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! Watch on her shared screen and cheer. 🎉</span>
+    <span class="zoom-cue">📹 Zoom: the student's browser, their clicks, their score! Watch on their shared screen and cheer. 🎉</span>
     <p class="hint">🎒 Three rounds. It gets harder. Beat 80% for ⭐⭐⭐!</p>
     <h3>Round 1 — Quick Look 👀</h3>
     <div id="ch-quiz1"></div>
@@ -303,7 +314,7 @@ body.teacher-mode .t-only{display:block}
     <h3>Round 3 — Bag Boss 👑</h3>
     <div id="ch-quiz3"></div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can start the next lesson.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>Student says the full answer aloud before clicking ("This is my pen!"). On misses, she repeats the green answer while touching the real object if she has it. High-five the camera at the end. ✋</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>Student says the full answer aloud before clicking ("This is my pen!"). On misses, they repeat the green answer while touching the real object if they have it. High-five the camera at the end. ✋</div>
   </div>
 </div>
 
@@ -320,6 +331,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Example: <em>"This is my pencil. It is yellow."</em> <button class="opt" style="padding:3px 10px" onclick="say('This is my pencil. It is yellow.')">🔊</button></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise the Bag Show: the student presented real things in full sentences — name their best line back to them. Homework hand-off: run a 10-second mini Bag Show yourself ("This is my pen!") so they know exactly what to perform for the family.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

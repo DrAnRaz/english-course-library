@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 5 · PROFICIENT (C1)</div>
   <h1>⭐ Session 3 — Story Lab</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: master the four <b>narrative tenses</b> and use them to build a story that grips your reader · ≈50 min core</div>
+  <div class="badge">🎯 Today: master the four <b>narrative tenses</b> and use them to build a story that grips your reader</div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back like a movie-trailer voice. 🎬</span>
-    <p><em>"Today you become a story engineer. You will control the four narrative tenses — <b>past simple</b>, <b>past continuous</b>, <b>past perfect</b> and <b>past perfect continuous</b> — the way a film director controls camera, background and flashback. By the end, you'll write an opening scene that hooks a reader."</em> 🎥</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Diagnostic: ask "Tell me about a time something went wrong — 30 seconds." Listen for whether they attempt past continuous scene-setting or past perfect backstory, or stay 100% in past simple. That gap defines what to push hardest in Step 5.</div>
+    <p class="frame">🎯 Today: build a story opening that grips your reader! 🎥</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S2):</b> partnership notebook (8 chunks) + the 5-sentence weekend plan — student reads three favourite chunks aloud; listen for whole chunks, not single translated words.<br><b>Say:</b> "Today you become a story engineer. You will control the four narrative tenses — past simple, past continuous, past perfect and past perfect continuous — the way a film director controls camera, background and flashback. By the end, you'll write an opening scene that hooks a reader."<br>Diagnostic: ask "Tell me about a time something went wrong — 30 seconds." Listen for whether they attempt past continuous scene-setting or past perfect backstory, or stay 100% in past simple. That gap defines what to push hardest in Step 5.</div>
   </div>
 </div>
 
@@ -199,6 +202,7 @@ body.teacher-mode .t-only{display:block}
     <h3>🎧 Practice — tap the right tool</h3>
     <p class="hint">Read the clue and tap the storytelling word that matches. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Drill by connecting every card to a film or series the student actually watches — "name a cliffhanger from your show" beats any definition. Skip protagonist/setting if they come instantly; spend the time on foreshadowing and pace, which Step 4's open questions will need. Personalisation: ask which tool their favourite writer or YouTuber overuses.</div>
   </div>
 </div>
 
@@ -206,24 +210,29 @@ body.teacher-mode .t-only{display:block}
 <div class="section reading">
   <div class="sec-head"><span class="icon">📖</span> Reading — "Nine Minutes" (a short story) <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: share screen. Student reads the tense parts, you read the rest — she performs, you narrate. Then she annotates: circle every <b>bold</b> verb and name its tense.</span>
+    <span class="zoom-cue">📹 Zoom: share screen. Student reads the tense parts, you read the rest — they perform, you narrate. Then they annotate: circle every <b>bold</b> verb and name its tense.</span>
+    <p class="hint">🔎 Watch for <b>the bold verbs — scenery, main events and rewinds to earlier</b> — in the story. We unlock their four jobs in Step 5!</p>
     <p>Read the story — every <b>bold verb</b> is a narrative tense at work. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
       <h4>🎬 The calm before</h4>
       <p>The gym smelled of floor polish and nerves. Rosa <b>was standing</b> behind the curtain, bouncing on her toes, while the audience <b>was still finding</b> its seats. Somewhere out there sat three judges, half her school, and every single person she had ever wanted to impress.</p>
       <p>She <b>had been practising</b> for this moment for six months. Every evening after dinner she <b>had dragged</b> her keyboard into the garage and played until her fingers ached. Nobody knew — not even her twin brother, Mateo.</p>
+      <p>Keeping the secret <b>had not been</b> easy. Twice Mateo <b>had almost caught</b> her — once when he came home early from football, and once when a neighbour asked, over the fence, who <b>had been playing</b> so beautifully all summer. Rosa <b>had blamed</b> the radio, and Mateo, to her enormous relief, <b>had believed</b> her.</p>
       <p>There was a reason for the secrecy. At her first recital, aged eight, Rosa <b>had frozen</b> in front of forty parents; she <b>had stared</b> at the keys for a whole minute, then walked off. Tonight was her rematch.</p>
       <h4>⚡ The plan unravels</h4>
       <p>At 7:02 the lights <b>dimmed</b> and the host <b>called</b> her name. Rosa <b>walked</b> to the centre of the stage, <b>sat down</b>, and <b>lifted</b> the keyboard lid. That was when she <b>noticed</b> the problem.</p>
       <p>The power cable <b>was dangling</b> from the side of the keyboard — unplugged. Someone <b>had moved</b> the equipment during the interval, and nobody <b>had thought</b> to reconnect it. Nine minutes of music, and no electricity.</p>
+      <p>She could hear her own heartbeat over the hum of the hall. In the front row, a small boy <b>was swinging</b> his legs and whispering to his mother. The judges <b>were waiting</b>, pens ready, faces polite and blank.</p>
       <h4>⏱️ Nine minutes</h4>
       <p>Her mind <b>raced</b> through her options, one useless idea after another. The nearest socket <b>was</b> four metres away, hidden behind a speaker the size of a fridge. The audience <b>had started</b> to murmur; a chair <b>creaked</b>; someone <b>coughed</b>.</p>
       <p>Then Rosa <b>remembered</b> something. Years before the family <b>had bought</b> the keyboard, she <b>had learned</b> her first songs on her grandmother's old piano — the same piano that <b>had been gathering</b> dust at the side of this very gym since the spring concert.</p>
       <p>She <b>stood up</b>, <b>crossed</b> the stage, and <b>pulled</b> off the dust sheet. The audience <b>went</b> completely silent.</p>
+      <p>Her hands <b>were shaking</b> as she lifted the lid. The keys were yellowed with age, and someone <b>had carved</b> a tiny star into the wood beside middle C. Rosa <b>took</b> one slow breath, the way her grandmother <b>had taught</b> her, and placed her fingers on the opening chord.</p>
       <h4>🌋 The twist</h4>
       <p>The old piano was scratched and slightly out of tune, and it was, in every way that mattered, perfect. Rosa <b>played</b> the whole nine minutes from memory — no cable, no screen, no safety net. Three rows back, Mateo <b>was filming</b> everything on his phone, mouth open.</p>
       <p>When the last note faded, the silence lasted three full seconds — which, as any performer will tell you, is an eternity. Then the gym erupted.</p>
+      <p>People <b>were standing</b> before the applause had even found its rhythm. One judge <b>was clapping</b> over her head; another <b>had stopped</b> writing entirely. Rosa stood, bowed the way she <b>had practised</b> in the garage mirror, and walked off on legs that had apparently stopped belonging to her.</p>
       <h4>🎞️ After</h4>
       <p>Rosa didn't win; a year-seven girl with a diabolo took first prize, and honestly, she deserved it. Mateo found his sister backstage. "You never told me you could play," he said. Rosa shrugged, grinning. "You never asked."</p>
       <p>Later, the caretaker admitted that he <b>had unplugged</b> the keyboard to charge the disco lights. Rosa thanked him — without his mistake, she said, the best moment of her year <b>would never have happened</b>.</p>
@@ -238,7 +247,7 @@ body.teacher-mode .t-only{display:block}
     <div class="qa-item"><div class="q">2. Find one example of foreshadowing in the story. Quote it and explain how it secretly prepares the twist.</div><div class="editable tall" id="r-open2" contenteditable="true" data-placeholder="The line "…" hints that… because later…"></div></div>
 
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> the two written questions above can be homework instead.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 4 + answer key</h4>Quiz answers: 1) the caretaker had unplugged it to charge the disco lights · 2) six months · 3) she had frozen at a recital aged eight · 4) her grandmother's old piano · 5) everyone went home happened FIRST. Open Q1 key: slowing the pace at the climax builds suspense; the reader waits with Rosa — time in stories is elastic. Open Q2 strongest answers: "she had learned her first songs on her grandmother's old piano — the same piano that had been gathering dust at the side of this very gym" (plants the escape route), or the recital backstory (plants the stakes). Accept any quote + mechanism explanation.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 4 + answer key</h4>Quiz answers: 1) the caretaker had unplugged it to charge the disco lights · 2) six months · 3) she had frozen at a recital aged eight · 4) her grandmother's old piano · 5) someone moved the equipment happened FIRST — "had moved" (past perfect) marks the earlier event; Rosa "noticed" (past simple) came after. Open Q1 key: slowing the pace at the climax builds suspense; the reader waits with Rosa — time in stories is elastic. Open Q2 strongest answers: "she had learned her first songs on her grandmother's old piano — the same piano that had been gathering dust at the side of this very gym" (plants the escape route), or the recital backstory (plants the stakes). Accept any quote + mechanism explanation.</div>
   </div>
 </div>
 
@@ -277,7 +286,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section task">
   <div class="sec-head"><span class="icon">🎨</span> Create — Build Your Opening Scene <span class="timing">10 min</span><span class="step">Step 6</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in her own browser, shares her screen, and writes live while you watch and coach.</span>
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in their own browser, shares their screen, and writes live while you watch and coach.</span>
     <p>Time to direct your own opening scene — the first paragraph of a story that makes a reader NEED page two. 🎬 Pick your ingredients, then build the scene layer by layer.</p>
     <h3>First, tap 2–3 story ingredients:</h3>
     <div class="chips" id="exp-chips"></div>
@@ -299,7 +308,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section challenge">
   <div class="sec-head"><span class="icon">🎮</span> Challenge Game — Director's Cut <span class="timing">8 min</span><span class="step">Step 7</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen and cheer. 🎉</span>
+    <span class="zoom-cue">📹 Zoom: student's browser, their clicks, their score! You watch on their shared screen and cheer. 🎉</span>
     <p class="hint">🎬 Three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
     <h3>Round 1 — Which tense does the job?</h3>
     <div id="ch-quiz1"></div>
@@ -308,7 +317,7 @@ body.teacher-mode .t-only{display:block}
     <h3>Round 3 — Boss level: full-scene surgery 👑</h3>
     <div id="ch-quiz3"></div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can be the start of the next lesson's warm-up.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>All answers show live in her score; wrong picks auto-reveal the green one. On every miss ask "camera or rewind?" first, THEN look at the sentence again. The stative-verb item (had known) is the sneakiest — expect it.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>All answers show live in their score; wrong picks auto-reveal the green one. On every miss ask "camera or rewind?" first, THEN look at the sentence again. The stative-verb item (had known) is the sneakiest — expect it.</div>
   </div>
 </div>
 
@@ -325,6 +334,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Example: <em>"A family was moving into an old house. The lights went out. Years earlier, something terrible had happened in the basement…"</em></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise the strongest layer of the student's opening scene by reading it back in your best trailer voice. Hand off homework by agreeing NOW which film or episode opening they will "recipe" — a named title gets done; "any film" does not.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>
@@ -492,7 +502,7 @@ buildQuiz('reading-quiz',[
   {q:'How long had Rosa been practising in the garage?',options:['three weeks','six months','two years'],answer:'six months'},
   {q:'Why had Rosa kept her playing secret?',options:['she had frozen at a recital when she was eight','her brother had laughed at her','the school had banned keyboards'],answer:'she had frozen at a recital when she was eight'},
   {q:'What did Rosa use instead of the keyboard?',options:['her phone','her grandmother\'s old piano','the school organ'],answer:'her grandmother\'s old piano'},
-  {q:'⏰ Timeline check: "The gym was empty. Everyone had gone home." What happened FIRST?',options:['the gym was empty','everyone went home'],answer:'everyone went home'}
+  {q:'⏰ Timeline check: "Someone had moved the equipment during the interval" — and Rosa noticed the dangling cable. What happened FIRST?',options:['someone moved the equipment','Rosa noticed the cable'],answer:'someone moved the equipment'}
 ]);
 buildQuiz('grammar-quiz',[
   {q:'She ___ on stage when the lights went out.',options:['was standing','stood','had stood'],answer:'was standing'},

@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 3 · INTERMEDIATE (B1)</div>
   <h1>⭐ Session 9 — Travel the World</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: travel English, the past with <b>used to</b>, and asking for information politely · ≈50 min core</div>
+  <div class="badge">🎯 Today: travel English, the past with <b>used to</b>, and asking for information politely</div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
-    <p><em>"Today you become a world traveller: you will use real airport and hotel English, talk about how things <b>used to</b> be in the past, and ask for information politely — the superpower of every good traveller."</em> ✈️</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Ask: "Where was your last trip? What did people do on trips BEFORE smartphones?" Listen for any attempt at "used to" — that's your live diagnostic. Don't correct yet.</div>
+    <p class="frame">🎯 Today: become a world traveller — airports, hotels, Grandma's old adventures!</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S8):</b> the two-day screen-time log + 3 quantifier sentences (and the bonus screen-free evening) — student reports the numbers; listen for much/many and too/enough used correctly.<br><b>Say:</b> "Today you become a world traveller: you will use real airport and hotel English, talk about how things <b>used to</b> be in the past, and ask for information politely — the superpower of every good traveller." ✈️<br>Ask: "Where was your last trip? What did people do on trips BEFORE smartphones?" Listen for any attempt at "used to" — that's your live diagnostic. Don't correct yet.</div>
   </div>
 </div>
 
@@ -199,6 +202,7 @@ body.teacher-mode .t-only{display:block}
     <h3>🎧 Practice — tap the right word</h3>
     <p class="hint">Read the clue and tap the word that matches. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Drill each card twice (slow, then natural). Group them out loud as you go: airport words / hotel words / money words — the grouping is free revision for the Step 6 roleplay. Skip words the student met while travelling; drill the paperwork ones (boarding pass, currency, reservation) hardest. Personalization: ask "Which of these did you see on YOUR last trip?" and let them tell the 20-second story.</div>
   </div>
 </div>
 
@@ -207,6 +211,7 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — Two Ways to Travel <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen. Student reads one chunk aloud, you read the next — take turns. Then they annotate answers on your screen (Zoom → Annotate).</span>
+    <p class="hint">🔎 Watch for <b>used to</b> (old habits that stopped) and the polite key <b>"Excuse me, could you…"</b> — we unlock both in Step 5!</p>
     <p>Read Nadia's story about her grandma. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
@@ -216,7 +221,9 @@ body.teacher-mode .t-only{display:block}
       <h4>🗺️ How she used to travel</h4>
       <p>Grandma <b>didn't use to</b> book hotels online — there was no internet! She <b>used to</b> write letters to hotels and wait three weeks for an answer.</p>
       <p>She <b>used to</b> carry big paper maps, and she often got lost. "Getting lost was the best part," she says with a smile.</p>
+      <p>Photos were different too. She <b>used to</b> take one camera and two rolls of film — just seventy-two pictures for a whole month! Then she <b>used to</b> wait two weeks after the trip to see them. Some were blurry. She kept them anyway.</p>
       <p>At the airport, she <b>used to</b> check in at a desk with a paper ticket. No apps, no QR codes, no phone.</p>
+      <p>And there <b>used to</b> be no cheap way to call home. She <b>used to</b> send postcards instead, and they often arrived AFTER she did. Imagine reading "Greetings from Rome!" while Grandma is already sitting in your kitchen.</p>
       <p>Before every trip, she <b>used to</b> change her money into foreign currency and hide it in a secret pocket inside her jacket.</p>
       <h4>✈️ How I travel now</h4>
       <p>My family books everything on a phone in ten minutes. Our boarding passes live in an app next to my games.</p>
@@ -224,6 +231,7 @@ body.teacher-mode .t-only{display:block}
       <h4>🎁 What hasn't changed</h4>
       <p>Some things are still the same. Grandma <b>used to</b> buy one small souvenir in every country, and I do exactly that too.</p>
       <p>She <b>used to</b> ask local people for directions, and she taught me the magic words: <em>"Excuse me, could you help me?"</em></p>
+      <p>One more thing hasn't changed: the night before a trip, she still can't sleep. "I <b>used to</b> be too excited to sleep at twenty," she laughs, "and I'm still too excited at seventy."</p>
       <h4>🌍 Our big plan</h4>
       <p>Next spring, we are going on a trip together — to Lisbon! Grandma will bring her paper map, and I will bring the app.</p>
       <p>Between us, we will never get lost. Well… probably.</p>
@@ -263,7 +271,7 @@ body.teacher-mode .t-only{display:block}
     <p class="hint">💡 Hungarian tip: Hungarian says "régen" + normal past ("régen vonattal utaztunk") — English packs it into the verb: "we <b>used to</b> travel by train". And in polite questions, Hungarian keeps question order, but English flips back to statement order after "could you tell me…".</p>
     <h3>✏️ Practice — tap the correct form</h3>
     <div id="grammar-quiz"></div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>If the student gets 6+/8, speed through and bank time for Step 6. If under 5, redo the wrong ones aloud with two check questions: "Is it a stopped past habit?" (→ used to) and "Is it polite?" (→ statement order). The classic trap is "did you used to" — drill "did … use to" three times out loud.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>If the student gets 6+/8, speed through and bank time for Step 6. If under 5, redo the wrong ones aloud with two check questions: "Is it a stopped past habit?" (→ used to) and "Is it polite?" (→ statement order). The classic trap is "did you used to" — drill "did … use to" three times out loud.<br><b>Time management:</b> this session carries TWO grammar points — if under 25 minutes are left when you reach this step, park the polite indirect questions for a bonus round next lesson and give "used to" the full attention.</div>
   </div>
 </div>
 
@@ -283,6 +291,7 @@ body.teacher-mode .t-only{display:block}
     <div class="chips" id="exp-chips"></div>
     <div class="field-label">📍 Where are you going, and why there?</div>
     <div class="editable" id="t-where" contenteditable="true" data-placeholder="I'm going to… because…"></div>
+    <div class="frame">💡 <b>Remember from Level 2:</b> plans → <em>"I'm going to…"</em> · wishes → <em>"I'd like to…"</em></div>
     <div class="field-label">🎒 What will you do there? (two activities)</div>
     <div class="editable" id="t-plan" contenteditable="true" data-placeholder="First I'm going to… Then I'd like to…"></div>
     <div class="field-label">🙋 Three POLITE questions you will ask at the hotel (start each with "Excuse me, could you tell me…")</div>
@@ -323,6 +332,7 @@ body.teacher-mode .t-only{display:block}
       <p>🏨 <b>Bonus:</b> write 2 polite questions you would ask at a hotel in English — start with <em>"Excuse me, could you tell me…"</em></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise the student's best roleplay moment — quote their cleanest "Excuse me, could you tell me…" question back to them.<br>Hand off homework by choosing together WHO gets interviewed, and model the first "Did you use to…?" question yourself.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

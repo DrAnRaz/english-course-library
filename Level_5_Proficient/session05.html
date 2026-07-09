@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 5 · PROFICIENT (C1)</div>
   <h1>😄 Session 5 — Humor &amp; Wordplay</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: decode <b>puns</b>, <b>irony</b> and <b>sarcasm</b> — and make your own jokes land · ≈50 min core</div>
+  <div class="badge">🎯 Today: decode <b>puns</b>, <b>irony</b> and <b>sarcasm</b> — and make your own jokes land</div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
-    <p><em>"Today you crack the hardest code in English: <b>humor</b>. By the end, you can explain why a pun works, tell irony from bad luck, hear sarcasm before it bites — and even build a joke of your own."</em> 🎭</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Open with a groaner: "I ordered a chicken and an egg online. I'll let you know which comes first." If they laugh OR groan, ask why. Getting a joke in a foreign language is a milestone — say that out loud; it reframes today as a level-up, not a grammar drill.</div>
+    <p class="frame">🎯 Today: crack English humor — and make your own jokes land! 🎭</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S4):</b> OPEN the session by collecting the promised sneakiest loaded word from the two-source experiment — student says the word, you decode together what it implies and which trick carried it (loaded language / omission / framing). Then skim the 3-differences paragraph.<br><b>Say:</b> "Today you crack the hardest code in English: humor. By the end, you can explain why a pun works, tell irony from bad luck, hear sarcasm before it bites — and even build a joke of your own."<br>Then a groaner: "I ordered a chicken and an egg online. I'll let you know which comes first." If they laugh OR groan, ask why. Getting a joke in a foreign language is a milestone — say that out loud; it reframes today as a level-up, not a grammar drill.</div>
   </div>
 </div>
 
@@ -208,6 +211,7 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — The Anatomy of a Joke <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen, take turns reading chunks aloud. Student uses Zoom → Annotate to mark every joke with P (pun), I (irony) or S (sarcasm).</span>
+    <p class="hint">🔎 Watch for <b>puns, irony and sarcasm</b> in the feature — we unlock how each one works in Step 5!</p>
     <p>Read this magazine feature. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
@@ -217,17 +221,21 @@ body.teacher-mode .t-only{display:block}
       <p>A pun forces one word — or two similar-sounding words — to do two jobs at once. "I used to be a banker, but I lost interest." The joke lands because "interest" means both curiosity and the money a bank pays.</p>
       <p>English is unusually rich in puns because it is stuffed with homophones: words that sound alike but mean different things. "I'm reading a book about anti-gravity — it's impossible to put down." Groan if you like; groans count as applause here.</p>
       <p>Puns show up everywhere: shop names ("Curl Up and Dye", a hairdresser), headlines, and roughly half of all dad jokes. Their reputation is terrible, and their popularity is eternal.</p>
+      <p>Why do puns make us groan rather than laugh? People who study humor suggest the groan is the sound of your brain being tricked and knowing it: you decoded both meanings, felt clever for half a second, then realised how cheap the trap was. The correct response to a good pun, in other words, is applause disguised as suffering.</p>
       <h4>🎭 Irony: reality's plot twist</h4>
       <p>Irony is a gap between what you expect and what actually happens. A fire station burns down. A traffic warden's car gets towed. The world tells the joke; nobody had to write it.</p>
       <p>Careful, though: bad luck alone is not irony. Rain on your birthday is just rain. Rain on the day you present your invention — an umbrella that predicts the weather — now that is irony.</p>
       <p>Writers love a third kind, dramatic irony, where the audience knows something a character does not. The hero hides behind the one door the villain is about to open — and your stomach drops. That feeling is the device working.</p>
+      <p>Dramatic irony is also the engine of almost every horror film and half of all sitcom episodes. Watch a comedy tonight and count how many scenes depend on you knowing about the surprise party, the broken vase or the swapped bags long before the characters do.</p>
       <h4>😏 Sarcasm: irony with a target</h4>
       <p>Sarcasm is spoken irony aimed at someone or something, and the words say the opposite of the meaning. You drop your phone in a puddle and your sister says, "Smooth." She is not praising your elegance.</p>
       <p>Tone carries the whole message: slower delivery, a flat voice, one stretched word — "Oh, greeeat." In writing, sarcasm often fails because tone disappears. That is why misunderstandings explode in group chats.</p>
+      <p>The internet has invented patches for the missing tone: the rolling-eyes emoji, the deliberately lowercase "great.", the "/s" some people attach to sarcastic posts. Each one is a little warning label doing the job a human voice does for free.</p>
       <p>One rule keeps sarcasm friendly: aim it upwards or sideways, never down. Teasing a friend who knows your tone is banter; the same words to a nervous stranger just sting.</p>
       <h4>😐 Deadpan, hyperbole and the art of less</h4>
       <p>Comedians also play with size. Hyperbole inflates — "I've told you a million times" — while understatement shrinks: a Brit calling a hurricane "a bit breezy". Both work because the listener compares the words with reality.</p>
       <p>Deadpan means delivering absurd lines with a completely serious face. The contrast between calm delivery and ridiculous content becomes the punchline itself.</p>
+      <p>Timing does the rest of the work. Professional comedians rehearse the pause before a punchline as carefully as the words themselves, because a joke delivered in a hurry is just a fact — and a fact delivered after the perfect pause can become a joke.</p>
       <h4>🎓 Why this is advanced English</h4>
       <p>Humor is one of the final levels of language learning, because a joke tests everything at once: vocabulary, culture, tone and timing. Get it, and you are no longer translating — you are living in the language.</p>
       <p>So laugh at the cheesy puns and study the sarcasm. Every groan is progress.</p>
@@ -326,6 +334,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Bonus: catch one sarcastic line in an English show this week and write down the honest translation.</p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise the bravest performance of the day (the deadpan one-liner usually deserves it) — name the exact moment the timing worked. Hand off homework by naming ONE show the student already watches to hunt jokes in; a named source gets done, "any show" does not.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

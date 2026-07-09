@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 1 · BEGINNER (A1)</div>
   <h1>🏫 Session 3 — My School</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: talk about school with <b>have / has</b> + <b>there is / there are</b> · ≈50 min core</div>
+  <div class="badge">🎯 Today: talk about school with <b>have / has</b> + <b>there is / there are</b></div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello + homework check from Session 2. Read the goal together — the student says it back in their own words.</span>
-    <p><em>"Today we talk about school — your favourite subjects and what is in a classroom. You will learn <b>have / has</b> and <b>there is / there are</b>, and plan your own mini-book about YOUR school!"</em> 🚀</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Homework check from S2: 5 sentences about mum's/dad's day — listen for the -s. Recycle: "What time does your English class start?" Then ask "What is your favourite subject?" — that answer feeds Step 3 and Step 6.</div>
+    <p class="frame">🎯 Today: school talk + your own school mini-book!</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Homework check from S2: 5 sentences about mum's/dad's day — listen for the -s. Recycle: "What time does your English class start?"<br><b>Say:</b> "Today we talk about school — your favourite subjects and what is in a classroom. You will learn <b>have / has</b> and <b>there is / there are</b>, and plan your own mini-book about YOUR school!" 🚀<br>Then ask "What is your favourite subject?" — that answer feeds Step 3 and Step 6.</div>
   </div>
 </div>
 
@@ -209,19 +212,20 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — Our Classroom <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen. Student reads one chunk aloud, you read the next — take turns. Then the student annotates every "there is / there are" on your screen (Zoom → Annotate).</span>
+    <p class="hint">🔎 Watch for <b>have / has</b> and <b>there is / there are</b> in the story — we unlock them in Step 5!</p>
     <p>Read about Amara's classroom. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
       <h4>🚪 Welcome to our classroom</h4>
-      <p>Hi! I'm Amara. Our classroom is big and bright. It is my favourite place in school.</p>
-      <p>There is a large whiteboard at the front. There are two windows on the left. They are always open in summer.</p>
+      <p>Hi! I'm Amara. Our classroom is big and bright. It is my favourite place in school. The walls are yellow and the door is blue.</p>
+      <p>There is a large whiteboard at the front. There are two windows on the left. They are always open in summer. From the windows, we see the playground.</p>
       <h4>🪑 Desks and things</h4>
-      <p>There are twenty desks in our room. Each student has a desk and a chair.</p>
-      <p>I sit next to my best friend, Jon. I have a small pencil case with two pens and a ruler. Jon has a big green pencil case with stickers!</p>
+      <p>There are twenty desks in our room. Each student has a desk and a chair. The desks are old, but they are not broken.</p>
+      <p>I sit next to my best friend, Jon. I have a small pencil case with two pens and a ruler. Jon has a big green pencil case with stickers! He has three pencils too, but he has no rubber.</p>
       <h4>📚 The fun corner</h4>
-      <p>There is a bookshelf at the back. It has dictionaries and art books.</p>
+      <p>There is a bookshelf at the back. It has dictionaries and art books. There is a big box of games too. We play them on rainy days.</p>
       <p>Our teacher has a computer and a plant on her desk. The plant has red flowers.</p>
-      <p>On the walls, there are posters and maps. Every student has a picture on the wall! I love our classroom. Do you like yours?</p>
+      <p>On the walls, there are posters and maps. Every student has a picture on the wall! There is a big clock over the door. It is five minutes slow! I love our classroom. Do you like yours?</p>
     </div>
 
     <h3>🔎 Did you understand? Tap your answer</h3>
@@ -320,6 +324,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Example: <em>"There is a big window. There are 25 desks."</em></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise the mini-book pages: quote one "there is/are" line and one "have/has" line the student wrote themselves.<br>Homework hand-off: read the example together, then ask the student to name TWO things they will draw from their classroom — 5 sentences with there is / there are next lesson.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

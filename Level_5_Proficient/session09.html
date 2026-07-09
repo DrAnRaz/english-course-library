@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 5 · PROFICIENT (C1)</div>
   <h1>🌍 Session 9 — Englishes of the World</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: navigate <b>UK, US and global Englishes</b> — words, spelling, grammar and accents — like a world traveller · ≈50 min core</div>
+  <div class="badge">🎯 Today: navigate <b>UK, US and global Englishes</b> — words, spelling, grammar and accents — like a world traveller</div>
 </div>
 
 <div class="scorebar">
@@ -169,9 +172,9 @@ body.teacher-mode .t-only{display:block}
 <div class="section goal">
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student repeats it back in her best attempt at ANY accent she likes.</span>
-    <p><em>"Today you will discover that there is no single 'correct' English — there are many <b>Englishes</b>. You will learn to switch between UK and US words, spot the grammar differences, and understand why an accent is an address, not an error."</em> 🗺️</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Hook: ask "If a Londoner, a Texan and someone from Mumbai all speak English, who speaks it RIGHT?" Let her argue for 30 seconds — today's reading will answer it. Note which varieties she already knows from YouTube/Netflix.</div>
+    <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student repeats it back in their best attempt at ANY accent they like.</span>
+    <p class="frame">🎯 Today: travel the world's Englishes — UK, US and beyond! 🗺️</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S8):</b> the 3-sentence summary + the formal opinion paragraph — the promised "suit fitting": student reads the paragraph aloud; listen for two signpost words and zero robot-butler phrases.<br><b>Say:</b> "Today you will discover that there is no single 'correct' English — there are many Englishes. You will learn to switch between UK and US words, spot the grammar differences, and understand why an accent is an address, not an error."<br>Hook: ask "If a Londoner, a Texan and someone from Mumbai all speak English, who speaks it RIGHT?" Let the student argue for 30 seconds — today's reading will answer it. Note which varieties they already know from YouTube/Netflix.</div>
   </div>
 </div>
 
@@ -193,7 +196,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section vocab">
   <div class="sec-head"><span class="icon">📝</span> New Words — One Planet, Two Dictionaries <span class="timing">10 min</span><span class="step">Step 3</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: share your screen. You click 🔊 on each card; the student repeats BOTH versions, then says which one SHE would naturally use and why.</span>
+    <span class="zoom-cue">📹 Zoom: share your screen. You click 🔊 on each card; the student repeats BOTH versions, then says which one THEY would naturally use and why.</span>
     <p>Tap any card to <b>hear</b> it 🔊. Eight word-pairs and four expert terms every world-English speaker needs.</p>
     <div class="vocab-grid" id="vocab-grid"></div>
     <h3>🎧 Practice — tap the right answer</h3>
@@ -208,6 +211,7 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">📖</span> Reading — One Language, Many Voices <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: share screen. Take turns reading a chunk each — and each of you ATTEMPTS the accent of the section you're reading (badly is fine, that's the fun). Then student annotates all the "variety words" (Zoom → Annotate).</span>
+    <p class="hint">🔎 Watch for <b>the UK/US twin words and the global "variety words"</b> in the diary — we unlock the grammar and spelling differences in Step 5!</p>
     <p>A travel-diary feature from a teen magazine. Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
@@ -217,15 +221,19 @@ body.teacher-mode .t-only{display:block}
       <h4>🇬🇧 London: the pants incident</h4>
       <p>Disaster struck on day two. I told my cousin's whole football team that I'd forgotten to pack enough pants, meaning trousers. In Britain, "pants" means underwear, and eleven boys will never let me forget it.</p>
       <p>Britain also queues. You do not stand near a bus stop; you join the queue, you respect the queue, you become the queue. Push in, and the politest nation on Earth will destroy you with one single raised eyebrow.</p>
+      <p>The vocabulary kept ambushing me in smaller ways as well. People said "cheers" for thank you, "fortnight" for two weeks, and "sorry" for practically everything — including the times I stepped on THEM. By week two I was apologising to furniture, which my cousin assures me is the true sign of fluency.</p>
       <h4>🇺🇸 Texas: bigger, louder, faster</h4>
       <p>Three weeks later, Texas. My aunt asked if I wanted chips, and handed me what Londoners call crisps; the "chips" I expected are "fries" over there. Same words, different planet.</p>
       <p>Texans said "y'all" to everyone, took the elevator, threw out the garbage, and went on vacation in the fall. My London cousin, on our group call, pretended to faint.</p>
+      <p>Numbers tripped me as well. The date 05/06 meant the fifth of June to my London cousin and May sixth to my Texan aunt — we discovered this while planning the same video call, one hour and two continents apart. Nobody was wrong. That, I was slowly learning, was the whole point.</p>
       <h4>🌏 Singapore, Lagos and beyond</h4>
       <p>Wei Ling speaks flawless formal English at school — and glorious Singlish with friends: "Can lah, no problem!" That little "lah" adds friendly emphasis, and no dictionary can fully translate it.</p>
       <p>Chidi greets me with "How far?" — Nigerian English for "how are you doing?" — and calls a traffic jam a "go-slow", which honestly beats the original. Meanwhile, my cousin in Mumbai says meetings get "preponed": moved earlier, the elegant opposite of postponed.</p>
       <p>Wei Ling's roommate joined one call from Sydney and broke my brain completely. Australians shorten everything: afternoon becomes "arvo", breakfast becomes "brekkie", and a mosquito is a "mozzie". She cheerfully promised to ring me "this arvo, after brekkie", and I understood roughly half.</p>
+      <p>The strangest part? Within a week I had stopped translating and started collecting. My notes app now has a section for each country, and the Lagos page is the longest — Chidi donates a new expression every game night, and refuses to explain half of them on principle.</p>
       <h4>🧭 So who speaks it right?</h4>
       <p>Here is the fact that rearranged my brain: most English conversations today happen between non-native speakers. English has no single owner anymore; it is the world's shared lingua franca, and every region signs it differently.</p>
+      <p>Think about what that means in practice: for every native speaker of English there are roughly three people who learned it later — pilots, gamers, scientists, cousins. When Wei Ling, Chidi and I talk, no native speaker is present at all, and the English works perfectly.</p>
       <p>At first, honestly, that discovery worried me. If everyone owns English, whose rules was I supposed to learn? Then I noticed the trick: speakers everywhere still understand each other almost perfectly, because the deep grammar barely changes — only the decoration does.</p>
       <p>My teacher put it best when I got home. An accent is an address, not an error — it tells people where your English lives. Mine, apparently, lives everywhere now — and eleven London boys still text me about my pants.</p>
     </div>
@@ -238,7 +246,7 @@ body.teacher-mode .t-only{display:block}
     <div class="qa-item"><div class="q">2. Which English variety would you most like to master, and why? Where does YOUR English "live"?</div><div class="editable tall" id="r-open2" contenteditable="true" data-placeholder="The variety I'd choose is… because… My English lives in…"></div></div>
 
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> the two written questions above can be homework instead.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 4 + answer key</h4>Quiz answers: "pants" means underwear in the UK · moved earlier · friendly emphasis · between non-native speakers. Open Q1 key idea: an accent carries identity/origin information, it is not a mistake to fix. Open Q2: any variety is fine — push for a REASON (media she consumes, family, sound). The "chips/crisps/fries" triangle is worth drawing on the whiteboard for 30 seconds.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 4 + answer key</h4>Quiz answers: "pants" means underwear in the UK · moved earlier · friendly emphasis · between non-native speakers. Open Q1 key idea: an accent carries identity/origin information, it is not a mistake to fix. Open Q2: any variety is fine — push for a REASON (media they consume, family, sound). The "chips/crisps/fries" triangle is worth drawing on the whiteboard for 30 seconds.</div>
   </div>
 </div>
 
@@ -266,7 +274,7 @@ body.teacher-mode .t-only{display:block}
     <p class="hint">💡 Tip: your spellchecker has a flag too! Check whether your document is set to English (UK) or English (US) before you trust its red lines.</p>
     <h3>✏️ Practice — tap the correct answer</h3>
     <div id="grammar-quiz"></div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>Item 8 (team are/is) surprises everyone — both are grammatical, the question asks which is typically BRITISH. If she scores 7+/8, bonus oral round: "burnt/burned, learnt/learned, dreamt/dreamed" — UK keeps the -t forms alive.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 5</h4>Item 8 (team are/is) surprises everyone — both are grammatical, the question asks which is typically BRITISH. If the student scores 7+/8, bonus oral round: "burnt/burned, learnt/learned, dreamt/dreamed" — UK keeps the -t forms alive.</div>
   </div>
 </div>
 
@@ -280,7 +288,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section task">
   <div class="sec-head"><span class="icon">🎨</span> Create — My English Passport <span class="timing">10 min</span><span class="step">Step 6</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in her own browser, types here, and shares her screen. She performs the dialogue doing BOTH voices.</span>
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in their own browser, types here, and shares their screen. They perform the dialogue doing BOTH voices.</span>
     <p>Every English speaker builds their own mix. Time to design yours — and to write the misunderstanding scene every traveller lives through. 🛂</p>
     <h3>First, tap the words YOU would personally use (build your mix!):</h3>
     <div class="chips" id="word-chips"></div>
@@ -290,7 +298,7 @@ body.teacher-mode .t-only{display:block}
     <div class="editable tall" id="t-identity" contenteditable="true" data-placeholder="My English is mostly … because… But I say … like a … because…"></div>
     <div class="speak">🗣️ <b>Perform your dialogue!</b> Two voices, two (attempted) accents. Then read your passport aloud — proudly. This mix is YOURS.</div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> do only the dialogue + performance; the passport paragraph becomes homework.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>If she's stuck on the dialogue, offer the trap words: chips, pants, football/soccer, first floor (UK = one floor UP!), biscuit. Model one exchange yourself with shameless accents — permission to be silly unlocks this task. The passport paragraph is an identity celebration, not a grammar check; correct only meaning-blockers.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>If the student is stuck on the dialogue, offer the trap words: chips, pants, football/soccer, first floor (UK = one floor UP!), biscuit. Model one exchange yourself with shameless accents — permission to be silly unlocks this task. The passport paragraph is an identity celebration, not a grammar check; correct only meaning-blockers.</div>
   </div>
 </div>
 
@@ -298,7 +306,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section challenge">
   <div class="sec-head"><span class="icon">🎮</span> Challenge Game — Passport Control <span class="timing">8 min</span><span class="step">Step 7</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen and stamp an imaginary passport for each correct answer. 🛂</span>
+    <span class="zoom-cue">📹 Zoom: student's browser, their clicks, their score! You watch on their shared screen and stamp an imaginary passport for each correct answer. 🛂</span>
     <p class="hint">🌍 Three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
     <h3>Round 1 — Which flag? 🇬🇧 or 🇺🇸</h3>
     <div id="ch-quiz1"></div>
@@ -307,7 +315,7 @@ body.teacher-mode .t-only{display:block}
     <h3>Round 3 — Boss level: around the world 👑</h3>
     <div id="ch-quiz3"></div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can open the next lesson's warm-up.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>Round 3 pulls from the reading's global section — if she misses "prepone" or "lah", flip back to the text together after the round. The 👑 item tests the lingua-franca takeaway, the single most important idea of the session.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>Round 3 pulls from the reading's global section — if the student misses "prepone" or "lah", flip back to the text together after the round. The 👑 item tests the lingua-franca takeaway, the single most important idea of the session.</div>
   </div>
 </div>
 
@@ -324,6 +332,7 @@ body.teacher-mode .t-only{display:block}
       <p>🎤 <b>Imitate one full sentence</b> in that accent and perform it next lesson. Style points count! 🌟</p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise the English Passport paragraph — name one specific variety choice the student made and why it fits them. Hand off homework by choosing the unfamiliar-variety show TOGETHER now, and remind them the imitated sentence gets performed next lesson (style points promised, style points delivered).</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>

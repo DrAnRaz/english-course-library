@@ -114,6 +114,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+.sec-head .timing,.zoom-cue{display:none}
+body.teacher-mode .sec-head .timing{display:inline-block}
+body.teacher-mode .zoom-cue{display:block}
 .teacher-note{background:#FFEBEE;border:2px solid #EF9A9A;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px}
 .teacher-note h4{color:#C62828;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
 
@@ -136,7 +139,7 @@ body.teacher-mode .t-only{display:block}
   <div class="lvl">LEVEL 3 · INTERMEDIATE (B1)</div>
   <h1>🌍 Session 4 — Made in the World</h1>
   <div class="subtitle">English Course Library · Kids &amp; Teens</div>
-  <div class="badge">🎯 Today: explain how things <b>are made</b>, grown and invented — the <b>passive voice</b> (present &amp; past) · ≈50 min core</div>
+  <div class="badge">🎯 Today: explain how things <b>are made</b>, grown and invented — the <b>passive voice</b> (present &amp; past)</div>
 </div>
 
 <div class="scorebar">
@@ -170,8 +173,8 @@ body.teacher-mode .t-only{display:block}
   <div class="sec-head"><span class="icon">🎯</span> Hello &amp; Today's Goal <span class="timing">2 min</span><span class="step">Step 1</span></div>
   <div class="sec-body">
     <span class="zoom-cue">📹 Zoom: cameras on, quick hello. Read the goal together — student says it back in their own words.</span>
-    <p><em>"Today you will discover how everyday things <b>are made</b>, <b>grown</b> and <b>invented</b> around the world — and talk about them with the passive voice, like a documentary narrator."</em> 🎙️🌍</p>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4>Ask: "Look at your T-shirt. Where was it made?" Don't correct yet — just note whether "was made" appears. That's your live diagnostic for Step 5.</div>
+    <p class="frame">🎯 Today: the secret world journey of everyday things!</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 1</h4><b>Homework check (S3):</b> 3 real plans + 3 dreams (and the bonus family superpower answer) — student reads them aloud; listen for "will" in plans and "would" in dreams.<br><b>Say:</b> "Today you will discover how everyday things <b>are made</b>, <b>grown</b> and <b>invented</b> around the world — and talk about them with the passive voice, like a documentary narrator." 🎙️🌍<br>Ask: "Look at your T-shirt. Where was it made?" Don't correct yet — just note whether "was made" appears. That's your live diagnostic for Step 5.</div>
   </div>
 </div>
 
@@ -199,6 +202,7 @@ body.teacher-mode .t-only{display:block}
     <h3>🎧 Practice — tap the right verb</h3>
     <p class="hint">Read the clue and tap the verb that matches. Green = correct!</p>
     <div id="vocab-quiz"></div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 3</h4>Drill each card twice: you click 🔊, the student repeats the verb AND the passive line ("grow — it is grown") — the participle is the real target, so slow down on the irregular ones. Skip verbs they clearly know as active vocabulary; drill only the passive shapes. Personalization: point at objects in their room — "What is your desk made of? Where was your phone made?"</div>
   </div>
 </div>
 
@@ -206,7 +210,8 @@ body.teacher-mode .t-only{display:block}
 <div class="section reading">
   <div class="sec-head"><span class="icon">📖</span> Reading — The Secret Journey of a Chocolate Bar <span class="timing">10 min</span><span class="step">Step 4</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: share screen. Student reads one chunk aloud, you read the next — take turns. Then she underlines every passive verb on your screen (Zoom → Annotate).</span>
+    <span class="zoom-cue">📹 Zoom: share screen. Student reads one chunk aloud, you read the next — take turns. Then they underline every passive verb on your screen (Zoom → Annotate).</span>
+    <p class="hint">🔎 Watch for <b>is/are + made/grown…</b> and <b>was/were + created…</b> in the story — we unlock this shape in Step 5!</p>
     <p>Read like a documentary narrator! Tap 🔊 to hear any part read aloud.
       <button class="opt" style="padding:5px 14px" onclick="say(document.getElementById('read-text').innerText)">🔊 Listen to all</button></p>
     <div class="reading-text" id="read-text">
@@ -216,12 +221,15 @@ body.teacher-mode .t-only{display:block}
       <p>Cocoa beans <b>are grown</b> in hot countries like Ghana and Ecuador. The heavy pods <b>are cut</b> from the trees by hand, because machines damage them. Inside each pod, about forty beans are hidden in sweet white pulp.</p>
       <h4>🚢 The long trip</h4>
       <p>The beans <b>are dried</b> in the sun for about a week. Then they <b>are packed</b> into big sacks and <b>shipped</b> across the ocean. Your chocolate <b>was</b> probably <b>carried</b> by ship, train AND truck before it reached the factory.</p>
+      <p>At the port, the sacks <b>are checked</b> and weighed. One sack holds about sixty kilograms of beans — enough for thousands of bars.</p>
       <h4>🏭 Inside the factory</h4>
       <p>At the factory, the beans <b>are roasted</b>, crushed and mixed with sugar and milk. The warm liquid chocolate <b>is poured</b> into moulds and cooled.</p>
       <p>Finally, every bar <b>is wrapped</b> by fast machines — about six hundred bars every minute! The smell in a chocolate factory is famous. Workers say you stop noticing it after a month — imagine that.</p>
+      <p>Quality <b>is checked</b> at every step. Broken bars <b>are removed</b> from the line, and — sad news — they <b>are</b> not <b>given</b> to visitors. They <b>are melted</b> and used again. Nothing is wasted in a good factory.</p>
       <h4>🕰️ A little history</h4>
       <p>Chocolate was not always a bar. For centuries it <b>was drunk</b>, not eaten — the Maya people made it into a spicy, bitter drink.</p>
       <p>The first modern chocolate bar <b>was created</b> in 1847, in England. Milk chocolate <b>was invented</b> about thirty years later, in Switzerland.</p>
+      <p>Today, millions of tonnes of chocolate <b>are eaten</b> every year around the world. New flavours <b>are invented</b> all the time — white, dark, even chocolate with chilli. But the beans still come from the same hot countries where the story begins.</p>
       <h4>🤔 Think about it</h4>
       <p>So who really "makes" chocolate? Farmers, sailors, factory workers, inventors. One simple bar <b>is created</b> by a whole planet working together.</p>
       <p>Next time a chocolate bar <b>is opened</b> — by you! — remember its journey. It <b>was grown</b> on a farm, dried in the sun, carried across an ocean and shaped in a factory. Not bad for something that disappears in two minutes.</p>
@@ -276,7 +284,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section task">
   <div class="sec-head"><span class="icon">🎨</span> Create — Product Passport <span class="timing">10 min</span><span class="step">Step 6</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in her own browser and types here while sharing her screen (Zoom → Share Screen). She can hold the real object up to the camera!</span>
+    <span class="zoom-cue">📹 Zoom: drop THIS page's link in chat — student opens it in their own browser and types here while sharing their screen (Zoom → Share Screen). They can hold the real object up to the camera!</span>
     <p>Pick ONE object you love (your phone, a football, your favourite hoodie…) and make its official passport. 🛂</p>
     <h3>First, tap what your object is made of / where it comes from:</h3>
     <div class="chips" id="material-chips"></div>
@@ -290,7 +298,7 @@ body.teacher-mode .t-only{display:block}
     <div class="editable tall" id="t-use" contenteditable="true" data-placeholder="It is used for… It is used every day by…"></div>
     <div class="speak">🗣️ <b>Now present the passport out loud</b> like a museum guide: <em>"This object was made in… It is used for…"</em> Ready for the question: <em>"Who was it made by?"</em></div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> do only the 🔩 materials line + the spoken presentation; type the rest as homework.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>Push for at least ONE present passive and ONE past passive in speech. Follow-ups that force passives: "Where was it made? What is it made of? Is it used every day? Was it given to you or bought?" If she holds up the object, the talk doubles by itself.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 6</h4>Push for at least ONE present passive and ONE past passive in speech. Follow-ups that force passives: "Where was it made? What is it made of? Is it used every day? Was it given to you or bought?" If they hold up the object, the talk doubles by itself.</div>
   </div>
 </div>
 
@@ -298,7 +306,7 @@ body.teacher-mode .t-only{display:block}
 <div class="section challenge">
   <div class="sec-head"><span class="icon">🎮</span> Challenge Game — Factory Inspector <span class="timing">8 min</span><span class="step">Step 7</span></div>
   <div class="sec-body">
-    <span class="zoom-cue">📹 Zoom: student's browser, her clicks, her score! You watch on her shared screen and cheer. 🎉</span>
+    <span class="zoom-cue">📹 Zoom: student's browser, their clicks, their score! You watch on their shared screen and cheer. 🎉</span>
     <p class="hint">🔍 Three rounds, getting harder. Beat 80% for ⭐⭐⭐!</p>
     <h3>Round 1 — Active or passive?</h3>
     <div id="ch-quiz1"></div>
@@ -307,7 +315,7 @@ body.teacher-mode .t-only{display:block}
     <h3>Round 3 — Boss level: transformation 👑</h3>
     <div id="ch-quiz3"></div>
     <div class="skipif">⏭ <b>SKIP-IF-SHORT:</b> Round 3 can be the start of the next lesson's warm-up.</div>
-    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>All answers show live in her score. Wrong answers auto-reveal the correct one in green — ask "who does the action, and does it matter?" on each miss.</div>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 7</h4>All answers show live in their score. Wrong answers auto-reveal the correct one in green — ask "who does the action, and does it matter?" on each miss.</div>
   </div>
 </div>
 
@@ -324,6 +332,7 @@ body.teacher-mode .t-only{display:block}
       <p>📌 Example: <em>"My mug is made of clay. It was painted by my aunt. It is used every single morning."</em></p>
     </div>
     <p style="text-align:center;font-size:18px;margin-top:14px">🎉 <b><span class="stud-name">Amazing work today!</span></b> 🎉</p>
+    <div class="teacher-note t-only"><h4>Teacher note — Step 8</h4>Praise ONE passive sentence from the student's Product Passport — quote it back word for word.<br>Hand off homework by doing the first "object detective" sentence together on any object in their room, then remind them to hunt one real "Made in ___" label.</div>
     <div class="t-only">
       <h3 style="margin-top:16px">Session self-evaluation (teacher)</h3>
       <div class="qa-item"><div class="q">What worked well?</div><div class="editable" id="tn-good" contenteditable="true" data-placeholder="…"></div></div>
