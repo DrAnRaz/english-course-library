@@ -41,3 +41,15 @@
 **Holnapi órához (Dea):** L2 s01 "Food and Me" — https://dranraz.github.io/english-course-library/Level_2_Elementary/session01.html (előző javaslat változatlan). Új munkafolyamat: Dea nyitja a linket, ő oszt képernyőt; te teacher-mode-ban (PIN `teach`) privát ablakban vezeted.
 
 **Nyitott:** semmi kritikus. (Opcionális későbbre: TTS a megnyújtott olvasmányoknál ~15s-nél tovább tarthat — a meglévő 10s keep-alive engine kezeli, de hosszú C1/C2 szövegnél érdemes élőben ellenőrizni.)
+
+## 2026-07-14 — TTS végleges javítás (hang minden sessionben) ✅ + LIVE
+
+**Kiváltó ok (Aniko: "a hang ismét nem szól"):** a régi `say()` az ELSŐ en-GB hangot választotta, ami Windows/Edge-en általában "Online (Natural)" **TÁVOLI** hang — ezek `file://`-on / offline NÉMÁN elhalnak. Ez volt a visszatérő "nincs hang" oka (a placementnél 07-09-én már ez derült ki; most a 70 sessionre is kiterjesztve).
+
+**Javítás (mind a 71 fájl — 70 session + placement — most BYTE-AZONOS say(), nincs drift):**
+- HELYI hang preferálva: local en-GB > local en-* > bármely local > remote en-GB > bármely en.
+- Retry, ha a hanglista még nem töltött be (`onvoiceschanged` + 300ms fallback).
+- Marad a 10s keep-alive (Chrome ~15s vágás) + `resume()` unstick.
+- Script: `scratchpad/fix_audio_all.py` (idempotens, csak a RÉGI aláírásra illeszt). Ellenőrzés: 70/70 új say(), 0 régi. Böngésző-smoke L2 s01 + L6 s01: local hang szól, nincs error. Commit `d62466c` pusholva.
+
+**Tanulság a rendszernek:** az engine-változást EGYSZERRE kell mind a 71 fájlra vinni (drift-megelőzés §7) — külön csak a placementet javítani kevés volt.
