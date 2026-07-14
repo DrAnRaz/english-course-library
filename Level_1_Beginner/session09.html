@@ -114,6 +114,10 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F6FB;color:#1a1a1
 /* Teacher mode */
 .t-only{display:none}
 body.teacher-mode .t-only{display:block}
+body.teacher-mode{padding-top:32px}
+.tmbanner{display:none;position:fixed;top:0;left:0;right:0;z-index:99999;background:#C62828;color:#fff;text-align:center;font-weight:800;font-size:13px;letter-spacing:0.3px;padding:7px 12px;box-shadow:0 2px 8px rgba(0,0,0,0.35)}
+body.teacher-mode .tmbanner{display:block}
+body.teacher-mode .scorebar{top:32px}
 .sec-head .timing,.zoom-cue{display:none}
 body.teacher-mode .sec-head .timing{display:inline-block}
 body.teacher-mode .zoom-cue{display:block}
@@ -134,6 +138,7 @@ body.teacher-mode .zoom-cue{display:block}
 </style>
 </head>
 <body>
+<div class="tmbanner">🔓 TEACHER MODE ON — your private view. Do NOT screen-share THIS window.</div>
 
 <div class="page-header">
   <div class="lvl">LEVEL 1 · BEGINNER (A1)</div>
@@ -333,6 +338,7 @@ body.teacher-mode .zoom-cue{display:block}
 </div><!-- /container -->
 
 <div class="bottom-bar">
+  <button class="bb" style="background:#7E57C2" onclick="stopSpeak()">🔇 Stop</button>
   <button class="bb bb-save" onclick="saveWork()">💾 Save my work</button>
   <button class="bb bb-print" onclick="window.print()">🖨️ Print</button>
   <button class="bb bb-teach" id="teach-btn" onclick="unlockTeacher()">🔐</button>
@@ -349,6 +355,8 @@ function say(text){try{var ss=window.speechSynthesis;if(!ss)return;ss.cancel();c
   function go(){var u=new SpeechSynthesisUtterance(text);u.lang='en-GB';u.rate=0.9;var v=pick();if(v)u.voice=v;u.onend=u.onerror=function(){clearInterval(window._sayKA);};clearInterval(window._sayKA);window._sayKA=setInterval(function(){if(ss.speaking){ss.pause();ss.resume();}else{clearInterval(window._sayKA);}},10000);ss.resume();ss.speak(u);}
   if(ss.getVoices().length){go();}else{var done=false,run=function(){if(done)return;done=true;go();};ss.onvoiceschanged=run;setTimeout(run,300);}
 },80);}catch(e){}}
+function stopSpeak(){try{var ss=window.speechSynthesis;if(ss)ss.cancel();clearTimeout(window._sayT);clearInterval(window._sayKA);clearTimeout(window._vt2);clearInterval(window._vi);}catch(e){}}
+function sayGap(text){clearTimeout(window._vt2);clearInterval(window._vi);var t=String(text);var mm=t.match(/ \u2014 | \u2013 |[.!?] /);if(!mm){say(t);return;}var i=t.indexOf(mm[0]);var word=t.slice(0,i).trim();if(/^[.!?]/.test(mm[0]))word=word+mm[0].trim();var rest=t.slice(i+mm[0].length).trim();say(word);if(!rest)return;var ss=window.speechSynthesis;if(!ss)return;var t0=Date.now(),spoke=false;window._vi=setInterval(function(){if(ss.speaking)spoke=true;if((spoke&&!ss.speaking)||Date.now()-t0>5000){clearInterval(window._vi);window._vt2=setTimeout(function(){say(rest);},2000);}},120);}
 try{if(window.speechSynthesis){window.speechSynthesis.getVoices();window.speechSynthesis.onvoiceschanged=function(){window.speechSynthesis.getVoices();};}}catch(e){}
 
 /* ---- Quiz engine ---- */
@@ -457,7 +465,7 @@ var VOCAB=[
   VOCAB.forEach(function(v){
     var d=document.createElement('div');d.className='vc';
     d.innerHTML='<div class="vc-play">🔊</div><div class="vc-emoji">'+v.e+'</div><div class="vc-word">'+v.w+'</div><div class="vc-pron">'+v.p+'</div>';
-    d.onclick=function(){say('I can '+v.w);};
+    d.onclick=function(){sayGap('I can '+v.w);};
     g.appendChild(d);
   });
 })();

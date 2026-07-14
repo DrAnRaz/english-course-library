@@ -53,3 +53,11 @@
 - Script: `scratchpad/fix_audio_all.py` (idempotens, csak a RÉGI aláírásra illeszt). Ellenőrzés: 70/70 új say(), 0 régi. Böngésző-smoke L2 s01 + L6 s01: local hang szól, nincs error. Commit `d62466c` pusholva.
 
 **Tanulság a rendszernek:** az engine-változást EGYSZERRE kell mind a 71 fájlra vinni (drift-megelőzés §7) — külön csak a placementet javítani kevés volt.
+
+## 2026-07-14 (folyt.) — 3 tanár/UX javítás mind a 71 fájlon ✅
+
+1. **"TEACHER MODE ON" piros sáv** (`.tmbanner`) — csak teacher módban látszik, fix a lap tetején, figyelmeztet: NE oszd meg ezt az ablakot. Böngészőben ellenőrizve (student=display:none, teacher=block, 35px full-width). Script: `add_teacher_banner.py`.
+2. **New Words: 2 mp szünet** a szó és a példamondat közt — az addigi egybefolyó `say(v.w+…)`-t `sayGap()`-re cseréltem (70 session vocab onclick). A `sayGap` a szó ELHANGZÁSA UTÁN vár 2 mp-t, majd mondja a mondatot. Univerzális splitter (`—` vagy `. ` szeparátor) — 25 különböző vocab-formátumra is működik. Mérve: L2 s01 „apple" → 2,15 mp → „I like apples."; L6 „Register." → szünet → mondat.
+3. **Hang bármikor megállítható** — `🔇 Stop` gomb a bottom-barban minden fájlon (session+placement) + `stopSpeak()` (cancel + minden függő időzítő törlése, így a 2mp-re ütemezett mondat sem szólal meg). Ellenőrizve: Stop a szünet közben → némaság, a mondat nem játszódik le.
+
+Mind a 71 fájl konzisztens (nincs drift). Scriptek: scratchpad/add_teacher_banner.py, add_gap_and_stop.py.
