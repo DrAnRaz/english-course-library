@@ -346,7 +346,12 @@ body.teacher-mode .zoom-cue{display:block}
 var LEVEL=1, SESSION=5, K='ecl_L'+LEVEL+'s'+SESSION+'_';
 
 /* ---- TTS audio ---- */
-function say(text){try{var ss=window.speechSynthesis;if(!ss)return;ss.cancel();clearTimeout(window._sayT);window._sayT=setTimeout(function(){var u=new SpeechSynthesisUtterance(text);u.lang='en-GB';u.rate=0.9;var vs=ss.getVoices(),v=null,i;for(i=0;i<vs.length;i++){if(vs[i].lang&&vs[i].lang.toLowerCase().indexOf('en')===0){v=vs[i];if(vs[i].lang==='en-GB')break;}}if(v)u.voice=v;u.onend=u.onerror=function(){clearInterval(window._sayKA);};clearInterval(window._sayKA);window._sayKA=setInterval(function(){if(ss.speaking){ss.pause();ss.resume();}else{clearInterval(window._sayKA);}},10000);ss.resume();ss.speak(u);},80);}catch(e){}}
+function say(text){try{var ss=window.speechSynthesis;if(!ss)return;ss.cancel();clearTimeout(window._sayT);window._sayT=setTimeout(function(){
+  function pick(){var vs=ss.getVoices(),en=vs.filter(function(v){return v.lang&&v.lang.toLowerCase().indexOf('en')===0;});
+    return en.filter(function(v){return v.localService&&v.lang==='en-GB';})[0]||en.filter(function(v){return v.localService&&v.lang.toLowerCase().indexOf('en-')===0;})[0]||en.filter(function(v){return v.localService;})[0]||en.filter(function(v){return v.lang==='en-GB';})[0]||en[0]||null;}
+  function go(){var u=new SpeechSynthesisUtterance(text);u.lang='en-GB';u.rate=0.9;var v=pick();if(v)u.voice=v;u.onend=u.onerror=function(){clearInterval(window._sayKA);};clearInterval(window._sayKA);window._sayKA=setInterval(function(){if(ss.speaking){ss.pause();ss.resume();}else{clearInterval(window._sayKA);}},10000);ss.resume();ss.speak(u);}
+  if(ss.getVoices().length){go();}else{var done=false,run=function(){if(done)return;done=true;go();};ss.onvoiceschanged=run;setTimeout(run,300);}
+},80);}catch(e){}}
 try{if(window.speechSynthesis){window.speechSynthesis.getVoices();window.speechSynthesis.onvoiceschanged=function(){window.speechSynthesis.getVoices();};}}catch(e){}
 
 /* ---- Quiz engine ---- */
